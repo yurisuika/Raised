@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "raised",
+  "version": "${version}",
+
+  "name": "Raised",
+  "description": "Fixes the hotbar!",
+  "authors": [
+    "yurisuika"
+  ],
+  "contact": {
+    "homepage": "https://suikacraft.com",
+    "sources": "https://github.com/yurisuika/Raised"
+  },
+
+  "license": "MIT",
+  "icon": "assets/raised/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.yurisuika.raised.Raised"
+    ]
+  },
+  "mixins": [
+    "raised.mixins.json"
+  ],
+
+  "accessWidener" : "raised.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

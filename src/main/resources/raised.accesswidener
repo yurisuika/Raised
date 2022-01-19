@@ -1,0 +1,3 @@
+accessWidener v1 named
+
+accessible method net/minecraft/client/gui/hud/InGameHud renderHotbar (FLnet/minecraft/client/util/math/MatrixStack;)V

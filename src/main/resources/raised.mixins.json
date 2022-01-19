@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.yurisuika.raised.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "client.gui.hud.MixinInGameHud"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
