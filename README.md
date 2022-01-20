@@ -1,6 +1,6 @@
 <p align="center"><img src="https://github.com/yurisuika/Raised/blob/Fabric-1.18/src/main/resources/assets/raised/icon.png?raw=true" width="256" height="256"></p>
 
-# <p align="center">Raised</p>
+# <p align="center">RAISED</p>
 
 Raised is a simple Fabric mod that fixes the hotbar! The selector is cut off by two pixels, which by fixing in turn requires raising the hotbar and everything associated with it on the HUD by a pixel.
 
