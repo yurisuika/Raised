@@ -4,6 +4,8 @@
 
 Raised is a simple Fabric mod that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time. Not only is the selector texture cut off, but the entire HUD was actually designed for being a pixel up off of the bottom of the screen. Restore how it was meant to be and raise it up!
 
+Now supports Appleskin and Inventorio!
+
 ---
 
 ## <p align="center">DOWNLOADS</p>
@@ -34,7 +36,7 @@ While you can compile from source, you can always download the latest releases r
 
 Stable releases of Raised ready to be consumed by the public!
 
-##### 1.18 - [*`1.0.0`*](https://github.com/yurisuika/Raised/releases/download/1.0.0/raised-1.18.1-1.0.0.jar)
+##### 1.18 - [*`1.0.1`*](https://github.com/yurisuika/Raised/releases/download/1.0.1/raised-1.18.1-1.0.1.jar)
 
 For Fabric 1.18.1!
 
