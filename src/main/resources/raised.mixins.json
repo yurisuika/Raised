@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "client.gui.hud.MixinInGameHud"
+    "client.HUDOverlayHandlerMixin",
+    "client.gui.hud.InGameHudMixin",
+    "client.ui.HotbarHUDRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

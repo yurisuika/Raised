@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Raised",
-  "description": "Fixes the hotbar!",
+  "description": "Raises the hotbar so the selector is not cut off!",
   "authors": [
     "yurisuika"
   ],
