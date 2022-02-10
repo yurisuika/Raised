@@ -1,4 +1,4 @@
-package com.yurisuika.raised.mixin.client.ui;
+package com.yurisuika.raised.mixin.mods.inventorio;
 
 import me.lizardofoz.inventorio.client.ui.HotbarHUDRenderer;
 import net.minecraft.client.util.Window;

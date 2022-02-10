@@ -1,4 +1,4 @@
-package com.yurisuika.raised.mixin.client;
+package com.yurisuika.raised.mixin.mods.appleskin;
 
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;

@@ -6,9 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "client.HUDOverlayHandlerMixin",
     "client.gui.hud.InGameHudMixin",
-    "client.ui.HotbarHUDRendererMixin"
+    "mods.appleskin.HUDOverlayHandlerMixin",
+    "mods.inventorio.HotbarHUDRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

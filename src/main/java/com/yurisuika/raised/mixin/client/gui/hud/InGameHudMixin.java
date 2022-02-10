@@ -7,69 +7,49 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(value = InGameHud.class, priority = 9001)
 public class InGameHudMixin {
 
-    @ModifyConstant(method = "renderExperienceBar", constant = @Constant(intValue = 31))
-    private int xpTextDistance(int value) {
-        return value + 1;
+    @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
+    private int hotbarDistance(int value) {
+        return value - 1;
     }
 
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
+    @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", ordinal = 1), index = 6)
     private int selectorHeight(int value) {
         return value + 2;
     }
 
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 0))
-    private int hotbarDistance(int value) {
-        return value + 1;
+    @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderHotbarItem(IIFLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;I)V"), index = 1)
+    private int itemDistance(int value) {
+        return value - 1;
     }
 
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 2))
-    private int selectorDistance(int value) {
-        return value + 1;
-    }
-
-    @ModifyConstant(method = "renderMountJumpBar", constant = @Constant(intValue = 3))
+    @ModifyVariable(method = "renderMountJumpBar", at = @At(value = "STORE"), ordinal = 3)
     private int jumpBarDistance(int value) {
         return value - 1;
     }
 
-    @ModifyConstant(method = "renderExperienceBar", constant = @Constant(intValue = 3))
+    @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
     private int experienceBarDistance(int value) {
         return value - 1;
     }
 
-    @ModifyConstant(method = "renderHeldItemTooltip", constant = @Constant(intValue = 59))
+    @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), index = 3)
+    private float xpTextDistance(float value) {
+        return value - 1.0F;
+    }
+
+    @ModifyVariable(method = "renderHeldItemTooltip", at = @At(value = "STORE"), ordinal = 2)
     private int heldItemTooltipDistance(int value) {
-        return value + 1;
+        return value - 1;
     }
 
-    @ModifyConstant(method = "renderStatusBars", constant = @Constant(intValue = 39))
+    @ModifyVariable(method = "renderStatusBars", at = @At(value = "STORE"), ordinal = 5)
     private int statusBarsDistance(int value) {
-        return value + 1;
+        return value - 1;
     }
 
-    @ModifyConstant(method = "renderMountHealth", constant = @Constant(intValue = 39))
+    @ModifyVariable(method = "renderMountHealth", at = @At(value = "STORE"), ordinal = 2)
     private int mountHealthDistance(int value) {
-        return value + 1;
-    }
-
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 23, ordinal = 1))
-    private int emptyOffhandDistance(int value) {
-        return value + 1;
-    }
-
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 23, ordinal = 0))
-    private int heldOffhandDistance(int value) {
-        return value + 1;
-    }
-
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 3, ordinal = 1))
-    private int offhandItemDistance(int value) {
-        return value + 1;
-    }
-
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 3, ordinal = 0))
-    private int itemDistance(int value) {
-        return value + 1;
+        return value - 1;
     }
 
 }
