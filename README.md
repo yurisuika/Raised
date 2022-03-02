@@ -4,7 +4,7 @@
 
 Raised is a simple Fabric mod that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time. Not only is the selector texture cut off, but the entire HUD was actually designed for being a pixel up off of the bottom of the screen. Restore how it was meant to be and raise it up!
 
-Now supports Appleskin and Inventorio!
+Includes support for Appleskin, Inventorio, and DetailArmorBar!
 
 ---
 
