@@ -11,7 +11,7 @@ public class ArmorBarRendererMixin {
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
     private int modifyAddonsScaledHeight(Window instance) {
-        return instance.getScaledHeight() - 1;
+        return instance.getScaledHeight() - 2;
     }
 
 }

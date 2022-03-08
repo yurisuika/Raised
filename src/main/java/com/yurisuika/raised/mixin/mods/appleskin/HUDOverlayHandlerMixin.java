@@ -15,7 +15,7 @@ public class HUDOverlayHandlerMixin {
 
     @Redirect(method = "onPreRender", at = @At(value = "FIELD", target = "squeek/appleskin/client/HUDOverlayHandler.foodIconsOffset:I", opcode = Opcodes.PUTFIELD))
     private void modifyFoodIconsOffset(HUDOverlayHandler instance, int value) {
-        foodIconsOffset = FOOD_BAR_HEIGHT + 1;
+        foodIconsOffset = FOOD_BAR_HEIGHT + 2;
     }
 
 }
