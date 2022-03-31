@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="GNU General Public License 3.0"
+[[mods]]
+modId="raised"
+version="${file.jarVersion}"
+displayName="Raised"
+logoFile="raised.png"
+authors="yurisuika"
+description='''
+Raises the hotbar so the selector is not cut off!
+'''
+[[dependencies.raised]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="AFTER"
+    side="CLIENT"
+[[dependencies.raised]]
+    modId="appleskin"
+    mandatory=false
+    versionRange="[2,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.raised]]
+    modId="detailab"
+    mandatory=false
+    versionRange="[2,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.raised]]
+    modId="inventorio"
+    mandatory=false
+    versionRange="[1,)"
+    ordering="NONE"
+    side="CLIENT"

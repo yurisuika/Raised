@@ -1,17 +1,18 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.yurisuika.raised.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "raised.refmap.json",
   "mixins": [
   ],
   "client": [
-    "client.gui.hud.InGameHudMixin",
+    "client.gui.GuiMixin",
     "mods.appleskin.HUDOverlayHandlerMixin",
     "mods.detailarmorbar.ArmorBarRendererMixin",
     "mods.inventorio.HotbarHUDRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "minVersion": "0.8"
 }

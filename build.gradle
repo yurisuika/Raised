@@ -1,73 +1,157 @@
-plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
-	id 'maven-publish'
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/maven/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'idea'
 
-archivesBaseName = project.archives_base_name
-version = "${minecraft_version}-${mod_version}"
-group = project.maven_group
+version = '1.0.5'
+group = 'com.yurisuika.raised'
+archivesBaseName = 'raised'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+mixin {
+    add sourceSets.main, "raised.refmap.json"
+    config 'mixins.raised.json'
+}
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+minecraft {
+    mappings channel: 'official', version: '1.18.2'
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'raised'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'raised'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'raised'
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                examplemod {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-	maven { url "https://maven.ryanliptak.com/" }
-	maven { url "https://jitpack.io" }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	modCompileOnly ("squeek.appleskin:appleskin-fabric:mc1.18.1-2.3.0") {transitive = false}
-	modCompileOnly ("com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-fabric:1.18-SNAPSHOT") {transitive = false}
-	modCompileOnly ("com.github.RedLime:DetailArmorBar:2.6.1") {transitive = false}
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.encoding = "UTF-8"
-	it.options.release = 17
-}
-
-minecraft {
-	accessWidenerPath =  file("src/main/resources/raised.accesswidener")
-}
-
-java {
-	withSourcesJar()
-}
-
-artifacts {
-	archives jar
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.34'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly 'curse.maven:appleskin-248787:3686482'
+    compileOnly 'curse.maven:inventorio-forge-497122:3553576'
+    compileOnly 'curse.maven:detail-armor-bar-forge-520755:3723059'
 }
 
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
-	}
+    manifest {
+        attributes([
+                "Specification-Title"     : "raised",
+                "Specification-Vendor"    : "yurisuika",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "yurisuika",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "mixins.raised.json"
+        ])
+    }
+    archiveAppendix = 'forge-1.18.2'
 }
 
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
-		}
-	}
+jar.finalizedBy('reobfJar')
 
-	repositories {
-	}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
