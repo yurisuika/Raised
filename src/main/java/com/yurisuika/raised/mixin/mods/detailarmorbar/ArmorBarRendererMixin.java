@@ -6,12 +6,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = ArmorBarRenderer.class, remap = false)
+@Mixin(ArmorBarRenderer.class)
 public class ArmorBarRendererMixin {
 
-//    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-//    private int modifyAddonsScaledHeight(Window instance) {
-//        return instance.getGuiScaledHeight() - 2;
-//    }
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+    private int modifyAddonsScaledHeight(Window instance) {
+        return instance.getGuiScaledHeight() - 2;
+    }
 
 }

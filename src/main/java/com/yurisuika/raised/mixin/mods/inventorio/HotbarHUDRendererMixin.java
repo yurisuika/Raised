@@ -6,17 +6,17 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = HotbarHUDRenderer.class, remap = false)
+@Mixin(HotbarHUDRenderer.class)
 public class HotbarHUDRendererMixin {
 
-//    @Redirect(method = "renderSegmentedHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-//    private int modifyScaledHeight(Window instance) {
-//        return instance.getGuiScaledHeight() - 1;
-//    }
-//
-//    @Redirect(method = "renderHotbarAddons", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-//    private int modifyAddonsScaledHeight(Window instance) {
-//        return instance.getGuiScaledHeight() - 2;
-//    }
+    @Redirect(method = "renderSegmentedHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+    private int modifyScaledHeight(Window instance) {
+        return instance.getGuiScaledHeight() - 1;
+    }
+
+    @Redirect(method = "renderHotbarAddons", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+    private int modifyAddonsScaledHeight(Window instance) {
+        return instance.getGuiScaledHeight() - 2;
+    }
 
 }

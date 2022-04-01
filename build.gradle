@@ -105,20 +105,14 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.0.34'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    compileOnly 'curse.maven:appleskin-248787:3686482'
-    compileOnly 'curse.maven:inventorio-forge-497122:3553576'
-    compileOnly 'curse.maven:detail-armor-bar-forge-520755:3723059'
+    compileOnly 'com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-forge:1.18-SNAPSHOT'
+    compileOnly 'com.github.RedLime:DetailArmorBar:1.18-forge-SNAPSHOT'
 }
 
 jar {

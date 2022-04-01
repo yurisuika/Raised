@@ -17,12 +17,6 @@ Raises the hotbar so the selector is not cut off!
     ordering="AFTER"
     side="CLIENT"
 [[dependencies.raised]]
-    modId="appleskin"
-    mandatory=false
-    versionRange="[2,)"
-    ordering="NONE"
-    side="CLIENT"
-[[dependencies.raised]]
     modId="detailab"
     mandatory=false
     versionRange="[2,)"

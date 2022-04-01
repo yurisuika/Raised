@@ -6,8 +6,8 @@
   "mixins": [
   ],
   "client": [
+    "client.gui.ForgeIngameGuiMixin",
     "client.gui.GuiMixin",
-    "mods.appleskin.HUDOverlayHandlerMixin",
     "mods.detailarmorbar.ArmorBarRendererMixin",
     "mods.inventorio.HotbarHUDRendererMixin"
   ],
