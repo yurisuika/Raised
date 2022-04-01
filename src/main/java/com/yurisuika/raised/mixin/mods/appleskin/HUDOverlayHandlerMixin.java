@@ -10,7 +10,8 @@ import squeek.appleskin.client.HUDOverlayHandler;
 @Mixin(HUDOverlayHandler.class)
 public class HUDOverlayHandlerMixin {
 
-    @Shadow public int foodIconsOffset;
+    @Shadow
+    private int foodIconsOffset;
     @Shadow public int FOOD_BAR_HEIGHT;
 
     @Redirect(method = "onPreRender", at = @At(value = "FIELD", target = "squeek/appleskin/client/HUDOverlayHandler.foodIconsOffset:I", opcode = Opcodes.PUTFIELD))
