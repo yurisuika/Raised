@@ -7,7 +7,7 @@ sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
-version = "${minecraft_version}-${mod_version}"
+version = project.mod_version
 group = project.maven_group
 
 repositories {
@@ -20,7 +20,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modCompileOnly ("squeek.appleskin:appleskin-fabric:mc1.18.1-2.3.0") {transitive = false}
+	modCompileOnly ("squeek.appleskin:appleskin-fabric:mc1.18.2-2.4.0") {transitive = false}
 	modCompileOnly ("com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-fabric:1.18-SNAPSHOT") {transitive = false}
 	modCompileOnly ("com.github.RedLime:DetailArmorBar:2.6.1") {transitive = false}
 }
@@ -54,6 +54,7 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
+	archiveAppendix = "fabric-${minecraft_version}"
 }
 
 publishing {
