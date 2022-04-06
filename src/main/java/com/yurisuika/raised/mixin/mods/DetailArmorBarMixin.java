@@ -1,4 +1,4 @@
-package com.yurisuika.raised.mixin.mods.detailarmorbar;
+package com.yurisuika.raised.mixin.mods;
 
 import com.redlimerl.detailab.render.ArmorBarRenderer;
 import net.minecraft.client.util.Window;
@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ArmorBarRenderer.class)
-public class ArmorBarRendererMixin {
+public class DetailArmorBarMixin {
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
     private int modifyAddonsScaledHeight(Window instance) {
