@@ -7,9 +7,9 @@
   ],
   "client": [
     "client.gui.hud.InGameHudMixin",
-    "mods.appleskin.HUDOverlayHandlerMixin",
-    "mods.detailarmorbar.ArmorBarRendererMixin",
-    "mods.inventorio.HotbarHUDRendererMixin"
+    "mods.AppleskinMixin",
+    "mods.DetailArmorBarMixin",
+    "mods.InventorioMixin"
   ],
   "injectors": {
     "defaultRequire": 1
