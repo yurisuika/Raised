@@ -8,8 +8,8 @@
   "client": [
     "client.gui.ForgeIngameGuiMixin",
     "client.gui.GuiMixin",
-    "mods.detailarmorbar.ArmorBarRendererMixin",
-    "mods.inventorio.HotbarHUDRendererMixin"
+    "mods.DetailArmorBarMixin",
+    "mods.InventorioMixin"
   ],
   "injectors": {
     "defaultRequire": 1

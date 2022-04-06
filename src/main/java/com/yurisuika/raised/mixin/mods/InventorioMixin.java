@@ -1,4 +1,4 @@
-package com.yurisuika.raised.mixin.mods.inventorio;
+package com.yurisuika.raised.mixin.mods;
 
 import com.mojang.blaze3d.platform.Window;
 import me.lizardofoz.inventorio.client.ui.HotbarHUDRenderer;
@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(HotbarHUDRenderer.class)
-public class HotbarHUDRendererMixin {
+public class InventorioMixin {
 
     @Redirect(method = "renderSegmentedHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
     private int modifyScaledHeight(Window instance) {
