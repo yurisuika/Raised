@@ -13,6 +13,7 @@ group = project.maven_group
 repositories {
 	maven { url "https://maven.ryanliptak.com/" }
 	maven { url "https://jitpack.io" }
+	maven { url "https://cursemaven.com" }
 }
 
 dependencies {
@@ -23,6 +24,7 @@ dependencies {
 	modCompileOnly ("squeek.appleskin:appleskin-fabric:mc1.18.2-2.4.0") {transitive = false}
 	modCompileOnly ("com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-fabric:1.18-SNAPSHOT") {transitive = false}
 	modCompileOnly ("com.github.RedLime:DetailArmorBar:2.6.1") {transitive = false}
+	modCompileOnly ("curse.maven:health-overlay-fabric-313219:3563686") {transitive = false}
 }
 
 processResources {
