@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 
-version = '1.0.6'
+version = '1.0.7'
 group = 'com.yurisuika.raised'
 archivesBaseName = 'raised'
 
@@ -106,13 +106,15 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url "https://cursemaven.com" }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.40'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.54'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly 'com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-forge:1.18-SNAPSHOT'
     compileOnly 'com.github.RedLime:DetailArmorBar:1.18-forge-SNAPSHOT'
+    compileOnly 'curse.maven:health-overlay-368223:3562379'
 }
 
 jar {

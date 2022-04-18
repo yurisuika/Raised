@@ -9,6 +9,7 @@
     "client.gui.ForgeIngameGuiMixin",
     "client.gui.GuiMixin",
     "mods.DetailArmorBarMixin",
+    "mods.HealthOverlayMixin",
     "mods.InventorioMixin"
   ],
   "injectors": {
