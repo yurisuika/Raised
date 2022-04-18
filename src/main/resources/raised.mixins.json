@@ -9,6 +9,7 @@
     "client.gui.hud.InGameHudMixin",
     "mods.AppleskinMixin",
     "mods.DetailArmorBarMixin",
+    "mods.HealthOverlayMixin",
     "mods.InventorioMixin"
   ],
   "injectors": {
