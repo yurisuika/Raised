@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class DetailArmorBarMixin {
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-    private int modifyAddonsScaledHeight(Window instance) {
+    private int modifyScaledHeight(Window instance) {
         return instance.getGuiScaledHeight() - 2;
     }
 

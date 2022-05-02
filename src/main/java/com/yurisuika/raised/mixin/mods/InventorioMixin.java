@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class InventorioMixin {
 
     @Redirect(method = "renderSegmentedHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-    private int modifyScaledHeight(Window instance) {
+    private int modifyScaledHeightA(Window instance) {
         return instance.getGuiScaledHeight() - 1;
     }
 
     @Redirect(method = "renderHotbarAddons", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-    private int modifyAddonsScaledHeight(Window instance) {
+    private int modifyScaledHeightB(Window instance) {
         return instance.getGuiScaledHeight() - 2;
     }
 

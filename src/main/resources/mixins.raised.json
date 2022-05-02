@@ -10,10 +10,12 @@
     "client.gui.GuiMixin",
     "mods.DetailArmorBarMixin",
     "mods.HealthOverlayMixin",
-    "mods.InventorioMixin"
+    "mods.InventorioMixin",
+    "mods.LevelHeartsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
+  "plugin": "com.yurisuika.raised.RaisedMixinPlugin",
   "minVersion": "0.8"
 }

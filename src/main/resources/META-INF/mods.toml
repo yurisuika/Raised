@@ -28,3 +28,9 @@ Raises the hotbar so the selector is not cut off!
     versionRange="[1,)"
     ordering="NONE"
     side="CLIENT"
+[[dependencies.raised]]
+    modId="levelhearts"
+    mandatory=false
+    versionRange="[1,)"
+    ordering="NONE"
+    side="CLIENT"

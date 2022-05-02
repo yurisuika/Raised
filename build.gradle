@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 
-version = '1.0.7'
+version = '1.0.8'
 group = 'com.yurisuika.raised'
 archivesBaseName = 'raised'
 
@@ -110,11 +110,12 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.54'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly 'com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-forge:1.18-SNAPSHOT'
     compileOnly 'com.github.RedLime:DetailArmorBar:1.18-forge-SNAPSHOT'
     compileOnly 'curse.maven:health-overlay-368223:3562379'
+    compileOnly 'curse.maven:levelhearts-273640:3697146'
 }
 
 jar {

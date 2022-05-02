@@ -21,7 +21,7 @@ public class Raised
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        LOGGER.info("Raised loading!");
+        LOGGER.info("Loading Raised!");
     }
 
 }
