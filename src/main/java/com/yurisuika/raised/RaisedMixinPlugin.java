@@ -1,7 +1,6 @@
 package com.yurisuika.raised;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -17,10 +16,6 @@ public final class RaisedMixinPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-//            "com.yurisuika.raised.mixin.mods.DetailArmorBarMixin", () -> ModList.get().isLoaded("detailab"),
-//            "com.yurisuika.raised.mixin.mods.HealthOverlayMixin", () -> ModList.get().isLoaded("healthoverlay"),
-//            "com.yurisuika.raised.mixin.mods.InventorioMixin", () -> ModList.get().isLoaded("inventorio"),
-//            "com.yurisuika.raised.mixin.mods.LevelHeartsMixin", () -> ModList.get().isLoaded("levelhearts")
             "com.yurisuika.raised.mixin.mods.DetailArmorBarMixin", () -> FMLLoader.getLoadingModList().getModFileById("detailab") != null,
             "com.yurisuika.raised.mixin.mods.HealthOverlayMixin", () -> FMLLoader.getLoadingModList().getModFileById("healthoverlay") != null,
             "com.yurisuika.raised.mixin.mods.InventorioMixin", () -> FMLLoader.getLoadingModList().getModFileById("inventorio") != null,
