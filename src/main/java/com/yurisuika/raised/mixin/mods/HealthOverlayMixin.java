@@ -10,7 +10,7 @@ import terrails.healthoverlay.render.HeartRenderer;
 public class HealthOverlayMixin {
 
     @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-    private int modifyAddonsScaledHeight(Window instance) {
+    private int modifyScaledHeight(Window instance) {
         return instance.getScaledHeight() - 2;
     }
 
