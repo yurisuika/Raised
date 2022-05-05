@@ -21,6 +21,8 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
 	modCompileOnly ("squeek.appleskin:appleskin-fabric:mc1.18.2-2.4.0") {transitive = false}
 	modCompileOnly ("com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-fabric:1.18-SNAPSHOT") {transitive = false}
 	modCompileOnly ("com.github.RedLime:DetailArmorBar:2.6.1") {transitive = false}
