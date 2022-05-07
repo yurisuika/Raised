@@ -1,5 +1,6 @@
 package com.yurisuika.raised.mixin.client.gui;
 
+import com.yurisuika.raised.Raised;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,12 +18,12 @@ public class ForgeIngameGuiMixin {
 
     @Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;right_height:I", opcode = Opcodes.PUTFIELD))
     private void redirectRight(ForgeIngameGui instance, int value) {
-        instance.right_height = value + 2;
+        instance.right_height = value + Raised.getDistance();
     }
 
     @Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;left_height:I", opcode = Opcodes.PUTFIELD))
     private void redirectLeft(ForgeIngameGui instance, int value) {
-        instance.left_height = value + 2;
+        instance.left_height = value + Raised.getDistance();
     }
 
 }
