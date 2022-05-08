@@ -40,7 +40,7 @@ public class Raised implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Loading Raised!");
+        LOGGER.info("Raised loading!");
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (down.wasPressed()) {

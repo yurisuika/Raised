@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public class InGameHudMixin {
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
-    private int modifyHotbar2(int value) {
+    private int modifyHotbar(int value) {
         return value - Raised.getDistance();
     }
 
@@ -19,38 +19,48 @@ public class InGameHudMixin {
     }
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderHotbarItem(IIFLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;I)V"), index = 1)
-    private int modifyItem2(int value) {
+    private int modifyItem(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderMountJumpBar", at = @At(value = "STORE"), ordinal = 3)
-    private int modifyJumpBar2(int value) {
+    private int modifyJumpBar(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
-    private int modifyExperienceBar2(int value) {
+    private int modifyExperienceBar(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), index = 3)
-    private float modifyXpText2(float value) {
+    private float modifyXpText(float value) {
         return value - (float)Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderHeldItemTooltip", at = @At(value = "STORE"), ordinal = 2)
-    private int modifyHeldItemTooltip2(int value) {
+    private int modifyHeldItemTooltip(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderStatusBars", at = @At(value = "STORE"), ordinal = 5)
-    private int modifyStatusBars2(int value) {
+    private int modifyStatusBars(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderMountHealth", at = @At(value = "STORE"), ordinal = 2)
-    private int modifyMountHealth2(int value) {
+    private int modifyMountHealth(int value) {
         return value - Raised.getDistance();
+    }
+
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V", ordinal = 0), index = 1)
+    private double modifyActionbar(double value) {
+        return value - (double)Raised.getDistance();
+    }
+
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V", ordinal = 2), index = 1)
+    private double modifyChat(double value) {
+        return value - (double)Raised.getDistance();
     }
 
 }
