@@ -110,7 +110,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.19'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly 'com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-forge:1.18-SNAPSHOT'
     compileOnly 'com.github.RedLime:DetailArmorBar:1.18-forge-SNAPSHOT'

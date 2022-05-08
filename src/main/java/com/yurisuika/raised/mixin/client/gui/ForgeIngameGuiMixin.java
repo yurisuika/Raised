@@ -1,6 +1,7 @@
 package com.yurisuika.raised.mixin.client.gui;
 
 import com.yurisuika.raised.Raised;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = ForgeIngameGui.class, remap = false)
+@Mixin(ForgeIngameGui.class)
 public class ForgeIngameGuiMixin {
 
     @Shadow
@@ -27,14 +28,24 @@ public class ForgeIngameGuiMixin {
         instance.left_height = value + Raised.getDistance();
     }
 
-    @ModifyVariable(method = "renderChat", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
-    private int modifyChat(int value) {
-        return value - Raised.getDistance();
-    }
+//    @ModifyVariable(method = "renderChat", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
+//    private int modifyChat(int value) {
+//        return value - Raised.getDistance();
+//    }
+//
+//    @ModifyVariable(method = "renderRecordOverlay", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
+//    private int modifyActionbar(int value) {
+//        return value - Raised.getDistance();
+//    }
 
-    @ModifyVariable(method = "renderRecordOverlay", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
-    private int modifyActionbar(int value) {
-        return value - Raised.getDistance();
-    }
+//    @Redirect(method = "renderChat", at = @At(value = "INVOKE", target = "net/minecraftforge/client/event/RenderGameOverlayEvent$Chat.getPosY()I"))
+//    private int redirectChat(RenderGameOverlayEvent.Chat instance, int value) {
+//        return value - Raised.getDistance();
+//    }
+
+//    @Redirect(method = "renderRecordOverlay", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate.p_85839()I"))
+//    private int redirectActionbar(RenderGameOverlayEvent.Chat instance, int value) {
+//        return value - Raised.getDistance();
+//    }
 
 }
