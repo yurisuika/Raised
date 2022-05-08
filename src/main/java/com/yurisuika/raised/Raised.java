@@ -3,6 +3,7 @@ package com.yurisuika.raised;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.KeyMapping;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,10 +27,6 @@ public class Raised
         return distance;
     }
 
-    public static String DOWN = "raised.down";
-    public static String UP = "raised.up";
-    public static String TITLE = "raised.title";
-
     public static KeyMapping down;
     public static KeyMapping up;
 
@@ -48,12 +45,15 @@ public class Raised
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLClientSetupEvent event) {
+    public void setup(final FMLClientSetupEvent event) {
         LOGGER.info("Loading Raised!");
         MinecraftForge.EVENT_BUS.addListener(this::input);
 
-        down = new KeyMapping(DOWN, KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.minus"), TITLE);
-        up = new KeyMapping(UP, KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.equal"), TITLE);
+        down = new KeyMapping("raised.down", KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.minus"), "raised.title");
+        up = new KeyMapping("raised.up", KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.equal"), "raised.title");
+
+        ClientRegistry.registerKeyBinding(down);
+        ClientRegistry.registerKeyBinding(up);
     }
 
 }
