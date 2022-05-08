@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 
-version = '1.0.9'
+version = '1.1.0'
 group = 'com.yurisuika.raised'
 archivesBaseName = 'raised'
 
