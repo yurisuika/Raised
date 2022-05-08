@@ -2,7 +2,7 @@
 
 **Raised** is a Fabric/Forge mod for Minecraft that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time in Java Edition. Not only is the selector texture cut off, but the entire HUD was actually designed for being a couple pixels up off of the bottom of the screen like in Bedrock Edition. Restore how it was meant to be and raise it up!
 
-Raised now features some basic adjustability! Use `-` and `=` to move the respective elements up or down!
+Raised now features some basic adjustability! Use `-` and `=` to move the respective elements up or down! For now this resets every time the client is launched. Eventually, a configurable solution that works for both Fabric and Forge and in the snapshots will improve this feature!
 
 #### Compiling
 
