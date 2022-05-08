@@ -1,6 +1,6 @@
 package com.yurisuika.raised;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
 
-public class Raised implements ModInitializer {
+public class Raised implements ClientModInitializer {
 
     public static final Logger LOGGER = LogManager.getLogger("Raised");
 
@@ -39,7 +39,7 @@ public class Raised implements ModInitializer {
     }
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         LOGGER.info("Loading Raised!");
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

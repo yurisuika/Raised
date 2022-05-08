@@ -19,7 +19,8 @@
 
   "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
+      "com.yurisuika.raised.Raised"
     ]
   },
   "mixins": [
