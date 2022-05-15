@@ -30,7 +30,7 @@
   "accessWidener" : "raised.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.11.6",
+    "fabricloader": ">=0.12.0",
     "minecraft": "1.18.x",
     "java": ">=17"
   }
