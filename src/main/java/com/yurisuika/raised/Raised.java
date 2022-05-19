@@ -1,6 +1,7 @@
 package com.yurisuika.raised;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -32,6 +33,7 @@ public class Raised implements ClientModInitializer {
 
     public static void setDistance(int change) {
         distance += change;
+        FabricLoader.getInstance().getObjectShare().put("raised:distance", distance);
     }
 
     public static int getDistance() {
@@ -41,6 +43,8 @@ public class Raised implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         LOGGER.info("Loading Raised!");
+
+        setDistance(0);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (down.wasPressed()) {
