@@ -60,7 +60,7 @@ public class GuiMixin {
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(DDD)V", ordinal = 2), index = 1)
     private double modifyChat(double value) {
-        return value - (double)Raised.getDistance();
+        return value - (double)Raised.getDistance() - (double)Raised.getOffset();
     }
 
 }

@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class ForgeIngameGuiMixin {
 
     @Shadow
-    public int left_height = 41;
+    public int left_height = 39 + Raised.getDistance();
     @Shadow
-    public int right_height = 41;
+    public int right_height = 39 + Raised.getDistance();
 
     @Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;right_height:I", opcode = Opcodes.PUTFIELD))
     private void redirectRight(ForgeIngameGui instance, int value) {
