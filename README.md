@@ -1,8 +1,8 @@
 <p align="center"><img src="https://github.com/yurisuika/Raised/blob/Fabric-1.18/src/main/resources/assets/raised/icon.png?raw=true" width="256" height="256"></p>
 
-**Raised** is a Fabric/Forge mod for Minecraft that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time in Java Edition. Not only is the selector texture cut off, but the entire HUD was actually designed for being a couple pixels up off of the bottom of the screen like in Bedrock Edition. Restore how it was meant to be and raise it up!
+**Raised** is a Fabric/Forge mod for Minecraft that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time in Java Edition. Not only is the selector texture cut off by a couple pixels, but the entire hotbar was actually designed for being raised up off of the bottom of the screen. Restore how it was meant to be and raise it up!
 
-Raised now features some basic adjustability! Use `=` and `-` to move the respective elements up or down!
+Raised now features some basic adjustability! Use `=` and `-` to move the HUD up and down, and use '[' and ']' to adjust the offset for the chat!
 
 If you are a mod creator who would like to add compatibility, Raised now supports ObjectShare on Fabric! See *[Arrows Info](https://github.com/intact/arrows-info)* for an example!
 
