@@ -1,5 +1,7 @@
 {
   "raised.title": "Raised",
   "raised.down": "Move Down",
-  "raised.up": "Move Up"
+  "raised.up": "Move Up",
+  "raised.offset.down": "Move Chat Down",
+  "raised.offset.up": "Move Chat Up"
 }

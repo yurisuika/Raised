@@ -35,6 +35,20 @@ public class Raised implements ClientModInitializer {
             "raised.title"
     ));
 
+    private static final KeyBinding offsetDown = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "raised.offset.down",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_LEFT_BRACKET,
+            "raised.title"
+    ));
+
+    private static final KeyBinding offsetUp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "raised.offset.up",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_RIGHT_BRACKET,
+            "raised.title"
+    ));
+
     public static File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), "raised.json");
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -74,15 +88,26 @@ public class Raised implements ClientModInitializer {
     public static void setDistance(int change) {
         config.distance += change;
         saveConfig();
-        putDistance();
+        putObjects();
+    }
+
+    public static void setOffset(int change) {
+        config.offset += change;
+        saveConfig();
+        putObjects();
     }
 
     public static int getDistance() {
         return config.distance;
     }
 
-    public static void putDistance() {
+    public static int getOffset() {
+        return config.offset;
+    }
+
+    public static void putObjects() {
         FabricLoader.getInstance().getObjectShare().put("raised:distance", config.distance);
+        FabricLoader.getInstance().getObjectShare().put("raised:offset", config.offset);
     }
 
     @Override
@@ -90,7 +115,7 @@ public class Raised implements ClientModInitializer {
         LOGGER.info("Loading Raised!");
 
         loadConfig();
-        putDistance();
+        putObjects();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (down.wasPressed()) {
@@ -101,6 +126,18 @@ public class Raised implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (up.wasPressed()) {
                 setDistance(1);
+            }
+        });
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (offsetDown.wasPressed()) {
+                setOffset(-1);
+            }
+        });
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (offsetUp.wasPressed()) {
+                setOffset(1);
             }
         });
     }

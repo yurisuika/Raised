@@ -60,7 +60,7 @@ public class InGameHudMixin {
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V", ordinal = 2), index = 1)
     private double modifyChat(double value) {
-        return value - (double)Raised.getDistance();
+        return value - (double)Raised.getDistance() - (double)Raised.getOffset();
     }
 
 }

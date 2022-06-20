@@ -6,6 +6,7 @@
   "mixins": [
   ],
   "client": [
+    "client.gui.hud.ChatHudMixin",
     "client.gui.hud.InGameHudMixin",
     "mods.AppleskinMixin",
     "mods.DetailArmorBarMixin",
