@@ -32,4 +32,4 @@ You can find Raised on both *[CurseForge](https://www.curseforge.com/minecraft/m
 
 #### Community
 
-The one and only! Join the *[SuikaCraft Discord](https://discord.gg/0zdNEkQle7Qg9C1H)* for the latest discussion on our server, resource pack, mods, or just to chat!
+The one and only! Join the *[Discord](https://discord.gg/0zdNEkQle7Qg9C1H)* for the latest discussion on our server, resource pack, mods, or just to chat!
