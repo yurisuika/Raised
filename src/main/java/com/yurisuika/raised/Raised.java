@@ -4,14 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,10 +27,10 @@ public class Raised {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("raised");
 
-    public static KeyMapping down;
-    public static KeyMapping up;
-    public static KeyMapping offsetDown;
-    public static KeyMapping offsetUp;
+    public static final KeyMapping down = new KeyMapping("raised.down", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_MINUS, "raised.title");
+    public static final KeyMapping up = new KeyMapping("raised.up", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_EQUAL, "raised.title");
+    public static final KeyMapping offsetDown = new KeyMapping("raised.offset.down", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_BRACKET, "raised.title");
+    public static final KeyMapping offsetUp = new KeyMapping("raised.offset.up", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_BRACKET, "raised.title");
 
     public static File file = new File(FMLPaths.CONFIGDIR.get().toFile(), "raised.json");
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -84,18 +87,22 @@ public class Raised {
         return config.offset;
     }
 
-    public void input(InputEvent.KeyInputEvent event){
-        if (down.consumeClick()) {
-            setDistance(-1);
-        }
-        if (up.consumeClick()) {
-            setDistance(1);
-        }
-        if (offsetDown.consumeClick()) {
-            setOffset(-1);
-        }
-        if (offsetUp.consumeClick()) {
-            setOffset(1);
+    @Mod.EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
+    public static class ClientForgeEvents {
+        @SubscribeEvent
+        public static void onKeyInput(InputEvent.KeyInputEvent event) {
+            if (down.consumeClick()) {
+                Raised.setDistance(-1);
+            }
+            if (up.consumeClick()) {
+                Raised.setDistance(1);
+            }
+            if (offsetDown.consumeClick()) {
+                Raised.setOffset(-1);
+            }
+            if (offsetUp.consumeClick()) {
+                Raised.setOffset(1);
+            }
         }
     }
 
@@ -107,14 +114,8 @@ public class Raised {
 
     public void setup(final FMLClientSetupEvent event) {
         LOGGER.info("Loading Raised!");
-        MinecraftForge.EVENT_BUS.addListener(this::input);
 
         loadConfig();
-
-        down = new KeyMapping("raised.down", KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.minus"), "raised.title");
-        up = new KeyMapping("raised.up", KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.equal"), "raised.title");
-        offsetDown = new KeyMapping("raised.offset.down", KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.left.bracket"), "raised.title");
-        offsetUp = new KeyMapping("raised.offset.up", KeyConflictContext.IN_GAME, InputConstants.getKey("key.keyboard.right.bracket"), "raised.title");
 
         ClientRegistry.registerKeyBinding(down);
         ClientRegistry.registerKeyBinding(up);

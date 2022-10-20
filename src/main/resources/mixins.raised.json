@@ -10,6 +10,8 @@
     "client.gui.ForgeIngameGuiRemapFalseMixin",
     "client.gui.GuiMixin",
     "client.gui.components.ChatComponentMixin",
+    "mods.CreateMixin$ToolboxHandlerClientMixin",
+    "mods.CreateMixin$TrainHUDMixin",
     "mods.DetailArmorBarMixin",
     "mods.HealthOverlayMixin",
     "mods.InventorioMixin",
