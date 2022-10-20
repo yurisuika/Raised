@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -23,10 +23,11 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modCompileOnly ("squeek.appleskin:appleskin-fabric:mc1.19-2.4.0") {transitive = false}
-	modCompileOnly ("com.github.Lizard-Of-Oz.Inventorio:inventorio-1.18-fabric:1.18-SNAPSHOT") {transitive = false}
-	modCompileOnly ("com.github.RedLime:DetailArmorBar:2.6.1") {transitive = false}
-	modCompileOnly ("curse.maven:health-overlay-fabric-313219:3837279") {transitive = false}
+	modCompileOnly ("curse.maven:appleskin-248787:3872808") {transitive = false}
+	modCompileOnly ("curse.maven:create-fabric-624165:4011240") {transitive = false}
+	modCompileOnly ("curse.maven:detail-armor-bar-506898:3823985") {transitive = false}
+	modCompileOnly ("curse.maven:health-overlay-fabric-313219:3932265") {transitive = false}
+	modCompileOnly ("curse.maven:inventorio-491073:3963530") {transitive = false}
 }
 
 processResources {

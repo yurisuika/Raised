@@ -11,12 +11,12 @@ import squeek.appleskin.client.HUDOverlayHandler;
 public class AppleskinMixin {
 
     @Redirect(method = "onPreRender", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-    private int modifyScaledHeightA(Window instance) {
+    private int modifyScaledHeight(Window instance) {
         return instance.getScaledHeight() - Raised.getDistance();
     }
 
     @Redirect(method = "onRender", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-    private int modifyScaledHeightB(Window instance) {
+    private int modifyScaledHeight2(Window instance) {
         return instance.getScaledHeight() - Raised.getDistance();
     }
 

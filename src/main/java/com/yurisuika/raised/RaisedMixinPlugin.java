@@ -17,6 +17,7 @@ public final class RaisedMixinPlugin implements IMixinConfigPlugin {
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
             "com.yurisuika.raised.mixin.mods.AppleskinMixin", () -> FabricLoader.getInstance().isModLoaded("appleskin"),
+            "com.yurisuika.raised.mixin.mods.CreateMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
             "com.yurisuika.raised.mixin.mods.DetailArmorBarMixin", () -> FabricLoader.getInstance().isModLoaded("detailab"),
             "com.yurisuika.raised.mixin.mods.HealthOverlayMixin", () -> FabricLoader.getInstance().isModLoaded("healthoverlay"),
             "com.yurisuika.raised.mixin.mods.InventorioMixin", () -> FabricLoader.getInstance().isModLoaded("inventorio")

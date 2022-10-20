@@ -9,6 +9,8 @@
     "client.gui.hud.ChatHudMixin",
     "client.gui.hud.InGameHudMixin",
     "mods.AppleskinMixin",
+    "mods.CreateMixin$ToolboxHandlerClientMixin",
+    "mods.CreateMixin$TrainHUDMixin",
     "mods.DetailArmorBarMixin",
     "mods.HealthOverlayMixin",
     "mods.InventorioMixin"
