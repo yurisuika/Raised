@@ -33,7 +33,7 @@ public class CreateMixin {
     }
 
     @Mixin(value = ToolboxHandlerClient.class, remap = false)
-    public static class TrainHUDMixin {
+    public static class ToolboxHandlerClientMixin {
 
         @ModifyVariable(method = "renderOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
         private static int modifyRenderOverlay(int value) {
@@ -53,7 +53,7 @@ public class CreateMixin {
     }
 
     @Mixin(value = TrainHUD.class, remap = false)
-    public static class ToolboxHandlerClientMixin {
+    public static class TrainHUDMixin {
 
         @ModifyVariable(method = "renderOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
         private static int modifyRenderOverlay(int value) {
