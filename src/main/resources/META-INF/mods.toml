@@ -25,7 +25,7 @@ Raises the hotbar so the selector is not cut off!
 [[dependencies.raised]]
     modId="create"
     mandatory=false
-    versionRange="[0.5,)"
+    versionRange="[0,)"
     ordering="NONE"
     side="CLIENT"
 [[dependencies.raised]]
