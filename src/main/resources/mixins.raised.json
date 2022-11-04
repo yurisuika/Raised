@@ -10,12 +10,19 @@
     "client.gui.ForgeIngameGuiRemapFalseMixin",
     "client.gui.GuiMixin",
     "client.gui.components.ChatComponentMixin",
+    "mods.BotaniaMixin$HUDHandlerMixin",
+    "mods.BotaniaMixin$ItemFlightTiaraMixin",
+    "mods.CreateMixin$CopperBacktankArmorMixin",
+    "mods.CreateMixin$SchematicHotbarSlotOverlayMixin",
     "mods.CreateMixin$ToolboxHandlerClientMixin",
+    "mods.CreateMixin$ToolSelectionScreeMixin",
     "mods.CreateMixin$TrainHUDMixin",
-    "mods.DetailArmorBarMixin",
-    "mods.HealthOverlayMixin",
-    "mods.InventorioMixin",
-    "mods.LevelHeartsMixin"
+    "mods.DetailArmorBarMixin$ArmorBarRendererMixin",
+    "mods.HealthOverlayMixin$HeartRendererMixin",
+    "mods.InventorioMixin$HotbarHUDRendererMixin",
+    "mods.LevelHeartsMixin$IngameGuiMixin",
+    "mods.QuarkMixin$HotbarChangerModuleMixin",
+    "mods.QuarkMixin$UsageTickerModuleMixin"
   ],
   "injectors": {
     "defaultRequire": 1

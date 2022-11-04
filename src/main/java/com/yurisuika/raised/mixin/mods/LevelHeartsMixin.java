@@ -7,22 +7,26 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(IngameGui.class)
 public class LevelHeartsMixin {
 
-    @Redirect(method = "redrawHealth", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-    private int modifyHeartsScaledHeight(Window instance) {
-        return instance.getGuiScaledHeight() - Raised.getDistance();
-    }
+    @Mixin(IngameGui.class)
+    public static class IngameGuiMixin {
 
-    @Redirect(method = "redrawAir", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-    private int modifyAirScaledHeight(Window instance) {
-        return instance.getGuiScaledHeight() - Raised.getDistance();
-    }
+        @Redirect(method = "redrawHealth", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+        private int modifyRedrawHealth(Window instance) {
+            return instance.getGuiScaledHeight() - Raised.getDistance();
+        }
 
-    @Redirect(method = "redrawArmor", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-    private int modifyArmorScaledHeight(Window instance) {
-        return instance.getGuiScaledHeight() - Raised.getDistance();
+        @Redirect(method = "redrawAir", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+        private int modifyRedrawAir(Window instance) {
+            return instance.getGuiScaledHeight() - Raised.getDistance();
+        }
+
+        @Redirect(method = "redrawArmor", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+        private int modifyRedrawArmor(Window instance) {
+            return instance.getGuiScaledHeight() - Raised.getDistance();
+        }
+
     }
 
 }
