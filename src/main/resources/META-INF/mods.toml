@@ -17,9 +17,27 @@ Raises the hotbar so the selector is not cut off!
     ordering="AFTER"
     side="CLIENT"
 [[dependencies.raised]]
+    modId="botania"
+    mandatory=false
+    versionRange="[420,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.raised]]
+    modId="create"
+    mandatory=false
+    versionRange="[0.5,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.raised]]
     modId="detailab"
     mandatory=false
     versionRange="[2,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.raised]]
+    modId="healthoverlay"
+    mandatory=false
+    versionRange="[3,)"
     ordering="NONE"
     side="CLIENT"
 [[dependencies.raised]]
@@ -32,5 +50,11 @@ Raises the hotbar so the selector is not cut off!
     modId="levelhearts"
     mandatory=false
     versionRange="[1,)"
+    ordering="NONE"
+    side="CLIENT"
+[[dependencies.raised]]
+    modId="quark"
+    mandatory=false
+    versionRange="[3,)"
     ordering="NONE"
     side="CLIENT"

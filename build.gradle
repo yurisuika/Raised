@@ -71,7 +71,6 @@ dependencies {
     compileOnly 'curse.maven:inventorio-forge-497122:3963528'
     compileOnly 'curse.maven:levelhearts-273640:3697146'
     compileOnly 'curse.maven:quark-243121:3840125'
-
 }
 
 jar {
