@@ -19,7 +19,7 @@ Raises the hotbar so the selector is not cut off!
 [[dependencies.raised]]
     modId="botania"
     mandatory=false
-    versionRange="[420,)"
+    versionRange="[1,)"
     ordering="NONE"
     side="CLIENT"
 [[dependencies.raised]]
