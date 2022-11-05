@@ -7,12 +7,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import terrails.healthoverlay.render.HeartRenderer;
 
-@Mixin(HeartRenderer.class)
 public class HealthOverlayMixin {
 
-    @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-    private int modifyScaledHeight(Window instance) {
-        return instance.getScaledHeight() - Raised.getDistance();
+    @Mixin(HeartRenderer.class)
+    public static class HeartRendererMixin {
+
+        @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private int redirectRenderPlayerHearts(Window instance) {
+            return instance.getScaledHeight() - Raised.getDistance();
+        }
+
     }
 
 }

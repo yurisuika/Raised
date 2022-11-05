@@ -8,12 +8,17 @@
   "client": [
     "client.gui.hud.ChatHudMixin",
     "client.gui.hud.InGameHudMixin",
-    "mods.AppleskinMixin",
+    "mods.AppleskinMixin$HUDOverlayHandlerMixin",
+    "mods.BotaniaMixin$HUDHandlerMixin",
+    "mods.BotaniaMixin$ItemFlightTiaraMixin",
+    "mods.CreateMixin$CopperBacktankArmorMixin",
+    "mods.CreateMixin$SchematicHotbarSlotOverlayMixin",
     "mods.CreateMixin$ToolboxHandlerClientMixin",
+    "mods.CreateMixin$ToolSelectionScreenMixin",
     "mods.CreateMixin$TrainHUDMixin",
-    "mods.DetailArmorBarMixin",
-    "mods.HealthOverlayMixin",
-    "mods.InventorioMixin"
+    "mods.DetailArmorBarMixin$ArmorBarRendererMixin",
+    "mods.HealthOverlayMixin$HeartRendererMixin",
+    "mods.InventorioMixin$HotbarHUDRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

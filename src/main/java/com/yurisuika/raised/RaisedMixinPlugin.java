@@ -16,16 +16,25 @@ public final class RaisedMixinPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "com.yurisuika.raised.mixin.mods.AppleskinMixin", () -> FabricLoader.getInstance().isModLoaded("appleskin"),
-            "com.yurisuika.raised.mixin.mods.CreateMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
-            "com.yurisuika.raised.mixin.mods.DetailArmorBarMixin", () -> FabricLoader.getInstance().isModLoaded("detailab"),
-            "com.yurisuika.raised.mixin.mods.HealthOverlayMixin", () -> FabricLoader.getInstance().isModLoaded("healthoverlay"),
-            "com.yurisuika.raised.mixin.mods.InventorioMixin", () -> FabricLoader.getInstance().isModLoaded("inventorio")
+            "com.yurisuika.raised.mixin.mods.AppleskinMixin$HUDOverlayHandlerMixin", () -> FabricLoader.getInstance().isModLoaded("appleskin"),
+            "com.yurisuika.raised.mixin.mods.BotaniaMixin$ItemFlightTiaraMixin", () -> FabricLoader.getInstance().isModLoaded("botania"),
+            "com.yurisuika.raised.mixin.mods.BotaniaMixin$ItemFlightTiaraMixin", () -> FabricLoader.getInstance().isModLoaded("botania"),
+            "com.yurisuika.raised.mixin.mods.CreateMixin$CopperBacktankArmorLayerMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
+            "com.yurisuika.raised.mixin.mods.CreateMixin$SchematicHotbarSlotOverlayMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
+            "com.yurisuika.raised.mixin.mods.CreateMixin$ToolboxHandlerClientMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
+            "com.yurisuika.raised.mixin.mods.CreateMixin$ToolSelectionScreenMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
+            "com.yurisuika.raised.mixin.mods.CreateMixin$TrainHUDMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
+            "com.yurisuika.raised.mixin.mods.DetailArmorBarMixin$ArmorBarRendererMixin", () -> FabricLoader.getInstance().isModLoaded("detailab"),
+            "com.yurisuika.raised.mixin.mods.HealthOverlayMixin$HeartRendererMixin", () -> FabricLoader.getInstance().isModLoaded("healthoverlay")
+    );
+
+    private static final Map<String, Supplier<Boolean>> CONDITIONS2 = ImmutableMap.of(
+            "com.yurisuika.raised.mixin.mods.InventorioMixin$HotbarHUDRendererMixin", () -> FabricLoader.getInstance().isModLoaded("inventorio")
     );
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return CONDITIONS.getOrDefault(mixinClassName, TRUE).get();
+        return CONDITIONS.getOrDefault(mixinClassName, TRUE).get() && CONDITIONS2.getOrDefault(mixinClassName, TRUE).get();
     }
 
     @Override

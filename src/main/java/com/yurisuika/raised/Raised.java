@@ -24,28 +24,31 @@ public class Raised implements ClientModInitializer {
     private static final KeyBinding down = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "raised.down",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_MINUS,
+            GLFW.GLFW_KEY_KP_SUBTRACT,
             "raised.title"
     ));
-
     private static final KeyBinding up = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "raised.up",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_EQUAL,
+            GLFW.GLFW_KEY_KP_ADD,
             "raised.title"
     ));
-
     private static final KeyBinding offsetDown = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "raised.offset.down",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_LEFT_BRACKET,
+            GLFW.GLFW_KEY_KP_DIVIDE,
             "raised.title"
     ));
-
     private static final KeyBinding offsetUp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "raised.offset.up",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_RIGHT_BRACKET,
+            GLFW.GLFW_KEY_KP_MULTIPLY,
+            "raised.title"
+    ));
+    private static final KeyBinding reset = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+            "raised.reset",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_KP_ENTER,
             "raised.title"
     ));
 
@@ -97,6 +100,12 @@ public class Raised implements ClientModInitializer {
         putObjects();
     }
 
+    public static void setReset() {
+        config.distance = 2;
+        config.offset = 0;
+        saveConfig();
+    }
+
     public static int getDistance() {
         return config.distance;
     }
@@ -122,22 +131,24 @@ public class Raised implements ClientModInitializer {
                 setDistance(-1);
             }
         });
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (up.wasPressed()) {
                 setDistance(1);
             }
         });
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (offsetDown.wasPressed()) {
                 setOffset(-1);
             }
         });
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (offsetUp.wasPressed()) {
                 setOffset(1);
+            }
+        });
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            while (reset.wasPressed()) {
+                setReset();
             }
         });
     }

@@ -24,6 +24,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modCompileOnly ("curse.maven:appleskin-248787:3872808") {transitive = false}
+	modCompileOnly ("curse.maven:botania-fabric-421839:3936566") {transitive = false}
 	modCompileOnly ("curse.maven:create-fabric-624165:4011240") {transitive = false}
 	modCompileOnly ("curse.maven:detail-armor-bar-506898:3823985") {transitive = false}
 	modCompileOnly ("curse.maven:health-overlay-fabric-313219:3932265") {transitive = false}

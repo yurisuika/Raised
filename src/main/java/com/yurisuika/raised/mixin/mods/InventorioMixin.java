@@ -7,17 +7,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(HotbarHUDRenderer.class)
 public class InventorioMixin {
 
-    @Redirect(method = "renderSegmentedHotbar", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-    private int modifyScaledHeightA(Window instance) {
-        return instance.getScaledHeight() - Raised.getDistance();
-    }
+    @Mixin(HotbarHUDRenderer.class)
+    public static class HotbarHUDRendererMixin {
 
-    @Redirect(method = "renderHotbarAddons", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-    private int modifyScaledHeightB(Window instance) {
-        return instance.getScaledHeight() - Raised.getDistance();
+        @Redirect(method = "renderHotbarAddons", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private int redirectRenderHotbarAddons(Window instance) {
+            return instance.getScaledHeight() - Raised.getDistance();
+        }
+
+        @Redirect(method = "renderSegmentedHotbar", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private int redirectRenderSegmentedHotbar(Window instance) {
+            return instance.getScaledHeight() - Raised.getDistance();
+        }
+
     }
 
 }
