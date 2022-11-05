@@ -15,7 +15,7 @@
     "mods.CreateMixin$CopperBacktankArmorMixin",
     "mods.CreateMixin$SchematicHotbarSlotOverlayMixin",
     "mods.CreateMixin$ToolboxHandlerClientMixin",
-    "mods.CreateMixin$ToolSelectionScreeMixin",
+    "mods.CreateMixin$ToolSelectionScreenMixin",
     "mods.CreateMixin$TrainHUDMixin",
     "mods.DetailArmorBarMixin$ArmorBarRendererMixin",
     "mods.HealthOverlayMixin$HeartRendererMixin",

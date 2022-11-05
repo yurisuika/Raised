@@ -43,7 +43,7 @@ public class CreateMixin {
     }
 
     @Mixin(value = ToolSelectionScreen.class, remap = false)
-    public static class ToolSelectionScreeMixin {
+    public static class ToolSelectionScreenMixin {
 
         @ModifyVariable(method = "draw", at = @At("STORE"), ordinal = 1)
         private int modifyDraw(int value) {

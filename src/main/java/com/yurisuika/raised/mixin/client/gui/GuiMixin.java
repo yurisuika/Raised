@@ -9,47 +9,47 @@ import org.spongepowered.asm.mixin.injection.*;
 public class GuiMixin {
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;blit(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIII)V"), index = 2)
-    private int hotbarDistance(int value) {
+    private int modifyHotbarDistance(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;blit(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIII)V", ordinal = 1), index = 6)
-    private int selectorHeight(int value) {
+    private int modifySelectorHeight(int value) {
         return value + 2;
     }
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSlot(IIFLnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V"), index = 1)
-    private int itemDistance(int value) {
+    private int modifyItemDistance(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderJumpMeter", at = @At(value = "STORE"), ordinal = 3)
-    private int jumpBarDistance(int value) {
+    private int modifyJumpBarDistance(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;blit(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIII)V"), index = 2)
-    private int experienceBarDistance(int value) {
+    private int modifyExperienceBarDistance(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;draw(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/String;FFI)I"), index = 3)
-    private float xpTextDistance(float value) {
+    private float modifyXpTextDistance(float value) {
         return value - (float)Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderSelectedItemName", at = @At(value = "STORE"), ordinal = 2)
-    private int heldItemTooltipDistance(int value) {
+    private int modifyHeldItemTooltipDistance(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderPlayerHealth", at = @At(value = "STORE"), ordinal = 5)
-    private int statusBarsDistance(int value) {
+    private int modifyStatusBarsDistance(int value) {
         return value - Raised.getDistance();
     }
 
     @ModifyVariable(method = "renderVehicleHealth", at = @At(value = "STORE"), ordinal = 2)
-    private int mountHealthDistance(int value) {
+    private int modifyMountHealthDistance(int value) {
         return value - Raised.getDistance();
     }
 

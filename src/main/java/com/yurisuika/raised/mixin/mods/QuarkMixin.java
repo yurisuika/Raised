@@ -14,7 +14,7 @@ public class QuarkMixin {
     public static class HotbarChangerModuleMixin {
 
         @Redirect(method = "hudPost", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private int modifyHudPost(Window instance) {
+        private int redirectHudPost(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 
@@ -24,7 +24,7 @@ public class QuarkMixin {
     public static class UsageTickerModuleMixin {
 
         @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private int modifyRender(Window instance) {
+        private int redirectRender(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 

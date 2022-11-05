@@ -13,12 +13,12 @@ public class InventorioMixin {
     public static class HotbarHUDRendererMixin {
 
         @Redirect(method = "renderHotbarAddons", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private int modifyRenderHotbarAddons(Window instance) {
+        private int redirectRenderHotbarAddons(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 
         @Redirect(method = "renderSegmentedHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private int modifyRenderSegmentedHotbar(Window instance) {
+        private int redirectRenderSegmentedHotbar(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 

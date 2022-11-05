@@ -13,7 +13,7 @@ public class HealthOverlayMixin {
     public static class HeartRendererMixin {
 
         @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private int modifyRenderPlayerHearts(Window instance) {
+        private int redirectRenderPlayerHearts(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 

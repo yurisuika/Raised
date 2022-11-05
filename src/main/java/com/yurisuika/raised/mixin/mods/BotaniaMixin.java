@@ -14,7 +14,7 @@ public class BotaniaMixin {
     public static class HUDHandlerMixin {
 
         @Redirect(method = "renderManaInvBar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private static int modifyRenderManaInvBar(Window instance) {
+        private static int redirectRenderManaInvBar(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 
@@ -24,7 +24,7 @@ public class BotaniaMixin {
     public static class ItemFlightTiaraMixin {
 
         @Redirect(method = "renderHUD", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private static int modifyRenderHUD(Window instance) {
+        private static int redirectRenderHUD(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 

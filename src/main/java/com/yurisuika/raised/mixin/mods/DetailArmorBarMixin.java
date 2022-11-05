@@ -13,7 +13,7 @@ public class DetailArmorBarMixin {
     public static class ArmorBarRendererMixin {
 
         @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
-        private int modifyRender(Window instance) {
+        private int redirectRender(Window instance) {
             return instance.getGuiScaledHeight() - Raised.getDistance();
         }
 
