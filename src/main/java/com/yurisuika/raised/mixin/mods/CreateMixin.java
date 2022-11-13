@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.*;
 
 public class CreateMixin {
 
-    @Mixin(value = CopperBacktankArmorLayer.class, remap = false)
+    @Mixin(CopperBacktankArmorLayer.class)
     public static class CopperBacktankArmorLayerMixin {
 
         @Redirect(method = "renderRemainingAirOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
@@ -22,11 +22,11 @@ public class CreateMixin {
 
     }
 
-    @Mixin(value = SchematicHotbarSlotOverlay.class, remap = false)
+    @Mixin(SchematicHotbarSlotOverlay.class)
     public static class SchematicHotbarSlotOverlayMixin {
 
         @Redirect(method = "renderOn", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-        private static int modifyRenderOn(Window instance) {
+        private int modifyRenderOn(Window instance) {
             return instance.getScaledHeight() - Raised.getDistance();
         }
 
@@ -46,7 +46,7 @@ public class CreateMixin {
     public static class ToolSelectionScreenMixin {
 
         @Redirect(method = "draw", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
-        private static int redirectDraw(Window instance) {
+        private int redirectDraw(Window instance) {
             return instance.getScaledHeight() - Raised.getDistance();
         }
 
