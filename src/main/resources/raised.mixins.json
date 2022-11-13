@@ -11,7 +11,7 @@
     "mods.AppleskinMixin$HUDOverlayHandlerMixin",
     "mods.BotaniaMixin$HUDHandlerMixin",
     "mods.BotaniaMixin$ItemFlightTiaraMixin",
-    "mods.CreateMixin$CopperBacktankArmorMixin",
+    "mods.CreateMixin$CopperBacktankArmorLayerMixin",
     "mods.CreateMixin$SchematicHotbarSlotOverlayMixin",
     "mods.CreateMixin$ToolboxHandlerClientMixin",
     "mods.CreateMixin$ToolSelectionScreenMixin",

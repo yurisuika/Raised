@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public class CreateMixin {
 
     @Mixin(value = CopperBacktankArmorLayer.class, remap = false)
-    public static class CopperBacktankArmorMixin {
+    public static class CopperBacktankArmorLayerMixin {
 
         @Redirect(method = "renderRemainingAirOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private static int modifyRenderRemainingAirOverlay(Window instance) {
