@@ -10,6 +10,7 @@
     "client.gui.ForgeIngameGuiRemapFalseMixin",
     "client.gui.GuiMixin",
     "client.gui.components.ChatComponentMixin",
+    "client.gui.components.SpectatorGuiMixin",
     "mods.BotaniaMixin$HUDHandlerMixin",
     "mods.BotaniaMixin$ItemFlightTiaraMixin",
     "mods.CreateMixin$CopperBacktankArmorLayerMixin",
