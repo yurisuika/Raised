@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class CreateMixin {
 
     @Mixin(value = CopperBacktankArmorLayer.class, remap = false)
-    public static class CopperBacktankArmorMixin {
+    public static class CopperBacktankArmorLayerMixin {
 
         @ModifyVariable(method = "renderRemainingAirOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
         private static int modifyRenderRemainingAirOverlay(int value) {
