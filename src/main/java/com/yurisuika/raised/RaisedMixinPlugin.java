@@ -17,7 +17,7 @@ public final class RaisedMixinPlugin implements IMixinConfigPlugin {
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
             "com.yurisuika.raised.mixin.mods.AppleskinMixin$HUDOverlayHandlerMixin", () -> FabricLoader.getInstance().isModLoaded("appleskin"),
-            "com.yurisuika.raised.mixin.mods.BotaniaMixin$ItemFlightTiaraMixin", () -> FabricLoader.getInstance().isModLoaded("botania"),
+            "com.yurisuika.raised.mixin.mods.BotaniaMixin$HUDHandlerMixin", () -> FabricLoader.getInstance().isModLoaded("botania"),
             "com.yurisuika.raised.mixin.mods.BotaniaMixin$ItemFlightTiaraMixin", () -> FabricLoader.getInstance().isModLoaded("botania"),
             "com.yurisuika.raised.mixin.mods.CreateMixin$CopperBacktankArmorLayerMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
             "com.yurisuika.raised.mixin.mods.CreateMixin$SchematicHotbarSlotOverlayMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
