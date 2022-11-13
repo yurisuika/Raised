@@ -8,6 +8,7 @@
   "client": [
     "client.gui.hud.ChatHudMixin",
     "client.gui.hud.InGameHudMixin",
+    "client.gui.hud.SpectatorHudMixin",
     "mods.AppleskinMixin$HUDOverlayHandlerMixin",
     "mods.BotaniaMixin$HUDHandlerMixin",
     "mods.BotaniaMixin$ItemFlightTiaraMixin",
