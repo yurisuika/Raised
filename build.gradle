@@ -58,9 +58,9 @@ artifacts {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_${project.archives_base_name}"}
 	}
-	archiveAppendix = "fabric-${minecraft_version}"
+	archiveAppendix = "fabric-${project.minecraft_version}"
 }
 
 publishing {
