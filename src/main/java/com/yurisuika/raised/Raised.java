@@ -43,8 +43,7 @@ public class Raised {
             FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(gson.toJson(getConfig()));
             fileWriter.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -116,8 +115,7 @@ public class Raised {
         }
     }
 
-    public Raised()
-    {
+    public Raised() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
