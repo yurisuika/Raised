@@ -6,7 +6,7 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = project.archives_base_name
+archivesBaseName = "${project.archives_base_name}-fabric-${project.minecraft_version}"
 version = project.mod_version
 group = project.maven_group
 
@@ -60,7 +60,8 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archives_base_name}"}
 	}
-	archiveAppendix = "fabric-${project.minecraft_version}"
+//	This is not working for some reason:
+//	archiveAppendix = "fabric-${project.minecraft_version}"
 }
 
 publishing {
