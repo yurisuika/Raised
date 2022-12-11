@@ -2,6 +2,7 @@ package com.yurisuika.raised.mixin.client.gui.hud;
 
 import com.yurisuika.raised.Raised;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
@@ -53,14 +54,9 @@ public class InGameHudMixin {
         return value - Raised.getDistance();
     }
 
-    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V", ordinal = 0), index = 1)
-    private double modifyActionbar(double value) {
-        return value - (double)Raised.getDistance();
-    }
-
-    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V", ordinal = 2), index = 1)
-    private double modifyChat(double value) {
-        return value - (double)Raised.getDistance() - (double)Raised.getOffset();
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(FFF)V", ordinal = 0), index = 1)
+    private float modifyActionbar(float value) {
+        return value - (float)Raised.getDistance();
     }
 
 }
