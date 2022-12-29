@@ -36,7 +36,14 @@ public class Raised {
     public static File file = new File(FMLPaths.CONFIGDIR.get().toFile(), "raised.json");
     public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    public static RaisedConfig config = new RaisedConfig();
+    public static Config config = new Config();
+
+    public static class Config {
+
+        public int distance = 2;
+        public int offset = 0;
+
+    }
 
     public static void saveConfig() {
         try {
@@ -48,12 +55,12 @@ public class Raised {
         }
     }
 
-    static void loadConfig() {
+    public static void loadConfig() {
         try {
             if (file.exists()) {
-                config = gson.fromJson(Files.readString(file.toPath()), RaisedConfig.class);
+                config = gson.fromJson(Files.readString(file.toPath()), Config.class);
             } else {
-                config = new RaisedConfig();
+                config = new Config();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,11 +68,11 @@ public class Raised {
         setConfig(config);
     }
 
-    public static void setConfig(RaisedConfig config) {
+    public static void setConfig(Config config) {
         Raised.config = config;
     }
 
-    public static RaisedConfig getConfig() {
+    public static Config getConfig() {
         return config;
     }
 
@@ -95,6 +102,7 @@ public class Raised {
 
     @Mod.EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
     public static class ClientForgeEvents {
+        
         @SubscribeEvent
         public static void onKeyInput(InputEvent.KeyInputEvent event) {
             if (down.consumeClick()) {
@@ -113,6 +121,7 @@ public class Raised {
                 Raised.setReset();
             }
         }
+
     }
 
     public Raised() {
