@@ -14,12 +14,12 @@ public class AppleskinMixin {
 
         @Redirect(method = "onPreRender", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private int redirectOnPreRender(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
         @Redirect(method = "onRender", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private int redirectOnRender(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }

@@ -15,7 +15,7 @@ public class BotaniaMixin {
 
         @Redirect(method = "renderManaInvBar", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private static int redirectRenderManaInvBar(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
@@ -25,7 +25,7 @@ public class BotaniaMixin {
 
         @Redirect(method = "renderHUD", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private static int redirectRenderHUD(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }

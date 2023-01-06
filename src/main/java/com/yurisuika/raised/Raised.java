@@ -2,7 +2,9 @@ package com.yurisuika.raised;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yurisuika.raised.server.command.RaisedCommand;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -22,34 +24,28 @@ public class Raised implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("raised");
 
     private static final KeyBinding down = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "raised.down",
+            "key.raised.hud.down",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_SUBTRACT,
-            "raised.title"
+            "key.categories.raised"
     ));
     private static final KeyBinding up = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "raised.up",
+            "key.raised.hud.up",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_ADD,
-            "raised.title"
+            "key.categories.raised"
     ));
     private static final KeyBinding offsetDown = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "raised.offset.down",
+            "key.raised.chat.down",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_DIVIDE,
-            "raised.title"
+            "key.categories.raised"
     ));
     private static final KeyBinding offsetUp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "raised.offset.up",
+            "key.raised.chat.up",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_MULTIPLY,
-            "raised.title"
-    ));
-    private static final KeyBinding reset = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "raised.reset",
-            InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_KP_ENTER,
-            "raised.title"
+            "key.categories.raised"
     ));
 
     public static File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), "raised.json");
@@ -59,8 +55,9 @@ public class Raised implements ClientModInitializer {
 
     public static class Config {
 
-        public int distance = 2;
-        public int offset = 0;
+        public boolean enabled = true;
+        public int hud = 2;
+        public int chat = 0;
 
     }
 
@@ -95,35 +92,36 @@ public class Raised implements ClientModInitializer {
         return config;
     }
 
-    public static void setDistance(int change) {
-        config.distance += change;
+    public static void setEnabled(boolean value) {
+        config.enabled = value;
         saveConfig();
         putObjects();
     }
 
-    public static void setOffset(int change) {
-        config.offset += change;
+    public static void setHud(int value) {
+        config.hud = config.enabled ? value : 0;
         saveConfig();
         putObjects();
     }
 
-    public static void setReset() {
-        config.distance = 2;
-        config.offset = 0;
+    public static void setChat(int value) {
+        config.chat = config.enabled ? value : 0;
         saveConfig();
+        putObjects();
     }
 
-    public static int getDistance() {
-        return config.distance;
+    public static int getHud() {
+        return config.hud;
     }
 
-    public static int getOffset() {
-        return config.offset;
+    public static int getChat() {
+        return config.chat;
     }
 
     public static void putObjects() {
-        FabricLoader.getInstance().getObjectShare().put("raised:distance", config.distance);
-        FabricLoader.getInstance().getObjectShare().put("raised:offset", config.offset);
+        FabricLoader.getInstance().getObjectShare().put("raised:enabled", config.enabled);
+        FabricLoader.getInstance().getObjectShare().put("raised:hud", config.hud);
+        FabricLoader.getInstance().getObjectShare().put("raised:chat", config.chat);
     }
 
     @Override
@@ -135,29 +133,26 @@ public class Raised implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (down.wasPressed()) {
-                setDistance(-1);
+                setHud(config.hud--);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (up.wasPressed()) {
-                setDistance(1);
+                setHud(config.hud++);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (offsetDown.wasPressed()) {
-                setOffset(-1);
+                setChat(config.chat--);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (offsetUp.wasPressed()) {
-                setOffset(1);
+                setChat(config.chat++);
             }
         });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (reset.wasPressed()) {
-                setReset();
-            }
-        });
+
+        ClientCommandRegistrationCallback.EVENT.register(RaisedCommand::register);
     }
 
 }

@@ -17,7 +17,7 @@ public class CreateMixin {
 
         @Redirect(method = "renderRemainingAirOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private static int modifyRenderRemainingAirOverlay(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
@@ -27,7 +27,7 @@ public class CreateMixin {
 
         @Redirect(method = "renderOn", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private int modifyRenderOn(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
@@ -37,7 +37,7 @@ public class CreateMixin {
 
         @Redirect(method = "renderOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private static int modifyRenderOverlay(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
@@ -47,7 +47,7 @@ public class CreateMixin {
 
         @Redirect(method = "draw", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private int redirectDraw(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
@@ -57,7 +57,7 @@ public class CreateMixin {
 
         @Redirect(method = "renderOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private static int modifyRenderOverlay(Window instance) {
-            return instance.getScaledHeight() - Raised.getDistance();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }

@@ -1,8 +1,17 @@
 {
-  "raised.title": "Raised",
-  "raised.down": "下移",
-  "raised.up": "上移",
-  "raised.offset.down": "下移聊天栏",
-  "raised.offset.up": "上移聊天栏",
-  "raised.reset": "重置为默认值"
+  "key.categories.raised": "Raised",
+
+  "key.raised.hud.down": "下移抬头显示器",
+  "key.raised.hud.up": "上移抬头显示器",
+  "key.raised.chat.down": "下移聊天栏",
+  "key.raised.chat.up": "上移聊天栏",
+
+  "commands.raised.config.enabled": "Raised is now enabled",
+  "commands.raised.config.disabled": "Raised is now disabled",
+  "commands.raised.config.reload": "Raised config reloaded",
+  "commands.raised.config.reset": "Raised config reset to defaults",
+  "commands.raised.query.hud": "HUD is currently set to: %d",
+  "commands.raised.query.chat": "Chat is currently set to: %d",
+  "commands.raised.set.hud": "HUD is now set to: %d",
+  "commands.raised.set.chat": "Chat is now set to: %d"
 }
