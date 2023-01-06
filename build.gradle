@@ -23,12 +23,13 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modCompileOnly ("curse.maven:appleskin-248787:3872808") {transitive = false}
-	modCompileOnly ("curse.maven:botania-fabric-421839:3936566") {transitive = false}
-	modCompileOnly ("curse.maven:create-fabric-624165:4011240") {transitive = false}
-	modCompileOnly ("curse.maven:detail-armor-bar-506898:3823985") {transitive = false}
-	modCompileOnly ("curse.maven:health-overlay-fabric-313219:3932265") {transitive = false}
-	modCompileOnly ("curse.maven:inventorio-491073:3963530") {transitive = false}
+	modCompileOnly "curse.maven:appleskin-248787:3872808"
+	modCompileOnly "curse.maven:botania-fabric-421839:3936566"
+	modCompileOnly "curse.maven:create-fabric-624165:4011240"
+	modCompileOnly "curse.maven:detail-armor-bar-506898:3823985"
+	modCompileOnly "curse.maven:health-overlay-fabric-313219:4293383"
+	modCompileOnly "curse.maven:inventorio-491073:3963530"
+	modCompileOnly "curse.maven:inventory-profiles-next-495267:4263991"
 }
 
 processResources {
