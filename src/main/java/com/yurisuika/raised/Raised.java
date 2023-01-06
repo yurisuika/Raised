@@ -133,22 +133,22 @@ public class Raised implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (down.wasPressed()) {
-                setHud(config.hud--);
+                setHud(config.hud - 1);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (up.wasPressed()) {
-                setHud(config.hud++);
+                setHud(config.hud + 1);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (offsetDown.wasPressed()) {
-                setChat(config.chat--);
+                setChat(config.chat - 1);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (offsetUp.wasPressed()) {
-                setChat(config.chat++);
+                setChat(config.chat + 1);
             }
         });
 
