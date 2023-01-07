@@ -1,17 +1,17 @@
 {
   "key.categories.raised": "Raised",
 
-  "key.raised.hud.down": "下移抬头显示器",
-  "key.raised.hud.up": "上移抬头显示器",
+  "key.raised.hud.down": "下移HUD",
+  "key.raised.hud.up": "上移HUD",
   "key.raised.chat.down": "下移聊天栏",
   "key.raised.chat.up": "上移聊天栏",
 
-  "commands.raised.config.enabled": "Raised is now enabled",
-  "commands.raised.config.disabled": "Raised is now disabled",
-  "commands.raised.config.reload": "Raised config reloaded",
-  "commands.raised.config.reset": "Raised config reset to defaults",
-  "commands.raised.query.hud": "HUD is currently set to: %d",
-  "commands.raised.query.chat": "Chat is currently set to: %d",
-  "commands.raised.set.hud": "HUD is now set to: %d",
-  "commands.raised.set.chat": "Chat is now set to: %d"
+  "commands.raised.config.enabled": "Raised已启用",
+  "commands.raised.config.disabled": "Raised已关闭",
+  "commands.raised.config.reload": "Raised配置已重载",
+  "commands.raised.config.reset": "Raised配置已重置为默认值",
+  "commands.raised.query.hud": "HUD目前设置为：%d",
+  "commands.raised.query.chat": "聊天栏目前设置为：%d",
+  "commands.raised.set.hud": "HUD现在设置至：%d",
+  "commands.raised.set.chat": "聊天栏目前设置至：%d"
 }
