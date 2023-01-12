@@ -6,7 +6,6 @@ import com.yurisuika.raised.server.command.RaisedCommand;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
-
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -23,25 +22,25 @@ public class Raised implements ClientModInitializer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger("raised");
 
-    private static final KeyBinding down = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    private static final KeyBinding hudDown = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.raised.hud.down",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_SUBTRACT,
             "key.categories.raised"
     ));
-    private static final KeyBinding up = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    private static final KeyBinding hudUp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.raised.hud.up",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_ADD,
             "key.categories.raised"
     ));
-    private static final KeyBinding offsetDown = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    private static final KeyBinding chatDown = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.raised.chat.down",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_DIVIDE,
             "key.categories.raised"
     ));
-    private static final KeyBinding offsetUp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    private static final KeyBinding chatUp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "key.raised.chat.up",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_MULTIPLY,
@@ -132,22 +131,22 @@ public class Raised implements ClientModInitializer {
         putObjects();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (down.wasPressed()) {
+            while (hudDown.wasPressed()) {
                 setHud(config.hud - 1);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (up.wasPressed()) {
+            while (hudUp.wasPressed()) {
                 setHud(config.hud + 1);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (offsetDown.wasPressed()) {
+            while (chatDown.wasPressed()) {
                 setChat(config.chat - 1);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (offsetUp.wasPressed()) {
+            while (chatUp.wasPressed()) {
                 setChat(config.chat + 1);
             }
         });
