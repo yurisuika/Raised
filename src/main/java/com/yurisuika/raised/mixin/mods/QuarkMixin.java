@@ -15,7 +15,7 @@ public class QuarkMixin {
 
         @Redirect(method = "hudPost", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private int redirectHudPost(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
     }
@@ -25,7 +25,7 @@ public class QuarkMixin {
 
         @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private int redirectRender(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
     }

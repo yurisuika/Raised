@@ -15,7 +15,7 @@ public class BotaniaMixin {
 
         @Redirect(method = "renderManaInvBar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private static int redirectRenderManaInvBar(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
     }
@@ -25,7 +25,7 @@ public class BotaniaMixin {
 
         @Redirect(method = "renderHUD", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private static int redirectRenderHUD(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
     }

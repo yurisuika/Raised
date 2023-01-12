@@ -1,8 +1,17 @@
 {
-  "raised.title": "Raised",
-  "raised.down": "Move Down",
-  "raised.up": "Move Up",
-  "raised.offset.down": "Move Chat Down",
-  "raised.offset.up": "Move Chat Up",
-  "raised.reset": "Reset To Defaults"
+  "key.categories.raised": "Raised",
+
+  "key.raised.hud.down": "Move HUD Down",
+  "key.raised.hud.up": "Move HUD Up",
+  "key.raised.chat.down": "Move Chat Down",
+  "key.raised.chat.up": "Move Chat Up",
+
+  "commands.raised.config.enabled": "Raised is now enabled",
+  "commands.raised.config.disabled": "Raised is now disabled",
+  "commands.raised.config.reload": "Raised config reloaded",
+  "commands.raised.config.reset": "Raised config reset to defaults",
+  "commands.raised.query.hud": "HUD is currently set to: %d",
+  "commands.raised.query.chat": "Chat is currently set to: %d",
+  "commands.raised.set.hud": "HUD is now set to: %d",
+  "commands.raised.set.chat": "Chat is now set to: %d"
 }

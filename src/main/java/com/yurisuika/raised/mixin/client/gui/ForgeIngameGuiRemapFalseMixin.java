@@ -11,12 +11,12 @@ public class ForgeIngameGuiRemapFalseMixin {
 
     @ModifyVariable(method = "renderChat", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private int modifyChat(int value) {
-        return value - Raised.getDistance() - Raised.getOffset();
+        return value - Raised.getHud() - Raised.getChat();
     }
 
     @ModifyVariable(method = "renderRecordOverlay", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private int modifyActionbar(int value) {
-        return value - Raised.getDistance();
+        return value - Raised.getHud();
     }
 
 }

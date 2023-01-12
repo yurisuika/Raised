@@ -14,7 +14,7 @@ public class HealthOverlayMixin {
 
         @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private int redirectRenderPlayerHearts(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
     }

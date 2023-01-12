@@ -17,7 +17,7 @@ public class CreateMixin {
 
         @ModifyVariable(method = "renderRemainingAirOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
         private static int modifyRenderRemainingAirOverlay(int value) {
-            return value - Raised.getDistance();
+            return value - Raised.getHud();
         }
 
     }
@@ -27,7 +27,7 @@ public class CreateMixin {
 
         @ModifyVariable(method = "renderOn", at = @At("STORE"), ordinal = 2)
         private int modifyRenderOn(int value) {
-            return value - Raised.getDistance();
+            return value - Raised.getHud();
         }
 
     }
@@ -37,7 +37,7 @@ public class CreateMixin {
 
         @ModifyVariable(method = "renderOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
         private static int modifyRenderOverlay(int value) {
-            return value - Raised.getDistance();
+            return value - Raised.getHud();
         }
 
     }
@@ -47,7 +47,7 @@ public class CreateMixin {
 
         @ModifyVariable(method = "draw", at = @At("STORE"), ordinal = 1)
         private int modifyDraw(int value) {
-            return value - Raised.getDistance();
+            return value - Raised.getHud();
         }
 
     }
@@ -57,7 +57,7 @@ public class CreateMixin {
 
         @ModifyVariable(method = "renderOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
         private static int modifyRenderOverlay(int value) {
-            return value - Raised.getDistance();
+            return value - Raised.getHud();
         }
 
     }

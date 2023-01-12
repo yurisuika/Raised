@@ -14,17 +14,17 @@ public class LevelHeartsMixin {
 
         @Redirect(method = "redrawAir", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private int redirectRedrawAir(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
         @Redirect(method = "redrawArmor", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private int redirectRedrawArmor(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
         @Redirect(method = "redrawHealth", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
         private int redirectRedrawHealth(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getDistance();
+            return instance.getGuiScaledHeight() - Raised.getHud();
         }
 
     }

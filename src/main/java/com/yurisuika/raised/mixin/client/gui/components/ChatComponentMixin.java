@@ -11,12 +11,12 @@ public class ChatComponentMixin {
 
     @ModifyVariable(method = "handleChatQueueClicked", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private double modifyMouseClick(double value) {
-        return value + (double)Raised.getDistance() + (double)Raised.getOffset();
+        return value + (double)Raised.getHud() + (double)Raised.getChat();
     }
 
     @ModifyVariable(method = "getClickedComponentStyleAt", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private double modifyChatTooltip(double value) {
-        return value + (double)Raised.getDistance() + (double)Raised.getOffset();
+        return value + (double)Raised.getHud() + (double)Raised.getChat();
     }
 
 }

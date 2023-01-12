@@ -69,6 +69,7 @@ dependencies {
     compileOnly 'curse.maven:detail-armor-bar-forge-520755:3723059'
     compileOnly 'curse.maven:health-overlay-368223:3562379'
     compileOnly 'curse.maven:inventorio-forge-497122:3963528'
+    compileOnly 'curse.maven:inventory-profiles-next-495267:4263993'
     compileOnly 'curse.maven:levelhearts-273640:3697146'
     compileOnly 'curse.maven:quark-243121:3840125'
 }

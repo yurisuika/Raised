@@ -29,6 +29,7 @@ public final class RaisedMixinPlugin implements IMixinConfigPlugin {
     );
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS2 = ImmutableMap.of(
+            "com.yurisuika.raised.mixin.mods.InventoryProfilesNext$LockSlotsHandlerMixin", () -> FMLLoader.getLoadingModList().getModFileById("inventoryprofilesnext") != null,
             "com.yurisuika.raised.mixin.mods.LevelHeartsMixin$IngameGuiMixin", () -> FMLLoader.getLoadingModList().getModFileById("levelhearts") != null,
             "com.yurisuika.raised.mixin.mods.QuarkMixin$HotbarChangerModuleMixin", () -> FMLLoader.getLoadingModList().getModFileById("quark") != null,
             "com.yurisuika.raised.mixin.mods.QuarkMixin$UsageTickerModuleMixin", () -> FMLLoader.getLoadingModList().getModFileById("quark") != null

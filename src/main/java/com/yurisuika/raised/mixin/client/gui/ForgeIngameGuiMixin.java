@@ -12,18 +12,18 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class ForgeIngameGuiMixin {
 
     @Shadow
-    public int left_height = 39 + Raised.getDistance();
+    public int left_height = 39 + Raised.getHud();
     @Shadow
-    public int right_height = 39 + Raised.getDistance();
+    public int right_height = 39 + Raised.getHud();
 
     @Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;right_height:I", opcode = Opcodes.PUTFIELD))
     private void redirectRight(ForgeIngameGui instance, int value) {
-        instance.right_height = value + Raised.getDistance();
+        instance.right_height = value + Raised.getHud();
     }
 
     @Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;left_height:I", opcode = Opcodes.PUTFIELD))
     private void redirectLeft(ForgeIngameGui instance, int value) {
-        instance.left_height = value + Raised.getDistance();
+        instance.left_height = value + Raised.getHud();
     }
 
 }
