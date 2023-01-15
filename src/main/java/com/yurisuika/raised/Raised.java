@@ -54,7 +54,6 @@ public class Raised implements ClientModInitializer {
 
     public static class Config {
 
-        public boolean enabled = true;
         public int hud = 2;
         public int chat = 0;
 
@@ -91,20 +90,14 @@ public class Raised implements ClientModInitializer {
         return config;
     }
 
-    public static void setEnabled(boolean value) {
-        config.enabled = value;
-        saveConfig();
-        putObjects();
-    }
-
     public static void setHud(int value) {
-        config.hud = config.enabled ? value : 0;
+        config.hud = value;
         saveConfig();
         putObjects();
     }
 
     public static void setChat(int value) {
-        config.chat = config.enabled ? value : 0;
+        config.chat = value;
         saveConfig();
         putObjects();
     }
@@ -118,7 +111,6 @@ public class Raised implements ClientModInitializer {
     }
 
     public static void putObjects() {
-        FabricLoader.getInstance().getObjectShare().put("raised:enabled", config.enabled);
         FabricLoader.getInstance().getObjectShare().put("raised:hud", config.hud);
         FabricLoader.getInstance().getObjectShare().put("raised:chat", config.chat);
     }
