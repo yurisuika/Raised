@@ -6,8 +6,6 @@
   "key.raised.chat.down": "Move Chat Down",
   "key.raised.chat.up": "Move Chat Up",
 
-  "commands.raised.config.enabled": "Raised is now enabled",
-  "commands.raised.config.disabled": "Raised is now disabled",
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
   "commands.raised.query.hud": "HUD is currently set to: %d",
