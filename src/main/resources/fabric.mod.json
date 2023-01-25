@@ -18,7 +18,7 @@
     "issues": "https://github.com/yurisuika/Raised/issues"
   },
 
-  "license": "GNU General Public License 3.0",
+  "license": "GNU Lesser General Public License v3.0",
   "icon": "assets/raised/icon.png",
 
   "environment": "client",
