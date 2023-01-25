@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="38,)"
-license="GNU General Public License 3.0"
+license="GNU Lesser General Public License v3.0"
 [[mods]]
 modId="raised"
 version="${file.jarVersion}"
