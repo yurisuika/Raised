@@ -1,6 +1,6 @@
-package com.yurisuika.raised.mixin.mods;
+package dev.yurisuika.raised.mixin.mods;
 
-import com.yurisuika.raised.Raised;
+import dev.yurisuika.raised.Raised;
 import me.lizardofoz.inventorio.client.ui.HotbarHUDRenderer;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;

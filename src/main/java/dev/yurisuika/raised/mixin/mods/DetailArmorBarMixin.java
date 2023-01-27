@@ -1,7 +1,7 @@
-package com.yurisuika.raised.mixin.mods;
+package dev.yurisuika.raised.mixin.mods;
 
 import com.redlimerl.detailab.render.ArmorBarRenderer;
-import com.yurisuika.raised.Raised;
+import dev.yurisuika.raised.Raised;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

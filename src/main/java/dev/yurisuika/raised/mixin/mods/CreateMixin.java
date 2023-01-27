@@ -1,11 +1,11 @@
-package com.yurisuika.raised.mixin.mods;
+package dev.yurisuika.raised.mixin.mods;
 
 import com.simibubi.create.content.contraptions.components.structureMovement.interaction.controls.TrainHUD;
 import com.simibubi.create.content.curiosities.armor.CopperBacktankArmorLayer;
 import com.simibubi.create.content.curiosities.toolbox.ToolboxHandlerClient;
 import com.simibubi.create.content.schematics.client.SchematicHotbarSlotOverlay;
 import com.simibubi.create.content.schematics.client.ToolSelectionScreen;
-import com.yurisuika.raised.Raised;
+import dev.yurisuika.raised.Raised;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;

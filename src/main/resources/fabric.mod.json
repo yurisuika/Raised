@@ -13,7 +13,7 @@
     "Cccc-owo"
   ],
   "contact": {
-    "homepage": "https://suikacraft.com",
+    "homepage": "https://yurisuika.dev",
     "sources": "https://github.com/yurisuika/Raised",
     "issues": "https://github.com/yurisuika/Raised/issues"
   },
@@ -24,7 +24,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.yurisuika.raised.Raised"
+      "dev.yurisuika.raised.Raised"
     ]
   },
   "mixins": [

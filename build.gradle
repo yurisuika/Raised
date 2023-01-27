@@ -1,18 +1,18 @@
+import java.util.jar.JarFile
+
 plugins {
-	id 'fabric-loom' version '1.0-SNAPSHOT'
-	id 'maven-publish'
+	id "fabric-loom" version "1.0-SNAPSHOT"
+	id "maven-publish"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = "${project.archives_base_name}-fabric-${project.minecraft_version}"
+archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven { url "https://maven.ryanliptak.com/" }
-	maven { url "https://jitpack.io" }
 	maven { url "https://cursemaven.com" }
 }
 
@@ -46,23 +46,23 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 loom {
-	accessWidenerPath =  file("src/main/resources/raised.accesswidener")
+	accessWidenerPath = file("src/main/resources/${project.archives_base_name}.accesswidener")
+
+	mixin {
+		defaultRefmapName = "${project.archives_base_name}.refmap.json"
+	}
 }
 
 java {
 	withSourcesJar()
 }
 
-artifacts {
-	archives jar
-}
-
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.archives_base_name}"}
-	}
-//	This is not working for some reason:
-//	archiveAppendix = "fabric-${project.minecraft_version}"
+	from("LICENSE")
+	jar.archiveAppendix.set("fabric-${project.minecraft_version}")
+	sourcesJar.archiveAppendix.set("fabric-${project.minecraft_version}")
+	remapJar.archiveAppendix.set("fabric-${project.minecraft_version}")
+	remapSourcesJar.archiveAppendix.set("fabric-${project.minecraft_version}")
 }
 
 publishing {

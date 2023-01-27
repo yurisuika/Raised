@@ -1,6 +1,6 @@
-package com.yurisuika.raised.mixin.client.gui.hud;
+package dev.yurisuika.raised.mixin.client.gui.hud;
 
-import com.yurisuika.raised.Raised;
+import dev.yurisuika.raised.Raised;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;

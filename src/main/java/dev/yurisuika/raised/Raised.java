@@ -1,8 +1,8 @@
-package com.yurisuika.raised;
+package dev.yurisuika.raised;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.yurisuika.raised.server.command.RaisedCommand;
+import dev.yurisuika.raised.server.command.RaisedCommand;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;

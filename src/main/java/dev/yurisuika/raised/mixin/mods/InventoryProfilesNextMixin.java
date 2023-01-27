@@ -1,6 +1,6 @@
-package com.yurisuika.raised.mixin.mods;
+package dev.yurisuika.raised.mixin.mods;
 
-import com.yurisuika.raised.Raised;
+import dev.yurisuika.raised.Raised;
 import net.minecraft.client.util.Window;
 import org.anti_ad.mc.ipnext.event.LockSlotsHandler;
 import org.spongepowered.asm.mixin.Mixin;
