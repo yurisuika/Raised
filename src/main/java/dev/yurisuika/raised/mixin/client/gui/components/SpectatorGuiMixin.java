@@ -1,6 +1,6 @@
-package com.yurisuika.raised.mixin.client.gui.components;
+package dev.yurisuika.raised.mixin.client.gui.components;
 
-import com.yurisuika.raised.Raised;
+import dev.yurisuika.raised.Raised;
 import net.minecraft.client.gui.components.spectator.SpectatorGui;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

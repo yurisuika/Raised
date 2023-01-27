@@ -1,11 +1,11 @@
-package com.yurisuika.raised.server.commands;
+package dev.yurisuika.raised.server.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.TranslatableComponent;
 
-import static com.yurisuika.raised.Raised.*;
+import static dev.yurisuika.raised.Raised.*;
 import static net.minecraft.commands.Commands.*;
 
 public class RaisedCommand {

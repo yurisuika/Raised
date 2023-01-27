@@ -1,9 +1,9 @@
-package com.yurisuika.raised;
+package dev.yurisuika.raised;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.yurisuika.raised.server.commands.RaisedCommand;
+import dev.yurisuika.raised.server.commands.RaisedCommand;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;

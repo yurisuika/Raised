@@ -1,8 +1,9 @@
 {
   "required": true,
-  "package": "com.yurisuika.raised.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "package": "dev.yurisuika.raised.mixin",
   "refmap": "raised.refmap.json",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
   ],
   "client": [
@@ -29,6 +30,5 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "com.yurisuika.raised.RaisedMixinPlugin",
-  "minVersion": "0.8"
+  "plugin": "dev.yurisuika.raised.RaisedMixinPlugin"
 }

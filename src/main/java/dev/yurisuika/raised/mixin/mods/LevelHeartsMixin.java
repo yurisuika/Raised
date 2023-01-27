@@ -1,8 +1,8 @@
-package com.yurisuika.raised.mixin.mods;
+package dev.yurisuika.raised.mixin.mods;
 
 import com.firecontroller1847.levelhearts.gui.IngameGui;
 import com.mojang.blaze3d.platform.Window;
-import com.yurisuika.raised.Raised;
+import dev.yurisuika.raised.Raised;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
