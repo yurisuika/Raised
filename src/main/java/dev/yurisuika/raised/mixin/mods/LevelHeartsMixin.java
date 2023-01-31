@@ -1,30 +1,30 @@
 package dev.yurisuika.raised.mixin.mods;
 
 import com.firecontroller1847.levelhearts.gui.IngameGui;
-import com.mojang.blaze3d.platform.Window;
 import dev.yurisuika.raised.Raised;
+import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 public class LevelHeartsMixin {
 
-    @Mixin(IngameGui.class)
+    @Mixin(value = IngameGui.class, remap = false)
     public static class IngameGuiMixin {
 
-        @Redirect(method = "redrawAir", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+        @Redirect(method = "redrawAir", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private int redirectRedrawAir(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getHud();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
-        @Redirect(method = "redrawArmor", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+        @Redirect(method = "redrawArmor", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private int redirectRedrawArmor(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getHud();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
-        @Redirect(method = "redrawHealth", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))
+        @Redirect(method = "redrawHealth", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
         private int redirectRedrawHealth(Window instance) {
-            return instance.getGuiScaledHeight() - Raised.getHud();
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }

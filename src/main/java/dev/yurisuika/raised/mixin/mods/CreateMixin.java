@@ -6,58 +6,59 @@ import com.simibubi.create.content.curiosities.toolbox.ToolboxHandlerClient;
 import com.simibubi.create.content.schematics.client.SchematicHotbarSlotOverlay;
 import com.simibubi.create.content.schematics.client.ToolSelectionScreen;
 import dev.yurisuika.raised.Raised;
+import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 public class CreateMixin {
 
-    @Mixin(value = CopperBacktankArmorLayer.class, remap = false)
+    @Mixin(CopperBacktankArmorLayer.class)
     public static class CopperBacktankArmorLayerMixin {
 
-        @ModifyVariable(method = "renderRemainingAirOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-        private static int modifyRenderRemainingAirOverlay(int value) {
-            return value - Raised.getHud();
+        @Redirect(method = "renderRemainingAirOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private static int modifyRenderRemainingAirOverlay(Window instance) {
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
 
-    @Mixin(value = SchematicHotbarSlotOverlay.class, remap = false)
+    @Mixin(SchematicHotbarSlotOverlay.class)
     public static class SchematicHotbarSlotOverlayMixin {
 
-        @ModifyVariable(method = "renderOn", at = @At("STORE"), ordinal = 2)
-        private int modifyRenderOn(int value) {
-            return value - Raised.getHud();
+        @Redirect(method = "renderOn", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private int modifyRenderOn(Window instance) {
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
 
-    @Mixin(value = ToolboxHandlerClient.class, remap = false)
+    @Mixin(ToolboxHandlerClient.class)
     public static class ToolboxHandlerClientMixin {
 
-        @ModifyVariable(method = "renderOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-        private static int modifyRenderOverlay(int value) {
-            return value - Raised.getHud();
+        @Redirect(method = "renderOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private static int modifyRenderOverlay(Window instance) {
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
 
-    @Mixin(value = ToolSelectionScreen.class, remap = false)
+    @Mixin(ToolSelectionScreen.class)
     public static class ToolSelectionScreenMixin {
 
-        @ModifyVariable(method = "draw", at = @At("STORE"), ordinal = 1)
-        private int modifyDraw(int value) {
-            return value - Raised.getHud();
+        @Redirect(method = "draw", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private int redirectDraw(Window instance) {
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }
 
-    @Mixin(value = TrainHUD.class, remap = false)
+    @Mixin(TrainHUD.class)
     public static class TrainHUDMixin {
 
-        @ModifyVariable(method = "renderOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
-        private static int modifyRenderOverlay(int value) {
-            return value - Raised.getHud();
+        @Redirect(method = "renderOverlay", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        private static int modifyRenderOverlay(Window instance) {
+            return instance.getScaledHeight() - Raised.getHud();
         }
 
     }

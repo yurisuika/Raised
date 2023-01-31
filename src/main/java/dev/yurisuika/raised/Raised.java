@@ -2,9 +2,10 @@ package dev.yurisuika.raised;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mojang.blaze3d.platform.InputConstants;
-import dev.yurisuika.raised.server.commands.RaisedCommand;
-import net.minecraft.client.KeyMapping;
+import com.mojang.logging.LogUtils;
+import dev.yurisuika.raised.server.command.RaisedCommand;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
@@ -18,7 +19,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -27,33 +27,33 @@ import java.nio.file.Files;
 @Mod("raised")
 public class Raised {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger("raised");
+    private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final KeyMapping hudDown = new KeyMapping(
+    public static final KeyBinding hudDown = new KeyBinding(
             "key.raised.hud.down",
             KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM,
+            InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_SUBTRACT,
             "key.categories.raised"
     );
-    public static final KeyMapping hudUp = new KeyMapping(
+    public static final KeyBinding hudUp = new KeyBinding(
             "key.raised.hud.up",
             KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM,
+            InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_ADD,
             "key.categories.raised"
     );
-    public static final KeyMapping chatDown = new KeyMapping(
+    public static final KeyBinding chatDown = new KeyBinding(
             "key.raised.chat.down",
             KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM,
+            InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_DIVIDE,
             "key.categories.raised"
     );
-    public static final KeyMapping chatUp = new KeyMapping(
+    public static final KeyBinding chatUp = new KeyBinding(
             "key.raised.chat.up",
             KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM,
+            InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_MULTIPLY,
             "key.categories.raised"
     );
@@ -121,19 +121,19 @@ public class Raised {
 
     @Mod.EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
     public static class ClientForgeEvents {
-        
+
         @SubscribeEvent
         public static void onKeyInput(InputEvent.KeyInputEvent event) {
-            if (hudDown.consumeClick()) {
+            if (hudDown.wasPressed()) {
                 Raised.setHud(config.hud - 1);
             }
-            if (hudUp.consumeClick()) {
+            if (hudUp.wasPressed()) {
                 Raised.setHud(config.hud + 1);
             }
-            if (chatDown.consumeClick()) {
+            if (chatDown.wasPressed()) {
                 Raised.setChat(config.chat - 1);
             }
-            if (chatUp.consumeClick()) {
+            if (chatUp.wasPressed()) {
                 Raised.setChat(config.chat + 1);
             }
         }

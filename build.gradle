@@ -1,110 +1,88 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://repo.spongepowered.org/maven/' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
-}
-
 plugins {
-    id 'eclipse'
-    id 'maven-publish'
+    id "dev.architectury.loom" version "1.0-SNAPSHOT"
+    id "maven-publish"
 }
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'idea'
 
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
-archivesBaseName = project.archives_base_name
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-mixin {
-    add sourceSets.main, archivesBaseName + ".refmap.json"
-    config 'mixins.' + archivesBaseName + '.json'
-}
-
-minecraft {
-    mappings channel: project.mappings_channel, version: project.mappings_version
-
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            property 'forge.enabledGameTestNamespaces', 'raised'
-
-            mods {
-                raised {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven { url "https://jitpack.io" }
     maven { url "https://cursemaven.com" }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:' + project.minecraft_version + '-' + project.forge_version
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
-    compileOnly 'curse.maven:botania-225643:3936568'
-    compileOnly 'curse.maven:create-328085:4007544'
-    compileOnly 'curse.maven:detail-armor-bar-forge-520755:3723059'
-    compileOnly 'curse.maven:health-overlay-368223:3562379'
-    compileOnly 'curse.maven:inventorio-forge-497122:3963528'
-    compileOnly 'curse.maven:inventory-profiles-next-495267:4263993'
-    compileOnly 'curse.maven:levelhearts-273640:3697146'
-    compileOnly 'curse.maven:quark-243121:3840125'
+    forge "net.minecraftforge:forge:${project.forge_version}"
+
+    modCompileOnly "curse.maven:botania-225643:3936568"
+    modCompileOnly "curse.maven:create-328085:4007544"
+    modCompileOnly "curse.maven:detail-armor-bar-forge-520755:3723059"
+    modCompileOnly "curse.maven:health-overlay-368223:3562379"
+    modCompileOnly "curse.maven:inventorio-forge-497122:3963528"
+    modCompileOnly "curse.maven:inventory-profiles-next-495267:4263993"
+    modCompileOnly "curse.maven:levelhearts-273640:3697146"
+    modCompileOnly "curse.maven:quark-243121:3840125"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.release = 17
+}
+
+loom {
+    forge {
+        mixinConfigs = [
+                "${project.archives_base_name}.mixins.json"
+        ]
+
+        dataGen {
+            mod project.mod_id
+        }
+    }
+
+    mixin {
+        defaultRefmapName = "${project.archives_base_name}.refmap.json"
+    }
+}
+
+java {
+    withSourcesJar()
 }
 
 jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : archivesBaseName,
-                "Specification-Vendor"    : "yurisuika",
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "yurisuika",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs"            : "mixins." + archivesBaseName + ".json"
-        ])
-    }
-    archiveAppendix = 'forge-' + project.minecraft_version
+    from("LICENSE")
+    jar.archiveAppendix.set("forge-${project.minecraft_version}")
+    sourcesJar.archiveAppendix.set("forge-${project.minecraft_version}")
+    remapJar.archiveAppendix.set("forge-${project.minecraft_version}")
+    remapSourcesJar.archiveAppendix.set("forge-${project.minecraft_version}")
 }
-
-jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
         }
     }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+    repositories {
+    }
 }

@@ -1,10 +1,10 @@
 modLoader = "javafml"
-loaderVersion = "38,)"
+loaderVersion = "40,)"
 license = "GNU Lesser General Public License v3.0"
 
 [[mods]]
 modId = "raised"
-version= " ${file.jarVersion}"
+version = "${version}"
 displayName = "Raised"
 displayURL = "https://github.com/yurisuika/Raised"
 issueTrackerURL = "https://github.com/yurisuika/Raised/issues"
@@ -17,7 +17,7 @@ Raises the hotbar so the selector is not cut off!
 [[dependencies.raised]]
 modId = "forge"
 mandatory = true
-versionRange = "[38,)"
+versionRange = "[40,)"
 ordering = "AFTER"
 side = "CLIENT"
 
