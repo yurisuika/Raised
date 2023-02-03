@@ -4,11 +4,13 @@ import com.redlimerl.detailab.render.ArmorBarRenderer;
 import dev.yurisuika.raised.Raised;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 public class DetailArmorBarMixin {
 
+    @Pseudo
     @Mixin(ArmorBarRenderer.class)
     public static class ArmorBarRendererMixin {
 
