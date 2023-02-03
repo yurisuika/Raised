@@ -23,7 +23,7 @@ public class ForgeIngameGuiMixin {
 
     @ModifyVariable(method = "renderChat", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true, remap = false)
     private int modifyChat(int value) {
-        return value - Raised.getHud() - Raised.getChat();
+        return value - Raised.getChat();
     }
 
     @ModifyVariable(method = "renderRecordOverlay", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true, remap = false)

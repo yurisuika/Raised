@@ -55,9 +55,14 @@ public class InGameHudMixin {
         return value - Raised.getHud();
     }
 
-    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(FFF)V", ordinal = 0), index = 1)
-    private float modifyActionbar(float value) {
-        return value - (float)Raised.getHud();
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V", ordinal = 0), index = 1)
+    private double modifyActionbar(double value) {
+        return value - (double)Raised.getHud();
+    }
+
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(DDD)V", ordinal = 2), index = 1)
+    private double modifyChat(double value) {
+        return value - (double)Raised.getHud() - (double)Raised.getChat();
     }
 
 }
