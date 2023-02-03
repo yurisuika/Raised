@@ -14,7 +14,7 @@ public class DetailArmorBarMixin {
     @Mixin(ArmorBarRenderer.class)
     public static class ArmorBarRendererMixin {
 
-        @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
         private int redirectRender(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }

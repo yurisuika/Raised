@@ -14,7 +14,7 @@ public class InventoryProfilesNextMixin {
     @Mixin(LockSlotsHandler.class)
     public static class LockSlotsHandlerMixin {
 
-        @Redirect(method = "drawHotSprite", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        @Redirect(method = "drawHotSprite", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
         private int redirectDrawHotSprite(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }
