@@ -15,7 +15,7 @@ public class QuarkMixin {
     @Mixin(HotbarChangerModule.class)
     public static class HotbarChangerModuleMixin {
 
-        @Redirect(method = "hudPost", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        @Redirect(method = "hudPost", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
         private int redirectHudPost(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }
@@ -26,7 +26,7 @@ public class QuarkMixin {
     @Mixin(UsageTickerModule.TickerElement.class)
     public static class UsageTickerModuleMixin {
 
-        @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
         private int redirectRender(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }

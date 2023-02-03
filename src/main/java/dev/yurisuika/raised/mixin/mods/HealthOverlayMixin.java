@@ -14,7 +14,7 @@ public class HealthOverlayMixin {
     @Mixin(HeartRenderer.class)
     public static class HeartRendererMixin {
 
-        @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "net/minecraft/client/util/Window.getScaledHeight()I"))
+        @Redirect(method = "renderPlayerHearts", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
         private int redirectRenderPlayerHearts(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }
