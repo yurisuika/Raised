@@ -3,7 +3,9 @@ package dev.yurisuika.raised.mixin.client.gui.hud;
 import dev.yurisuika.raised.Raised;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(value = InGameHud.class, priority = -1)
 public class InGameHudMixin {
