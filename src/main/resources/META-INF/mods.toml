@@ -8,7 +8,7 @@ version = "${version}"
 displayName = "Raised"
 displayURL = "https://github.com/yurisuika/Raised"
 issueTrackerURL = "https://github.com/yurisuika/Raised/issues"
-logoFile = "assets/raised/icon.png"
+logoFile = "icon.png"
 authors = "yurisuika"
 description = '''
 Raises the hotbar so the selector is not cut off!
