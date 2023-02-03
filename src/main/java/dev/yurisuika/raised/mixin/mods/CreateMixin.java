@@ -8,10 +8,12 @@ import com.simibubi.create.content.schematics.client.ToolSelectionScreen;
 import dev.yurisuika.raised.Raised;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.*;
 
 public class CreateMixin {
 
+    @Pseudo
     @Mixin(CopperBacktankArmorLayer.class)
     public static class CopperBacktankArmorLayerMixin {
 
@@ -22,6 +24,7 @@ public class CreateMixin {
 
     }
 
+    @Pseudo
     @Mixin(SchematicHotbarSlotOverlay.class)
     public static class SchematicHotbarSlotOverlayMixin {
 
@@ -32,6 +35,7 @@ public class CreateMixin {
 
     }
 
+    @Pseudo
     @Mixin(ToolboxHandlerClient.class)
     public static class ToolboxHandlerClientMixin {
 
@@ -42,6 +46,7 @@ public class CreateMixin {
 
     }
 
+    @Pseudo
     @Mixin(ToolSelectionScreen.class)
     public static class ToolSelectionScreenMixin {
 
@@ -52,6 +57,7 @@ public class CreateMixin {
 
     }
 
+    @Pseudo
     @Mixin(TrainHUD.class)
     public static class TrainHUDMixin {
 
