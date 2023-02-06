@@ -4,7 +4,7 @@
 
 Raised features some basic adjustability! Either use the keybinds or commands to control the position of the HUD and the chat! See the wiki for more information!
 
-If you are a mod creator who would like to add compatibility, Raised now supports ObjectShare on Fabric! See *[Arrows Info](https://github.com/intact/arrows-info)* for an example!
+See the wiki for a chart of mod compatibility! If you are a mod creator who would like to add compatibility, Raised now supports ObjectShare on Fabric! See *[Arrows Info](https://github.com/intact/arrows-info)* for an example!
 
 #### Compiling
 
