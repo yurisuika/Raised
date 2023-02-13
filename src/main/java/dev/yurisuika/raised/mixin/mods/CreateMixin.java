@@ -18,7 +18,7 @@ public class CreateMixin {
     public static class CopperBacktankArmorLayerMixin {
 
         @Redirect(method = "renderRemainingAirOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
-        private static int modifyRenderRemainingAirOverlay(Window instance) {
+        private static int redirectRenderRemainingAirOverlay(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }
 
@@ -29,7 +29,7 @@ public class CreateMixin {
     public static class SchematicHotbarSlotOverlayMixin {
 
         @Redirect(method = "renderOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
-        private int modifyRenderOn(Window instance) {
+        private int redirectRenderOn(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }
 
@@ -40,7 +40,7 @@ public class CreateMixin {
     public static class ToolboxHandlerClientMixin {
 
         @Redirect(method = "renderOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
-        private static int modifyRenderOverlay(Window instance) {
+        private static int redirectRenderOverlay(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }
 
@@ -62,7 +62,7 @@ public class CreateMixin {
     public static class TrainHUDMixin {
 
         @Redirect(method = "renderOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
-        private static int modifyRenderOverlay(Window instance) {
+        private static int redirectRenderOverlay(Window instance) {
             return instance.getScaledHeight() - Raised.getHud();
         }
 
