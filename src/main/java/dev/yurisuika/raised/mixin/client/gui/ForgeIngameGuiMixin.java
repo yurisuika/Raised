@@ -21,12 +21,12 @@ public class ForgeIngameGuiMixin {
         instance.left_height = value + Raised.getHud();
     }
 
-    @ModifyVariable(method = "renderChat", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true, remap = false)
+    @ModifyVariable(method = "renderChat", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private int modifyChat(int value) {
         return value - Raised.getChat();
     }
 
-    @ModifyVariable(method = "renderRecordOverlay", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true, remap = false)
+    @ModifyVariable(method = "renderRecordOverlay", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private int modifyActionbar(int value) {
         return value - Raised.getHud();
     }
