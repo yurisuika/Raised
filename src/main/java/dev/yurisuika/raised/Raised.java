@@ -14,7 +14,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.lwjgl.glfw.GLFW;
 
@@ -140,21 +139,26 @@ public class Raised {
 
     }
 
-    public Raised() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        MinecraftForge.EVENT_BUS.register(this);
+    @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModBusEvents {
+
+        @SubscribeEvent
+        public static void clientSetup(FMLClientSetupEvent event) {
+            ClientRegistry.registerKeyBinding(hudDown);
+            ClientRegistry.registerKeyBinding(hudUp);
+            ClientRegistry.registerKeyBinding(chatDown);
+            ClientRegistry.registerKeyBinding(chatUp);
+        }
+
     }
 
-    public void setup(final FMLClientSetupEvent event) {
+    public Raised() {
         if (!file.exists()) {
             saveConfig();
         }
         loadConfig();
 
-        ClientRegistry.registerKeyBinding(hudDown);
-        ClientRegistry.registerKeyBinding(hudUp);
-        ClientRegistry.registerKeyBinding(chatDown);
-        ClientRegistry.registerKeyBinding(chatUp);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
 }
