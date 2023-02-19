@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import vazkii.botania.client.gui.HUDHandler;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 
 public class BotaniaMixin {
 
@@ -23,8 +23,8 @@ public class BotaniaMixin {
     }
 
     @Pseudo
-    @Mixin(ItemFlightTiara.ClientLogic.class)
-    public static class ItemFlightTiaraMixin {
+    @Mixin(FlugelTiaraItem.ClientLogic.class)
+    public static class FlugelTiaraItemMixin {
 
         @Redirect(method = "renderHUD", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Window;getScaledHeight()I"))
         private static int redirectRenderHUD(Window instance) {
