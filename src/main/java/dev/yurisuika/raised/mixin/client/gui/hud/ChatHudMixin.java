@@ -11,7 +11,7 @@ public class ChatHudMixin {
 
     @ModifyVariable(method = "mouseClicked", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private double modifyMouseClick(double value) {
-        return value + (double) Raised.getHud() + (double)Raised.getChat();
+        return value + (double)Raised.getChat();
     }
 
     @ModifyVariable(method = "toChatLineY", at = @At(value = "HEAD"), ordinal = 0, argsOnly = true)
