@@ -52,7 +52,7 @@ side = "CLIENT"
 [[dependencies.raised]]
 modId = "healthoverlay"
 mandatory = false
-versionRange = "[3,)"
+versionRange = "[6,)"
 ordering = "NONE"
 side = "CLIENT"
 
