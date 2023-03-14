@@ -25,10 +25,12 @@ public final class RaisedMixinPlugin implements IMixinConfigPlugin {
             "dev.yurisuika.raised.mixin.mods.CreateMixin$ToolSelectionScreenMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
             "dev.yurisuika.raised.mixin.mods.CreateMixin$TrainHUDMixin", () -> FabricLoader.getInstance().isModLoaded("create"),
             "dev.yurisuika.raised.mixin.mods.DetailArmorBarMixin$ArmorBarRendererMixin", () -> FabricLoader.getInstance().isModLoaded("detailab"),
-            "dev.yurisuika.raised.mixin.mods.HealthOverlayMixin$HeartRendererMixin", () -> FabricLoader.getInstance().isModLoaded("healthoverlay")
+            "dev.yurisuika.raised.mixin.mods.FarmersDelightMixin$ComfortHealthOverlayMixin", () -> FabricLoader.getInstance().isModLoaded("farmersdelight")
     );
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS2 = ImmutableMap.of(
+            "dev.yurisuika.raised.mixin.mods.FarmersDelightMixin$NourishmentHungerOverlayMixin", () -> FabricLoader.getInstance().isModLoaded("farmersdelight"),
+            "dev.yurisuika.raised.mixin.mods.HealthOverlayMixin$HeartRendererMixin", () -> FabricLoader.getInstance().isModLoaded("healthoverlay"),
             "dev.yurisuika.raised.mixin.mods.InventorioMixin$HotbarHUDRendererMixin", () -> FabricLoader.getInstance().isModLoaded("inventorio"),
             "dev.yurisuika.raised.mixin.mods.InventoryProfilesNextMixin$LockSlotsHandlerMixin", () -> FabricLoader.getInstance().isModLoaded("inventoryprofilesnext")
     );
