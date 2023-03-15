@@ -6,6 +6,7 @@ license = "GNU Lesser General Public License v3.0"
 modId = "raised"
 version = "${version}"
 displayName = "Raised"
+displayTest = "IGNORE_ALL_VERSION"
 displayURL = "https://github.com/yurisuika/Raised"
 issueTrackerURL = "https://github.com/yurisuika/Raised/issues"
 logoFile = "icon.png"
@@ -25,7 +26,7 @@ side = "CLIENT"
 modId = "forge"
 mandatory = true
 versionRange = "[38,)"
-ordering = "AFTER"
+ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.raised]]
