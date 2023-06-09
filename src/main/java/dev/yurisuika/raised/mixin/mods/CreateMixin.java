@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.mixin.mods;
 
-import com.simibubi.create.content.contraptions.components.structureMovement.interaction.controls.TrainHUD;
-import com.simibubi.create.content.curiosities.armor.CopperBacktankArmorLayer;
-import com.simibubi.create.content.curiosities.toolbox.ToolboxHandlerClient;
+import com.simibubi.create.content.trains.TrainHUD;
+import com.simibubi.create.content.equipment.armor.BacktankArmorLayer;
+import com.simibubi.create.content.equipment.toolbox.ToolboxHandlerClient;
 import com.simibubi.create.content.schematics.client.SchematicHotbarSlotOverlay;
 import com.simibubi.create.content.schematics.client.ToolSelectionScreen;
 import dev.yurisuika.raised.Raised;
@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class CreateMixin {
 
     @Pseudo
-    @Mixin(CopperBacktankArmorLayer.class)
-    public static class CopperBacktankArmorLayerMixin {
+    @Mixin(BacktankArmorLayer.class)
+    public static class BacktankArmorLayerMixin {
 
         @ModifyVariable(method = "renderRemainingAirOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
         private static int modifyRenderRemainingAirOverlay(int value) {

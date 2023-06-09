@@ -13,7 +13,7 @@
     "client.gui.hud.SpectatorHudMixin",
     "mods.BotaniaMixin$HUDHandlerMixin",
     "mods.BotaniaMixin$ItemFlightTiaraMixin",
-    "mods.CreateMixin$CopperBacktankArmorLayerMixin",
+    "mods.CreateMixin$BacktankArmorLayerMixin",
     "mods.CreateMixin$SchematicHotbarSlotOverlayMixin",
     "mods.CreateMixin$ToolboxHandlerClientMixin",
     "mods.CreateMixin$ToolSelectionScreenMixin",
