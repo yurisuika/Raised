@@ -11,12 +11,12 @@ public class ChatHudMixin {
 
     @ModifyVariable(method = "mouseClicked", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private double modifyMouseClick(double value) {
-        return value + (double)Raised.getChat();
+        return value + Raised.getChat();
     }
 
     @ModifyVariable(method = "getText", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private double modifyChatTooltip(double value) {
-        return value + (double)Raised.getChat();
+        return value + Raised.getChat();
     }
 
 }

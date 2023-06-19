@@ -5,7 +5,6 @@ import net.minecraft.client.gui.hud.SpectatorHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(value = SpectatorHud.class, priority = -1)
 public class SpectatorHudMixin {
@@ -25,8 +24,8 @@ public class SpectatorHudMixin {
         return value - Raised.getHud();
     }
 
-    @ModifyVariable(method = "render", at = @At(value = "STORE"), ordinal = 2)
-    private int modifyText(int value) {
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I"), index = 3)
+    private float modifyText(float value) {
         return value - Raised.getHud();
     }
 

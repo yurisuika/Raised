@@ -25,7 +25,7 @@ public class InGameHudMixin {
         return value - Raised.getHud();
     }
 
-    @ModifyVariable(method = "renderMountJumpBar", at = @At(value = "STORE"), ordinal = 3)
+    @ModifyArg(method = "renderMountJumpBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
     private int modifyJumpBar(int value) {
         return value - Raised.getHud();
     }
@@ -45,12 +45,17 @@ public class InGameHudMixin {
         return value - Raised.getHud();
     }
 
-    @ModifyVariable(method = "renderStatusBars", at = @At(value = "STORE"), ordinal = 5)
+    @ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
     private int modifyStatusBars(int value) {
         return value - Raised.getHud();
     }
 
-    @ModifyVariable(method = "renderMountHealth", at = @At(value = "STORE"), ordinal = 2)
+    @ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderHealthBar(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/entity/player/PlayerEntity;IIIIFIIIZ)V"), index = 3)
+    private int modifyHealthBar(int value) {
+        return value - Raised.getHud();
+    }
+
+    @ModifyArg(method = "renderMountHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
     private int modifyMountHealth(int value) {
         return value - Raised.getHud();
     }
