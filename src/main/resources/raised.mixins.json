@@ -19,8 +19,6 @@
     "mods.CreateMixin$ToolSelectionScreenMixin",
     "mods.CreateMixin$TrainHUDMixin",
     "mods.DetailArmorBarMixin$ArmorBarRendererMixin",
-    "mods.FarmersDelightMixin$ComfortHealthOverlayMixin",
-    "mods.FarmersDelightMixin$NourishmentHungerOverlayMixin",
     "mods.InventorioMixin$HotbarHUDRendererMixin",
     "mods.InventoryProfilesNextMixin$LockSlotsHandlerMixin"
   ],

@@ -81,6 +81,7 @@ public class Raised implements ClientModInitializer {
     }
 
     public static void putObjects() {
+        FabricLoader.getInstance().getObjectShare().put("raised:distance", config.hud);
         FabricLoader.getInstance().getObjectShare().put("raised:hud", config.hud);
         FabricLoader.getInstance().getObjectShare().put("raised:chat", config.chat);
     }

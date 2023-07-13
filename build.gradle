@@ -25,7 +25,6 @@ dependencies {
     modCompileOnly "curse.maven:botania-fabric-421839:4371118"
     modCompileOnly "curse.maven:create-fabric-624165:4622426"
     modCompileOnly "curse.maven:detail-armor-bar-506898:4584467"
-    modCompileOnly "curse.maven:farmers-delight-fabric-482834:4111426"
     modCompileOnly "curse.maven:inventorio-491073:4619078"
     modCompileOnly "curse.maven:inventory-profiles-next-495267:4591807"
 }
