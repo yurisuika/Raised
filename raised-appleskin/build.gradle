@@ -20,6 +20,10 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    modCompileOnly "curse.maven:appleskin-248787:4573208"
+
+    implementation rootProject
 }
 
 processResources {

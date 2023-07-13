@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "raised",
+  "id": "raised-appleskin",
   "version": "${version}",
 
-  "name": "Raised",
-  "description": "Raises the hotbar so the selector is not cut off!",
+  "name": "Raised + Appleskin",
+  "description": "Adds support for Appleskin to Raised!",
   "authors": [
     "yurisuika"
   ],
@@ -22,14 +22,13 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.yurisuika.raised.Raised"
     ]
   },
   "mixins": [
-    "raised.mixins.json"
+    "raised-appleskin.mixins.json"
   ],
 
-  "accessWidener" : "raised.accesswidener",
+  "accessWidener" : "raised-appleskin.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.14.21",

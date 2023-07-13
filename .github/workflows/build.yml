@@ -18,3 +18,28 @@ jobs:
           name: Raised
           path: build/libs/
           if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Raised + Appleskin
+          path: raised-appleskin/build/libs/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Raised + Create
+          path: raised-create/build/libs/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Raised + Detail Armor Bar
+          path: raised-detailarmorbar/build/libs/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Raised + Inventorio
+          path: raised-inventorio/build/libs/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Raised + Inventory Profiles Next
+          path: raised-inventoryprofilesnext/build/libs/
+          if-no-files-found: error

@@ -20,6 +20,10 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    modCompileOnly "curse.maven:inventorio-491073:4619078"
+
+    implementation rootProject
 }
 
 processResources {
