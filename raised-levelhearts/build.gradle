@@ -20,7 +20,7 @@ dependencies {
 
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modCompileOnly "curse.maven:levelhearts-273640:3542877"
+    modCompileOnly "curse.maven:levelhearts-273640:3697146"
 
     implementation rootProject
 }

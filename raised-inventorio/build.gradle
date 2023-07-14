@@ -20,7 +20,7 @@ dependencies {
 
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modCompileOnly "curse.maven:inventorio-forge-497122:3550015"
+    modCompileOnly "curse.maven:inventorio-forge-497122:4557760"
 
     implementation rootProject
 }

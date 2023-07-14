@@ -20,7 +20,7 @@ dependencies {
 
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modCompileOnly "curse.maven:health-overlay-368223:3837181"
+    modCompileOnly "curse.maven:health-overlay-368223:3932280"
 
     implementation rootProject
 }

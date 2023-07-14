@@ -20,7 +20,7 @@ dependencies {
 
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modCompileOnly "curse.maven:create-328085:3536025"
+    modCompileOnly "curse.maven:create-328085:4625533"
 
     implementation rootProject
 }

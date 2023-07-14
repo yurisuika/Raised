@@ -20,7 +20,7 @@ dependencies {
 
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modCompileOnly "curse.maven:detail-armor-bar-forge-520755:3470828"
+    modCompileOnly "curse.maven:detail-armor-bar-forge-520755:3723059"
 
     implementation rootProject
 }

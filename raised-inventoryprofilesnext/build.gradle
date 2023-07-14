@@ -20,7 +20,7 @@ dependencies {
 
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modCompileOnly "curse.maven:inventory-profiles-next-495267:4131948"
+    modCompileOnly "curse.maven:inventory-profiles-next-495267:4616633"
 
     implementation rootProject
 }
