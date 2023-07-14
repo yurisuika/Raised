@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "raisedxinventorio",
+  "version": "${version}",
+
+  "name": "Raised x Inventorio",
+  "description": "Adds support for Inventorio to Raised!",
+  "authors": [
+    "yurisuika"
+  ],
+  "contributors": [
+  ],
+  "contact": {
+    "homepage": "https://yurisuika.dev",
+    "sources": "https://github.com/yurisuika/Raised",
+    "issues": "https://github.com/yurisuika/Raised/issues"
+  },
+
+  "license": "GNU Lesser General Public License v3.0",
+  "icon": "assets/raisedxinventorio/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+    ]
+  },
+  "mixins": [
+    "raisedxinventorio.mixins.json"
+  ],
+
+  "accessWidener" : "raisedxinventorio.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "minecraft": ">=1.20",
+    "java": ">=17"
+  }
+}

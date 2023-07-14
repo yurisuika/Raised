@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "raisedxdetailarmorbar",
+  "version": "${version}",
+
+  "name": "Raised x Detail Armor Bar",
+  "description": "Adds support for Detail Armor Bar to Raised!",
+  "authors": [
+    "yurisuika"
+  ],
+  "contributors": [
+  ],
+  "contact": {
+    "homepage": "https://yurisuika.dev",
+    "sources": "https://github.com/yurisuika/Raised",
+    "issues": "https://github.com/yurisuika/Raised/issues"
+  },
+
+  "license": "GNU Lesser General Public License v3.0",
+  "icon": "assets/raisedxdetailarmorbar/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+    ]
+  },
+  "mixins": [
+    "raisedxdetailarmorbar.mixins.json"
+  ],
+
+  "accessWidener" : "raisedxdetailarmorbar.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "minecraft": ">=1.20",
+    "java": ">=17"
+  }
+}

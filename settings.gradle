@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-include "raised-appleskin"
-include "raised-detailarmorbar"
-include "raised-inventorio"
-include "raised-inventoryprofilesnext"
+include "raisedxappleskin"
+include "raisedxdetailarmorbar"
+include "raisedxinventorio"
+include "raisedxinventoryprofilesnext"

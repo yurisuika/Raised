@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.yurisuika.raisedxappleskin.mixin",
+  "refmap": "raisedxappleskin.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "mods.AppleskinMixin$HUDOverlayHandlerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "dev.yurisuika.raisedxappleskin.RaisedxAppleskinMixinPlugin"
+}

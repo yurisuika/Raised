@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "raisedxappleskin",
+  "version": "${version}",
+
+  "name": "Raised x Appleskin",
+  "description": "Adds support for Appleskin to Raised!",
+  "authors": [
+    "yurisuika"
+  ],
+  "contributors": [
+  ],
+  "contact": {
+    "homepage": "https://yurisuika.dev",
+    "sources": "https://github.com/yurisuika/Raised",
+    "issues": "https://github.com/yurisuika/Raised/issues"
+  },
+
+  "license": "GNU Lesser General Public License v3.0",
+  "icon": "assets/raisedxappleskin/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+    ]
+  },
+  "mixins": [
+    "raisedxappleskin.mixins.json"
+  ],
+
+  "accessWidener" : "raisedxappleskin.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "minecraft": ">=1.20",
+    "java": ">=17"
+  }
+}
