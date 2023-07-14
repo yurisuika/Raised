@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.yurisuika.raised.mixin",
+  "refmap": "raised-quark.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "mods.QuarkMixin$HotbarChangerModuleMixin",
+    "mods.QuarkMixin$UsageTickerModuleMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "dev.yurisuika.raised.RaisedQuarkMixinPlugin"
+}

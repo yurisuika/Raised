@@ -10,24 +10,9 @@
     "client.gui.ForgeIngameGuiMixin",
     "client.gui.hud.ChatHudMixin",
     "client.gui.hud.InGameHudMixin",
-    "client.gui.hud.SpectatorHudMixin",
-    "mods.BotaniaMixin$HUDHandlerMixin",
-    "mods.BotaniaMixin$ItemFlightTiaraMixin",
-    "mods.CreateMixin$RemainingAirOverlayMixin",
-    "mods.CreateMixin$SchematicHotbarSlotOverlayMixin",
-    "mods.CreateMixin$ToolboxHandlerClientMixin",
-    "mods.CreateMixin$ToolSelectionScreenMixin",
-    "mods.CreateMixin$TrainHUDMixin",
-    "mods.DetailArmorBarMixin$ArmorBarRendererMixin",
-    "mods.HealthOverlayMixin$HeartRendererMixin",
-    "mods.InventorioMixin$HotbarHUDRendererMixin",
-    "mods.InventoryProfilesNextMixin$LockSlotsHandlerMixin",
-    "mods.LevelHeartsMixin$IngameGuiMixin",
-    "mods.QuarkMixin$HotbarChangerModuleMixin",
-    "mods.QuarkMixin$UsageTickerModuleMixin"
+    "client.gui.hud.SpectatorHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "plugin": "dev.yurisuika.raised.RaisedMixinPlugin"
+  }
 }

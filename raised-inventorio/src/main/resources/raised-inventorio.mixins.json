@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.yurisuika.raised.mixin",
+  "refmap": "raised-inventorio.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "mods.InventorioMixin$HotbarHUDRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "dev.yurisuika.raised.RaisedInventorioMixinPlugin"
+}

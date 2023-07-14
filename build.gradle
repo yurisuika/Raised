@@ -19,15 +19,6 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
     forge "net.minecraftforge:forge:${project.forge_version}"
-
-    modCompileOnly "curse.maven:botania-225643:3936568"
-    modCompileOnly "curse.maven:create-328085:4550986"
-    modCompileOnly "curse.maven:detail-armor-bar-forge-520755:3723059"
-    modCompileOnly "curse.maven:health-overlay-368223:3562379"
-    modCompileOnly "curse.maven:inventorio-forge-497122:3963528"
-    modCompileOnly "curse.maven:inventory-profiles-next-495267:4591811"
-    modCompileOnly "curse.maven:levelhearts-273640:3697146"
-    modCompileOnly "curse.maven:quark-243121:3840125"
 }
 
 processResources {
