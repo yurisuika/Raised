@@ -8,11 +8,11 @@ pluginManagement {
     }
 }
 
-include "raised-botania"
-include "raised-create"
-include "raised-detailarmorbar"
-include "raised-healthoverlay"
-include "raised-inventorio"
-include "raised-inventoryprofilesnext"
-include "raised-levelhearts"
-include "raised-quark"
+include "raisedxbotania"
+include "raisedxcreate"
+include "raisedxdetailarmorbar"
+include "raisedxhealthoverlay"
+include "raisedxinventorio"
+include "raisedxinventoryprofilesnext"
+include "raisedxlevelhearts"
+include "raisedxquark"
