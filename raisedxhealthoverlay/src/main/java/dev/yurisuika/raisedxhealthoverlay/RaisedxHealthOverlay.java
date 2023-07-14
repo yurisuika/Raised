@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod("raisedxhealthoverlay")
 public class RaisedxHealthOverlay {
 
-    public RaisedxHeathOverlay() {
+    public RaisedxHealthOverlay() {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
