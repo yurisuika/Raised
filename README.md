@@ -4,7 +4,9 @@
 
 Raised features some basic adjustability! Either use the keybinds or commands to control the position of the HUD and the chat. See the wiki for more information.
 
-As of version 2.0.0, Raised has moved its internal mod support to add-on files! This modular support system means you won't see as many updates to Raised anymore, but instead will just have to grab a new support file when a new mod is given support or a currently supported mod requires a fix. See the wiki for a chart of mod compatibility! If you are a mod creator who would like to add compatibility, Raised now supports ObjectShare on Fabric! See *[Arrows Info](https://github.com/intact/arrows-info)* for an example.
+As of version 2.0.0, Raised has moved its internal mod support to add-on files! This modular support system means you won't see as many updates to Raised anymore, but instead will just have to grab a new support file when a new mod is given support or a currently supported mod requires a fix.
+
+See the wiki for a chart of mod compatibility! If you are a mod creator who would like to add compatibility, Raised now supports ObjectShare on Fabric! See *[Arrows Info](https://github.com/intact/arrows-info)* for an example.
 
 #### Compiling
 
