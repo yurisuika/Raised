@@ -38,7 +38,7 @@ side = "CLIENT"
 
 [[dependencies.raisedxquark]]
 modId = "quark"
-mandatory = true
+mandatory = false
 versionRange = "[r3,)"
 ordering = "NONE"
 side = "CLIENT"

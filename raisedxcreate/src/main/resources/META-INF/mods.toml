@@ -38,7 +38,7 @@ side = "CLIENT"
 
 [[dependencies.raisedxcreate]]
 modId = "create"
-mandatory = true
+mandatory = false
 versionRange = "[0.5.1,)"
 ordering = "NONE"
 side = "CLIENT"

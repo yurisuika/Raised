@@ -38,7 +38,7 @@ side = "CLIENT"
 
 [[dependencies.raisedxinventorio]]
 modId = "inventorio"
-mandatory = true
+mandatory = false
 versionRange = "[1,)"
 ordering = "NONE"
 side = "CLIENT"
