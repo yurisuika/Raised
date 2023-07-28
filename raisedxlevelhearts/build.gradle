@@ -43,10 +43,6 @@ loom {
         mixinConfigs = [
                 "${project.archives_base_name}.mixins.json"
         ]
-
-        dataGen {
-            mod project.mod_id
-        }
     }
 
     mixin {
