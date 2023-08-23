@@ -25,6 +25,11 @@ jobs:
           if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
+          name: Raised + Armor Chroma
+          path: raisedxarmorchroma/build/libs/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
           name: Raised + Detail Armor Bar
           path: raisedxdetailarmorbar/build/libs/
           if-no-files-found: error
