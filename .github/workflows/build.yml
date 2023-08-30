@@ -20,31 +20,31 @@ jobs:
           if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
-          name: Raised + Botania
+          name: Raised x Botania
           path: raisedxbotania/build/libs/
           if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
-          name: Raised + Create
+          name: Raised x Create
           path: raisedxcreate/build/libs/
           if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
-          name: Raised + Health Overlay
+          name: Raised x Health Overlay
           path: raisedxhealthoverlay/build/libs/
           if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
-          name: Raised + Detail Armor Bar
+          name: Raised x Detail Armor Bar
           path: raisedxdetailarmorbar/build/libs/
           if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
-          name: Raised + Inventorio
+          name: Raised x Inventorio
           path: raisedxinventorio/build/libs/
           if-no-files-found: error
       - uses: actions/upload-artifact@v3
         with:
-          name: Raised + Inventory Profiles Next
+          name: Raised x Inventory Profiles Next
           path: raisedxinventoryprofilesnext/build/libs/
           if-no-files-found: error
