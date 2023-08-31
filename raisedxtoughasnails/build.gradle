@@ -1,0 +1,79 @@
+plugins {
+    id "dev.architectury.loom" version "1.2-SNAPSHOT"
+    id "maven-publish"
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    maven { url "https://cursemaven.com" }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+
+    forge "net.minecraftforge:forge:${project.forge_version}"
+
+    compileOnly "curse.maven:tough-as-nails-246391:3804267"
+
+    implementation rootProject
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.release = 17
+}
+
+loom {
+    forge {
+        mixinConfigs = [
+                "${project.archives_base_name}.mixins.json"
+        ]
+    }
+
+    mixin {
+        defaultRefmapName = "${project.archives_base_name}.refmap.json"
+    }
+}
+
+java {
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE")
+    jar.archiveAppendix.set("forge-${project.minecraft_version}")
+    sourcesJar.archiveAppendix.set("forge-${project.minecraft_version}")
+    remapJar.archiveAppendix.set("forge-${project.minecraft_version}")
+    remapSourcesJar.archiveAppendix.set("forge-${project.minecraft_version}")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    repositories {
+    }
+}

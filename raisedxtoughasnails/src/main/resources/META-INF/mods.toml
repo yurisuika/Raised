@@ -1,0 +1,44 @@
+modLoader = "javafml"
+loaderVersion = "38,)"
+license = "GNU Lesser General Public License v3.0"
+
+[[mods]]
+modId = "raisedxtoughasnails"
+version = "${version}"
+displayName = "Raised x Tough As Nails"
+displayTest = "IGNORE_ALL_VERSION"
+displayURL = "https://github.com/yurisuika/Raised"
+issueTrackerURL = "https://github.com/yurisuika/Raised/issues"
+logoFile = "icon.png"
+authors = "yurisuika"
+description = '''
+Adds support for Tough As Nails to Raised!
+'''
+
+[[dependencies.raisedxtoughasnails]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18,1.19)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.raisedxtoughasnails]]
+modId = "forge"
+mandatory = true
+versionRange = "[38,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.raisedxtoughasnails]]
+modId = "raised"
+mandatory = true
+versionRange = "[2,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.raisedxtoughasnails]]
+modId = "toughasnails"
+mandatory = false
+versionRange = "[6,)"
+ordering = "NONE"
+side = "CLIENT"

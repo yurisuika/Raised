@@ -48,3 +48,8 @@ jobs:
           name: Raised x Inventory Profiles Next
           path: raisedxinventoryprofilesnext/build/libs/
           if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Raised x Tough As Nails
+          path: raisedxtoughasnails/build/libs/
+          if-no-files-found: error
