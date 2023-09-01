@@ -53,3 +53,8 @@ jobs:
           name: Raised x Tough As Nails
           path: raisedxtoughasnails/build/libs/
           if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Raised x Quark
+          path: raisedxquark/build/libs/
+          if-no-files-found: error
