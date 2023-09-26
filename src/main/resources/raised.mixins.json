@@ -8,8 +8,8 @@
   ],
   "client": [
     "client.gui.hud.ChatHudMixin",
-    "client.gui.hud.InGameHudMixin",
-    "client.gui.hud.SpectatorHudMixin"
+    "client.gui.hud.InGameHudMixin$Post",
+    "client.gui.hud.InGameHudMixin$Pre"
   ],
   "injectors": {
     "defaultRequire": 1
