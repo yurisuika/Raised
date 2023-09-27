@@ -7,13 +7,3 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
-include "raisedxbotania"
-include "raisedxcreate"
-include "raisedxdetailarmorbar"
-include "raisedxhealthoverlay"
-include "raisedxinventorio"
-include "raisedxinventoryprofilesnext"
-include "raisedxlevelhearts"
-include "raisedxquark"
-include "raisedxtoughasnails"

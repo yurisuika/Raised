@@ -1,15 +1,26 @@
 {
   "key.categories.raised": "Raised",
 
-  "key.raised.hud.down": "Move HUD Down",
-  "key.raised.hud.up": "Move HUD Up",
-  "key.raised.chat.down": "Move Chat Down",
-  "key.raised.chat.up": "Move Chat Up",
+  "key.raised.hud.down": "Lower HUD Height",
+  "key.raised.hud.reset": "Reset HUD Height",
+  "key.raised.hud.up": "Raise HUD Height",
+
+  "key.raised.chat.down": "Lower Chat Height",
+  "key.raised.chat.reset": "Reset Chat Height",
+  "key.raised.chat.up": "Raise Chat Height",
 
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
-  "commands.raised.query.hud": "HUD is currently set to: %d",
-  "commands.raised.query.chat": "Chat is currently set to: %d",
-  "commands.raised.set.hud": "HUD is now set to: %d",
-  "commands.raised.set.chat": "Chat is now set to: %d"
+
+  "commands.raised.value.hud.query": "HUD height is currently set to: %d",
+  "commands.raised.value.hud.set": "HUD height is now set to: %d",
+
+  "commands.raised.value.chat.query": "Chat height is currently set to: %d",
+  "commands.raised.value.chat.set": "Chat height is now set to: %d",
+
+  "commands.raised.toggle.support.query": "Mod support is currently set to: (pre: %d, post: %d)",
+  "commands.raised.toggle.support.set": "Mod support is now set to: (pre: %d, post: %d)",
+
+  "commands.raised.toggle.sync.query": "HUD/Chat sync is currently set to: %d",
+  "commands.raised.toggle.sync.set": "HUD/Chat sync is now set to: %d"
 }
