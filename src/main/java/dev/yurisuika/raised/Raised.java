@@ -61,6 +61,7 @@ public class Raised implements ClientModInitializer {
 
         registerClientTickEvents();
         registerCommands();
+        registerKeyBindings();
     }
 
 }
