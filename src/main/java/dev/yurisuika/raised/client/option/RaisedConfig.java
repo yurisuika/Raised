@@ -21,11 +21,8 @@ public class RaisedConfig {
                 0
         );
         public Toggle toggle = new Toggle(
-                new Toggle.Support(
-                        true,
-                        true,
-                        true
-                ),
+                true,
+                true,
                 false
         );
 
@@ -43,26 +40,14 @@ public class RaisedConfig {
 
         public static class Toggle {
 
-            public Support support;
+            public boolean share;
+            public boolean support;
             public boolean sync;
 
-            public Toggle(Support support, boolean sync) {
+            public Toggle(boolean share, boolean support, boolean sync) {
+                this.share = share;
                 this.support = support;
                 this.sync = sync;
-            }
-
-            public static class Support {
-
-                public boolean pre;
-                public boolean post;
-                public boolean share;
-
-                public Support(boolean pre, boolean post, boolean share) {
-                    this.pre = pre;
-                    this.post = post;
-                    this.share = share;
-                }
-
             }
 
         }
@@ -112,10 +97,14 @@ public class RaisedConfig {
         putObjects();
     }
 
-    public static void setSupport(boolean pre, boolean post, boolean share) {
-        config.toggle.support.pre = pre;
-        config.toggle.support.post = post;
-        config.toggle.support.share = share;
+    public static void setShare(boolean value) {
+        config.toggle.share = value;
+        saveConfig();
+        putObjects();
+    }
+
+    public static void setSupport(boolean value) {
+        config.toggle.support = value;
         saveConfig();
         putObjects();
     }
@@ -137,7 +126,12 @@ public class RaisedConfig {
         }
     }
 
-    public static Config.Toggle.Support getSupport() {
+    public static boolean getShare() {
+        return config.toggle.share;
+    }
+
+
+    public static boolean getSupport() {
         return config.toggle.support;
     }
 
@@ -146,8 +140,8 @@ public class RaisedConfig {
     }
 
     public static void putObjects() {
-        FabricLoader.getInstance().getObjectShare().put("raised:hud", getSupport().share ? getHud() : 0);
-        FabricLoader.getInstance().getObjectShare().put("raised:chat", getSupport().share ? getChat() : 0);
+        FabricLoader.getInstance().getObjectShare().put("raised:hud", getShare() ? getHud() : 0);
+        FabricLoader.getInstance().getObjectShare().put("raised:chat", getShare() ? getChat() : 0);
     }
 
 }

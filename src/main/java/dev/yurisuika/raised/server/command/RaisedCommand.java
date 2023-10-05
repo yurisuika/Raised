@@ -26,7 +26,8 @@ public class RaisedCommand {
                                 .executes(context -> {
                                     setHud(2);
                                     setChat(0);
-                                    setSupport(true, true, true);
+                                    setShare(true);
+                                    setSupport(true);
                                     setSync(false);
                                     context.getSource().sendFeedback(Text.translatable("commands.raised.config.reset"));
                                     return 1;
@@ -62,21 +63,30 @@ public class RaisedCommand {
                         )
                 )
                 .then(literal("toggle")
-                        .then(literal("support")
+                        .then(literal("share")
                                 .executes(context -> {
-                                    context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.support.query", config.toggle.support.pre, config.toggle.support.post, config.toggle.support.share));
+                                    context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.share.query", config.toggle.share));
                                     return 1;
                                 })
-                                .then(argument("pre", BoolArgumentType.bool())
-                                        .then(argument("post", BoolArgumentType.bool())
-                                                .then(argument("share", BoolArgumentType.bool())
-                                                        .executes(context -> {
-                                                            setSupport(BoolArgumentType.getBool(context, "pre"), BoolArgumentType.getBool(context, "post"), BoolArgumentType.getBool(context, "share"));
-                                                            context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.support.set", config.toggle.support.pre, config.toggle.support.post, config.toggle.support.share));
-                                                            return 1;
-                                                        })
-                                                )
-                                        )
+                                .then(argument("value", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            setShare(BoolArgumentType.getBool(context, "value"));
+                                            context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.share.set", config.toggle.share));
+                                            return 1;
+                                        })
+                                )
+                        )
+                        .then(literal("support")
+                                .executes(context -> {
+                                    context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.support.query", config.toggle.support));
+                                    return 1;
+                                })
+                                .then(argument("value", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            setSupport(BoolArgumentType.getBool(context, "value"));
+                                            context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.support.set", config.toggle.support));
+                                            return 1;
+                                        })
                                 )
                         )
                         .then(literal("sync")
