@@ -18,8 +18,8 @@
   "commands.raised.value.chat.query": "Chat height is currently set to: %d",
   "commands.raised.value.chat.set": "Chat height is now set to: %d",
 
-  "commands.raised.toggle.support.query": "Mod support is currently set to: (pre: %d, post: %d)",
-  "commands.raised.toggle.support.set": "Mod support is now set to: (pre: %d, post: %d)",
+  "commands.raised.toggle.support.query": "Extended support is currently set to: %d",
+  "commands.raised.toggle.support.set": "Extended support is now set to: %d",
 
   "commands.raised.toggle.sync.query": "HUD/Chat sync is currently set to: %d",
   "commands.raised.toggle.sync.set": "HUD/Chat sync is now set to: %d"

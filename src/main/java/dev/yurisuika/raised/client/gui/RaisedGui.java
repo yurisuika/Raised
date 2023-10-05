@@ -81,14 +81,14 @@ public class RaisedGui extends ForgeIngameGui {
     // START TRANSLATION OF PRE MOD EVENTS
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void startPreModTranslate(RenderGameOverlayEvent.Pre event) {
-        if (all.contains(event.getType()) && getSupport().pre) {
+        if (all.contains(event.getType()) && getSupport()) {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
     // END TRANSLATION OF PRE MOD EVENTS
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endPreModTranslate(RenderGameOverlayEvent.Pre event) {
-        if (all.contains(event.getType()) && getSupport().pre) {
+        if (all.contains(event.getType()) && getSupport()) {
             event.getMatrixStack().translate(0, +getHud(), 0);
         }
     }
@@ -97,14 +97,14 @@ public class RaisedGui extends ForgeIngameGui {
     // START TRANSLATION OF POST MOD EVENTS
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void startPostModTranslate(RenderGameOverlayEvent.Post event) {
-        if (all.contains(event.getType()) && getSupport().post) {
+        if (all.contains(event.getType()) && getSupport()) {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
     // END TRANSLATION OF POST MOD EVENTS
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endPostModTranslate(RenderGameOverlayEvent.Post event) {
-        if (all.contains(event.getType()) && getSupport().post) {
+        if (all.contains(event.getType()) && getSupport()) {
             event.getMatrixStack().translate(0, +getHud(), 0);
         }
     }

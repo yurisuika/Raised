@@ -25,7 +25,7 @@ public class RaisedCommand {
                                 .executes(context -> {
                                     setHud(2);
                                     setChat(0);
-                                    setSupport(true, true);
+                                    setSupport(true);
                                     setSync(false);
                                     context.getSource().sendFeedback(new TranslatableText("commands.raised.config.reset"), false);
                                     return 1;
@@ -63,17 +63,15 @@ public class RaisedCommand {
                 .then(literal("toggle")
                         .then(literal("support")
                                 .executes(context -> {
-                                    context.getSource().sendFeedback(new TranslatableText("commands.raised.toggle.support.query", config.toggle.support.pre, config.toggle.support.post), false);
+                                    context.getSource().sendFeedback(new TranslatableText("commands.raised.toggle.support.query", config.toggle.support), false);
                                     return 1;
                                 })
-                                .then(argument("pre", BoolArgumentType.bool())
-                                        .then(argument("post", BoolArgumentType.bool())
-                                                .executes(context -> {
-                                                    setSupport(BoolArgumentType.getBool(context, "pre"), BoolArgumentType.getBool(context, "post"));
-                                                    context.getSource().sendFeedback(new TranslatableText("commands.raised.toggle.support.set", config.toggle.support.pre, config.toggle.support.post), false);
-                                                    return 1;
-                                                })
-                                        )
+                                .then(argument("value", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            setSupport(BoolArgumentType.getBool(context, "value"));
+                                            context.getSource().sendFeedback(new TranslatableText("commands.raised.toggle.support.set", config.toggle.support), false);
+                                            return 1;
+                                        })
                                 )
                         )
                         .then(literal("sync")

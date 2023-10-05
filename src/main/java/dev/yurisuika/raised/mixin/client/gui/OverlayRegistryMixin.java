@@ -8,20 +8,23 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static dev.yurisuika.raised.client.gui.RaisedGui.*;
+import static dev.yurisuika.raised.client.option.RaisedConfig.*;
 
 @Mixin(value = OverlayRegistry.class, remap = false)
 public class OverlayRegistryMixin {
 
+    // PRE MOD
     @Inject(method = "registerOverlayBelow", at = @At("RETURN"))
     private static void translateOverlayBelow(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
-        if (hud.contains(other)) {
+        if (hud.contains(other) && getSupport()) {
             hud.add(overlay);
         }
     }
 
+    // POST MOD
     @Inject(method = "registerOverlayAbove", at = @At("RETURN"))
     private static void translateOverlayAbove(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
-        if (hud.contains(other)) {
+        if (hud.contains(other) && getSupport()) {
             hud.add(overlay);
         }
     }

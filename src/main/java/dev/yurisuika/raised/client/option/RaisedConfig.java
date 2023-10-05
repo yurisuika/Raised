@@ -6,7 +6,10 @@ import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.stream.Stream;
 
 public class RaisedConfig {
 
@@ -21,10 +24,7 @@ public class RaisedConfig {
                 0
         );
         public Toggle toggle = new Toggle(
-                new Toggle.Support(
-                        true,
-                        true
-                ),
+                true,
                 false
         );
 
@@ -42,24 +42,12 @@ public class RaisedConfig {
 
         public static class Toggle {
 
-            public Support support;
+            public boolean support;
             public boolean sync;
 
-            public Toggle(Support support, boolean sync) {
+            public Toggle(boolean support, boolean sync) {
                 this.support = support;
                 this.sync = sync;
-            }
-
-            public static class Support {
-
-                public boolean pre;
-                public boolean post;
-
-                public Support(boolean pre, boolean post) {
-                    this.pre = pre;
-                    this.post = post;
-                }
-
             }
 
         }
@@ -79,7 +67,13 @@ public class RaisedConfig {
     public static void loadConfig() {
         try {
             if (file.exists()) {
-                config = gson.fromJson(Files.readString(file.toPath()), Config.class);
+                StringBuilder contentBuilder = new StringBuilder();
+                try (Stream<String> stream = Files.lines(file.toPath(), StandardCharsets.UTF_8)) {
+                    stream.forEach(s -> contentBuilder.append(s).append("\n"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                config = gson.fromJson(contentBuilder.toString(), Config.class);
             } else {
                 config = new Config();
             }
@@ -107,9 +101,8 @@ public class RaisedConfig {
         saveConfig();
     }
 
-    public static void setSupport(boolean pre, boolean post) {
-        config.toggle.support.pre = pre;
-        config.toggle.support.post = post;
+    public static void setSupport(boolean value) {
+        config.toggle.support = value;
         saveConfig();
     }
 
@@ -130,7 +123,7 @@ public class RaisedConfig {
         }
     }
 
-    public static Config.Toggle.Support getSupport() {
+    public static boolean getSupport() {
         return config.toggle.support;
     }
 
