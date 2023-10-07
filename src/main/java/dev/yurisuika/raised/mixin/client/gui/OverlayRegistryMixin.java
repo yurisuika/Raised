@@ -15,7 +15,7 @@ public class OverlayRegistryMixin {
 
     // PRE MOD
     @Inject(method = "registerOverlayBelow", at = @At("RETURN"))
-    private static void translateOverlayBelow(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
+    private static void addOverlayBelow(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
         if (hud.contains(other) && getSupport()) {
             hud.add(overlay);
         }
@@ -23,7 +23,7 @@ public class OverlayRegistryMixin {
 
     // POST MOD
     @Inject(method = "registerOverlayAbove", at = @At("RETURN"))
-    private static void translateOverlayAbove(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
+    private static void addOverlayAbove(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
         if (hud.contains(other) && getSupport()) {
             hud.add(overlay);
         }

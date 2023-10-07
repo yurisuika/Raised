@@ -39,21 +39,18 @@ public class RaisedGui extends ForgeIngameGui {
     }
 
     // HUD
-    // START TRANSLATION OF HUD EVENTS
     @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
     public void startHudTranslate(RenderGameOverlayEvent.PreLayer event) {
         if (hud.contains(event.getOverlay())) {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
-    // END TRANSLATION OF HUD EVENTS (CANCELLED)
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endHudTranslate(RenderGameOverlayEvent.PreLayer event) {
         if (hud.contains(event.getOverlay()) && event.isCanceled()) {
             event.getMatrixStack().translate(0, +getHud(), 0);
         }
     }
-    // END TRANSLATION OF HUD EVENTS
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endHudTranslate(RenderGameOverlayEvent.PostLayer event) {
         if (hud.contains(event.getOverlay())) {
@@ -62,30 +59,26 @@ public class RaisedGui extends ForgeIngameGui {
     }
 
     // CHAT
-    // START TRANSLATION OF CHAT EVENTS
     @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-    public void startChatTranslate(RenderGameOverlayEvent.Chat event) {
+    public void startChatTranslate(RenderGameOverlayEvent.Pre event) {
         if (chat.contains(event.getType())) {
             event.getMatrixStack().translate(0, -getChat(), +300);
         }
     }
-    // END TRANSLATION OF CHAT EVENTS
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-    public void endChatTranslate(RenderGameOverlayEvent.Chat event) {
+    public void endChatTranslate(RenderGameOverlayEvent.Post event) {
         if (chat.contains(event.getType())) {
             event.getMatrixStack().translate(0, +getChat(), -300);
         }
     }
 
     // PRE MOD
-    // START TRANSLATION OF PRE MOD EVENTS
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void startPreModTranslate(RenderGameOverlayEvent.Pre event) {
         if (all.contains(event.getType()) && getSupport()) {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
-    // END TRANSLATION OF PRE MOD EVENTS
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endPreModTranslate(RenderGameOverlayEvent.Pre event) {
         if (all.contains(event.getType()) && getSupport()) {
@@ -94,14 +87,12 @@ public class RaisedGui extends ForgeIngameGui {
     }
 
     // POST MOD
-    // START TRANSLATION OF POST MOD EVENTS
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void startPostModTranslate(RenderGameOverlayEvent.Post event) {
         if (all.contains(event.getType()) && getSupport()) {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
-    // END TRANSLATION OF POST MOD EVENTS
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endPostModTranslate(RenderGameOverlayEvent.Post event) {
         if (all.contains(event.getType()) && getSupport()) {
