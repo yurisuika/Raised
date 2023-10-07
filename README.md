@@ -4,9 +4,9 @@
 
 Raised features some basic adjustability! Either use the keybinds or commands to control the position of the HUD and the chat. See the wiki for more information.
 
-As of version 2.0.0, Raised has moved its internal mod support to add-on files! This modular support system means you won't see as many updates to Raised anymore, but instead will just have to grab a new support file when a new mod is given support or a currently supported mod requires a fix.
+Raised 3.0.0 brings about an entirely new way of changing the height of the HUD! Instead of individually altering the height of different HUD elements, Raised now encapsulates where they are called to render to transform the vertical position of their stacks! On the Fabric version, this is done with the various HUD method calls in the main render method and also supports mods that inject at the head and tail of the render method. On the Forge version, this works with the existing render events. Depending on the game version, it can work with RenderGameOverlayEvent, RenderGuiOverlayEvent, OverlayRegistry, and RegisterGuiOverlaysEvent.
 
-See the wiki for a chart of mod compatibility! If you are a mod creator who would like to add compatibility, Raised now supports ObjectShare on Fabric! See *[Arrows Info](https://github.com/intact/arrows-info)* for an example.
+If you are a mod creator and find that your mod's HUD is not being raised, fear not because Raised supports ObjectShare on Fabric! See the wiki or use *[Arrows Info](https://github.com/intact/arrows-info)* for an example.
 
 #### Compiling
 
