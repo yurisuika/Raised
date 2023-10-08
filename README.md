@@ -4,9 +4,13 @@
 
 Raised features some basic adjustability! Either use the keybinds or commands to control the position of the HUD and the chat. See the wiki for more information.
 
-Raised 3.0.0 brings about an entirely new way of changing the height of the HUD! Instead of individually altering the height of different HUD elements, Raised now encapsulates where they are called to render to transform the vertical position of their stacks! On the Fabric version, this is done with the various HUD method calls in the main render method and also supports mods that inject at the head and tail of the render method. On the Forge version, this works with the existing render events. Depending on the game version, it can work with RenderGameOverlayEvent, RenderGuiOverlayEvent, OverlayRegistry, and RegisterGuiOverlaysEvent.
+Raised version 3.x brings about an entirely new way of changing the height of the HUD! Instead of individually altering the height of different HUD elements, Raised now encapsulates where they are called to render to transform the vertical position of their stacks! On the Fabric version, this is done with the various HUD method calls in the main render method and also supports mods that inject at the head and tail of the render method. On the Forge version, this works with the existing render events. Depending on the game version, it can work with RenderGameOverlayEvent, RenderGuiOverlayEvent, OverlayRegistry, and RegisterGuiOverlaysEvent.
 
-If you are a mod creator and find that your mod's HUD is not being raised, fear not because Raised supports Object Share on Fabric! See the wiki or use *[Arrows Info](https://github.com/intact/arrows-info)* for an example.
+Every mod that Raised supported before through hacky mixins now works in at least one version of the game, but most work in all! Even some mods that could not be supported before will now work. There are sadly some instances where mods do not work in certain versions, please consult the wiki for more information.
+
+Please note that the the modular support system attempted in version 2.x will still be supported. Mods that do not work with version 3 can still use existing support files. Please see [the respective releases for version 2.0.0](https://github.com/yurisuika/Raised/releases/tag/2.0.0) to obtain these support files. Unfortunately, these additional support files are not supported by most launchers.
+
+If you are a mod creator and find that your mod's HUD is not being raised, fear not because Raised supports Object Share on Fabric! See the wiki or use [Arrows Info](https://github.com/intact/arrows-info) for an example.
 
 #### Compiling
 
