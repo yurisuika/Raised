@@ -8,7 +8,7 @@ Raised version 3.x brings about an entirely new way of changing the height of th
 
 Every mod that Raised supported before through hacky mixins now works in at least one version of the game, but most work in all! Even some mods that could not be supported before will now work. There are sadly some instances where mods do not work in certain versions, please consult the wiki for more information.
 
-Please note that the the modular support system attempted in version 2.x will still be supported. Mods that do not work with version 3 can still use existing support files. Please see [the respective releases for version 2.0.0](https://github.com/yurisuika/Raised/releases/tag/2.0.0) to obtain these support files. Unfortunately, these additional support files are not supported by most launchers.
+Please note that the the modular support system attempted in version 2.x will still be supported. Mods that do not work with version 3.x can still use existing support files. Please see [the respective releases for version 2.0.0](https://github.com/yurisuika/Raised/releases/tag/2.0.0) to obtain these support files. Unfortunately, these additional support files are not supported by most launchers.
 
 If you are a mod creator and find that your mod's HUD is not being raised, fear not because Raised supports Object Share on Fabric! See the wiki or use [Arrows Info](https://github.com/intact/arrows-info) for an example.
 
