@@ -1,1 +1,3 @@
 accessWidener v1 named
+
+accessible method net/minecraft/client/gui/DrawContext drawSprite (Lnet/minecraft/client/texture/Sprite;Lnet/minecraft/client/texture/Scaling$NineSlice;IIIII)V
