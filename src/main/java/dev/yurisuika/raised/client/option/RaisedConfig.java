@@ -92,12 +92,12 @@ public class RaisedConfig {
     }
 
     public static void setHud(int value) {
-        config.value.hud = value;
+        config.value.hud = Math.max(value, 0);
         saveConfig();
     }
 
     public static void setChat(int value) {
-        config.value.chat = value;
+        config.value.chat = Math.max(value, 0);
         saveConfig();
     }
 
