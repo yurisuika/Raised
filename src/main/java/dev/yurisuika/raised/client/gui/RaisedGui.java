@@ -33,6 +33,8 @@ public class RaisedGui extends ForgeIngameGui {
     public static List<RenderGameOverlayEvent.ElementType> all = Lists.newArrayList(
             ALL
     );
+    public static List<IIngameOverlay> mod = Lists.newArrayList(
+    );
 
     public RaisedGui() {
         super(MinecraftClient.getInstance());
@@ -96,6 +98,26 @@ public class RaisedGui extends ForgeIngameGui {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endPostModTranslate(RenderGameOverlayEvent.Post event) {
         if (all.contains(event.getType()) && getSupport()) {
+            event.getMatrixStack().translate(0, +getHud(), 0);
+        }
+    }
+
+    // MOD
+    @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
+    public void startModTranslate(RenderGameOverlayEvent.PreLayer event) {
+        if (mod.contains(event.getOverlay()) && getSupport()) {
+            event.getMatrixStack().translate(0, -getHud(), 0);
+        }
+    }
+    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+    public void endModTranslate(RenderGameOverlayEvent.PreLayer event) {
+        if (mod.contains(event.getOverlay()) && event.isCanceled() && getSupport()) {
+            event.getMatrixStack().translate(0, +getHud(), 0);
+        }
+    }
+    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+    public void endModTranslate(RenderGameOverlayEvent.PostLayer event) {
+        if (mod.contains(event.getOverlay()) && getSupport()) {
             event.getMatrixStack().translate(0, +getHud(), 0);
         }
     }

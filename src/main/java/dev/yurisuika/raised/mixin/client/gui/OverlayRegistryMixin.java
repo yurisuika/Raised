@@ -13,19 +13,19 @@ import static dev.yurisuika.raised.client.option.RaisedConfig.*;
 @Mixin(value = OverlayRegistry.class, remap = false)
 public class OverlayRegistryMixin {
 
-    // PRE MOD
+    // MOD BELOW
     @Inject(method = "registerOverlayBelow", at = @At("RETURN"))
     private static void addOverlayBelow(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
         if (hud.contains(other) && getSupport()) {
-            hud.add(overlay);
+            mod.add(overlay);
         }
     }
 
-    // POST MOD
+    // MOD ABOVE
     @Inject(method = "registerOverlayAbove", at = @At("RETURN"))
     private static void addOverlayAbove(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
         if (hud.contains(other) && getSupport()) {
-            hud.add(overlay);
+            mod.add(overlay);
         }
     }
 
