@@ -9,7 +9,8 @@
   "client": [
     "client.gui.OverlayRegistryMixin",
     "client.gui.hud.ChatHudMixin",
-    "client.gui.hud.InGameHudMixin"
+    "client.gui.hud.InGameHudMixin",
+    "client.option.OptionInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

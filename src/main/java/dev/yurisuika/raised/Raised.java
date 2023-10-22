@@ -1,7 +1,10 @@
 package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.gui.RaisedGui;
+import dev.yurisuika.raised.client.gui.screen.RaisedScreen;
 import dev.yurisuika.raised.server.command.RaisedCommand;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.TranslatableText;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
@@ -22,23 +25,8 @@ public class Raised {
 
         @SubscribeEvent
         public static void keyInput(InputEvent.KeyInputEvent event) {
-            if (hudDown.wasPressed()) {
-                setHud(config.value.hud - 1);
-            }
-            if (hudReset.wasPressed()) {
-                setHud(2);
-            }
-            if (hudUp.wasPressed()) {
-                setHud(config.value.hud + 1);
-            }
-            if (chatDown.wasPressed()) {
-                setChat(config.value.chat - 1);
-            }
-            if (chatReset.wasPressed()) {
-                setChat(0);
-            }
-            if (chatUp.wasPressed()) {
-                setChat(config.value.chat + 1);
+            while (options.wasPressed()) {
+                MinecraftClient.getInstance().setScreen(new RaisedScreen(new TranslatableText("options.raised.title")));
             }
         }
 
@@ -56,12 +44,7 @@ public class Raised {
         public static void clientSetup(FMLClientSetupEvent event) {
             MinecraftForge.EVENT_BUS.register(new RaisedGui());
 
-            ClientRegistry.registerKeyBinding(hudDown);
-            ClientRegistry.registerKeyBinding(hudReset);
-            ClientRegistry.registerKeyBinding(hudUp);
-            ClientRegistry.registerKeyBinding(chatDown);
-            ClientRegistry.registerKeyBinding(chatReset);
-            ClientRegistry.registerKeyBinding(chatUp);
+            ClientRegistry.registerKeyBinding(options);
         }
 
     }

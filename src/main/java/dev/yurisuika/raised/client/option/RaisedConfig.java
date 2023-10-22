@@ -116,11 +116,7 @@ public class RaisedConfig {
     }
 
     public static int getChat() {
-        if (getSync()) {
-            return config.value.hud;
-        } else {
-            return config.value.chat;
-        }
+        return config.value.chat;
     }
 
     public static boolean getSupport() {
