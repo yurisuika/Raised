@@ -118,11 +118,11 @@ public abstract class InGameHudMixin {
         // CHAT
         @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;render(Lnet/minecraft/client/gui/DrawContext;III)V"))
         private void startChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, -getChat(), +300);
+            context.getMatrices().translate(0, -(getSync() ? getHud() : getChat()), +300);
         }
         @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;render(Lnet/minecraft/client/gui/DrawContext;III)V", shift = At.Shift.AFTER))
         private void endChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, +getChat(), -300);
+            context.getMatrices().translate(0, +(getSync() ? getHud() : getChat()), -300);
         }
 
         // TAIL

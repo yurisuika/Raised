@@ -13,13 +13,13 @@ public abstract class ChatHudMixin {
     // CHAT CLICK
     @ModifyVariable(method = "mouseClicked", at = @At(value = "HEAD"), ordinal = 1, argsOnly = true)
     private double moveChatClick(double value) {
-        return value + getChat();
+        return value + (getSync() ? getHud() : getChat());
     }
 
     // CHAT TOOLTIP
     @ModifyVariable(method = "toChatLineY", at = @At(value = "HEAD"), ordinal = 0, argsOnly = true)
     private double moveChatTooltip(double value) {
-        return value + getChat();
+        return value + (getSync() ? getHud() : getChat());
     }
 
 }

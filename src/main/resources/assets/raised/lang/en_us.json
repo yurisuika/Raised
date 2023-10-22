@@ -1,13 +1,7 @@
 {
   "key.categories.raised": "Raised",
 
-  "key.raised.hud.down": "Lower HUD Height",
-  "key.raised.hud.reset": "Reset HUD Height",
-  "key.raised.hud.up": "Raise HUD Height",
-
-  "key.raised.chat.down": "Lower Chat Height",
-  "key.raised.chat.reset": "Reset Chat Height",
-  "key.raised.chat.up": "Raise Chat Height",
+  "key.raised.options": "Open Raised Options",
 
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
@@ -21,9 +15,26 @@
   "commands.raised.toggle.share.query": "Fabric Object Share support is currently set to: %d",
   "commands.raised.toggle.share.set": "Fabric Object Share support is now set to: %d",
 
-  "commands.raised.toggle.support.query": "Extended support is currently set to: %d",
-  "commands.raised.toggle.support.set": "Extended support is now set to: %d",
+  "commands.raised.toggle.support.query": "Extended mod support is currently set to: %d",
+  "commands.raised.toggle.support.set": "Extended mod support is now set to: %d",
 
   "commands.raised.toggle.sync.query": "HUD/Chat sync is currently set to: %d",
-  "commands.raised.toggle.sync.set": "HUD/Chat sync is now set to: %d"
+  "commands.raised.toggle.sync.set": "HUD/Chat sync is now set to: %d",
+
+  "options.raised.title": "Raised Options",
+
+  "options.raised.hud": "HUD",
+  "options.raised.hud.tooltip": "Select the HUD offset.",
+
+  "options.raised.chat": "Chat",
+  "options.raised.chat.tooltip": "Select the chat offset.",
+
+  "options.raised.share": "Share",
+  "options.raised.share.tooltip": "Enables Fabric Object Share support.",
+
+  "options.raised.support": "Support",
+  "options.raised.support.tooltip": "Enables extended mod support.",
+
+  "options.raised.sync": "Sync",
+  "options.raised.sync.tooltip": "Enables syncing HUD and chat."
 }

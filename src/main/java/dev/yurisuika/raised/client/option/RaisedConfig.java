@@ -119,11 +119,7 @@ public class RaisedConfig {
     }
 
     public static int getChat() {
-        if (getSync()) {
-            return config.value.hud;
-        } else {
-            return config.value.chat;
-        }
+        return config.value.chat;
     }
 
     public static boolean getShare() {
@@ -140,7 +136,10 @@ public class RaisedConfig {
 
     public static void putObjects() {
         FabricLoader.getInstance().getObjectShare().put("raised:hud", getShare() ? getHud() : 0);
-        FabricLoader.getInstance().getObjectShare().put("raised:chat", getShare() ? getChat() : 0);
+        FabricLoader.getInstance().getObjectShare().put("raised:chat", getShare() ? getSync() ? getHud() : getChat() : 0);
+        FabricLoader.getInstance().getObjectShare().put("raised:share", getShare());
+        FabricLoader.getInstance().getObjectShare().put("raised:support", getSupport());
+        FabricLoader.getInstance().getObjectShare().put("raised:sync", getSync());
     }
 
 }
