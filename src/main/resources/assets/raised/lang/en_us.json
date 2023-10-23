@@ -30,7 +30,7 @@
   "options.raised.chat.tooltip": "Controls the Chat height.\nMaximum value is half of current scaled screen height.",
 
   "options.raised.share": "Share",
-  "options.raised.share.tooltip": "Enables Fabric mod support.\nAdds support for mods using Object Share on Fabric.",
+  "options.raised.share.tooltip": "Enables Fabric mod support.\nAdds support for mod elements using Object Share on Fabric.",
 
   "options.raised.support": "Support",
   "options.raised.support.tooltip": "Enables extended mod support.\nAdds support for mod elements not associated with vanilla HUD elements.",
