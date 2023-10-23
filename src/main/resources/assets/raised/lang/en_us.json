@@ -12,8 +12,8 @@
   "commands.raised.value.chat.query": "Chat height is currently set to: %d",
   "commands.raised.value.chat.set": "Chat height is now set to: %d",
 
-  "commands.raised.toggle.share.query": "Fabric Object Share support is currently set to: %d",
-  "commands.raised.toggle.share.set": "Fabric Object Share support is now set to: %d",
+  "commands.raised.toggle.share.query": "Fabric mod support is currently set to: %d",
+  "commands.raised.toggle.share.set": "Fabric mod support is now set to: %d",
 
   "commands.raised.toggle.support.query": "Extended mod support is currently set to: %d",
   "commands.raised.toggle.support.set": "Extended mod support is now set to: %d",
@@ -24,17 +24,17 @@
   "options.raised.title": "Raised Options",
 
   "options.raised.hud": "HUD",
-  "options.raised.hud.tooltip": "Select the HUD offset.",
+  "options.raised.hud.tooltip": "Controls the HUD height.\nMaximum value is half of current scaled screen height.",
 
   "options.raised.chat": "Chat",
-  "options.raised.chat.tooltip": "Select the chat offset.",
+  "options.raised.chat.tooltip": "Controls the Chat height.\nMaximum value is half of current scaled screen height.",
 
   "options.raised.share": "Share",
-  "options.raised.share.tooltip": "Enables Fabric Object Share support.",
+  "options.raised.share.tooltip": "Enables Fabric mod support.\nAdds support for mods using Object Share on Fabric.",
 
   "options.raised.support": "Support",
-  "options.raised.support.tooltip": "Enables extended mod support.",
+  "options.raised.support.tooltip": "Enables extended mod support.\nAdds support for mod elements not associated with vanilla HUD elements.",
 
   "options.raised.sync": "Sync",
-  "options.raised.sync.tooltip": "Enables syncing HUD and chat."
+  "options.raised.sync.tooltip": "Enables HUD/Chat sync.\nSynchronizes the chat height to the HUD height."
 }
