@@ -47,12 +47,14 @@ public class RaisedGui extends ForgeIngameGui {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
+
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endHudTranslate(RenderGameOverlayEvent.PreLayer event) {
         if (hud.contains(event.getOverlay()) && event.isCanceled()) {
             event.getMatrixStack().translate(0, +getHud(), 0);
         }
     }
+
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endHudTranslate(RenderGameOverlayEvent.PostLayer event) {
         if (hud.contains(event.getOverlay())) {
@@ -67,6 +69,7 @@ public class RaisedGui extends ForgeIngameGui {
             event.getMatrixStack().translate(0, -(getSync() ? getHud() : getChat()), +300);
         }
     }
+
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endChatTranslate(RenderGameOverlayEvent.Post event) {
         if (chat.contains(event.getType())) {
@@ -81,6 +84,7 @@ public class RaisedGui extends ForgeIngameGui {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endPreModTranslate(RenderGameOverlayEvent.Pre event) {
         if (all.contains(event.getType()) && getSupport()) {
@@ -95,6 +99,7 @@ public class RaisedGui extends ForgeIngameGui {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endPostModTranslate(RenderGameOverlayEvent.Post event) {
         if (all.contains(event.getType()) && getSupport()) {
@@ -109,12 +114,14 @@ public class RaisedGui extends ForgeIngameGui {
             event.getMatrixStack().translate(0, -getHud(), 0);
         }
     }
+
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endModTranslate(RenderGameOverlayEvent.PreLayer event) {
         if (mod.contains(event.getOverlay()) && event.isCanceled() && getSupport()) {
             event.getMatrixStack().translate(0, +getHud(), 0);
         }
     }
+
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endModTranslate(RenderGameOverlayEvent.PostLayer event) {
         if (mod.contains(event.getOverlay()) && getSupport()) {
