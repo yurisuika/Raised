@@ -21,14 +21,14 @@
   "options.raised.title": "Raised Options",
 
   "options.raised.hud": "HUD",
-  "options.raised.hud.tooltip": "Select the HUD offset.",
+  "options.raised.hud.tooltip": "Controls the HUD height.\nMaximum value is half of current scaled screen height.",
 
   "options.raised.chat": "Chat",
-  "options.raised.chat.tooltip": "Select the chat offset.",
+  "options.raised.chat.tooltip": "Controls the Chat height.\nMaximum value is half of current scaled screen height.",
 
   "options.raised.support": "Support",
-  "options.raised.support.tooltip": "Enables extended mod support.",
+  "options.raised.support.tooltip": "Enables extended mod support.\nAdds support for mod elements not associated with vanilla HUD elements.",
 
   "options.raised.sync": "Sync",
-  "options.raised.sync.tooltip": "Enables syncing HUD and chat."
+  "options.raised.sync.tooltip": "Enables HUD/Chat sync.\nSynchronizes the chat height to the HUD height."
 }
