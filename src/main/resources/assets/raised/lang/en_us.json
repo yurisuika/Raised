@@ -6,11 +6,11 @@
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
 
-  "commands.raised.value.hud.query": "HUD height is currently set to: %d",
-  "commands.raised.value.hud.set": "HUD height is now set to: %d",
+  "commands.raised.value.hud.query": "HUD offset is currently set to: %d",
+  "commands.raised.value.hud.set": "HUD offset is now set to: %d",
 
-  "commands.raised.value.chat.query": "Chat height is currently set to: %d",
-  "commands.raised.value.chat.set": "Chat height is now set to: %d",
+  "commands.raised.value.chat.query": "Chat offset is currently set to: %d",
+  "commands.raised.value.chat.set": "Chat offset is now set to: %d",
 
   "commands.raised.toggle.share.query": "Fabric mod support is currently set to: %d",
   "commands.raised.toggle.share.set": "Fabric mod support is now set to: %d",
@@ -24,10 +24,10 @@
   "options.raised.title": "Raised Options",
 
   "options.raised.hud": "HUD",
-  "options.raised.hud.tooltip": "Controls the HUD height.\nMaximum value is half of current scaled screen height.",
+  "options.raised.hud.tooltip": "Controls the HUD offset.\nMaximum value is a quarter of current scaled screen height.",
 
   "options.raised.chat": "Chat",
-  "options.raised.chat.tooltip": "Controls the Chat height.\nMaximum value is half of current scaled screen height.",
+  "options.raised.chat.tooltip": "Controls the Chat offset.\nMaximum value is a quarter of current scaled screen height.",
 
   "options.raised.share": "Share",
   "options.raised.share.tooltip": "Enables Fabric mod support.\nAdds support for mod elements using Object Share on Fabric.",
@@ -36,5 +36,5 @@
   "options.raised.support.tooltip": "Enables extended mod support.\nAdds support for mod elements not associated with vanilla HUD elements.",
 
   "options.raised.sync": "Sync",
-  "options.raised.sync.tooltip": "Enables HUD/Chat sync.\nSynchronizes the chat height to the HUD height."
+  "options.raised.sync.tooltip": "Enables HUD/Chat sync.\nSynchronizes the chat offset to the HUD offset."
 }
