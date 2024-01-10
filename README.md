@@ -2,13 +2,11 @@
 
 **Raised** is a Fabric/Forge mod for Minecraft that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time in Java Edition ([MC-67532](https://bugs.mojang.com/browse/MC-67532)). Not only is the selector texture cut off by a couple pixels, but the entire hotbar was actually designed for being raised up off of the bottom of the screen. Restore how it was meant to be and raise it up!
 
-Raised features some basic adjustability! Either use the keybinds or commands to control the position of the HUD and the chat. See the wiki for more information.
+Please note that for Minecraft 1.20.2+, Raised requires its own hotbar selector asset, as the GUI atlas was broken up into separate sprites with the hotbar selector now being cut off in texture as well as code!
 
-Raised version 3.x brings about an entirely new way of changing the height of the HUD! Instead of individually altering the height of different HUD elements, Raised now encapsulates where they are called to render to transform the vertical position of their stacks! On the Fabric version, this is done with the various HUD method calls in the main render method and also supports mods that inject at the head and tail of the render method. On the Forge version, this works with the existing render events. Depending on the game version, it can work with RenderGameOverlayEvent, RenderGuiOverlayEvent, OverlayRegistry, and RegisterGuiOverlaysEvent.
+Raised features some basic adjustability! Either use the GUI or commands to control the configurable options. See the wiki for more information.
 
-Every mod that Raised supported before through hacky mixins now works in at least one version of the game, but most work in all! Even some mods that could not be supported before will now work. There are sadly some instances where mods do not work in certain versions, please consult the wiki for more information.
-
-Please note that the modular support system attempted in version 2.x will still be supported if you wish to remain with that version. Please see [the respective releases for version 2.0.0](https://github.com/yurisuika/Raised/releases/tag/2.0.0) to obtain these support files. Unfortunately, these additional support files are not supported by most launchers.
+On the Fabric version, Raised encapsulates the various HUD elements' method calls in the main render method to translate their position on the screen. Mods that inject adjacent to these calls will naturally work, but mods that inject at the head and tail of the render method are also supported. On the Forge version, this works with the HUD elements that are pre-encapsulated by Forge render events. Depending on the game version, it can work with RenderGameOverlayEvent, RenderGuiOverlayEvent, OverlayRegistry, and RegisterGuiOverlaysEvent.
 
 If you are a mod creator and find that your mod's HUD is not being raised, fear not because Raised supports Object Share on Fabric! See the wiki or use [Arrows Info](https://github.com/intact/arrows-info) for an example.
 
