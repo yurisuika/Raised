@@ -17,22 +17,24 @@ public abstract class InGameHudMixin {
     @Mixin(value = InGameHud.class, priority = -999999999)
     public abstract static class Pre {
 
+        // HEAD
+        @Inject(method = "render", at = @At("HEAD"))
+        private void startHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            if (getSupport()) {
+                context.getMatrices().translate(0, -getHud(), 0);
+            }
+        }
+
         // MAIN HUD
         @Inject(method = "renderMainHud", at = @At(value = "HEAD"))
         private void startSpectatorMenuTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             context.getMatrices().translate(0, -getHud(), 0);
         }
 
-        // SPECTATOR TOOLTIP
-//        @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/SpectatorHud;render(Lnet/minecraft/client/gui/DrawContext;)V"))
-//        private void startSpectatorHudTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-//            context.getMatrices().translate(0, -getHud(), 0);
-//        }
-//
-//        @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/SpectatorHud;render(Lnet/minecraft/client/gui/DrawContext;)V", shift = At.Shift.AFTER))
-//        private void endSpectatorHudTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-//            context.getMatrices().translate(0, +getHud(), 0);
-//        }
+        @Inject(method = "renderMainHud", at = @At(value = "TAIL"))
+        private void endSpectatorMenuTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            context.getMatrices().translate(0, +getHud(), 0);
+        }
 
         // OVERLAY MESSAGE
         @Inject(method = "renderOverlayMessage", at = @At(value = "HEAD"))
@@ -40,10 +42,28 @@ public abstract class InGameHudMixin {
             context.getMatrices().translate(0, -getHud(), 0);
         }
 
+        @Inject(method = "renderOverlayMessage", at = @At(value = "TAIL"))
+        private void endOverlayMessageTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            context.getMatrices().translate(0, +getHud(), 0);
+        }
+
         // CHAT
         @Inject(method = "renderChat", at = @At(value = "HEAD"))
         private void startChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             context.getMatrices().translate(0, -(getSync() ? getHud() : getChat()), +300);
+        }
+
+        @Inject(method = "renderChat", at = @At(value = "TAIL"))
+        private void endChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            context.getMatrices().translate(0, +(getSync() ? getHud() : getChat()), -300);
+        }
+
+        // TAIL
+        @Inject(method = "render", at = @At("TAIL"))
+        private void startTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            if (getSupport()) {
+                context.getMatrices().translate(0, -getHud(), 0);
+            }
         }
 
         // HOTBAR SELECTOR
@@ -58,22 +78,20 @@ public abstract class InGameHudMixin {
     @Mixin(value = InGameHud.class, priority = 999999999)
     public abstract static class Post {
 
-        // MAIN HUD
-        @Inject(method = "renderMainHud", at = @At(value = "TAIL"))
-        private void endSpectatorMenuTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, +getHud(), 0);
+        // HEAD
+        @Inject(method = "render", at = @At("HEAD"))
+        private void endHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            if (getSupport()) {
+                context.getMatrices().translate(0, +getHud(), 0);
+            }
         }
 
-        // OVERLAY MESSAGE
-        @Inject(method = "renderOverlayMessage", at = @At(value = "TAIL"))
-        private void endOverlayMessageTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, +getHud(), 0);
-        }
-
-        // CHAT
-        @Inject(method = "renderChat", at = @At(value = "TAIL"))
-        private void endChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, +(getSync() ? getHud() : getChat()), -300);
+        // TAIL
+        @Inject(method = "render", at = @At("TAIL"))
+        private void endTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            if (getSupport()) {
+                context.getMatrices().translate(0, +getHud(), 0);
+            }
         }
 
     }
