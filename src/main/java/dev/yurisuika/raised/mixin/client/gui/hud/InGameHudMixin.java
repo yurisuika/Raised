@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
+import static dev.yurisuika.raised.client.gui.RaisedGui.*;
 import static dev.yurisuika.raised.client.option.RaisedConfig.*;
 
 public abstract class InGameHudMixin {
@@ -21,48 +22,59 @@ public abstract class InGameHudMixin {
         @Inject(method = "render", at = @At("HEAD"))
         private void startHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
-                context.getMatrices().translate(0, -getHud(), 0);
+                start(context, 0, getHud(), 0);
             }
         }
 
         // MAIN HUD
         @Inject(method = "renderMainHud", at = @At(value = "HEAD"))
         private void startSpectatorMenuTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, -getHud(), 0);
+            start(context, 0, getHud(), 0);
         }
 
         @Inject(method = "renderMainHud", at = @At(value = "TAIL"))
         private void endSpectatorMenuTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, +getHud(), 0);
+            end(context, 0, getHud(), 0);
         }
 
         // OVERLAY MESSAGE
         @Inject(method = "renderOverlayMessage", at = @At(value = "HEAD"))
         private void startOverlayMessageTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, -getHud(), 0);
+            start(context, 0, getHud(), 0);
         }
 
         @Inject(method = "renderOverlayMessage", at = @At(value = "TAIL"))
         private void endOverlayMessageTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, +getHud(), 0);
+            end(context, 0, getHud(), 0);
+        }
+
+        // TITLE AND SUBTITLES
+        @Inject(method = "renderOverlayMessage", at = @At(value = "HEAD"))
+        private void startTitleAndSubtitlesTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            end(context, 0, getHud(), 0);
+        }
+
+        @Inject(method = "renderOverlayMessage", at = @At(value = "TAIL"))
+        private void endTitleAndSubtitlesTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            start(context, 0, getHud(), 0);
         }
 
         // CHAT
         @Inject(method = "renderChat", at = @At(value = "HEAD"))
         private void startChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, -(getSync() ? getHud() : getChat()), +300);
+            start(context, 0, getSync() ? getHud() : getChat(), 0);
         }
 
         @Inject(method = "renderChat", at = @At(value = "TAIL"))
         private void endChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            context.getMatrices().translate(0, +(getSync() ? getHud() : getChat()), -300);
+            end(context, 0, getSync() ? getHud() : getChat(), 0);
         }
 
         // TAIL
         @Inject(method = "render", at = @At("TAIL"))
         private void startTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
-                context.getMatrices().translate(0, -getHud(), 0);
+                start(context, 0, getHud(), 0);
             }
         }
 
@@ -82,7 +94,7 @@ public abstract class InGameHudMixin {
         @Inject(method = "render", at = @At("HEAD"))
         private void endHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
-                context.getMatrices().translate(0, +getHud(), 0);
+                end(context, 0, getHud(), 0);
             }
         }
 
@@ -90,7 +102,7 @@ public abstract class InGameHudMixin {
         @Inject(method = "render", at = @At("TAIL"))
         private void endTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
-                context.getMatrices().translate(0, +getHud(), 0);
+                end(context, 0, getHud(), 0);
             }
         }
 
