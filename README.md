@@ -2,7 +2,7 @@
 
 **Raised** is a Fabric/Forge mod for Minecraft that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time in Java Edition ([MC-67532](https://bugs.mojang.com/browse/MC-67532)). Not only is the selector texture cut off by a couple pixels, but the entire hotbar was actually designed for being raised up off of the bottom of the screen. Restore how it was meant to be and raise it up!
 
-Please note that for Minecraft 1.20.2+, Raised requires its own hotbar selector asset, as the GUI atlas was broken up into separate sprites with the hotbar selector now being cut off in texture as well as code!
+Please note that, for Minecraft 1.20.2+, Raised requires its own hotbar selector asset, as the GUI atlas was broken up into separate sprites with the hotbar selector now being cut off in texture as well as code!
 
 Raised features some basic adjustability! Either use the GUI or commands to control the configurable options. See the wiki for more information.
 
