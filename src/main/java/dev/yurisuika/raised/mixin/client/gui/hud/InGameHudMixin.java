@@ -28,12 +28,23 @@ public abstract class InGameHudMixin {
 
         // MAIN HUD
         @Inject(method = "renderMainHud", at = @At(value = "HEAD"))
-        private void startSpectatorMenuTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+        private void startMainHudTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             start(context, 0, getHud(), 0);
         }
 
         @Inject(method = "renderMainHud", at = @At(value = "TAIL"))
-        private void endSpectatorMenuTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+        private void endMainHudTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            end(context, 0, getHud(), 0);
+        }
+
+        // EXPERIENCE LEVEL
+        @Inject(method = "renderExperienceLevel", at = @At(value = "HEAD"))
+        private void startExperienceLevelTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            start(context, 0, getHud(), 0);
+        }
+
+        @Inject(method = "renderExperienceLevel", at = @At(value = "TAIL"))
+        private void endExperienceLevelTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             end(context, 0, getHud(), 0);
         }
 
