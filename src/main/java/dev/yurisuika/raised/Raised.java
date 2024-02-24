@@ -18,7 +18,7 @@ public class Raised implements ClientModInitializer {
     public static void registerClientTickEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (options.wasPressed()) {
-                client.setScreen(new RaisedScreen(Text.translatable("options.raised.title")));
+                client.setScreen(new RaisedScreen.SliderScreen(Text.translatable("options.raised.title")));
             }
         });
     }

@@ -18,9 +18,17 @@ public abstract class InGameHudMixin {
     @Mixin(value = InGameHud.class, priority = -999999999)
     public abstract static class Pre {
 
-        // HEAD
+        // RENDER (HEAD)
         @Inject(method = "render", at = @At("HEAD"))
-        private void startHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+        private void startRenderHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+            if (getSupport()) {
+                start(context, 0, getHud(), 0);
+            }
+        }
+
+        // RENDER (TAIL)
+        @Inject(method = "render", at = @At("TAIL"))
+        private void startRenderTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
                 start(context, 0, getHud(), 0);
             }
@@ -49,25 +57,14 @@ public abstract class InGameHudMixin {
         }
 
         // OVERLAY MESSAGE
-        @Inject(method = "renderOverlayMessage", at = @At(value = "HEAD"))
+        @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V"))
         private void startOverlayMessageTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             start(context, 0, getHud(), 0);
         }
 
-        @Inject(method = "renderOverlayMessage", at = @At(value = "TAIL"))
+        @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;pop()V", shift = At.Shift.AFTER))
         private void endOverlayMessageTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             end(context, 0, getHud(), 0);
-        }
-
-        // TITLE AND SUBTITLES
-        @Inject(method = "renderOverlayMessage", at = @At(value = "HEAD"))
-        private void startTitleAndSubtitlesTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            end(context, 0, getHud(), 0);
-        }
-
-        @Inject(method = "renderOverlayMessage", at = @At(value = "TAIL"))
-        private void endTitleAndSubtitlesTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            start(context, 0, getHud(), 0);
         }
 
         // CHAT
@@ -79,14 +76,6 @@ public abstract class InGameHudMixin {
         @Inject(method = "renderChat", at = @At(value = "TAIL"))
         private void endChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             end(context, 0, getSync() ? getHud() : getChat(), 0);
-        }
-
-        // TAIL
-        @Inject(method = "render", at = @At("TAIL"))
-        private void startTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            if (getSupport()) {
-                start(context, 0, getHud(), 0);
-            }
         }
 
         // HOTBAR SELECTOR
@@ -101,17 +90,17 @@ public abstract class InGameHudMixin {
     @Mixin(value = InGameHud.class, priority = 999999999)
     public abstract static class Post {
 
-        // HEAD
+        // RENDER (HEAD)
         @Inject(method = "render", at = @At("HEAD"))
-        private void endHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+        private void endRenderHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
                 end(context, 0, getHud(), 0);
             }
         }
 
-        // TAIL
+        // RENDER (TAIL)
         @Inject(method = "render", at = @At("TAIL"))
-        private void endTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
+        private void endRenderTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
                 end(context, 0, getHud(), 0);
             }
