@@ -42,7 +42,7 @@
   "options.raised.support.tooltip": "Enables extended mod support.\nAdds support for mod elements not associated with vanilla HUD elements.",
 
   "options.raised.sync": "Sync",
-  "options.raised.sync.tooltip": "Enables HUD/Chat sync.\nSynchronizes the chat offset to the HUD offset.",
+  "options.raised.sync.tooltip": "Enables HUD/chat sync.\nSynchronizes the chat offset to the HUD offset.",
 
   "options.raised.texture": "Texture",
   "options.raised.texture.tooltip": "Enables texture support.\nFixes the missing row of pixels on the hotbar selector with a new asset instead of mirroring the row from the top.\nIf your resource pack does not support Raised, set this to false."
