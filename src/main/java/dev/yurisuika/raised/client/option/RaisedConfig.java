@@ -23,6 +23,7 @@ public class RaisedConfig {
         public Toggle toggle = new Toggle(
                 true,
                 true,
+                false,
                 false
         );
 
@@ -43,11 +44,13 @@ public class RaisedConfig {
             public boolean share;
             public boolean support;
             public boolean sync;
+            public boolean texture;
 
-            public Toggle(boolean share, boolean support, boolean sync) {
+            public Toggle(boolean share, boolean support, boolean sync, boolean texture) {
                 this.share = share;
                 this.support = support;
                 this.sync = sync;
+                this.texture = texture;
             }
 
         }
@@ -114,6 +117,11 @@ public class RaisedConfig {
         saveConfig();
     }
 
+    public static void setTexture(boolean value) {
+        config.toggle.texture = value;
+        saveConfig();
+    }
+
     public static int getHud() {
         return config.value.hud;
     }
@@ -134,12 +142,17 @@ public class RaisedConfig {
         return config.toggle.sync;
     }
 
+    public static boolean getTexture() {
+        return config.toggle.texture;
+    }
+
     public static void putObjects() {
         FabricLoader.getInstance().getObjectShare().put("raised:hud", getShare() ? getHud() : 0);
         FabricLoader.getInstance().getObjectShare().put("raised:chat", getShare() ? getSync() ? getHud() : getChat() : 0);
         FabricLoader.getInstance().getObjectShare().put("raised:share", getShare());
         FabricLoader.getInstance().getObjectShare().put("raised:support", getSupport());
         FabricLoader.getInstance().getObjectShare().put("raised:sync", getSync());
+        FabricLoader.getInstance().getObjectShare().put("raised:texture", getTexture());
     }
 
 }

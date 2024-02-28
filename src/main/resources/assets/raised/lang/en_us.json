@@ -21,6 +21,9 @@
   "commands.raised.toggle.sync.query": "HUD/Chat sync is currently set to: %d",
   "commands.raised.toggle.sync.set": "HUD/Chat sync is now set to: %d",
 
+  "commands.raised.toggle.texture.query": "Texture support is currently set to: %d",
+  "commands.raised.toggle.texture.set": "Texture support now set to: %d",
+
   "options.raised.title": "Raised Options",
 
   "options.raised.checkbox": "Raised Options",
@@ -30,7 +33,7 @@
   "options.raised.hud.tooltip": "Controls the HUD offset.\nMaximum slider value is a quarter of scaled screen height.",
 
   "options.raised.chat": "Chat",
-  "options.raised.chat.tooltip": "Controls the Chat offset.\nMaximum slider value is a quarter of scaled screen height.",
+  "options.raised.chat.tooltip": "Controls the chat offset.\nMaximum slider value is a quarter of scaled screen height.",
 
   "options.raised.share": "Share",
   "options.raised.share.tooltip": "Enables Fabric mod support.\nAdds support for mod elements using Object Share on Fabric.",
@@ -39,5 +42,8 @@
   "options.raised.support.tooltip": "Enables extended mod support.\nAdds support for mod elements not associated with vanilla HUD elements.",
 
   "options.raised.sync": "Sync",
-  "options.raised.sync.tooltip": "Enables HUD/Chat sync.\nSynchronizes the chat offset to the HUD offset."
+  "options.raised.sync.tooltip": "Enables HUD/Chat sync.\nSynchronizes the chat offset to the HUD offset.",
+
+  "options.raised.texture": "Texture",
+  "options.raised.texture.tooltip": "Enables texture support.\nFixes the missing row of pixels on the hotbar selector with a new asset instead of mirroring the row from the top.\nIf your resource pack does not support Raised, set this to false."
 }

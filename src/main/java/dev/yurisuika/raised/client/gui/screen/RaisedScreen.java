@@ -24,6 +24,7 @@ public abstract class RaisedScreen extends Screen {
     public CheckboxWidget checkbox;
     public ClickableWidget support;
     public ClickableWidget sync;
+    public ClickableWidget texture;
     public ClickableWidget share;
 
     public RaisedScreen(Text title) {
@@ -48,6 +49,7 @@ public abstract class RaisedScreen extends Screen {
         checkbox.setWidth(200);
         support = SimpleOption.ofBoolean("options.raised.support", SimpleOption.constantTooltip(Text.translatable("options.raised.support.tooltip")), getSupport(), RaisedConfig::setSupport).createWidget(client.options, 0, 0, 98);
         sync = SimpleOption.ofBoolean("options.raised.sync", SimpleOption.constantTooltip(Text.translatable("options.raised.sync.tooltip")), getSync(), RaisedConfig::setSync).createWidget(client.options, 0, 0, 98);
+        texture = SimpleOption.ofBoolean("options.raised.texture", SimpleOption.constantTooltip(Text.translatable("options.raised.texture.tooltip")), getTexture(), RaisedConfig::setTexture).createWidget(client.options, 0, 0, 200);
         share = SimpleOption.ofBoolean("options.raised.share", SimpleOption.constantTooltip(Text.translatable("options.raised.share.tooltip")), getShare(), RaisedConfig::setShare).createWidget(client.options, 0, 0, 200);
     }
 
@@ -92,6 +94,7 @@ public abstract class RaisedScreen extends Screen {
             adder.add(chat, 2);
             adder.add(support);
             adder.add(sync);
+            adder.add(texture, 2);
             adder.add(share, 2);
 
             gridWidget.refreshPositions();
@@ -165,6 +168,7 @@ public abstract class RaisedScreen extends Screen {
             adder.add(chat, 2);
             adder.add(support);
             adder.add(sync);
+            adder.add(texture, 2);
             adder.add(share, 2);
 
             gridWidget.refreshPositions();
