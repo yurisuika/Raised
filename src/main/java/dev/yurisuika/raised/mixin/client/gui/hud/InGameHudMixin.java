@@ -4,8 +4,6 @@ import dev.yurisuika.raised.mixin.client.gui.DrawContextInvoker;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,7 +45,7 @@ public abstract class InGameHudMixin {
 
         @Inject(method = "renderMainHud", at = @At(value = "TAIL"))
         private void endMainHudTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            end(context, 0, getHud(), 0);
+            end(context);
         }
 
         // EXPERIENCE LEVEL
@@ -58,7 +56,7 @@ public abstract class InGameHudMixin {
 
         @Inject(method = "renderExperienceLevel", at = @At(value = "TAIL"))
         private void endExperienceLevelTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            end(context, 0, getHud(), 0);
+            end(context);
         }
 
         // OVERLAY MESSAGE
@@ -69,7 +67,7 @@ public abstract class InGameHudMixin {
 
         @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;pop()V", shift = At.Shift.AFTER))
         private void endOverlayMessageTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            end(context, 0, getHud(), 0);
+            end(context);
         }
 
         // CHAT
@@ -80,7 +78,7 @@ public abstract class InGameHudMixin {
 
         @Inject(method = "renderChat", at = @At(value = "TAIL"))
         private void endChatTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
-            end(context, 0, getSync() ? getHud() : getChat(), 0);
+            end(context);
         }
 
         // HOTBAR SELECTOR
@@ -110,7 +108,7 @@ public abstract class InGameHudMixin {
         @Inject(method = "render", at = @At("HEAD"))
         private void endRenderHeadTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
-                end(context, 0, getHud(), 0);
+                end(context);
             }
         }
 
@@ -118,7 +116,7 @@ public abstract class InGameHudMixin {
         @Inject(method = "render", at = @At("TAIL"))
         private void endRenderTailTranslate(DrawContext context, float tickDelta, CallbackInfo ci) {
             if (getSupport()) {
-                end(context, 0, getHud(), 0);
+                end(context);
             }
         }
 

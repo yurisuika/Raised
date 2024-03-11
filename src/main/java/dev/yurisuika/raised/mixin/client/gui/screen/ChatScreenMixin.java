@@ -21,7 +21,7 @@ public class ChatScreenMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;render(Lnet/minecraft/client/gui/DrawContext;IIIZ)V", shift = At.Shift.AFTER))
     private void endChatTranslate(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        end(context, 0, getSync() ? getHud() : getChat(), 0);
+        end(context);
     }
 
 }
