@@ -1,49 +1,75 @@
 {
-  "key.categories.raised": "Raised",
-
-  "key.raised.options": "Open Raised Options",
-
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
 
-  "commands.raised.value.hud.query": "HUD offset is currently set to: %d",
-  "commands.raised.value.hud.set": "HUD offset is now set to: %d",
+  "commands.raised.elements.element.x.query": "Horizontal offset of %s is currently set to: %d",
+  "commands.raised.elements.element.x.set": "Horizontal offset of %s is now set to: %d",
+  "commands.raised.elements.element.y.query": "Vertical offset of %s is currently set to: %d",
+  "commands.raised.elements.element.y.set": "Vertical offset of %s is now set to: %d",
+  "commands.raised.elements.element.position.query": "Offset position of %s is currently set to: %s",
+  "commands.raised.elements.element.position.set": "Offset position of %s is now set to: %s",
+  "commands.raised.elements.element.sync.query": "Synchronization of %s is currently set to: %s",
+  "commands.raised.elements.element.sync.set": "Synchronization of %s is now set to: %s",
 
-  "commands.raised.value.chat.query": "Chat offset is currently set to: %d",
-  "commands.raised.value.chat.set": "Chat offset is now set to: %d",
+  "key.raised.categories.raised": "Raised",
 
-  "commands.raised.toggle.share.query": "Fabric mod support is currently set to: %d",
-  "commands.raised.toggle.share.set": "Fabric mod support is now set to: %d",
-
-  "commands.raised.toggle.support.query": "Extended mod support is currently set to: %d",
-  "commands.raised.toggle.support.set": "Extended mod support is now set to: %d",
-
-  "commands.raised.toggle.sync.query": "HUD/Chat sync is currently set to: %d",
-  "commands.raised.toggle.sync.set": "HUD/Chat sync is now set to: %d",
-
-  "commands.raised.toggle.texture.query": "Texture support is currently set to: %d",
-  "commands.raised.toggle.texture.set": "Texture support now set to: %d",
+  "key.raised.options": "Open Raised Options",
 
   "options.raised.title": "Raised Options",
 
-  "options.raised.checkbox": "Raised Options",
-  "options.raised.checkbox.tooltip": "Choose between control types.",
+  "options.raised.element.hotbar": "Hotbar",
+  "options.raised.element.chat": "Chat",
+  "options.raised.element.bossbar": "Bossbar",
+  "options.raised.element.sidebar": "Sidebar",
+  "options.raised.element.effects": "Effects",
+  "options.raised.element.players": "Players",
+  "options.raised.element.toasts": "Toasts",
+  "options.raised.element.other": "Other",
 
-  "options.raised.hud": "HUD",
-  "options.raised.hud.tooltip": "Controls the HUD offset.\nMaximum slider value is a quarter of scaled screen height.",
+  "options.raised.x": "Horizontal",
+  "options.raised.x.tooltip": "Amount the element is moved on the x-axis.\nMaximum slider value is a quarter of scaled screen width.\nDoes not affect elements set to positon TOP or BOTTOM.",
 
-  "options.raised.chat": "Chat",
-  "options.raised.chat.tooltip": "Controls the chat offset.\nMaximum slider value is a quarter of scaled screen height.",
+  "options.raised.y": "Vertical",
+  "options.raised.y.tooltip": "Amount the element is moved on the y-axis.\nMaximum slider value is a quarter of scaled screen height.\nDoes not affect elements set to positon LEFT or RIGHT.",
 
-  "options.raised.share": "Share",
-  "options.raised.share.tooltip": "Enables Fabric mod support.\nAdds support for mod elements using Object Share on Fabric.",
-
-  "options.raised.support": "Support",
-  "options.raised.support.tooltip": "Enables extended mod support.\nAdds support for mod elements not associated with vanilla HUD elements.",
+  "options.raised.position": "Position",
+  "options.raised.position.tooltip": "Position the element moves away from.",
+  "options.raised.position.top": "Top",
+  "options.raised.position.top_left": "Top Left",
+  "options.raised.position.top_right": "Top Right",
+  "options.raised.position.left": "Left",
+  "options.raised.position.right": "Right",
+  "options.raised.position.bottom": "Bottom",
+  "options.raised.position.bottom_left": "Bottom Left",
+  "options.raised.position.bottom_right": "Bottom Right",
 
   "options.raised.sync": "Sync",
-  "options.raised.sync.tooltip": "Enables HUD/chat sync.\nSynchronizes the chat offset to the HUD offset.",
+  "options.raised.sync.hotbar": "Hotbar",
+  "options.raised.sync.hotbar.tooltip": "%s is synchronized with Hotbar.\nDisables the axis sliders.",
+  "options.raised.sync.chat": "Chat",
+  "options.raised.sync.chat.tooltip": "%s is synchronized with Chat.\nDisables the axis sliders.",
+  "options.raised.sync.bossbar": "Bossbar",
+  "options.raised.sync.bossbar.tooltip": "%s is synchronized with Bossbar.\nDisables the axis sliders.",
+  "options.raised.sync.sidebar": "Sidebar",
+  "options.raised.sync.sidebar.tooltip": "%s is synchronized with Sidebar.\nDisables the axis sliders.",
+  "options.raised.sync.effects": "Effects",
+  "options.raised.sync.effects.tooltip": "%s is synchronized with Effects.\nDisables the axis sliders.",
+  "options.raised.sync.players": "Players",
+  "options.raised.sync.players.tooltip": "%s is synchronized with Players.\nDisables the axis sliders.",
+  "options.raised.sync.toasts": "Toasts",
+  "options.raised.sync.toasts.tooltip": "%s is synchronized with Toasts.\nDisables the axis sliders.",
+  "options.raised.sync.other": "Other",
+  "options.raised.sync.other.tooltip": "%s is synchronized with Other.\nDisables the axis sliders.",
+  "options.raised.sync.none": "None",
+  "options.raised.sync.none.tooltip": "%s is unsynchronized.",
 
   "options.raised.texture": "Texture",
-  "options.raised.texture.tooltip": "Enables texture support.\nFixes the missing row of pixels on the hotbar selector with a new asset instead of mirroring the row from the top.\nIf your resource pack does not support Raised, set this to false."
+  "options.raised.texture.replace": "Replace",
+  "options.raised.texture.replace.tooltip": "Fixes the missing row of pixels on the hotbar selector by texture replacement. Replaces the hotbar selector with a new square asset found under the \"raised\" namespace.",
+  "options.raised.texture.patch": "Patch",
+  "options.raised.texture.patch.tooltip": "Fixes the missing row of pixels on the hotbar selector by texture patch. Draws a vertically mirrored row taken from the top of the asset below the unmodified selector.",
+  "options.raised.texture.auto": "Auto",
+  "options.raised.texture.auto.tooltip": "Fixes the missing row of pixels on the hotbar selector by texture replacement or texture patch, based on whether resource pack support is present or not.",
+  "options.raised.texture.none": "None",
+  "options.raised.texture.none.tooltip": "The hotbar selector is not modified."
 }

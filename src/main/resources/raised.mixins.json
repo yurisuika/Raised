@@ -3,15 +3,23 @@
   "minVersion": "0.8",
   "package": "dev.yurisuika.raised.mixin",
   "refmap": "raised.refmap.json",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "resource.ResourcePackManagerMixin"
   ],
   "client": [
     "client.gui.DrawContextInvoker",
-    "client.gui.hud.ChatHudMixin",
-    "client.gui.hud.InGameHudMixin$Post",
-    "client.gui.hud.InGameHudMixin$Pre",
-    "client.gui.screen.ChatScreenMixin"
+    "client.gui.hud.BossBarHudMixin$Boss$Pre",
+    "client.gui.hud.ChatHudMixin$Chat$Pre",
+    "client.gui.hud.InGameHudMixin$Chat$Pre",
+    "client.gui.hud.InGameHudMixin$Effects$Pre",
+    "client.gui.hud.InGameHudMixin$Hotbar$Pre",
+    "client.gui.hud.InGameHudMixin$Other$Post",
+    "client.gui.hud.InGameHudMixin$Other$Pre",
+    "client.gui.hud.InGameHudMixin$Players$Pre",
+    "client.gui.hud.InGameHudMixin$Sidebar$Pre",
+    "client.gui.screen.ChatScreenMixin$Chat$Pre",
+    "client.render.GameRendererMixin$Toasts$Pre"
   ],
   "injectors": {
     "defaultRequire": 1
