@@ -17,7 +17,7 @@ public abstract class ChatScreenMixin {
         public abstract static class Pre {
 
             /**
-             * Moves the {@code chat} if {@link Element.CHAT} is enabled.
+             * Moves the {@code chat} for {@link Element.CHAT}.
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;render(Lnet/minecraft/client/gui/DrawContext;IIIZ)V"))
             private void startChatTranslate(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {

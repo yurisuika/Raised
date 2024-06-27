@@ -18,7 +18,7 @@ public class IconToggleButtonWidget extends ButtonWidget {
     public final int textureWidth;
     public final int textureHeight;
     public boolean toggled;
-    public static final ButtonTextures TEXTURES = new ButtonTextures(new Identifier("widget/button"), new Identifier("widget/button_disabled"), new Identifier("widget/button_highlighted"));
+    public static final ButtonTextures TEXTURES = new ButtonTextures(Identifier.of("widget/button"), Identifier.of("widget/button_disabled"), Identifier.of("widget/button_highlighted"));
 
     public IconToggleButtonWidget(int x, int y, int width, int height, Text message, int textureWidth, int textureHeight, Identifier texture, PressAction onPress, NarrationSupplier narrationSupplier, boolean toggled) {
         super(x, y, width, height, message, onPress, narrationSupplier == null ? DEFAULT_NARRATION_SUPPLIER : narrationSupplier);

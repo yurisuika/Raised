@@ -18,8 +18,8 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.*;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
-import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -148,7 +148,7 @@ public class RaisedScreen extends Screen {
         return IconToggleButtonWidget.builder(Text.translatable(element.getTranslationKey()), button -> {
             RaisedScreen.element = element;
             client.setScreen(new RaisedScreen(Text.translatable("options.raised.title")));
-        }, element == RaisedScreen.element).size(20, 20).texture(new Identifier("raised:icon/" + element.asString()), 20, 20).tooltip(Tooltip.of(Text.translatable(element.getTranslationKey()))).build();
+        }, element == RaisedScreen.element).size(20, 20).texture(Identifier.of("raised:icon/" + element.asString()), 20, 20).tooltip(Tooltip.of(Text.translatable(element.getTranslationKey()))).build();
     }
 
     public void setIconToggleButton(IconToggleButtonWidget widget) {
@@ -211,13 +211,13 @@ public class RaisedScreen extends Screen {
                 int slot = MathHelper.lerpPositive(percentX, 5, 8) * 20;
                 Texture texture = Option.getTexture();
 
-                context.drawGuiTexture(new Identifier("hud/hotbar"), -182, offset - 22, 182, 22);
+                context.drawGuiTexture(Identifier.of("hud/hotbar"), -182, offset - 22, 182, 22);
                 if (texture == Texture.REPLACE || (texture == Texture.AUTO && Pack.getPack())) {
-                    context.drawGuiTexture(new Identifier("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
+                    context.drawGuiTexture(Identifier.of("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
                 } else {
-                    context.drawGuiTexture(new Identifier("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
+                    context.drawGuiTexture(Identifier.of("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
                     if (texture == Texture.PATCH || (texture == Texture.AUTO && !Pack.getPack())) {
-                        ((DrawContextInvoker) context).invokeDrawTexturedQuad(new Identifier("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 0, 1, 1 / 23.0F, 0);
+                        ((DrawContextInvoker) context).invokeDrawTexturedQuad(Identifier.of("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 0, 1, 1 / 23.0F, 0);
                     }
                 }
 
@@ -239,15 +239,15 @@ public class RaisedScreen extends Screen {
             case BOSSBAR -> {
                 int width = Math.max(textRenderer.getWidth(translatableX), textRenderer.getWidth(translatableY));
 
-                context.drawGuiTexture(new Identifier("boss_bar/red_background"), -182, offset - 5 - 19, 182, 5);
+                context.drawGuiTexture(Identifier.of("boss_bar/red_background"), -182, offset - 5 - 19, 182, 5);
                 if (x > 0) {
                     int progress = MathHelper.lerpPositive(percentX, 91, 182);
-                    context.drawTexture(new Identifier("textures/gui/sprites/boss_bar/red_progress.png"), -182, offset - 5 - 19, progress, 5, 0, 0, progress, 5, 182, 5);
+                    context.drawTexture(Identifier.of("textures/gui/sprites/boss_bar/red_progress.png"), -182, offset - 5 - 19, progress, 5, 0, 0, progress, 5, 182, 5);
                 }
-                context.drawGuiTexture(new Identifier("boss_bar/white_background"), -182, offset - 5, 182, 5);
+                context.drawGuiTexture(Identifier.of("boss_bar/white_background"), -182, offset - 5, 182, 5);
                 if (y > 0) {
                     int progress = MathHelper.lerpPositive(percentY, 91, 182);
-                    context.drawTexture(new Identifier("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
+                    context.drawTexture(Identifier.of("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
                 }
 
                 context.drawTextWithShadow(textRenderer, translatableX, -91 + 8 + (width / 2) - (textRenderer.getWidth(translatableX) / 2), offset - 5 - 9 - 19, 16777215);
@@ -269,8 +269,8 @@ public class RaisedScreen extends Screen {
                 context.drawText(textRenderer, String.valueOf(y), -91 + 1 + width - widthY, offset - 1 - 9, Colors.LIGHT_RED, false);
             }
             case EFFECTS -> {
-                context.drawGuiTexture(new Identifier("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
-                context.drawGuiTexture(new Identifier("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
+                context.drawGuiTexture(Identifier.of("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
+                context.drawGuiTexture(Identifier.of("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
 
                 context.setShaderColor(1.0F, 1.0F, 1.0F, percentX);
                 context.drawSprite(-91 + 1 + 3, offset - 24 - 1 + 3, 0, 18, 18, client.getStatusEffectSpriteManager().getSprite(StatusEffects.LUCK));
@@ -302,7 +302,7 @@ public class RaisedScreen extends Screen {
                 context.drawGuiTexture(getSignal(percentY), -91 + 1 + 144 - 1 - 10, offset - 1 - 9, 10, 8);
             }
             case TOASTS -> {
-                context.drawGuiTexture(new Identifier("toast/advancement"), -91 - 40, offset - 32, 160, 32);
+                context.drawGuiTexture(Identifier.of("toast/advancement"), -91 - 40, offset - 32, 160, 32);
 
                 context.drawItemWithoutEntity(Items.ENCHANTED_GOLDEN_APPLE.getDefaultStack(), -91 + 8, offset - 32 + 8);
 
@@ -321,17 +321,17 @@ public class RaisedScreen extends Screen {
     public static Identifier getSignal(float percent) {
         Identifier identifier;
         if (percent > 0.8F) {
-            identifier = new Identifier("icon/ping_5");
+            identifier = Identifier.of("icon/ping_5");
         } else if (percent > 0.6F) {
-            identifier = new Identifier("icon/ping_4");
+            identifier = Identifier.of("icon/ping_4");
         } else if (percent > 0.4F) {
-            identifier = new Identifier("icon/ping_3");
+            identifier = Identifier.of("icon/ping_3");
         } else if (percent > 0.2F) {
-            identifier = new Identifier("icon/ping_2");
+            identifier = Identifier.of("icon/ping_2");
         } else if (percent > 0.0F) {
-            identifier = new Identifier("icon/ping_1");
+            identifier = Identifier.of("icon/ping_1");
         } else {
-            identifier = new Identifier("icon/ping_unknown");
+            identifier = Identifier.of("icon/ping_unknown");
         }
         return identifier;
     }
