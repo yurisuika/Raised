@@ -1,30 +1,36 @@
-package dev.yurisuika.raised.client.command;
+package dev.yurisuika.raised.client.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import dev.yurisuika.raised.command.argument.*;
-import dev.yurisuika.raised.util.config.*;
-import dev.yurisuika.raised.util.config.option.*;
-import dev.yurisuika.raised.util.type.*;
+import dev.yurisuika.raised.commands.arguments.PositionArgument;
+import dev.yurisuika.raised.commands.arguments.SyncArgument;
+import dev.yurisuika.raised.commands.arguments.TextureArgument;
+import dev.yurisuika.raised.util.config.Config;
+import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.util.config.option.Elements;
+import dev.yurisuika.raised.util.config.option.Properties;
+import dev.yurisuika.raised.util.type.Element;
+import dev.yurisuika.raised.util.type.Position;
+import dev.yurisuika.raised.util.type.Sync;
+import dev.yurisuika.raised.util.type.Texture;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.text.Text;
-
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
+import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.network.chat.Component;
 
 public class RaisedCommand {
 
-    public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandRegistryAccess registryAccess) {
-        dispatcher.register(literal("raised")
-                .then(literal("config")
-                        .then(literal("reload")
+    public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandBuildContext buildContext) {
+        dispatcher.register(ClientCommandManager.literal("raised")
+                .then(ClientCommandManager.literal("config")
+                        .then(ClientCommandManager.literal("reload")
                                 .executes(context -> {
                                     Config.loadConfig();
-                                    context.getSource().sendFeedback(Text.translatable("commands.raised.config.reload"));
+                                    context.getSource().sendFeedback(Component.translatable("commands.raised.config.reload"));
                                     return 1;
                                 })
                         )
-                        .then(literal("reset")
+                        .then(ClientCommandManager.literal("reset")
                                 .executes(context -> {
                                     Option.setElements(new Elements(
                                             new Properties.Hotbar(
@@ -79,21 +85,21 @@ public class RaisedCommand {
                                     Option.setTexture(
                                             Texture.AUTO
                                     );
-                                    context.getSource().sendFeedback(Text.translatable("commands.raised.config.reset"));
+                                    context.getSource().sendFeedback(Component.translatable("commands.raised.config.reset"));
                                     return 1;
                                 })
                         )
                 )
-                .then(literal("toggle")
-                        .then(literal("texture")
+                .then(ClientCommandManager.literal("toggle")
+                        .then(ClientCommandManager.literal("texture")
                                 .executes(context -> {
-                                    context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.texture.query", Text.translatable(Option.getTexture().getTranslationKey())));
+                                    context.getSource().sendFeedback(Component.translatable("commands.raised.toggle.texture.query", Component.translatable(Option.getTexture().getSerializedName())));
                                     return 1;
                                 })
-                                .then(argument("texture", TextureArgumentType.texture())
+                                .then(ClientCommandManager.argument("texture", TextureArgument.texture())
                                         .executes(context -> {
-                                            Option.setTexture(TextureArgumentType.getTexture(context, "texture"));
-                                            context.getSource().sendFeedback(Text.translatable("commands.raised.toggle.texture.set", Text.translatable(Option.getTexture().getTranslationKey())));
+                                            Option.setTexture(TextureArgument.getTexture(context, "texture"));
+                                            context.getSource().sendFeedback(Component.translatable("commands.raised.toggle.texture.set", Component.translatable(Option.getTexture().getSerializedName())));
                                             return 1;
                                         })
                                 )
@@ -102,57 +108,57 @@ public class RaisedCommand {
         );
 
         for (Element element : Element.values()) {
-            dispatcher.register(literal("raised")
-                    .then(literal("elements")
-                            .then(literal(element.asString())
-                                    .then(literal("x")
+            dispatcher.register(ClientCommandManager.literal("raised")
+                    .then(ClientCommandManager.literal("elements")
+                            .then(ClientCommandManager.literal(element.getSerializedName())
+                                    .then(ClientCommandManager.literal("x")
                                             .executes(context -> {
-                                                context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.x.query", Text.translatable(element.getTranslationKey()), Option.getY(element)));
+                                                context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.x.query", Component.translatable(element.getKey()), Option.getY(element)));
                                                 return 1;
                                             })
-                                            .then(argument("x", IntegerArgumentType.integer(0))
+                                            .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
                                                     .executes(context -> {
                                                         Option.setX(element, IntegerArgumentType.getInteger(context, "x"));
-                                                        context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.x.set", Text.translatable(element.getTranslationKey()), Option.getX(element)));
+                                                        context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.x.set", Component.translatable(element.getKey()), Option.getX(element)));
                                                         return 1;
                                                     })
                                             )
                                     )
-                                    .then(literal("y")
+                                    .then(ClientCommandManager.literal("y")
                                             .executes(context -> {
-                                                context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.y.query", Text.translatable(element.getTranslationKey()), Option.getY(element)));
+                                                context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.y.query", Component.translatable(element.getKey()), Option.getY(element)));
                                                 return 1;
                                             })
-                                            .then(argument("y", IntegerArgumentType.integer(0))
+                                            .then(ClientCommandManager.argument("y", IntegerArgumentType.integer(0))
                                                     .executes(context -> {
-                                                        Option.setX(element, IntegerArgumentType.getInteger(context, "x"));
-                                                        context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.y.set", Text.translatable(element.getTranslationKey()), Option.getY(element)));
+                                                        Option.setY(element, IntegerArgumentType.getInteger(context, "y"));
+                                                        context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.y.set", Component.translatable(element.getKey()), Option.getY(element)));
                                                         return 1;
                                                     })
                                             )
                                     )
-                                    .then(literal("position")
+                                    .then(ClientCommandManager.literal("position")
                                             .executes(context -> {
-                                                context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.position.query", Text.translatable(element.getTranslationKey()), Text.translatable(Option.getPosition(element).getTranslationKey())));
+                                                context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.position.query", Component.translatable(element.getKey()), Component.translatable(Option.getPosition(element).getKey())));
                                                 return 1;
                                             })
-                                            .then(argument("position", PositionArgumentType.position())
+                                            .then(ClientCommandManager.argument("position", PositionArgument.position())
                                                     .executes(context -> {
-                                                        Option.setPosition(element, PositionArgumentType.getPosition(context, "position"));
-                                                        context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.position.set", Text.translatable(element.getTranslationKey()), Text.translatable(Option.getPosition(element).getTranslationKey())));
+                                                        Option.setPosition(element, PositionArgument.getPosition(context, "position"));
+                                                        context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.position.set", Component.translatable(element.getKey()), Component.translatable(Option.getPosition(element).getKey())));
                                                         return 1;
                                                     })
                                             )
                                     )
-                                    .then(literal("sync")
+                                    .then(ClientCommandManager.literal("sync")
                                             .executes(context -> {
-                                                context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.sync.query", Text.translatable(element.getTranslationKey()), Text.translatable(Option.getSync(element).getTranslationKey())));
+                                                context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.sync.query", Component.translatable(element.getKey()), Component.translatable(Option.getSync(element).getKey())));
                                                 return 1;
                                             })
-                                            .then(argument("sync", SyncArgumentType.sync())
+                                            .then(ClientCommandManager.argument("sync", SyncArgument.sync())
                                                     .executes(context -> {
-                                                        Option.setSync(element, SyncArgumentType.getSync(context, "sync"));
-                                                        context.getSource().sendFeedback(Text.translatable("commands.raised.elements.element.sync.set", Text.translatable(element.getTranslationKey()), Text.translatable(Option.getSync(element).getTranslationKey())));
+                                                        Option.setSync(element, SyncArgument.getSync(context, "sync"));
+                                                        context.getSource().sendFeedback(Component.translatable("commands.raised.elements.element.sync.set", Component.translatable(element.getKey()), Component.translatable(Option.getSync(element).getKey())));
                                                         return 1;
                                                     })
                                             )

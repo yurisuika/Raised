@@ -1,18 +1,18 @@
-package dev.yurisuika.raised.command.argument;
+package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
 import dev.yurisuika.raised.util.type.Sync;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.command.argument.EnumArgumentType;
+import net.minecraft.commands.arguments.StringRepresentableArgument;
 
-public class SyncArgumentType extends EnumArgumentType<Sync> {
+public class SyncArgument extends StringRepresentableArgument<Sync> {
 
-    public SyncArgumentType() {
+    public SyncArgument() {
         super(Sync.CODEC, Sync::values);
     }
 
-    public static EnumArgumentType<Sync> sync() {
-        return new SyncArgumentType();
+    public static StringRepresentableArgument<Sync> sync() {
+        return new SyncArgument();
     }
 
     public static Sync getSync(CommandContext<FabricClientCommandSource> context, String id) {

@@ -1,13 +1,13 @@
 package dev.yurisuika.raised.util.type;
 
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.TranslatableOption;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.util.OptionEnum;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-public enum Position implements TranslatableOption, StringIdentifiable {
+public enum Position implements OptionEnum, StringRepresentable {
 
     TOP(0, "options.raised.position.top", 0, 1),
     TOP_LEFT(1, "options.raised.position.top_left", 1, 1),
@@ -18,16 +18,16 @@ public enum Position implements TranslatableOption, StringIdentifiable {
     BOTTOM_LEFT(6, "options.raised.position.bottom_left", 1, -1),
     BOTTOM_RIGHT(7, "options.raised.position.bottom_right", -1, -1);
 
-    public static final EnumCodec<Position> CODEC = StringIdentifiable.createCodec(Position::values);
+    public static final EnumCodec<Position> CODEC = StringRepresentable.fromEnum(Position::values);
     public static final Position[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(position -> position.id)).toArray(Position[]::new);
     public final int id;
-    public final String translationKey;
+    public final String key;
     public final int x;
     public final int y;
 
-    Position(int id, String translationKey, int x, int y) {
+    Position(int id, String key, int x, int y) {
         this.id = id;
-        this.translationKey = translationKey;
+        this.key = key;
         this.x = x;
         this.y = y;
     }
@@ -37,20 +37,20 @@ public enum Position implements TranslatableOption, StringIdentifiable {
     }
 
     @Override
-    public String getTranslationKey() {
-        return translationKey;
+    public String getKey() {
+        return key;
     }
 
     public static Position byName(String name) {
-        return CODEC.byId(name);
+        return CODEC.byName(name);
     }
 
     public static Position byId(int id) {
-        return VALUES[MathHelper.abs(id % VALUES.length)];
+        return VALUES[Mth.abs(id % VALUES.length)];
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return name().toLowerCase();
     }
 

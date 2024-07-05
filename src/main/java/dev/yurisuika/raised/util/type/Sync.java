@@ -1,13 +1,13 @@
 package dev.yurisuika.raised.util.type;
 
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.TranslatableOption;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.util.OptionEnum;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-public enum Sync implements TranslatableOption, StringIdentifiable {
+public enum Sync implements OptionEnum, StringRepresentable {
 
     HOTBAR(0, "options.raised.sync.hotbar"),
     CHAT(1, "options.raised.sync.chat"),
@@ -19,14 +19,14 @@ public enum Sync implements TranslatableOption, StringIdentifiable {
     OTHER(7, "options.raised.sync.other"),
     NONE(8,"options.raised.sync.none");
 
-    public static final EnumCodec<Sync> CODEC = StringIdentifiable.createCodec(Sync::values);
+    public static final EnumCodec<Sync> CODEC = StringRepresentable.fromEnum(Sync::values);
     public static final Sync[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(type -> type.id)).toArray(Sync[]::new);
     public final int id;
-    public final String translationKey;
+    public final String key;
 
-    Sync(int id, String translationKey) {
+    Sync(int id, String key) {
         this.id = id;
-        this.translationKey = translationKey;
+        this.key = key;
     }
 
     public int getId() {
@@ -34,20 +34,20 @@ public enum Sync implements TranslatableOption, StringIdentifiable {
     }
 
     @Override
-    public String getTranslationKey() {
-        return translationKey;
+    public String getKey() {
+        return key;
     }
 
     public static Sync byName(String name) {
-        return CODEC.byId(name);
+        return CODEC.byName(name);
     }
 
     public static Sync byId(int id) {
-        return VALUES[MathHelper.abs(id % VALUES.length)];
+        return VALUES[Mth.abs(id % VALUES.length)];
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return name().toLowerCase();
     }
 

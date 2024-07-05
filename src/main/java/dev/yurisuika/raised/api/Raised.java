@@ -1,7 +1,10 @@
 package dev.yurisuika.raised.api;
 
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.type.*;
+import dev.yurisuika.raised.util.type.Element;
+import dev.yurisuika.raised.util.type.Position;
+import dev.yurisuika.raised.util.type.Sync;
+import dev.yurisuika.raised.util.type.Texture;
 
 public class Raised {
 

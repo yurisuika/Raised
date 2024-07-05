@@ -1,18 +1,18 @@
-package dev.yurisuika.raised.command.argument;
+package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
 import dev.yurisuika.raised.util.type.Element;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.command.argument.EnumArgumentType;
+import net.minecraft.commands.arguments.StringRepresentableArgument;
 
-public class ElementArgumentType extends EnumArgumentType<Element> {
+public class ElementArgument extends StringRepresentableArgument<Element> {
 
-    public ElementArgumentType() {
+    public ElementArgument() {
         super(Element.CODEC, Element::values);
     }
 
-    public static EnumArgumentType<Element> element() {
-        return new ElementArgumentType();
+    public static StringRepresentableArgument<Element> element() {
+        return new ElementArgument();
     }
 
     public static Element getElement(CommandContext<FabricClientCommandSource> context, String id) {

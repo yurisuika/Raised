@@ -5,21 +5,21 @@
   "refmap": "raised.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "resource.ResourcePackManagerMixin"
+    "server.packs.repository.resource.PackRepositoryMixin"
   ],
   "client": [
-    "client.gui.DrawContextInvoker",
-    "client.gui.hud.BossBarHudMixin$Boss$Pre",
-    "client.gui.hud.ChatHudMixin$Chat$Pre",
-    "client.gui.hud.InGameHudMixin$Chat$Pre",
-    "client.gui.hud.InGameHudMixin$Effects$Pre",
-    "client.gui.hud.InGameHudMixin$Hotbar$Pre",
-    "client.gui.hud.InGameHudMixin$Other$Post",
-    "client.gui.hud.InGameHudMixin$Other$Pre",
-    "client.gui.hud.InGameHudMixin$Players$Pre",
-    "client.gui.hud.InGameHudMixin$Sidebar$Pre",
-    "client.gui.screen.ChatScreenMixin$Chat$Pre",
-    "client.render.GameRendererMixin$Toasts$Pre"
+    "client.gui.GuiGraphicsInvoker",
+    "client.gui.GuiMixin$Chat$Pre",
+    "client.gui.GuiMixin$Effects$Pre",
+    "client.gui.GuiMixin$Hotbar$Pre",
+    "client.gui.GuiMixin$Other$Post",
+    "client.gui.GuiMixin$Other$Pre",
+    "client.gui.GuiMixin$Players$Pre",
+    "client.gui.GuiMixin$Sidebar$Pre",
+    "client.gui.components.BossHealthOverlayMixin$Boss$Pre",
+    "client.gui.components.ChatComponentMixin$Chat$Pre",
+    "client.gui.components.toasts.ToastComponentMixin$Toasts$Pre",
+    "client.gui.screens.ChatScreenMixin$Chat$Pre"
   ],
   "injectors": {
     "defaultRequire": 1

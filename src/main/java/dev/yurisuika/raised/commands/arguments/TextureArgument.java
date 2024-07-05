@@ -1,18 +1,18 @@
-package dev.yurisuika.raised.command.argument;
+package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
 import dev.yurisuika.raised.util.type.Texture;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.command.argument.EnumArgumentType;
+import net.minecraft.commands.arguments.StringRepresentableArgument;
 
-public class TextureArgumentType extends EnumArgumentType<Texture> {
+public class TextureArgument extends StringRepresentableArgument<Texture> {
 
-    public TextureArgumentType() {
+    public TextureArgument() {
         super(Texture.CODEC, Texture::values);
     }
 
-    public static EnumArgumentType<Texture> texture() {
-        return new TextureArgumentType();
+    public static StringRepresentableArgument<Texture> texture() {
+        return new TextureArgument();
     }
 
     public static Texture getTexture(CommandContext<FabricClientCommandSource> context, String id) {

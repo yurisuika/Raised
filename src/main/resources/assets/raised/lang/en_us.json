@@ -11,6 +11,9 @@
   "commands.raised.elements.element.sync.query": "Synchronization of %s is currently set to: %s",
   "commands.raised.elements.element.sync.set": "Synchronization of %s is now set to: %s",
 
+  "commands.raised.toggle.texture.query": "Texture is currently set to: %s",
+  "commands.raised.toggle.texture.set": "Texture is now set to: %s",
+
   "key.raised.categories.raised": "Raised",
 
   "key.raised.options": "Open Raised Options",

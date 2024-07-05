@@ -1,27 +1,27 @@
 package dev.yurisuika.raised.util.type;
 
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.TranslatableOption;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.util.OptionEnum;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-public enum Texture implements TranslatableOption, StringIdentifiable {
+public enum Texture implements OptionEnum, StringRepresentable {
 
     REPLACE(0, "options.raised.texture.replace"),
     PATCH(1, "options.raised.texture.patch"),
     AUTO(2, "options.raised.texture.auto"),
     NONE(3, "options.raised.texture.none");
 
-    public static final EnumCodec<Texture> CODEC = StringIdentifiable.createCodec(Texture::values);
+    public static final EnumCodec<Texture> CODEC = StringRepresentable.fromEnum(Texture::values);
     public static final Texture[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(type -> type.id)).toArray(Texture[]::new);
     public final int id;
-    public final String translationKey;
+    public final String key;
 
-    Texture(int id, String translationKey) {
+    Texture(int id, String key) {
         this.id = id;
-        this.translationKey = translationKey;
+        this.key = key;
     }
 
     public int getId() {
@@ -29,20 +29,20 @@ public enum Texture implements TranslatableOption, StringIdentifiable {
     }
 
     @Override
-    public String getTranslationKey() {
-        return translationKey;
+    public String getKey() {
+        return key;
     }
 
     public static Texture byName(String name) {
-        return CODEC.byId(name);
+        return CODEC.byName(name);
     }
 
     public static Texture byId(int id) {
-        return VALUES[MathHelper.abs(id % VALUES.length)];
+        return VALUES[Mth.abs(id % VALUES.length)];
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return name().toLowerCase();
     }
 
