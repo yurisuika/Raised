@@ -9,6 +9,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface GuiGraphicsInvoker {
 
     @Invoker("innerBlit")
-    void invokeInnerBlit(ResourceLocation texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2);
+    void invokeInnerBlit(ResourceLocation atlasLocation, int x1, int x2, int y1, int y2, int blitOffset, float minU, float maxU, float minV, float maxV);
 
 }
