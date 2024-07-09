@@ -159,8 +159,8 @@ public class RaisedScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        super.render(guiGraphics, mouseX, mouseY, delta);
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         x.active = Option.getSync(element) == Sync.NONE;
         y.active = Option.getSync(element) == Sync.NONE;
@@ -175,7 +175,7 @@ public class RaisedScreen extends Screen {
         }
 
         if (time < duration) {
-            time += delta;
+            time += partialTick;
         }
 
         double animation = Math.min(time / duration, duration);
