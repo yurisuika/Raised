@@ -2,9 +2,10 @@ package dev.yurisuika.raised.mixin.client.gui;
 
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.Translate;
+import dev.yurisuika.raised.util.config.Config;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.type.Element;
-import dev.yurisuika.raised.util.type.Texture;
+import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.resources.Texture;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -71,7 +72,7 @@ public abstract class GuiMixin {
              */
             @ModifyArgs(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1))
             private void replaceHotbarSelector(Args args) {
-                if (Option.getTexture() == Texture.REPLACE || (Option.getTexture() == Texture.AUTO && Pack.getPack())) {
+                if (Config.getOptions().getResources().getTexture() == Texture.REPLACE || (Option.getTexture() == Texture.AUTO && Pack.getPack())) {
                     args.set(0, ResourceLocation.tryParse("raised:hud/hotbar_selection"));
                     args.set(4, 24);
                 }

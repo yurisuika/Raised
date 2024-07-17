@@ -8,10 +8,10 @@ import dev.yurisuika.raised.client.gui.components.IconToggleButton;
 import dev.yurisuika.raised.mixin.client.gui.GuiGraphicsInvoker;
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.type.Element;
-import dev.yurisuika.raised.util.type.Position;
-import dev.yurisuika.raised.util.type.Sync;
-import dev.yurisuika.raised.util.type.Texture;
+import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.properties.Position;
+import dev.yurisuika.raised.util.properties.Sync;
+import dev.yurisuika.raised.util.resources.Texture;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
@@ -118,8 +118,8 @@ public class RaisedScreen extends Screen {
         gridLayout.defaultCellSetting().padding(10, 0, 0, 5);
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(4);
 
-        x = new OptionInstance<>("options.raised.x", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.x.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Math.round(Math.ceil((value.floatValue() / ((float)minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) + "%")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledWidth() / 4), Option.getX(element), value -> Option.setX(element, value)).createButton(minecraft.options, 0, 0, 110);
-        y = new OptionInstance<>("options.raised.y", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.y.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Math.round(Math.ceil((value.floatValue() / ((float)minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) + "%")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledHeight() / 4), Option.getY(element), value -> Option.setY(element, value)).createButton(minecraft.options, 0, 0, 110);
+        x = new OptionInstance<>("options.raised.x", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.x.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Math.round(Math.ceil((value.floatValue() / ((float) minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) + "%")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledWidth() / 4), Option.getX(element), value -> Option.setX(element, value)).createButton(minecraft.options, 0, 0, 110);
+        y = new OptionInstance<>("options.raised.y", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.y.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Math.round(Math.ceil((value.floatValue() / ((float) minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) + "%")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledHeight() / 4), Option.getY(element), value -> Option.setY(element, value)).createButton(minecraft.options, 0, 0, 110);
         position = new OptionInstance<>("options.raised.position", value -> Tooltip.create(Component.translatable("options.raised.position.tooltip")), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Position.values()), Codec.INT.xmap(Position::byId, Position::getId)), Position.byName(Option.getPosition(element).getSerializedName()), value -> Option.setPosition(element, value)).createButton(minecraft.options, 0, 0, 110);
         sync = new OptionInstance<>("options.raised.sync", value -> Tooltip.create(Component.translatable("options.raised.sync." + value.getSerializedName() + ".tooltip", Component.translatable(element.getKey()))), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Sync.values()), Codec.INT.xmap(Sync::byId, Sync::getId)), Sync.byName(Option.getSync(element).getSerializedName()), value -> Option.setSync(element, value)).createButton(minecraft.options, 0, 0, 110);
 
@@ -193,10 +193,10 @@ public class RaisedScreen extends Screen {
         int x = Option.getX(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
         int y = Option.getY(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
 
-        float percentX = (float)Math.round(Math.ceil(((float)x / ((float)minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) / 100;
-        float percentY = (float)Math.round(Math.ceil(((float)y / ((float)minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) / 100;
+        float percentX = (float) Math.round(Math.ceil(((float) x / ((float) minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) / 100;
+        float percentY = (float) Math.round(Math.ceil(((float) y / ((float) minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) / 100;
 
-        int offset = (int)((float)guiGraphics.guiHeight() / 2) - y;
+        int offset = (int) ((float) guiGraphics.guiHeight() / 2) - y;
 
         String stringX = String.valueOf(x);
         String stringY = String.valueOf(y);

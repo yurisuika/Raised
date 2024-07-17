@@ -2,17 +2,17 @@
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
 
-  "commands.raised.elements.element.x.query": "Horizontal offset of %s is currently set to: %d",
-  "commands.raised.elements.element.x.set": "Horizontal offset of %s is now set to: %d",
-  "commands.raised.elements.element.y.query": "Vertical offset of %s is currently set to: %d",
-  "commands.raised.elements.element.y.set": "Vertical offset of %s is now set to: %d",
-  "commands.raised.elements.element.position.query": "Offset position of %s is currently set to: %s",
-  "commands.raised.elements.element.position.set": "Offset position of %s is now set to: %s",
-  "commands.raised.elements.element.sync.query": "Synchronization of %s is currently set to: %s",
-  "commands.raised.elements.element.sync.set": "Synchronization of %s is now set to: %s",
+  "commands.raised.layers.element.x.query": "Horizontal displacement of %s is currently set to: %d",
+  "commands.raised.layers.element.x.set": "Horizontal displacement of %s is now set to: %d",
+  "commands.raised.layers.element.y.query": "Vertical displacement of %s is currently set to: %d",
+  "commands.raised.layers.element.y.set": "Vertical displacement of %s is now set to: %d",
+  "commands.raised.layers.element.position.query": "Position of %s is currently set to: %s",
+  "commands.raised.layers.element.position.set": "Position of %s is now set to: %s",
+  "commands.raised.layers.element.sync.query": "Synchronization of %s is currently set to: %s",
+  "commands.raised.layers.element.sync.set": "Synchronization of %s is now set to: %s",
 
-  "commands.raised.toggle.texture.query": "Texture is currently set to: %s",
-  "commands.raised.toggle.texture.set": "Texture is now set to: %s",
+  "commands.raised.resources.texture.query": "Texture is currently set to: %s",
+  "commands.raised.resources.texture.set": "Texture is now set to: %s",
 
   "key.raised.categories.raised": "Raised",
 

@@ -13,18 +13,22 @@ public class Pack {
         return pack;
     }
 
-    public static void checkForResource() {
-        AtomicBoolean resource = new AtomicBoolean(false);
+    public static void setPack(boolean pack) {
+        Pack.pack = pack;
+    }
+
+    public static void checkResources() {
+        AtomicBoolean exists = new AtomicBoolean(false);
 
         Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
             if (!pack.packId().contentEquals("raised")) {
                 pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/sprites/hud/hotbar_selection.png", (id, supplier) -> {
-                    resource.set(true);
+                    exists.set(true);
                 });
             }
         });
 
-        pack = resource.get();
+        setPack(exists.get());
     }
 
 }
