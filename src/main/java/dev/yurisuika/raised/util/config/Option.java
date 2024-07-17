@@ -1,35 +1,49 @@
 package dev.yurisuika.raised.util.config;
 
-import dev.yurisuika.raised.util.config.option.Elements;
-import dev.yurisuika.raised.util.config.option.Properties;
-import dev.yurisuika.raised.util.config.option.Toggle;
-import dev.yurisuika.raised.util.type.Element;
-import dev.yurisuika.raised.util.type.Position;
-import dev.yurisuika.raised.util.type.Sync;
-import dev.yurisuika.raised.util.type.Texture;
+import dev.yurisuika.raised.util.config.options.Layers;
+import dev.yurisuika.raised.util.config.options.Properties;
+import dev.yurisuika.raised.util.config.options.Resources;
+import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.properties.Position;
+import dev.yurisuika.raised.util.properties.Sync;
+import dev.yurisuika.raised.util.resources.Texture;
 
 public class Option {
 
-    public static Elements getElements() {
-        return Config.config.elements;
+    public static Layers getLayers() {
+        return Config.getOptions().getLayers();
     }
 
-    public static void setElements(Elements elements) {
-        Config.config.elements = elements;
+    public static void setLayers(Layers layers) {
+        Config.getOptions().setLayers(layers);
         Config.saveConfig();
     }
 
     public static Properties getProperties(Element element) {
         return switch (element) {
-            case HOTBAR -> getElements().getHotbar();
-            case CHAT -> getElements().getChat();
-            case BOSSBAR -> getElements().getBossbar();
-            case SIDEBAR -> getElements().getSidebar();
-            case EFFECTS -> getElements().getEffects();
-            case PLAYERS -> getElements().getPlayers();
-            case TOASTS -> getElements().getToasts();
-            case OTHER -> getElements().getOther();
+            case HOTBAR -> getLayers().getHotbar();
+            case CHAT -> getLayers().getChat();
+            case BOSSBAR -> getLayers().getBossbar();
+            case SIDEBAR -> getLayers().getSidebar();
+            case EFFECTS -> getLayers().getEffects();
+            case PLAYERS -> getLayers().getPlayers();
+            case TOASTS -> getLayers().getToasts();
+            case OTHER -> getLayers().getOther();
         };
+    }
+
+    public static void setProperties(Element element, Properties properties) {
+        switch (element) {
+            case HOTBAR -> getLayers().setHotbar(properties);
+            case CHAT -> getLayers().setChat(properties);
+            case BOSSBAR -> getLayers().setBossbar(properties);
+            case SIDEBAR -> getLayers().setSidebar(properties);
+            case EFFECTS -> getLayers().setEffects(properties);
+            case PLAYERS -> getLayers().setPlayers(properties);
+            case TOASTS -> getLayers().setToasts(properties);
+            case OTHER -> getLayers().setOther(properties);
+        }
+        Config.saveConfig();
     }
 
     public static int getX(Element element) {
@@ -37,7 +51,7 @@ public class Option {
     }
 
     public static void setX(Element element, int x) {
-        getProperties(element).x = x;
+        getProperties(element).setX(x);
         Config.saveConfig();
     }
 
@@ -46,7 +60,7 @@ public class Option {
     }
 
     public static void setY(Element element, int y) {
-        getProperties(element).y = y;
+        getProperties(element).setY(y);
         Config.saveConfig();
     }
 
@@ -55,7 +69,7 @@ public class Option {
     }
 
     public static void setPosition(Element element, Position position) {
-        getProperties(element).position = position;
+        getProperties(element).setPosition(position);
         Config.saveConfig();
     }
 
@@ -64,25 +78,25 @@ public class Option {
     }
 
     public static void setSync(Element element, Sync sync) {
-        getProperties(element).sync = sync;
+        getProperties(element).setSync(sync);
         Config.saveConfig();
     }
 
-    public static Toggle getToggle() {
-        return Config.config.toggle;
+    public static Resources getResources() {
+        return Config.getOptions().getResources();
     }
 
-    public static void setToggle(Toggle toggle) {
-        Config.config.toggle = toggle;
+    public static void setResources(Resources resources) {
+        Config.getOptions().setResources(resources);
         Config.saveConfig();
     }
 
     public static Texture getTexture() {
-        return getToggle().getTexture();
+        return getResources().getTexture();
     }
 
-    public static void setTexture(Texture value) {
-        getToggle().texture = value;
+    public static void setTexture(Texture texture) {
+        getResources().setTexture(texture);
         Config.saveConfig();
     }
 

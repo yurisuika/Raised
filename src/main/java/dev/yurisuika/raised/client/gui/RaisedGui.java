@@ -2,7 +2,7 @@ package dev.yurisuika.raised.client.gui;
 
 import dev.yurisuika.raised.util.Overlay;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.type.Element;
+import dev.yurisuika.raised.util.properties.Element;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
