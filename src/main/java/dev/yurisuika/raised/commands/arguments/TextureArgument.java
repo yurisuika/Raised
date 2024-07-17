@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
-import dev.yurisuika.raised.util.type.Texture;
+import dev.yurisuika.raised.util.resources.Texture;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.StringRepresentableArgument;
 
