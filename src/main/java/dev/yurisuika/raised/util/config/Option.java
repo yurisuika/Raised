@@ -1,40 +1,61 @@
 package dev.yurisuika.raised.util.config;
 
-import dev.yurisuika.raised.util.config.option.Elements;
-import dev.yurisuika.raised.util.config.option.Properties;
-import dev.yurisuika.raised.util.type.Element;
-import dev.yurisuika.raised.util.type.Position;
-import dev.yurisuika.raised.util.type.Sync;
+import dev.yurisuika.raised.util.config.options.Layers;
+import dev.yurisuika.raised.util.config.options.Properties;
+import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.properties.Position;
+import dev.yurisuika.raised.util.properties.Sync;
 
 public class Option {
 
-    public static Elements getElements() {
-        return Config.config.elements;
+    public static Layers getLayers() {
+        return Config.getOptions().getLayers();
     }
 
-    public static void setElements(Elements elements) {
-        Config.config.elements = elements;
+    public static void setLayers(Layers layers) {
+        Config.getOptions().setLayers(layers);
         Config.saveConfig();
     }
 
     public static Properties getProperties(Element element) {
         if (element.equals(Element.HOTBAR)) {
-            return getElements().getHotbar();
+            return getLayers().getHotbar();
         } else if (element.equals(Element.CHAT)) {
-            return getElements().getChat();
+            return getLayers().getChat();
         } else if (element.equals(Element.BOSSBAR)) {
-            return getElements().getBossbar();
+            return getLayers().getBossbar();
         } else if (element.equals(Element.SIDEBAR)) {
-            return getElements().getSidebar();
+            return getLayers().getSidebar();
         } else if (element.equals(Element.EFFECTS)) {
-            return getElements().getEffects();
+            return getLayers().getEffects();
         } else if (element.equals(Element.PLAYERS)) {
-            return getElements().getPlayers();
+            return getLayers().getPlayers();
         } else if (element.equals(Element.TOASTS)) {
-            return getElements().getToasts();
+            return getLayers().getToasts();
         } else {
-            return getElements().getOther();
+            return getLayers().getOther();
         }
+    }
+
+    public static void setProperties(Element element, Properties properties) {
+        if (element.equals(Element.HOTBAR)) {
+            getLayers().setHotbar(properties);
+        } else if (element.equals(Element.CHAT)) {
+            getLayers().setChat(properties);
+        } else if (element.equals(Element.BOSSBAR)) {
+            getLayers().setBossbar(properties);
+        } else if (element.equals(Element.SIDEBAR)) {
+            getLayers().setSidebar(properties);
+        } else if (element.equals(Element.EFFECTS)) {
+            getLayers().setEffects(properties);
+        } else if (element.equals(Element.PLAYERS)) {
+            getLayers().setPlayers(properties);
+        } else if (element.equals(Element.TOASTS)) {
+            getLayers().setToasts(properties);
+        } else {
+            getLayers().setOther(properties);
+        }
+        Config.saveConfig();
     }
 
     public static int getX(Element element) {
@@ -42,7 +63,7 @@ public class Option {
     }
 
     public static void setX(Element element, int x) {
-        getProperties(element).x = x;
+        getProperties(element).setX(x);
         Config.saveConfig();
     }
 
@@ -51,7 +72,7 @@ public class Option {
     }
 
     public static void setY(Element element, int y) {
-        getProperties(element).y = y;
+        getProperties(element).setY(y);
         Config.saveConfig();
     }
 
@@ -60,7 +81,7 @@ public class Option {
     }
 
     public static void setPosition(Element element, Position position) {
-        getProperties(element).position = position;
+        getProperties(element).setPosition(position);
         Config.saveConfig();
     }
 
@@ -69,7 +90,7 @@ public class Option {
     }
 
     public static void setSync(Element element, Sync sync) {
-        getProperties(element).sync = sync;
+        getProperties(element).setSync(sync);
         Config.saveConfig();
     }
 
