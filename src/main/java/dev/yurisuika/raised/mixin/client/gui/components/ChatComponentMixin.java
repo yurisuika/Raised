@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.mixin.client.gui.components;
 
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.type.Element;
-import dev.yurisuika.raised.util.type.Sync;
+import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.properties.Sync;
 import net.minecraft.client.gui.components.ChatComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
