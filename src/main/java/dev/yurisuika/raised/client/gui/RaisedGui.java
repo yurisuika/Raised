@@ -2,7 +2,7 @@ package dev.yurisuika.raised.client.gui;
 
 import dev.yurisuika.raised.util.Overlay;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.type.Element;
+import dev.yurisuika.raised.util.properties.Element;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderGuiOverlayEvent;
