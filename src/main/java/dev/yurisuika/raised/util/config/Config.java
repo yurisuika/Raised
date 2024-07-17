@@ -2,7 +2,7 @@ package dev.yurisuika.raised.util.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.yurisuika.raised.config.RaisedConfig;
+import dev.yurisuika.raised.config.Options;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.File;
@@ -13,27 +13,35 @@ public class Config {
 
     public static File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), "raised.json");
     public static Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().disableHtmlEscaping().create();
-    public static RaisedConfig config = new RaisedConfig();
+    public static Options options = new Options();
+
+    public static Options getOptions() {
+        return options;
+    }
+
+    public static void setOptions(Options options) {
+        Config.options = options;
+    }
 
     public static void saveConfig() {
         try {
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(gson.toJson(config));
+            fileWriter.write(gson.toJson(getOptions()));
             fileWriter.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     public static void loadConfig() {
-        try {
-            if (file.exists()) {
-                config = gson.fromJson(Files.readString(file.toPath()), RaisedConfig.class);
-            } else {
-                saveConfig();
+        if (file.exists()) {
+            try {
+                setOptions(gson.fromJson(Files.readString(file.toPath()), Options.class));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            saveConfig();
         }
     }
 
