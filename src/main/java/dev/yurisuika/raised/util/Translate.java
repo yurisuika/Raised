@@ -2,8 +2,8 @@ package dev.yurisuika.raised.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.type.Element;
-import dev.yurisuika.raised.util.type.Sync;
+import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.properties.Sync;
 
 public class Translate {
 
