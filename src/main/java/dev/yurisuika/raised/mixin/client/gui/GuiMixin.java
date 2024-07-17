@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.type.Element;
+import dev.yurisuika.raised.util.properties.Element;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Mixin;
