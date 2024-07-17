@@ -1,4 +1,4 @@
-package dev.yurisuika.raised.util.type;
+package dev.yurisuika.raised.util.properties;
 
 import net.minecraft.util.Mth;
 import net.minecraft.util.OptionEnum;
