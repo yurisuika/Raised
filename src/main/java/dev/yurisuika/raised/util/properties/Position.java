@@ -1,4 +1,4 @@
-package dev.yurisuika.raised.util.type;
+package dev.yurisuika.raised.util.properties;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.Mth;

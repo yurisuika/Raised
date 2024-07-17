@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
-import dev.yurisuika.raised.util.type.Position;
+import dev.yurisuika.raised.util.properties.Position;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 
 public class PositionArgument extends StringRepresentableArgument<Position> {
