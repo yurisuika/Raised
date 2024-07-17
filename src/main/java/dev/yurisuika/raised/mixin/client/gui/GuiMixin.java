@@ -2,7 +2,7 @@ package dev.yurisuika.raised.mixin.client.gui;
 
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.type.Texture;
+import dev.yurisuika.raised.util.resources.Texture;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
