@@ -3,7 +3,7 @@ package dev.yurisuika.raised.mixin.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.type.Element;
+import dev.yurisuika.raised.util.properties.Element;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
