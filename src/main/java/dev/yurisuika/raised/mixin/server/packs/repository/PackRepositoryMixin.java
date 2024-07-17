@@ -15,7 +15,7 @@ public abstract class PackRepositoryMixin {
      */
     @Inject(method = "reload", at = @At("TAIL"))
     private void checkPacks(CallbackInfo ci) {
-        Pack.checkForResource();
+        Pack.checkResources();
     }
 
 }
