@@ -8,9 +8,9 @@ import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.gui.components.IconToggleButton;
 import dev.yurisuika.raised.mixin.client.OptionInvoker;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.type.Element;
-import dev.yurisuika.raised.util.type.Position;
-import dev.yurisuika.raised.util.type.Sync;
+import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.properties.Position;
+import dev.yurisuika.raised.util.properties.Sync;
 import net.minecraft.client.CycleOption;
 import net.minecraft.client.ProgressOption;
 import net.minecraft.client.gui.GuiComponent;
@@ -179,10 +179,10 @@ public class RaisedScreen extends Screen {
         int x = Option.getX(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
         int y = Option.getY(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
 
-        float percentX = (float)Math.round(Math.ceil(((float)x / ((float)minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) / 100;
-        float percentY = (float)Math.round(Math.ceil(((float)y / ((float)minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) / 100;
+        float percentX = (float) Math.round(Math.ceil(((float) x / ((float) minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) / 100;
+        float percentY = (float) Math.round(Math.ceil(((float) y / ((float) minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) / 100;
 
-        int offset = (int)((float)minecraft.getWindow().getGuiScaledHeight() / 2) - y;
+        int offset = (int) ((float) minecraft.getWindow().getGuiScaledHeight() / 2) - y;
 
         String stringX = String.valueOf(x);
         String stringY = String.valueOf(y);
@@ -211,8 +211,8 @@ public class RaisedScreen extends Screen {
                 break;
             }
             case CHAT: {
-                int backgroundOpacity = (int)(255.0 * minecraft.options.textBackgroundOpacity);
-                int textOpacity = (int)(255.0F * minecraft.options.chatOpacity * 0.8999999761581421 + 0.10000000149011612);
+                int backgroundOpacity = (int) (255.0 * minecraft.options.textBackgroundOpacity);
+                int textOpacity = (int) (255.0F * minecraft.options.chatOpacity * 0.8999999761581421 + 0.10000000149011612);
 
                 fill(poseStack, -91, offset - 9 - 9, -91 + 120 + 4 + 4, offset, backgroundOpacity << 24);
 

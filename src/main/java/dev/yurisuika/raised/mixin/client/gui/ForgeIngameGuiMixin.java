@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.type.Element;
+import dev.yurisuika.raised.util.properties.Element;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import org.spongepowered.asm.mixin.Mixin;

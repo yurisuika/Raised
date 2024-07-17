@@ -4,14 +4,11 @@ import com.google.gson.JsonPrimitive;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.StringRepresentable;
 
 import java.util.Arrays;
@@ -22,7 +19,6 @@ import java.util.stream.Collectors;
 
 public class StringRepresentableArgument<T extends Enum<T>> implements ArgumentType<T> {
 
-    public static final DynamicCommandExceptionType INVALID_ENUM_EXCEPTION = new DynamicCommandExceptionType(value -> new TranslatableComponent("argument.raised.enum.invalid", value));
     public final Codec<T> codec;
     public final Supplier<T[]> valuesSupplier;
 
@@ -32,9 +28,9 @@ public class StringRepresentableArgument<T extends Enum<T>> implements ArgumentT
     }
 
     @Override
-    public T parse(StringReader stringReader) throws CommandSyntaxException {
+    public T parse(StringReader stringReader) {
         String string = stringReader.readUnquotedString();
-        return codec.parse(JsonOps.INSTANCE, new JsonPrimitive(string)).result().orElseThrow(() -> INVALID_ENUM_EXCEPTION.create(string));
+        return codec.parse(JsonOps.INSTANCE, new JsonPrimitive(string)).result().get();
     }
 
     @Override
@@ -48,4 +44,3 @@ public class StringRepresentableArgument<T extends Enum<T>> implements ArgumentT
     }
 
 }
-

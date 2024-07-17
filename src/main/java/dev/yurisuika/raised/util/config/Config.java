@@ -2,12 +2,11 @@ package dev.yurisuika.raised.util.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.yurisuika.raised.config.RaisedConfig;
+import dev.yurisuika.raised.config.Options;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.stream.Stream;
@@ -16,33 +15,41 @@ public class Config {
 
     public static File file = new File(FMLPaths.CONFIGDIR.get().toFile(), "raised.json");
     public static Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().disableHtmlEscaping().create();
-    public static RaisedConfig config = new RaisedConfig();
+    public static Options options = new Options();
+
+    public static Options getOptions() {
+        return options;
+    }
+
+    public static void setOptions(Options options) {
+        Config.options = options;
+    }
 
     public static void saveConfig() {
         try {
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(gson.toJson(config));
+            fileWriter.write(gson.toJson(getOptions()));
             fileWriter.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     public static void loadConfig() {
-        try {
-            if (file.exists()) {
+        if (file.exists()) {
+            try {
                 StringBuilder contentBuilder = new StringBuilder();
                 try (Stream<String> stream = Files.lines(file.toPath(), StandardCharsets.UTF_8)) {
                     stream.forEach(s -> contentBuilder.append(s).append("\n"));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
-                config = gson.fromJson(contentBuilder.toString(), RaisedConfig.class);
-            } else {
-                saveConfig();
+                setOptions(gson.fromJson(contentBuilder.toString(), Options.class));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            saveConfig();
         }
     }
 
