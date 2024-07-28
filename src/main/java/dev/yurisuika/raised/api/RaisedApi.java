@@ -5,10 +5,10 @@ import dev.yurisuika.raised.util.properties.Element;
 import dev.yurisuika.raised.util.properties.Position;
 import dev.yurisuika.raised.util.properties.Sync;
 
-public class Raised {
+public class RaisedApi {
 
     /**
-     * Retrieves the horizontal x-axis offset for the given element.
+     * <p>Retrieves the horizontal x-axis offset for the given element.
      *
      * <p>The element is translated on the x-axis by this amount.
      *
@@ -21,7 +21,7 @@ public class Raised {
     }
 
     /**
-     * Sets the horizontal x-axis offset for the given element.
+     * <p>Sets the horizontal x-axis offset for the given element.
      *
      * @param element the given element {@link Element}
      * @param x the horizontal x-axis offset int
@@ -33,7 +33,7 @@ public class Raised {
     }
 
     /**
-     * Retrieves the vertical y-axis offset for the given element.
+     * <p>Retrieves the vertical y-axis offset for the given element.
      *
      * <p>The element is translated on the y-axis by this amount.
      *
@@ -46,7 +46,7 @@ public class Raised {
     }
 
     /**
-     * Sets the vertical y-axis offset for the given element.
+     * <p>Sets the vertical y-axis offset for the given element.
      *
      * @param element the given element {@link Element}
      * @param y the vertical y-axis offset int
@@ -58,7 +58,7 @@ public class Raised {
     }
 
     /**
-     * Retrieves the position for the given element.
+     * <p>Retrieves the position for the given element.
      *
      * <p>The element is translated in the direction away from this position.
      *
@@ -71,7 +71,7 @@ public class Raised {
     }
 
     /**
-     * Sets the position for the given element.
+     * <p>Sets the position for the given element.
      *
      * @param element the given element {@link Element}
      * @param position the position {@link Position}
@@ -83,7 +83,7 @@ public class Raised {
     }
 
     /**
-     * Retrieves the synchronized element for the given element.
+     * <p>Retrieves the synchronized element for the given element.
      *
      * <p>The element is translated from its set position by the amount set for the synchronized element.
      *
@@ -96,7 +96,7 @@ public class Raised {
     }
 
     /**
-     * Sets the synchronized element for the given element.
+     * <p>Sets the synchronized element for the given element.
      *
      * @param element the given element {@link Element}
      * @param sync the synchronized element {@link Sync}
