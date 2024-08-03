@@ -41,7 +41,7 @@ public class RaisedCommand {
                             .then(ClientCommandManager.literal(element.getSerializedName())
                                     .then(ClientCommandManager.literal("x")
                                             .executes(commandContext -> {
-                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.x.query", Component.translatable(element.getKey()), Option.getY(element)));
+                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.x.query", Component.translatable(element.getKey()), Option.getX(element)));
                                                 return 1;
                                             })
                                             .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
