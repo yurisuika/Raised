@@ -71,12 +71,12 @@ public class RaisedScreen extends Screen {
         addRenderableWidget(title);
         addRenderableWidget(page);
 
-        createElementsGrid();
+        createLayersGrid();
         createPropertiesGrid();
-        createToggleGrid();
+        createResourcesGrid();
     }
 
-    public void createElementsGrid() {
+    public void createLayersGrid() {
         GridLayout gridLayout = new GridLayout();
         gridLayout.defaultCellSetting().padding(0, 0, 10, 5);
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(4);
@@ -133,7 +133,7 @@ public class RaisedScreen extends Screen {
         gridLayout.visitWidgets(this::addRenderableWidget);
     }
 
-    public void createToggleGrid() {
+    public void createResourcesGrid() {
         GridLayout gridLayout = new GridLayout();
         gridLayout.defaultCellSetting().padding(10, 5, 0, 0);
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(4);

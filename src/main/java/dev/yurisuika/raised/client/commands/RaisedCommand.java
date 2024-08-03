@@ -38,13 +38,13 @@ public class RaisedCommand {
                 .then(ClientCommandManager.literal("resources")
                         .then(ClientCommandManager.literal("texture")
                                 .executes(commandContext -> {
-                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.query", Component.translatable(Config.getOptions().getResources().getTexture().getSerializedName())));
+                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.query", Component.translatable(Config.getOptions().getResources().getTexture().getKey())));
                                     return 1;
                                 })
                                 .then(ClientCommandManager.argument("texture", TextureArgument.texture())
                                         .executes(commandContext -> {
                                             Option.setTexture(TextureArgument.getTexture(commandContext, "texture"));
-                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.set", Component.translatable(Config.getOptions().getResources().getTexture().getSerializedName())));
+                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.set", Component.translatable(Config.getOptions().getResources().getTexture().getKey())));
                                             return 1;
                                         })
                                 )
@@ -58,7 +58,7 @@ public class RaisedCommand {
                             .then(ClientCommandManager.literal(element.getSerializedName())
                                     .then(ClientCommandManager.literal("x")
                                             .executes(commandContext -> {
-                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.x.query", Component.translatable(element.getKey()), Option.getY(element)));
+                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.x.query", Component.translatable(element.getKey()), Option.getX(element)));
                                                 return 1;
                                             })
                                             .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
