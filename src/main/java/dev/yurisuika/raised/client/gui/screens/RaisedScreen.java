@@ -54,7 +54,7 @@ public class RaisedScreen extends Screen {
 
     @Override
     public void init() {
-        createElementsGrid();
+        createLayersGrid();
         createPropertiesGrid();
 
         for (IconToggleButton widget : elementsGrid) {
@@ -65,7 +65,7 @@ public class RaisedScreen extends Screen {
         }
     }
 
-    public void createElementsGrid() {
+    public void createLayersGrid() {
         hotbar = createIconToggleButton(Element.HOTBAR, 16, 16);
         chat = createIconToggleButton(Element.CHAT, 16 + 20 + 10, 16);
         bossbar = createIconToggleButton(Element.BOSSBAR, 16 + 20 + 10 + 20 + 10, 16);
