@@ -2,10 +2,10 @@
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
 
-  "commands.raised.layers.element.x.query": "Horizontal displacement of %s is currently set to: %d",
-  "commands.raised.layers.element.x.set": "Horizontal displacement of %s is now set to: %d",
-  "commands.raised.layers.element.y.query": "Vertical displacement of %s is currently set to: %d",
-  "commands.raised.layers.element.y.set": "Vertical displacement of %s is now set to: %d",
+  "commands.raised.layers.element.x.query": "Horizontal translation of %s is currently set to: %d",
+  "commands.raised.layers.element.x.set": "Horizontal translation of %s is now set to: %d",
+  "commands.raised.layers.element.y.query": "Vertical translation of %s is currently set to: %d",
+  "commands.raised.layers.element.y.set": "Vertical translation of %s is now set to: %d",
   "commands.raised.layers.element.position.query": "Position of %s is currently set to: %s",
   "commands.raised.layers.element.position.set": "Position of %s is now set to: %s",
   "commands.raised.layers.element.sync.query": "Synchronization of %s is currently set to: %s",
@@ -30,13 +30,13 @@
   "options.raised.element.other": "Other",
 
   "options.raised.x": "Horizontal",
-  "options.raised.x.tooltip": "Amount the element is moved on the x-axis.\nMaximum slider value is a quarter of scaled screen width.\nDoes not affect elements set to positon TOP or BOTTOM.",
+  "options.raised.x.tooltip": "Amount the element is translated on the x-axis.\nMaximum slider value is a quarter of scaled screen width.\nDoes not affect elements set to position 'Top' or 'Bottom'.",
 
   "options.raised.y": "Vertical",
-  "options.raised.y.tooltip": "Amount the element is moved on the y-axis.\nMaximum slider value is a quarter of scaled screen height.\nDoes not affect elements set to positon LEFT or RIGHT.",
+  "options.raised.y.tooltip": "Amount the element is translated on the y-axis.\nMaximum slider value is a quarter of scaled screen height.\nDoes not affect elements set to position 'Left' or 'Right'.",
 
   "options.raised.position": "Position",
-  "options.raised.position.tooltip": "Position the element moves away from.",
+  "options.raised.position.tooltip": "Position the element is located on the screen.\nThe element will be translated in the direction from this position towards the center of the screen.",
   "options.raised.position.top": "Top",
   "options.raised.position.top_left": "Top Left",
   "options.raised.position.top_right": "Top Right",
