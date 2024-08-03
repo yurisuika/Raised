@@ -38,13 +38,13 @@ public class RaisedCommand {
                 .then(Commands.literal("resources")
                         .then(Commands.literal("texture")
                                 .executes(commandContext -> {
-                                    commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.resources.texture.query", Component.translatable(Option.getTexture().getSerializedName())), false);
+                                    commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.resources.texture.query", Component.translatable(Option.getTexture().getKey())), false);
                                     return 1;
                                 })
                                 .then(Commands.argument("texture", TextureArgument.texture())
                                         .executes(commandContext -> {
                                             Option.setTexture(TextureArgument.getTexture(commandContext, "texture"));
-                                            commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.resources.texture.set", Component.translatable(Option.getTexture().getSerializedName())), false);
+                                            commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.resources.texture.set", Component.translatable(Option.getTexture().getKey())), false);
                                             return 1;
                                         })
                                 )
@@ -58,7 +58,7 @@ public class RaisedCommand {
                             .then(Commands.literal(element.getSerializedName())
                                     .then(Commands.literal("x")
                                             .executes(commandContext -> {
-                                                commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.layers.element.x.query", Component.translatable(element.getKey()), Option.getY(element)), false);
+                                                commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.layers.element.x.query", Component.translatable(element.getKey()), Option.getX(element)), false);
                                                 return 1;
                                             })
                                             .then(Commands.argument("x", IntegerArgumentType.integer(0))
