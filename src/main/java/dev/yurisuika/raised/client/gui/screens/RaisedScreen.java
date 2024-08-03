@@ -57,7 +57,7 @@ public class RaisedScreen extends Screen {
 
     @Override
     public void init() {
-        createElementsGrid();
+        createLayersGrid();
         createPropertiesGrid();
 
         for (IconToggleButton widget : elementsGrid) {
@@ -68,7 +68,7 @@ public class RaisedScreen extends Screen {
         }
     }
 
-    public void createElementsGrid() {
+    public void createLayersGrid() {
         hotbar = createIconToggleButton(Element.HOTBAR, 16, 16);
         chat = createIconToggleButton(Element.CHAT, 16 + 20 + 10, 16);
         bossbar = createIconToggleButton(Element.BOSSBAR, 16 + 20 + 10 + 20 + 10, 16);
@@ -100,8 +100,8 @@ public class RaisedScreen extends Screen {
     public void createPropertiesGrid() {
         x = new ProgressOption("options.raised.x", 0, minecraft.getWindow().getGuiScaledWidth() / 4, 1.0F, gameOptions -> (double)Option.getX(element), (gameOptions, value) -> Option.setX(element, value.intValue()), (gameOptions, option) -> option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%")), client -> font.split(new TranslatableComponent("options.raised.x.tooltip"), 200)).createButton(minecraft.options, width - 110 - 16, 16, 110);
         y = new ProgressOption("options.raised.y", 0, minecraft.getWindow().getGuiScaledHeight() / 4, 1.0F, gameOptions -> (double)Option.getY(element), (gameOptions, value) -> Option.setY(element, value.intValue()), (gameOptions, option) -> option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%")), client -> font.split(new TranslatableComponent("options.raised.y.tooltip"), 200)).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5, 110);
-        position = CycleOption.create("options.raised.position", Position.values(), value -> new TranslatableComponent(value.getSerializedName()), gameOptions -> Option.getPosition(element), (gameOptions, option, value) -> Option.setPosition(element, value)).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.position.tooltip"), 200)).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5, 110);
-        sync = CycleOption.create("options.raised.sync", Sync.values(), value -> new TranslatableComponent(value.getSerializedName()), gameOptions -> Option.getSync(element), (gameOptions, option, value) -> Option.setSync(element, value)).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.sync." + value.getSerializedName() + ".tooltip", new TranslatableComponent(element.getKey())), 200)).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5 + 20 + 5, 110);
+        position = CycleOption.create("options.raised.position", Position.values(), value -> new TranslatableComponent(value.getKey()), gameOptions -> Option.getPosition(element), (gameOptions, option, value) -> Option.setPosition(element, value)).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.position.tooltip"), 200)).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5, 110);
+        sync = CycleOption.create("options.raised.sync", Sync.values(), value -> new TranslatableComponent(value.getKey()), gameOptions -> Option.getSync(element), (gameOptions, option, value) -> Option.setSync(element, value)).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.sync." + value.getSerializedName() + ".tooltip", new TranslatableComponent(element.getKey())), 200)).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5 + 20 + 5, 110);
 
         propertiesGrid.add(x);
         propertiesGrid.add(y);
@@ -326,12 +326,12 @@ public class RaisedScreen extends Screen {
                 } else if (widget.equals(other)) {
                     widgetElement = Element.OTHER;
                 }
-                renderTooltip(poseStack, font.split(new TranslatableComponent(widgetElement.getSerializedName()), 200), mouseX, mouseY);
+                renderTooltip(poseStack, font.split(new TranslatableComponent(widgetElement.getKey()), 200), mouseX, mouseY);
             }
         }
         for (AbstractWidget widget : propertiesGrid) {
             if (widget != null && widget.isMouseOver(mouseX, mouseY)) {
-                renderTooltip(poseStack, ((TooltipAccessor)widget).getTooltip(), mouseX, mouseY);
+                renderTooltip(poseStack, ((TooltipAccessor) widget).getTooltip(), mouseX, mouseY);
             }
         }
     }
