@@ -40,7 +40,7 @@ public class RaisedCommand {
                             .then(Commands.literal(element.getSerializedName())
                                     .then(Commands.literal("x")
                                             .executes(commandContext -> {
-                                                commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.x.query", new TranslatableComponent(element.getKey()), Option.getY(element)), false);
+                                                commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.x.query", new TranslatableComponent(element.getKey()), Option.getX(element)), false);
                                                 return 1;
                                             })
                                             .then(Commands.argument("x", IntegerArgumentType.integer(0))
@@ -66,26 +66,26 @@ public class RaisedCommand {
                                     )
                                     .then(Commands.literal("position")
                                             .executes(commandContext -> {
-                                                commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.position.query", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getPosition(element).getSerializedName())), false);
+                                                commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.position.query", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getPosition(element).getKey())), false);
                                                 return 1;
                                             })
                                             .then(Commands.argument("position", PositionArgument.position())
                                                     .executes(commandContext -> {
                                                         Option.setPosition(element, PositionArgument.getPosition(commandContext, "position"));
-                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.position.set", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getPosition(element).getSerializedName())), false);
+                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.position.set", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getPosition(element).getKey())), false);
                                                         return 1;
                                                     })
                                             )
                                     )
                                     .then(Commands.literal("sync")
                                             .executes(commandContext -> {
-                                                commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.sync.query", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getSync(element).getSerializedName())), false);
+                                                commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.sync.query", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getSync(element).getKey())), false);
                                                 return 1;
                                             })
                                             .then(Commands.argument("sync", SyncArgument.sync())
                                                     .executes(commandContext -> {
                                                         Option.setSync(element, SyncArgument.getSync(commandContext, "sync"));
-                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.sync.set", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getSync(element).getSerializedName())), false);
+                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.layers.element.sync.set", new TranslatableComponent(element.getKey()), new TranslatableComponent(Option.getSync(element).getKey())), false);
                                                         return 1;
                                                     })
                                             )

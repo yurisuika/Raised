@@ -32,12 +32,12 @@ public abstract class ForgeIngameGuiMixin {
             /**
              * Moves the {@code held item tooltip} for {@link Element.HOTBAR}.
              */
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderHeldItemTooltip(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderSelectedItemName(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startHeldItemTooltipTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.start(Element.HOTBAR);
             }
 
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderHeldItemTooltip(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderSelectedItemName(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
             private void endHeldItemTooltipTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.end();
             }
@@ -80,12 +80,12 @@ public abstract class ForgeIngameGuiMixin {
             /**
              * Moves the {@code sidebar} for {@link Element.SIDEBAR}.
              */
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/scoreboard/ScoreboardObjective;)V"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V"))
             private void startScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.start(Element.SIDEBAR);
             }
 
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/scoreboard/ScoreboardObjective;)V", shift = At.Shift.AFTER))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
             private void endScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.end();
             }
