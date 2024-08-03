@@ -57,7 +57,7 @@ public class RaisedScreen extends Screen {
 
     @Override
     public void init() {
-        createElementsGrid();
+        createLayersGrid();
         createPropertiesGrid();
 
         for (IconToggleButton widget : elementsGrid) {
@@ -68,7 +68,7 @@ public class RaisedScreen extends Screen {
         }
     }
 
-    public void createElementsGrid() {
+    public void createLayersGrid() {
         hotbar = createIconToggleButton(Element.HOTBAR, 16, 16);
         chat = createIconToggleButton(Element.CHAT, 16 + 20 + 10, 16);
         bossbar = createIconToggleButton(Element.BOSSBAR, 16 + 20 + 10 + 20 + 10, 16);
@@ -111,14 +111,14 @@ public class RaisedScreen extends Screen {
             Option.setPosition(element, Position.byId(id < Position.values().length - 1 ? id + 1 : 0));
         }, (gameOptions, CycleOption) -> {
             CycleOption.setTooltip(font.split(new TranslatableComponent("options.raised.position.tooltip"), 200));
-            return ((OptionInvoker)CycleOption).invokeGenericValueLabel(new TranslatableComponent(Option.getPosition(element).getSerializedName()));
+            return ((OptionInvoker)CycleOption).invokeGenericValueLabel(new TranslatableComponent(Option.getPosition(element).getKey()));
         }).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5, 110);
         sync = new CycleOption("options.raised.sync", (gameOptions, integer) -> {
             int id = Option.getSync(element).getId();
             Option.setSync(element, Sync.byId(id < Sync.values().length - 1 ? id + 1 : 0));
         }, (gameOptions, CycleOption) -> {
             CycleOption.setTooltip(font.split(new TranslatableComponent("options.raised.sync." + Option.getSync(element).getSerializedName() + ".tooltip", new TranslatableComponent(element.getKey())), 200));
-            return ((OptionInvoker)CycleOption).invokeGenericValueLabel(new TranslatableComponent(Option.getSync(element).getSerializedName()));
+            return ((OptionInvoker)CycleOption).invokeGenericValueLabel(new TranslatableComponent(Option.getSync(element).getKey()));
         }).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5 + 20 + 5, 110);
 
         propertiesGrid.add(x);
@@ -342,12 +342,12 @@ public class RaisedScreen extends Screen {
                 } else if (widget.equals(other)) {
                     widgetElement = Element.OTHER;
                 }
-                renderTooltip(poseStack, font.split(new TranslatableComponent(widgetElement.getSerializedName()), 200), mouseX, mouseY);
+                renderTooltip(poseStack, font.split(new TranslatableComponent(widgetElement.getKey()), 200), mouseX, mouseY);
             }
         }
         for (AbstractWidget widget : propertiesGrid) {
             if (widget != null && widget.isMouseOver(mouseX, mouseY)) {
-                renderTooltip(poseStack, ((TooltipAccessor)widget).getTooltip().orElse(null), mouseX, mouseY);
+                renderTooltip(poseStack, ((TooltipAccessor) widget).getTooltip().orElse(null), mouseX, mouseY);
             }
         }
     }

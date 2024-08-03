@@ -74,12 +74,12 @@ public abstract class GuiMixin {
             /**
              * Moves the {@code mount jump bar} for {@link Element.HOTBAR}.
              */
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lcom/mojang/blaze3d/vertex/PoseStack;I)V"))
             private void startMountJumpBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.start(Element.HOTBAR);
             }
 
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lcom/mojang/blaze3d/vertex/PoseStack;I)V", shift = At.Shift.AFTER))
             private void endMountJumpBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.end();
             }
