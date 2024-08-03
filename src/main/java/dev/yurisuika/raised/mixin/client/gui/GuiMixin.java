@@ -147,7 +147,7 @@ public abstract class GuiMixin {
                 Translate.start(RenderSystem.getModelViewStack(), Element.HOTBAR);
             }
 
-            @Inject(method = "renderSlot", at = @At("TAIL"))
+            @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;renderGuiItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", shift = At.Shift.AFTER))
             private void endHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int i, CallbackInfo ci) {
                 Translate.end(RenderSystem.getModelViewStack());
             }
