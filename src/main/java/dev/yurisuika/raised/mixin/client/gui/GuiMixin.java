@@ -77,12 +77,12 @@ public abstract class GuiMixin {
             /**
              * Moves the {@code mount jump bar} for {@link Element.HOTBAR}.
              */
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lcom/mojang/blaze3d/vertex/PoseStack;I)V"))
             private void startMountJumpBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.start(poseStack, Element.HOTBAR);
             }
 
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lcom/mojang/blaze3d/vertex/PoseStack;I)V", shift = At.Shift.AFTER))
             private void endMountJumpBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
                 Translate.end(poseStack);
             }
@@ -143,12 +143,12 @@ public abstract class GuiMixin {
              * Moves the {@code hotbar item} for {@link Element.HOTBAR}.
              */
             @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getModelViewStack()Lcom/mojang/blaze3d/vertex/PoseStack;"))
-            private void startHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int seed, CallbackInfo ci) {
+            private void startHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int i, CallbackInfo ci) {
                 Translate.start(RenderSystem.getModelViewStack(), Element.HOTBAR);
             }
 
-            @Inject(method = "renderSlot", at = @At("TAIL"))
-            private void endHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int seed, CallbackInfo ci) {
+            @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;renderGuiItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", shift = At.Shift.AFTER))
+            private void endHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int i, CallbackInfo ci) {
                 Translate.end(RenderSystem.getModelViewStack());
             }
 
