@@ -54,7 +54,7 @@ public class RaisedScreen extends Screen {
 
     @Override
     public void init() {
-        createElementsGrid();
+        createLayersGrid();
         createPropertiesGrid();
 
         for (IconToggleButton widget : elementsGrid) {
@@ -65,7 +65,7 @@ public class RaisedScreen extends Screen {
         }
     }
 
-    public void createElementsGrid() {
+    public void createLayersGrid() {
         hotbar = createIconToggleButton(Element.HOTBAR, 16, 16);
         chat = createIconToggleButton(Element.CHAT, 16 + 20 + 10, 16);
         bossbar = createIconToggleButton(Element.BOSSBAR, 16 + 20 + 10 + 20 + 10, 16);
@@ -315,12 +315,12 @@ public class RaisedScreen extends Screen {
                 } else if (widget.equals(other)) {
                     widgetElement = Element.OTHER;
                 }
-                renderTooltip(poseStack, font.split(Component.translatable(widgetElement.getSerializedName()), 200), mouseX, mouseY);
+                renderTooltip(poseStack, font.split(Component.translatable(widgetElement.getKey()), 200), mouseX, mouseY);
             }
         }
         for (AbstractWidget widget : propertiesGrid) {
             if (widget != null && widget.isMouseOver(mouseX, mouseY)) {
-                renderTooltip(poseStack, ((TooltipAccessor)widget).getTooltip(), mouseX, mouseY);
+                renderTooltip(poseStack, ((TooltipAccessor) widget).getTooltip(), mouseX, mouseY);
             }
         }
     }
