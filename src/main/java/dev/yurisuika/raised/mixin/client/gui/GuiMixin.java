@@ -1,12 +1,16 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.properties.Element;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 public abstract class GuiMixin {
 
@@ -18,14 +22,14 @@ public abstract class GuiMixin {
             /**
              * Moves the {@code hotbar item} for {@link Element.HOTBAR}.
              */
-            @ModifyVariable(method = "renderSlot", at = @At("HEAD"), index = 1, argsOnly = true)
-            private int moveHotbarItemX(int value) {
-                return value + Translate.getX(Element.HOTBAR);
+            @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getModelViewStack()Lcom/mojang/blaze3d/vertex/PoseStack;"))
+            private void startHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int i, CallbackInfo ci) {
+                Translate.start(RenderSystem.getModelViewStack(), Element.HOTBAR);
             }
 
-            @ModifyVariable(method = "renderSlot", at = @At("HEAD"), index = 2, argsOnly = true)
-            private int moveHotbarItemY(int value) {
-                return value + Translate.getY(Element.HOTBAR);
+            @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;renderGuiItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", shift = At.Shift.AFTER))
+            private void endHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int i, CallbackInfo ci) {
+                Translate.end(RenderSystem.getModelViewStack());
             }
 
             /**
