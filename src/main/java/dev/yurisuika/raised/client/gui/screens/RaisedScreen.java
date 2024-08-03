@@ -68,11 +68,11 @@ public class RaisedScreen extends Screen {
         addRenderableWidget(title);
         addRenderableWidget(page);
 
-        createElementsGrid();
+        createLayersGrid();
         createPropertiesGrid();
     }
 
-    public void createElementsGrid() {
+    public void createLayersGrid() {
         GridLayout gridLayout = new GridLayout();
         gridLayout.defaultCellSetting().padding(0, 0, 10, 5);
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(4);
