@@ -6,7 +6,7 @@ Please note that, for Minecraft 1.20.2 and up, the hotbar selector has seen furt
 
 4.x brings big changes to Raised! This update adds support to move the bossbar, scoreboard sidebar, effects icons, players list, and toasts, in addition to the existing support to move the hotbar, chat, and other mod elements! You can move these elements on both the x-axis and y-axis from any cardinal or ordinal direction. Either use the GUI or commands to control the configurable options. See the wiki for more information.
 
-If you are a mod creator and find that your mod's HUD is not being raised, fear not because Raised supports Object Share on Fabric! See the wiki or use [Arrows Info](https://github.com/intact/arrows-info) for an example.
+Raised supports mods in various ways, depending on the platform. If your mod does not work with any of the native support, Raised now has an API! See the wiki for more information.
 
 #### Compiling
 
