@@ -1,5 +1,6 @@
 package dev.yurisuika.raised.mixin.client.gui.components.toasts;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.properties.Element;
@@ -20,12 +21,12 @@ public class ToastComponentMixin {
              */
             @Inject(method = "render", at = @At("HEAD"))
             private void startToastsTranslate(int x, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
-                Translate.start(poseStack, Element.TOASTS);
+                Translate.start(RenderSystem.getModelViewStack(), Element.TOASTS);
             }
 
             @Inject(method = "render", at = @At("TAIL"))
-            private void endToastsTranslate(int x, PoseStack matriStack, CallbackInfoReturnable<Boolean> cir) {
-                Translate.end(matriStack);
+            private void endToastsTranslate(int x, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
+                Translate.end(RenderSystem.getModelViewStack());
             }
 
         }
