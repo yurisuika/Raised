@@ -20,12 +20,12 @@ public abstract class ChatScreenMixin {
              * Moves the {@code chat} for {@link Element.CHAT}.
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;render(Lnet/minecraft/client/gui/GuiGraphics;IIIZ)V"))
-            private void startChatTranslate(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+            private void startChatTranslate(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
                 Translate.start(guiGraphics.pose(), Element.CHAT);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;render(Lnet/minecraft/client/gui/GuiGraphics;IIIZ)V", shift = At.Shift.AFTER))
-            private void endChatTranslate(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+            private void endChatTranslate(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
                 Translate.end(guiGraphics.pose());
             }
 

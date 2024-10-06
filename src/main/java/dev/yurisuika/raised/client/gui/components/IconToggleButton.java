@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -34,11 +35,11 @@ public class IconToggleButton extends Button {
     }
 
     @Override
-    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
             RenderSystem.disableDepthTest();
-            guiGraphics.blitSprite(TEXTURES.get(!isToggled(), isHoveredOrFocused()), getX(), getY(), getWidth(), getHeight());
-            guiGraphics.blitSprite(texture, getX(), getY(), getWidth(), getHeight());
+            guiGraphics.blitSprite(RenderType::guiTextured, TEXTURES.get(!isToggled(), isHoveredOrFocused()), getX(), getY(), getWidth(), getHeight());
+            guiGraphics.blitSprite(RenderType::guiTextured, texture, getX(), getY(), getWidth(), getHeight());
             RenderSystem.enableDepthTest();
         }
     }
