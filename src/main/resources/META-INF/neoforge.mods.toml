@@ -21,7 +21,7 @@ config = "raised.mixins.json"
 [[dependencies.raised]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,1.22)"
+versionRange = "[1.21,1.21.1]"
 ordering = "NONE"
 side = "CLIENT"
 
