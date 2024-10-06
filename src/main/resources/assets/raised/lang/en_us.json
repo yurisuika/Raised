@@ -2,10 +2,10 @@
   "commands.raised.config.reload": "Raised config reloaded",
   "commands.raised.config.reset": "Raised config reset to defaults",
 
-  "commands.raised.layers.element.x.query": "Horizontal translation of %s is currently set to: %d",
-  "commands.raised.layers.element.x.set": "Horizontal translation of %s is now set to: %d",
-  "commands.raised.layers.element.y.query": "Vertical translation of %s is currently set to: %d",
-  "commands.raised.layers.element.y.set": "Vertical translation of %s is now set to: %d",
+  "commands.raised.layers.element.x.query": "X-axis translation of %s is currently set to: %dpx",
+  "commands.raised.layers.element.x.set": "X-axis translation of %s is now set to: %dpx",
+  "commands.raised.layers.element.y.query": "Y-axis translation of %s is currently set to: %dpx",
+  "commands.raised.layers.element.y.set": "Y-axis translation of %s is now set to: %dpx",
   "commands.raised.layers.element.position.query": "Position of %s is currently set to: %s",
   "commands.raised.layers.element.position.set": "Position of %s is now set to: %s",
   "commands.raised.layers.element.sync.query": "Synchronization of %s is currently set to: %s",
@@ -29,10 +29,10 @@
   "options.raised.element.toasts": "Toasts",
   "options.raised.element.other": "Other",
 
-  "options.raised.x": "Horizontal",
+  "options.raised.x": "X",
   "options.raised.x.tooltip": "Amount the element is translated on the x-axis.\nMaximum slider value is a quarter of scaled screen width.\nDoes not affect elements set to position 'Top' or 'Bottom'.",
 
-  "options.raised.y": "Vertical",
+  "options.raised.y": "Y",
   "options.raised.y.tooltip": "Amount the element is translated on the y-axis.\nMaximum slider value is a quarter of scaled screen height.\nDoes not affect elements set to position 'Left' or 'Right'.",
 
   "options.raised.position": "Position",
