@@ -34,7 +34,7 @@ public class IconToggleButton extends Button {
     }
 
     @Override
-    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
+    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
             RenderSystem.disableDepthTest();
             guiGraphics.blitSprite(TEXTURES.get(!isToggled(), isHoveredOrFocused()), getX(), getY(), getWidth(), getHeight());
