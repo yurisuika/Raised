@@ -100,11 +100,11 @@ public class RaisedScreen extends Screen {
     public void createPropertiesGrid() {
         x = new ProgressOption("options.raised.x", 0, minecraft.getWindow().getGuiScaledWidth() / 4, 1.0F, gameOptions -> (double)Option.getX(element), (gameOptions, value) -> Option.setX(element, value.intValue()), (gameOptions, option) -> {
             option.setTooltip(font.split(new TranslatableComponent("options.raised.x.tooltip"), 200));
-            return option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%"));
+            return option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Option.getX(element) + "px (" + Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%)"));
         }).createButton(minecraft.options, width - 110 - 16, 16, 110);
         y = new ProgressOption("options.raised.y", 0, minecraft.getWindow().getGuiScaledHeight() / 4, 1.0F, gameOptions -> (double)Option.getY(element), (gameOptions, value) -> Option.setY(element, value.intValue()), (gameOptions, option) -> {
             option.setTooltip(font.split(new TranslatableComponent("options.raised.y.tooltip"), 200));
-            return option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%"));
+            return option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Option.getY(element) + "px (" + Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%)"));
         }).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5, 110);
         position = new CycleOption("options.raised.position", (gameOptions, integer) -> {
             int id = Option.getPosition(element).getId();
