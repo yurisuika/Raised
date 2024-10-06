@@ -340,8 +340,8 @@ public class RaisedScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBlurredBackground(delta);
+    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        renderBlurredBackground(partialTick);
         renderMenuBackground(guiGraphics);
     }
 
