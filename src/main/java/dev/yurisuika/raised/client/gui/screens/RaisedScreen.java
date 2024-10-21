@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.serialization.Codec;
 import dev.yurisuika.raised.client.RaisedOptions;
@@ -25,11 +24,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.Items;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 public class RaisedScreen extends Screen {
 
@@ -257,15 +254,12 @@ public class RaisedScreen extends Screen {
                 guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
             }
             case PLAYERS -> {
-                GameProfile profilePlayer = minecraft.getMinecraftSessionService().fillProfileProperties(minecraft.player.getGameProfile(), false);
-                GameProfile profileNotch = minecraft.getMinecraftSessionService().fillProfileProperties(new GameProfile(UUID.fromString("069a79f4-44e9-4726-a5be-fca90e38aaf5"), "Notch"), false);
-
                 guiGraphics.fill(-91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
                 guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9 - 9, -91 + 1 + 144, offset - 1 - 1 - 9, minecraft.options.getBackgroundColor(553648127));
                 guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9, -91 + 1 + 144, offset - 1 - 1, minecraft.options.getBackgroundColor(553648127));
 
-                PlayerFaceRenderer.draw(guiGraphics, minecraft.getSkinManager().getInsecureSkinLocation(profilePlayer), -91 + 1 + 1, offset - 1 - 9 - 9, 8, minecraft.player.isModelPartShown(PlayerModelPart.HAT), "Dinnerbone".equals(profilePlayer.getName()) || "Grumm".equals(profilePlayer.getName()));
-                PlayerFaceRenderer.draw(guiGraphics, minecraft.getSkinManager().getInsecureSkinLocation(profileNotch), -91 + 1 + 1, offset - 1 - 9, 8, true, false);
+                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.tryParse("textures/entity/player/wide/steve.png"), -91 + 1 + 1, offset - 1 - 9 - 9, 8, true, false);
+                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.tryParse("textures/entity/player/slim/alex.png"), -91 + 1 + 1, offset - 1 - 9, 8, true, false);
 
                 guiGraphics.drawString(font, translatableX, -91 + 1 + 10, offset - 1 - 9 - 9, CommonColors.WHITE);
                 guiGraphics.drawString(font, translatableY, -91 + 1 + 10, offset - 1 - 9, CommonColors.WHITE);
