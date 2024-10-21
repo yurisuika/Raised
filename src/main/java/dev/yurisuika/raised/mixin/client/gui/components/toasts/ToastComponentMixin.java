@@ -19,12 +19,12 @@ public abstract class ToastComponentMixin {
              * Moves the {@code toasts} if {@link Element.TOASTS} is enabled.
              */
             @Inject(method = "render", at = @At("HEAD"))
-            private void startToastsTranslate(int x, GuiGraphics guiGraphics, CallbackInfoReturnable<Boolean> cir) {
+            private void startToastsTranslate(int screenWidth, GuiGraphics guiGraphics, CallbackInfoReturnable<Boolean> cir) {
                 Translate.start(guiGraphics.pose(), Element.TOASTS);
             }
 
             @Inject(method = "render", at = @At("TAIL"))
-            private void endToastsTranslate(int x, GuiGraphics guiGraphics, CallbackInfoReturnable<Boolean> cir) {
+            private void endToastsTranslate(int screenWidth, GuiGraphics guiGraphics, CallbackInfoReturnable<Boolean> cir) {
                 Translate.end(guiGraphics.pose());
             }
 
