@@ -1,7 +1,5 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.client.RaisedOptions;
@@ -17,19 +15,15 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.TooltipAccessor;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class RaisedScreen extends Screen {
 
@@ -254,27 +248,16 @@ public class RaisedScreen extends Screen {
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             }
             case PLAYERS -> {
-                GameProfile profilePlayer = minecraft.getMinecraftSessionService().fillProfileProperties(minecraft.player.getGameProfile(), false);
-                GameProfile profileNotch = minecraft.getMinecraftSessionService().fillProfileProperties(new GameProfile(UUID.fromString("069a79f4-44e9-4726-a5be-fca90e38aaf5"), "Notch"), false);
-                Player entityPlayer = minecraft.level.getPlayerByUUID(profilePlayer.getId());
-                Player entityNotch = minecraft.level.getPlayerByUUID(profileNotch.getId());
-                boolean shouldFlip = entityPlayer != null && LivingEntityRenderer.isEntityUpsideDown(entityPlayer);
-
                 fill(poseStack, -91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
                 fill(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, -91 + 1 + 144, offset - 1 - 1 - 9, minecraft.options.getBackgroundColor(553648127));
                 fill(poseStack, -91 + 1 + 1, offset - 1 - 9, -91 + 1 + 144, offset - 1 - 1, minecraft.options.getBackgroundColor(553648127));
 
-                RenderSystem.setShaderTexture(0, minecraft.getSkinManager().registerTexture(minecraft.getSkinManager().getInsecureSkinInformation(profilePlayer).values().stream().findFirst().get(), MinecraftProfileTexture.Type.SKIN));
-                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, 8, 8.0F, 8 + (shouldFlip ? 8 : 0), 8, 8 * (shouldFlip ? -1 : 1), 64, 64);
-                if (entityPlayer != null && entityPlayer.isModelPartShown(PlayerModelPart.HAT)) {
-                    GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, 8, 40.0F, 8 + (shouldFlip ? 8 : 0), 8, 8 * (shouldFlip ? -1 : 1), 64, 64);
-                }
-
-                RenderSystem.setShaderTexture(0, minecraft.getSkinManager().registerTexture(minecraft.getSkinManager().getInsecureSkinInformation(profileNotch).values().stream().findFirst().get(), MinecraftProfileTexture.Type.SKIN));
+                RenderSystem.setShaderTexture(0, ResourceLocation.tryParse("textures/entity/steve.png"));
+                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, 8, 8.0F, 8.0F, 8, 8, 64, 64);
+                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, 8, 40.0F, 8.0F, 8, 8, 64, 64);
+                RenderSystem.setShaderTexture(0, ResourceLocation.tryParse("textures/entity/alex.png"));
                 GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9, 8, 8, 8.0F, 8.0F, 8, 8, 64, 64);
-                if (entityNotch != null && entityNotch.isModelPartShown(PlayerModelPart.HAT)) {
-                    GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9, 8, 8, 40.0F, 8.0F, 8, 8, 64, 64);
-                }
+                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9, 8, 8, 40.0F, 8.0F, 8, 8, 64, 64);
 
                 font.drawShadow(poseStack, translatableX, -91 + 1 + 10, offset - 1 - 9 - 9, -1);
                 font.drawShadow(poseStack, translatableY, -91 + 1 + 10, offset - 1 - 9, -1);
