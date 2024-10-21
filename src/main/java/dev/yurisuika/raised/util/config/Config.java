@@ -5,8 +5,10 @@ import com.google.gson.GsonBuilder;
 import dev.yurisuika.raised.config.Options;
 import net.minecraftforge.fml.loading.FMLPaths;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.stream.Stream;
@@ -27,9 +29,9 @@ public class Config {
 
     public static void saveConfig() {
         try {
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(gson.toJson(getOptions()));
-            fileWriter.close();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false), StandardCharsets.UTF_8));
+            bufferedWriter.write(gson.toJson(getOptions()));
+            bufferedWriter.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
