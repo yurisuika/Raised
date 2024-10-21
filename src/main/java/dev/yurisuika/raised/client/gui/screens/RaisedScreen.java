@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.Codec;
@@ -20,12 +19,10 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 public class RaisedScreen extends Screen {
 
@@ -251,16 +248,13 @@ public class RaisedScreen extends Screen {
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             }
             case PLAYERS -> {
-                GameProfile profilePlayer = minecraft.getMinecraftSessionService().fillProfileProperties(minecraft.player.getGameProfile(), false);
-                GameProfile profileNotch = minecraft.getMinecraftSessionService().fillProfileProperties(new GameProfile(UUID.fromString("069a79f4-44e9-4726-a5be-fca90e38aaf5"), "Notch"), false);
-
                 fill(poseStack, -91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
                 fill(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, -91 + 1 + 144, offset - 1 - 1 - 9, minecraft.options.getBackgroundColor(553648127));
                 fill(poseStack, -91 + 1 + 1, offset - 1 - 9, -91 + 1 + 144, offset - 1 - 1, minecraft.options.getBackgroundColor(553648127));
 
-                RenderSystem.setShaderTexture(0, minecraft.getSkinManager().getInsecureSkinLocation(profilePlayer));
-                PlayerFaceRenderer.draw(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, minecraft.player.isModelPartShown(PlayerModelPart.HAT), "Dinnerbone".equals(profilePlayer.getName()) || "Grumm".equals(profilePlayer.getName()));
-                RenderSystem.setShaderTexture(0, minecraft.getSkinManager().getInsecureSkinLocation(profileNotch));
+                RenderSystem.setShaderTexture(0, ResourceLocation.tryParse("textures/entity/steve.png"));
+                PlayerFaceRenderer.draw(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, true, false);
+                RenderSystem.setShaderTexture(0, ResourceLocation.tryParse("textures/entity/alex.png"));
                 PlayerFaceRenderer.draw(poseStack, -91 + 1 + 1, offset - 1 - 9, 8, true, false);
 
                 font.drawShadow(poseStack, translatableX, -91 + 1 + 10, offset - 1 - 9 - 9, -1);
