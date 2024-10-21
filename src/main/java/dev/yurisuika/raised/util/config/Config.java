@@ -7,6 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 public class Config {
@@ -25,7 +26,7 @@ public class Config {
 
     public static void saveConfig() {
         try {
-            FileWriter fileWriter = new FileWriter(file);
+            FileWriter fileWriter = new FileWriter(file, StandardCharsets.UTF_8);
             fileWriter.write(gson.toJson(getOptions()));
             fileWriter.close();
         } catch (Exception e) {
