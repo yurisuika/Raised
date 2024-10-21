@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.serialization.Codec;
 import dev.yurisuika.raised.client.RaisedOptions;
@@ -30,11 +29,9 @@ import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.Items;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 public class RaisedScreen extends Screen {
 
@@ -153,7 +150,7 @@ public class RaisedScreen extends Screen {
         return IconToggleButton.builder(Component.translatable(element.getKey()), button -> {
             RaisedScreen.element = element;
             minecraft.setScreen(new RaisedScreen(Component.translatable("options.raised.title")));
-        }, element == RaisedScreen.element).size(20, 20).texture(ResourceLocation.tryParse("raised:icon/" + element.getSerializedName()), 20, 20).tooltip(Tooltip.create(Component.translatable(element.getKey()))).build();
+        }, element == RaisedScreen.element).size(20, 20).texture(ResourceLocation.withDefaultNamespace("raised:icon/" + element.getSerializedName()), 20, 20).tooltip(Tooltip.create(Component.translatable(element.getKey()))).build();
     }
 
     public void setIconToggleButton(IconToggleButton widget) {
@@ -216,13 +213,13 @@ public class RaisedScreen extends Screen {
                 int slot = Mth.lerpDiscrete(percentX, 5, 8) * 20;
                 Texture texture = Option.getTexture();
 
-                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("hud/hotbar"), -182, offset - 22, 182, 22);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/hotbar"), -182, offset - 22, 182, 22);
                 if (texture == Texture.REPLACE || (texture == Texture.AUTO && Pack.getPack())) {
-                    guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
+                    guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
                 } else {
-                    guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
+                    guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
                     if (texture == Texture.PATCH || (texture == Texture.AUTO && !Pack.getPack())) {
-                        ((GuiGraphicsInvoker)guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.tryParse("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 1, 1 / 23.0F, 0, -1);
+                        ((GuiGraphicsInvoker)guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 1, 1 / 23.0F, 0, -1);
                     }
                 }
 
@@ -244,15 +241,15 @@ public class RaisedScreen extends Screen {
             case BOSSBAR -> {
                 int width = Math.max(font.width(translatableX), font.width(translatableY));
 
-                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("boss_bar/red_background"), -182, offset - 5 - 19, 182, 5);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("boss_bar/red_background"), -182, offset - 5 - 19, 182, 5);
                 if (x > 0) {
                     int progress = Mth.lerpDiscrete(percentX, 91, 182);
-                    guiGraphics.blit(RenderType::guiTextured, ResourceLocation.tryParse("textures/gui/sprites/boss_bar/red_progress.png"), -182, offset - 5 - 19, progress, 5, 0, 0, progress, 5, 182, 5);
+                    guiGraphics.blit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/red_progress.png"), -182, offset - 5 - 19, progress, 5, 0, 0, progress, 5, 182, 5);
                 }
-                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("boss_bar/white_background"), -182, offset - 5, 182, 5);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("boss_bar/white_background"), -182, offset - 5, 182, 5);
                 if (y > 0) {
                     int progress = Mth.lerpDiscrete(percentY, 91, 182);
-                    guiGraphics.blit(RenderType::guiTextured, ResourceLocation.tryParse("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
+                    guiGraphics.blit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
                 }
 
                 guiGraphics.drawString(font, translatableX, -91 + 8 + (width / 2) - (font.width(translatableX) / 2), offset - 5 - 9 - 19, 16777215);
@@ -274,24 +271,19 @@ public class RaisedScreen extends Screen {
                 guiGraphics.drawString(font, String.valueOf(y), -91 + 1 + width - widthY, offset - 1 - 9, CommonColors.SOFT_RED, false);
             }
             case EFFECTS -> {
-                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
-                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
 
                 guiGraphics.blitSprite(RenderType::guiTextured, minecraft.getMobEffectTextures().get(MobEffects.LUCK), -91 + 1 + 3, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentX));
                 guiGraphics.blitSprite(RenderType::guiTextured, minecraft.getMobEffectTextures().get(MobEffects.UNLUCK), -91 + 1 + 3 + 24 + 1, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentY));
             }
             case PLAYERS -> {
-                UUID uuidPlayer = minecraft.getGameProfile().getId();
-                UUID uuidNotch = UUID.fromString("069a79f4-44e9-4726-a5be-fca90e38aaf5");
-                GameProfile profilePlayer = minecraft.getMinecraftSessionService().fetchProfile(uuidPlayer, false).profile();
-                GameProfile profileNotch = minecraft.getMinecraftSessionService().fetchProfile(uuidNotch, false).profile();
-
                 guiGraphics.fill(-91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
                 guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9 - 9, -91 + 1 + 144, offset - 1 - 1 - 9, minecraft.options.getBackgroundColor(553648127));
                 guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9, -91 + 1 + 144, offset - 1 - 1, minecraft.options.getBackgroundColor(553648127));
 
-                PlayerFaceRenderer.draw(guiGraphics, minecraft.getSkinManager().getInsecureSkin(profilePlayer).texture(), -91 + 1 + 1, offset - 1 - 9 - 9, 8, minecraft.level.getPlayerByUUID(uuidPlayer).isModelPartShown(PlayerModelPart.HAT), "Dinnerbone".equals(profilePlayer.getName()) || "Grumm".equals(profilePlayer.getName()), -1);
-                PlayerFaceRenderer.draw(guiGraphics, minecraft.getSkinManager().getInsecureSkin(profileNotch).texture(), -91 + 1 + 1, offset - 1 - 9, 8, true, false, -1);
+                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/wide/steve.png"), -91 + 1 + 1, offset - 1 - 9 - 9, 8, true, false, -1);
+                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/slim/alex.png"), -91 + 1 + 1, offset - 1 - 9, 8, true, false, -1);
 
                 guiGraphics.drawString(font, translatableX, -91 + 1 + 10, offset - 1 - 9 - 9, CommonColors.WHITE);
                 guiGraphics.drawString(font, translatableY, -91 + 1 + 10, offset - 1 - 9, CommonColors.WHITE);
@@ -303,7 +295,7 @@ public class RaisedScreen extends Screen {
                 guiGraphics.blitSprite(RenderType::guiTextured, getSignal(percentY), -91 + 1 + 144 - 1 - 10, offset - 1 - 9, 10, 8);
             }
             case TOASTS -> {
-                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.tryParse("toast/advancement"), -91 - 40, offset - 32, 160, 32);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("toast/advancement"), -91 - 40, offset - 32, 160, 32);
 
                 guiGraphics.renderFakeItem(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -91 + 8, offset - 32 + 8);
 
@@ -322,17 +314,17 @@ public class RaisedScreen extends Screen {
     public static ResourceLocation getSignal(float percent) {
         ResourceLocation resourceLocation;
         if (percent > 0.8F) {
-            resourceLocation = ResourceLocation.tryParse("icon/ping_5");
+            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_5");
         } else if (percent > 0.6F) {
-            resourceLocation = ResourceLocation.tryParse("icon/ping_4");
+            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_4");
         } else if (percent > 0.4F) {
-            resourceLocation = ResourceLocation.tryParse("icon/ping_3");
+            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_3");
         } else if (percent > 0.2F) {
-            resourceLocation = ResourceLocation.tryParse("icon/ping_2");
+            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_2");
         } else if (percent > 0.0F) {
-            resourceLocation = ResourceLocation.tryParse("icon/ping_1");
+            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_1");
         } else {
-            resourceLocation = ResourceLocation.tryParse("icon/ping_unknown");
+            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_unknown");
         }
         return resourceLocation;
     }
