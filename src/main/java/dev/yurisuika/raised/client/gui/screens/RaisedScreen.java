@@ -148,7 +148,7 @@ public class RaisedScreen extends Screen {
         return IconToggleButton.builder(Component.translatable(element.getKey()), button -> {
             RaisedScreen.element = element;
             minecraft.setScreen(new RaisedScreen(Component.translatable("options.raised.title")));
-        }, element == RaisedScreen.element).size(20, 20).texture(ResourceLocation.withDefaultNamespace("raised:icon/" + element.getSerializedName()), 20, 20).tooltip(Tooltip.create(Component.translatable(element.getKey()))).build();
+        }, element == RaisedScreen.element).size(20, 20).texture(ResourceLocation.tryParse("raised:icon/" + element.getSerializedName()), 20, 20).tooltip(Tooltip.create(Component.translatable(element.getKey()))).build();
     }
 
     public void setIconToggleButton(IconToggleButton widget) {
@@ -213,7 +213,7 @@ public class RaisedScreen extends Screen {
 
                 guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("hud/hotbar"), -182, offset - 22, 182, 22);
                 if (texture == Texture.REPLACE || (texture == Texture.AUTO && Pack.getPack())) {
-                    guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
+                    guiGraphics.blitSprite(ResourceLocation.tryParse("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
                 } else {
                     guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
                     if (texture == Texture.PATCH || (texture == Texture.AUTO && !Pack.getPack())) {
