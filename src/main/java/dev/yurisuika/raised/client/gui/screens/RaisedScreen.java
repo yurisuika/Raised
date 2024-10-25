@@ -21,9 +21,11 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
@@ -211,13 +213,13 @@ public class RaisedScreen extends Screen {
                 int slot = Mth.lerpDiscrete(percentX, 5, 8) * 20;
                 Texture texture = Option.getTexture();
 
-                guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("hud/hotbar"), -182, offset - 22, 182, 22);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/hotbar"), -182, offset - 22, 182, 22);
                 if (texture == Texture.REPLACE || (texture == Texture.AUTO && Pack.getPack())) {
-                    guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
+                    guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
                 } else {
-                    guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
+                    guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
                     if (texture == Texture.PATCH || (texture == Texture.AUTO && !Pack.getPack())) {
-                        ((GuiGraphicsInvoker)guiGraphics).invokeInnerBlit(ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 0, 1, 1 / 23.0F, 0);
+                        ((GuiGraphicsInvoker)guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 1, 1 / 23.0F, 0, -1);
                     }
                 }
 
@@ -239,15 +241,15 @@ public class RaisedScreen extends Screen {
             case BOSSBAR -> {
                 int width = Math.max(font.width(translatableX), font.width(translatableY));
 
-                guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("boss_bar/red_background"), -182, offset - 5 - 19, 182, 5);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("boss_bar/red_background"), -182, offset - 5 - 19, 182, 5);
                 if (x > 0) {
                     int progress = Mth.lerpDiscrete(percentX, 91, 182);
-                    guiGraphics.blit(ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/red_progress.png"), -182, offset - 5 - 19, progress, 5, 0, 0, progress, 5, 182, 5);
+                    guiGraphics.blit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/red_progress.png"), -182, offset - 5 - 19, progress, 5, 0, 0, progress, 5, 182, 5);
                 }
-                guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("boss_bar/white_background"), -182, offset - 5, 182, 5);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("boss_bar/white_background"), -182, offset - 5, 182, 5);
                 if (y > 0) {
                     int progress = Mth.lerpDiscrete(percentY, 91, 182);
-                    guiGraphics.blit(ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
+                    guiGraphics.blit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
                 }
 
                 guiGraphics.drawString(font, translatableX, -91 + 8 + (width / 2) - (font.width(translatableX) / 2), offset - 5 - 9 - 19, 16777215);
@@ -269,23 +271,19 @@ public class RaisedScreen extends Screen {
                 guiGraphics.drawString(font, String.valueOf(y), -91 + 1 + width - widthY, offset - 1 - 9, CommonColors.SOFT_RED, false);
             }
             case EFFECTS -> {
-                guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
-                guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
 
-                guiGraphics.setColor(1.0F, 1.0F, 1.0F, percentX);
-                guiGraphics.blit(-91 + 1 + 3, offset - 24 - 1 + 3, 0, 18, 18, minecraft.getMobEffectTextures().get(MobEffects.LUCK));
-                guiGraphics.setColor(1.0F, 1.0F, 1.0F, percentY);
-                guiGraphics.blit(-91 + 1 + 3 + 24 + 1, offset - 24 - 1 + 3, 0, 18, 18, minecraft.getMobEffectTextures().get(MobEffects.UNLUCK));
-
-                guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+                guiGraphics.blitSprite(RenderType::guiTextured, minecraft.getMobEffectTextures().get(MobEffects.LUCK), -91 + 1 + 3, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentX));
+                guiGraphics.blitSprite(RenderType::guiTextured, minecraft.getMobEffectTextures().get(MobEffects.UNLUCK), -91 + 1 + 3 + 24 + 1, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentY));
             }
             case PLAYERS -> {
                 guiGraphics.fill(-91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
                 guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9 - 9, -91 + 1 + 144, offset - 1 - 1 - 9, minecraft.options.getBackgroundColor(553648127));
                 guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9, -91 + 1 + 144, offset - 1 - 1, minecraft.options.getBackgroundColor(553648127));
 
-                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/wide/steve.png"), -91 + 1 + 1, offset - 1 - 9 - 9, 8, true, false);
-                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/slim/alex.png"), -91 + 1 + 1, offset - 1 - 9, 8, true, false);
+                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/wide/steve.png"), -91 + 1 + 1, offset - 1 - 9 - 9, 8, true, false, -1);
+                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/slim/alex.png"), -91 + 1 + 1, offset - 1 - 9, 8, true, false, -1);
 
                 guiGraphics.drawString(font, translatableX, -91 + 1 + 10, offset - 1 - 9 - 9, CommonColors.WHITE);
                 guiGraphics.drawString(font, translatableY, -91 + 1 + 10, offset - 1 - 9, CommonColors.WHITE);
@@ -293,11 +291,11 @@ public class RaisedScreen extends Screen {
                 guiGraphics.drawString(font, stringX, -91 + 1 + 144 - 1 - 10 - 1 - widthX, offset - 1 - 9 - 9, CommonColors.SOFT_YELLOW);
                 guiGraphics.drawString(font, stringY, -91 + 1 + 144 - 1 - 10 - 1 - widthY, offset - 1 - 9, CommonColors.SOFT_YELLOW);
 
-                guiGraphics.blitSprite(getSignal(percentX), -91 + 1 + 144 - 1 - 10, offset - 1 - 9 - 9, 10, 8);
-                guiGraphics.blitSprite(getSignal(percentY), -91 + 1 + 144 - 1 - 10, offset - 1 - 9, 10, 8);
+                guiGraphics.blitSprite(RenderType::guiTextured, getSignal(percentX), -91 + 1 + 144 - 1 - 10, offset - 1 - 9 - 9, 10, 8);
+                guiGraphics.blitSprite(RenderType::guiTextured, getSignal(percentY), -91 + 1 + 144 - 1 - 10, offset - 1 - 9, 10, 8);
             }
             case TOASTS -> {
-                guiGraphics.blitSprite(ResourceLocation.withDefaultNamespace("toast/advancement"), -91 - 40, offset - 32, 160, 32);
+                guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("toast/advancement"), -91 - 40, offset - 32, 160, 32);
 
                 guiGraphics.renderFakeItem(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -91 + 8, offset - 32 + 8);
 
@@ -333,7 +331,7 @@ public class RaisedScreen extends Screen {
 
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        renderBlurredBackground(partialTick);
+        renderBlurredBackground();
         renderMenuBackground(guiGraphics);
     }
 

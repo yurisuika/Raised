@@ -6,6 +6,7 @@ import dev.yurisuika.raised.util.resources.Texture;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +26,7 @@ public abstract class GuiMixin {
             /**
              * Replaces the hotbar selector with a new square asset found under the {@code raised} namespace.
              */
-            @ModifyArg(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), index = 0)
+            @ModifyArg(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), index = 1)
             private ResourceLocation replaceHotbarSelectorIdentifier(ResourceLocation sprite) {
                 if (Option.getTexture() == Texture.REPLACE || (Option.getTexture() == Texture.AUTO && Pack.getPack())) {
                     return ResourceLocation.tryParse("raised:hud/hotbar_selection");
@@ -34,7 +35,7 @@ public abstract class GuiMixin {
                 }
             }
 
-            @ModifyArg(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), index = 4)
+            @ModifyArg(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), index = 5)
             private int replaceHotbarSelectorHeight(int height) {
                 if (Option.getTexture() == Texture.REPLACE || (Option.getTexture() == Texture.AUTO && Pack.getPack())) {
                     return 24;
@@ -51,7 +52,7 @@ public abstract class GuiMixin {
                 if (Option.getTexture() == Texture.PATCH  || (Option.getTexture() == Texture.AUTO && !Pack.getPack())) {
                     int x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().selected * 20;
                     int y = guiGraphics.guiHeight();
-                    ((GuiGraphicsInvoker)guiGraphics).invokeInnerBlit(ResourceLocation.tryParse("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 0, 1, 1 / 23.0F, 0);
+                    ((GuiGraphicsInvoker)guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.tryParse("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 1, 1 / 23.0F, 0, -1);
                 }
             }
 
