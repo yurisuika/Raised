@@ -219,7 +219,7 @@ public class RaisedScreen extends Screen {
                 } else {
                     guiGraphics.blitSprite(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
                     if (texture == Texture.PATCH || (texture == Texture.AUTO && !Pack.getPack())) {
-                        ((GuiGraphicsInvoker)guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 1, 1 / 23.0F, 0, -1);
+                        ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 1, 1 / 23.0F, 0, -1);
                     }
                 }
 
