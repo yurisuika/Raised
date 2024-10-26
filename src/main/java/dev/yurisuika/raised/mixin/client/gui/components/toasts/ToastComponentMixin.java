@@ -18,12 +18,12 @@ public abstract class ToastComponentMixin {
             /**
              * Moves the {@code toasts} if {@link Element.TOASTS} is enabled.
              */
-            @Inject(method = "render", at = @At("HEAD"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;pushMatrix()V"))
             private void startToastsTranslate(int x, int y, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
                 Translate.start(Element.TOASTS);
             }
 
-            @Inject(method = "render", at = @At("TAIL"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;popMatrix()V", shift = At.Shift.AFTER))
             private void endToastsTranslate(int x, int y, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
                 Translate.end();
             }
