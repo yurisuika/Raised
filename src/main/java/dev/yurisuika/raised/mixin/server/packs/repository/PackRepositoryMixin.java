@@ -1,4 +1,4 @@
-package dev.yurisuika.raised.mixin.server.packs.repository.resource;
+package dev.yurisuika.raised.mixin.server.packs.repository;
 
 import dev.yurisuika.raised.util.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
