@@ -5,7 +5,7 @@
   "refmap": "raised.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "server.packs.repository.resource.PackRepositoryMixin"
+    "server.packs.repository.PackRepositoryMixin"
   ],
   "client": [
     "client.gui.GuiGraphicsInvoker",

@@ -30,7 +30,7 @@ public abstract class GuiMixin {
             /**
              * Moves the {@code hotbar}, {@code health bar}, {@code armor bar}, {@code food bar}, {@code air bar},
              * {@code mount health bar}, {@code mount jump bar}, {@code experience bar}, and {@code held item tooltip}
-             * if {@link Element.HOTBAR}.
+             * for {@link Element.HOTBAR}.
              */
             @Inject(method = "renderHotbarAndDecorations", at = @At("HEAD"))
             private void startMainHudTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
