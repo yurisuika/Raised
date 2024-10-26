@@ -152,7 +152,7 @@ public abstract class GuiMixin {
                 Translate.start(guiGraphics.pose(), Element.EFFECTS);
             }
 
-            @Inject(method = "renderEffects", at = @At("TAIL"))
+            @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
             private void endStatusEffectTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
                 Translate.end(guiGraphics.pose());
             }
