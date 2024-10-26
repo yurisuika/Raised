@@ -18,12 +18,12 @@ public abstract class ToastManagerMixin {
             /**
              * Moves the {@code toasts} if {@link Element.TOASTS} is enabled.
              */
-            @Inject(method = "render", at = @At("HEAD"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"))
             private void startToastsTranslate(GuiGraphics guiGraphics, int i, CallbackInfo ci) {
                 Translate.start(guiGraphics.pose(), Element.TOASTS);
             }
 
-            @Inject(method = "render", at = @At("TAIL"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.AFTER))
             private void endToastsTranslate(GuiGraphics guiGraphics, int i, CallbackInfo ci) {
                 Translate.end(guiGraphics.pose());
             }
