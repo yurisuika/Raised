@@ -32,7 +32,6 @@ public enum Element implements OptionEnum, StringRepresentable {
         return id;
     }
 
-    @Override
     public String getKey() {
         return key;
     }
@@ -45,7 +44,6 @@ public enum Element implements OptionEnum, StringRepresentable {
         return VALUES[Mth.abs(id % VALUES.length)];
     }
 
-    @Override
     public String getSerializedName() {
         return name().toLowerCase();
     }
