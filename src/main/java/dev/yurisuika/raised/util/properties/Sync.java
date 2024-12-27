@@ -46,7 +46,6 @@ public enum Sync implements StringRepresentable {
         return VALUES[Mth.abs(id % VALUES.length)];
     }
 
-    @Override
     public String getSerializedName() {
         return name().toLowerCase();
     }
