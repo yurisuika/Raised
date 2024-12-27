@@ -10,44 +10,47 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod("raised")
 public class Raised {
 
-    @Mod.EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
-    public static class ClientForgeEvents {
+    @Mod("raised")
+    public static class Client {
 
-        @SubscribeEvent
-        public static void keyInput(InputEvent.Key event) {
-            while (RaisedOptions.options.consumeClick()) {
-                Minecraft.getInstance().setScreen(new RaisedScreen(Component.translatable("options.raised.title")));
+        @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+        public static class GameEvents {
+
+            @SubscribeEvent
+            public static void registerInputEvents(InputEvent.Key event) {
+                while (RaisedOptions.options.consumeClick()) {
+                    Minecraft.getInstance().setScreen(new RaisedScreen(Component.translatable("options.raised.title")));
+                }
             }
+
+            @SubscribeEvent
+            public static void registerCommands(RegisterClientCommandsEvent event) {
+                RaisedCommand.register(event.getDispatcher(), event.getBuildContext());
+            }
+
         }
 
-        @SubscribeEvent
-        public static void registerClientCommands(RegisterClientCommandsEvent event) {
-            RaisedCommand.register(event.getDispatcher(), event.getBuildContext());
+        @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+        public static class ModEvents {
+
+            @SubscribeEvent
+            public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
+                event.register(RaisedOptions.options);
+            }
+
+        }
+
+        public Client() {
+            Config.loadConfig();
         }
 
     }
 
-    @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModBusEvents {
-
-        @SubscribeEvent
-        public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
-            event.register(RaisedOptions.options);
-        }
-
-    }
-
-    public Raised() {
-        Config.loadConfig();
-
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+    public Raised() {}
 
 }
