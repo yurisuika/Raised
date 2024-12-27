@@ -16,48 +16,55 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod("raised")
 public class Raised {
 
-    @Mod.EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
-    public static class ClientForgeEvents {
+    @Mod("raised")
+    public static class Client {
 
-        @SubscribeEvent
-        public static void keyInput(InputEvent.KeyInputEvent event) {
-            while (RaisedOptions.options.consumeClick()) {
-                Minecraft.getInstance().setScreen(new RaisedScreen(new TranslatableComponent("options.raised.title")));
+        @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+        public static class GameEvents {
+
+            @SubscribeEvent
+            public static void registerInputEvents(InputEvent.KeyInputEvent event) {
+                while (RaisedOptions.options.consumeClick()) {
+                    Minecraft.getInstance().setScreen(new RaisedScreen(new TranslatableComponent("options.raised.title")));
+                }
             }
+
+            @SubscribeEvent
+            public static void registerCommands(RegisterClientCommandsEvent event) {
+                RaisedCommand.register(event.getDispatcher());
+            }
+
         }
 
-        @SubscribeEvent
-        public static void registerClientCommands(RegisterClientCommandsEvent event) {
-            RaisedCommand.register(event.getDispatcher());
+        @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+        public static class ModEvents {
+
+            @SubscribeEvent
+            public static void registerGuiEvents(FMLClientSetupEvent event) {
+                MinecraftForge.EVENT_BUS.register(new RaisedGui.Hotbar());
+                MinecraftForge.EVENT_BUS.register(new RaisedGui.Chat());
+                MinecraftForge.EVENT_BUS.register(new RaisedGui.Bossbar());
+                MinecraftForge.EVENT_BUS.register(new RaisedGui.Sidebar());
+                MinecraftForge.EVENT_BUS.register(new RaisedGui.Effects());
+                MinecraftForge.EVENT_BUS.register(new RaisedGui.Players());
+                MinecraftForge.EVENT_BUS.register(new RaisedGui.Other());
+            }
+
+            @SubscribeEvent
+            public static void registerKeyMappings(FMLClientSetupEvent event) {
+                ClientRegistry.registerKeyBinding(RaisedOptions.options);
+            }
+
+        }
+
+        public Client() {
+            Config.loadConfig();
         }
 
     }
 
-    @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModBusEvents {
-
-        @SubscribeEvent
-        public static void clientSetup(FMLClientSetupEvent event) {
-            MinecraftForge.EVENT_BUS.register(new RaisedGui.Hotbar());
-            MinecraftForge.EVENT_BUS.register(new RaisedGui.Chat());
-            MinecraftForge.EVENT_BUS.register(new RaisedGui.Bossbar());
-            MinecraftForge.EVENT_BUS.register(new RaisedGui.Sidebar());
-            MinecraftForge.EVENT_BUS.register(new RaisedGui.Effects());
-            MinecraftForge.EVENT_BUS.register(new RaisedGui.Players());
-            MinecraftForge.EVENT_BUS.register(new RaisedGui.Other());
-
-            ClientRegistry.registerKeyBinding(RaisedOptions.options);
-        }
-
-    }
-
-    public Raised() {
-        Config.loadConfig();
-
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+    public Raised() {}
 
 }

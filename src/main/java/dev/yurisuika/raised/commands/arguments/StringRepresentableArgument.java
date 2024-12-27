@@ -27,18 +27,15 @@ public class StringRepresentableArgument<T extends Enum<T>> implements ArgumentT
         this.valuesSupplier = valuesSupplier;
     }
 
-    @Override
     public T parse(StringReader stringReader) {
         String string = stringReader.readUnquotedString();
         return codec.parse(JsonOps.INSTANCE, new JsonPrimitive(string)).result().orElseThrow();
     }
 
-    @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
         return SharedSuggestionProvider.suggest(Arrays.stream((Enum[])valuesSupplier.get()).map(enum_ -> ((StringRepresentable)enum_).getSerializedName()).collect(Collectors.toList()), builder);
     }
 
-    @Override
     public Collection<String> getExamples() {
         return Arrays.stream((Enum[])valuesSupplier.get()).map(enum_ -> ((StringRepresentable)enum_).getSerializedName()).limit(2L).collect(Collectors.toList());
     }

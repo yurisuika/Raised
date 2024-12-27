@@ -50,7 +50,6 @@ public class RaisedScreen extends Screen {
         super(title);
     }
 
-    @Override
     public void init() {
         createLayersGrid();
         createPropertiesGrid();
@@ -115,7 +114,6 @@ public class RaisedScreen extends Screen {
         widget.active = !widget.toggled;
     }
 
-    @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         super.render(poseStack, mouseX, mouseY, partialTick);
 
@@ -339,12 +337,10 @@ public class RaisedScreen extends Screen {
         return i;
     }
 
-    @Override
     public void renderBackground(PoseStack poseStack) {
         fillGradient(poseStack, 0, 0, width, height, -1072689136, -804253680);
     }
 
-    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         super.keyPressed(keyCode, scanCode, modifiers);
         if (RaisedOptions.options.matches(keyCode, scanCode)) {

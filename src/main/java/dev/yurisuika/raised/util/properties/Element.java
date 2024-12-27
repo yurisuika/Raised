@@ -45,7 +45,6 @@ public enum Element implements StringRepresentable {
         return VALUES[Mth.abs(id % VALUES.length)];
     }
 
-    @Override
     public String getSerializedName() {
         return name().toLowerCase();
     }
