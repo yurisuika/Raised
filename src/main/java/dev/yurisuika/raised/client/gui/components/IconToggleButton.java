@@ -32,7 +32,6 @@ public class IconToggleButton extends Button {
         return toggled;
     }
 
-    @Override
     public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
             RenderSystem.disableDepthTest();
@@ -54,7 +53,6 @@ public class IconToggleButton extends Button {
         }
     }
 
-    @Override
     public void renderString(PoseStack poseStack, Font font, int color) {}
 
     public static class Builder {
