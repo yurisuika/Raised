@@ -27,7 +27,6 @@ public class IconToggleButton extends Button {
         return toggled;
     }
 
-    @Override
     public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
             RenderSystem.disableDepthTest();
