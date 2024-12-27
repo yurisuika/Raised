@@ -5,41 +5,39 @@ import dev.yurisuika.raised.client.commands.RaisedCommand;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
 import dev.yurisuika.raised.util.config.Config;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.network.chat.TranslatableComponent;
 
-public class Raised implements ClientModInitializer {
+public class Raised {
 
-    @Environment(EnvType.CLIENT)
-    public static void registerClientTickEvents() {
-        ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
-            while (RaisedOptions.options.consumeClick()) {
-                minecraft.setScreen(new RaisedScreen(new TranslatableComponent("options.raised.title")));
-            }
-        });
-    }
+    public static class Client implements ClientModInitializer {
 
-    @Environment(EnvType.CLIENT)
-    public static void registerCommands() {
-        RaisedCommand.register(ClientCommandManager.DISPATCHER);
-    }
+        public static void registerKeyMappings() {
+            KeyBindingHelper.registerKeyBinding(RaisedOptions.options);
+        }
 
-    @Environment(EnvType.CLIENT)
-    public static void registerKeyBindings() {
-        KeyBindingHelper.registerKeyBinding(RaisedOptions.options);
-    }
+        public static void registerInputEvents() {
+            ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
+                while (RaisedOptions.options.consumeClick()) {
+                    minecraft.setScreen(new RaisedScreen(new TranslatableComponent("options.raised.title")));
+                }
+            });
+        }
 
-    @Override
-    public void onInitializeClient() {
-        Config.loadConfig();
+        public static void registerCommands() {
+            RaisedCommand.register(ClientCommandManager.DISPATCHER);
+        }
 
-        registerClientTickEvents();
-        registerCommands();
-        registerKeyBindings();
+        public void onInitializeClient() {
+            Config.loadConfig();
+
+            registerKeyMappings();
+            registerInputEvents();
+            registerCommands();
+        }
+
     }
 
 }
