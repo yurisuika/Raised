@@ -32,7 +32,6 @@ public class IconToggleButton extends Button {
         return toggled;
     }
 
-    @Override
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
             RenderSystem.disableDepthTest();
@@ -52,7 +51,6 @@ public class IconToggleButton extends Button {
         }
     }
 
-    @Override
     public void renderString(GuiGraphics guiGraphics, Font font, int color) {}
 
     public static class Builder {

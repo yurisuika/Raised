@@ -53,7 +53,6 @@ public class RaisedScreen extends Screen {
         super(title);
     }
 
-    @Override
     public void init() {
         title = new StringWidget(Component.translatable("options.raised.title"), font);
         page = new StringWidget(Component.translatable(element.getKey()), font);
@@ -138,7 +137,6 @@ public class RaisedScreen extends Screen {
         widget.active = !widget.toggled;
     }
 
-    @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
@@ -305,12 +303,10 @@ public class RaisedScreen extends Screen {
         return i;
     }
 
-    @Override
     public void renderBackground(GuiGraphics guiGraphics) {
         guiGraphics.fillGradient(0, 0, width, height, -1072689136, -804253680);
     }
 
-    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         super.keyPressed(keyCode, scanCode, modifiers);
         if (RaisedOptions.options.matches(keyCode, scanCode)) {
