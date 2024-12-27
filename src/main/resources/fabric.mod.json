@@ -22,7 +22,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.yurisuika.raised.Raised"
+      "dev.yurisuika.raised.Raised\$Client"
     ]
   },
   "mixins": [
