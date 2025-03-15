@@ -1,0 +1,78 @@
+{
+  "commands.raised.config.reload": "Configurações Recarregadas do Raised",
+  "commands.raised.config.reset": "Configurações do Raised foram resetadas",
+
+  "commands.raised.layers.element.x.query": "A translação do eixo-X de %s agora está definida como: %dpx",
+  "commands.raised.layers.element.x.set": "A translação do eixo-X de %s agora está definida como: %dpx",
+  "commands.raised.layers.element.y.query": "A translação do eixo-Y de %s agora está definida como: %dpx",
+  "commands.raised.layers.element.y.set": "A translação do eixo-Y de %s agora está definida como: %dpx",
+  "commands.raised.layers.element.position.query": "A posição de %s está atualmente definida como: %s",
+  "commands.raised.layers.element.position.set": "A posição de %s agora está definida como: %s",
+  "commands.raised.layers.element.sync.query": "A sincronização de %s está atualmente definida como: %s",
+  "commands.raised.layers.element.sync.set": "A sincronização de %s agora está definida como: %s",
+
+  "commands.raised.resources.texture.query": "A textura está atualmente definida como: %s",
+  "commands.raised.resources.texture.set": "A textura agora está definida como: %s",
+
+  "key.raised.categories.raised": "Raised",
+
+  "key.raised.options": "Abrir as Configurações do Raised",
+
+  "options.raised.title": "Configurações do Raised",
+
+  "options.raised.element.hotbar": "Hotbar",
+  "options.raised.element.chat": "Chat",
+  "options.raised.element.bossbar": "Barra de Chefes",
+  "options.raised.element.sidebar": "Barra Lateral",
+  "options.raised.element.effects": "Efeitos",
+  "options.raised.element.players": "Jogadores",
+  "options.raised.element.toasts": "Notificações",
+  "options.raised.element.other": "Outros",
+
+  "options.raised.x": "X",
+  "options.raised.x.tooltip": "Quantidade que o elemento é convertido no eixo X.\nO valor máximo do controle deslizante é um quarto da largura da tela dimensionada.\nNão afeta os elementos definidos para a posição 'Superior' ou 'Inferior'.",
+
+  "options.raised.y": "Y",
+  "options.raised.y.tooltip": "Quantidade que o elemento é convertido no eixo Y.\nO valor máximo do controle deslizante é um quarto da altura da tela dimensionada.\nNão afeta os elementos definidos para a posição 'Esquerda' ou 'Direita'.",
+
+  "options.raised.position": "Posição",
+  "options.raised.position.tooltip": "Posição em que o elemento está localizado na tela.\nO elemento será convertido na direção dessa posição para o centro da tela.",
+  "options.raised.position.top": "Superior",
+  "options.raised.position.top_left": "Superior Esquerda",
+  "options.raised.position.top_right": "Superior Direita",
+  "options.raised.position.left": "Esquerda",
+  "options.raised.position.right": "Direita",
+  "options.raised.position.bottom": "Inferior",
+  "options.raised.position.bottom_left": "Inferior Esquerda",
+  "options.raised.position.bottom_right": "Inferior Direita",
+
+  "options.raised.sync": "Sincronização",
+  "options.raised.sync.hotbar": "Hotbar",
+  "options.raised.sync.hotbar.tooltip": "%s é sincronizado com Hotbar.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.chat": "Chat",
+  "options.raised.sync.chat.tooltip": "%s é sincronizado com Chat.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.bossbar": "Barra de Chefes",
+  "options.raised.sync.bossbar.tooltip": "%s é sincronizado com Barra de Chefes.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.sidebar": "Barra Lateral",
+  "options.raised.sync.sidebar.tooltip": "%s é sincronizado com Barra Lateral.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.effects": "Efeitos",
+  "options.raised.sync.effects.tooltip": "%s é sincronizado com Efeitos.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.players": "Jogadores",
+  "options.raised.sync.players.tooltip": "%s é sincronizado com Jogadores.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.toasts": "Notificações",
+  "options.raised.sync.toasts.tooltip": "%s é sincronizado com Notificações.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.other": "Outros",
+  "options.raised.sync.other.tooltip": "%s é sincronizado com Outros.\nDesativa os controles deslizantes do eixo.",
+  "options.raised.sync.none": "Nenhum",
+  "options.raised.sync.none.tooltip": "%s não está sincronizado.",
+
+  "options.raised.texture": "Textura",
+  "options.raised.texture.replace": "Substituição",
+  "options.raised.texture.replace.tooltip": "Corrige a linha de pixels ausente no seletor da hotbar por meio da substituição de textura. Substitui o seletor da hotbar por um novo ativo quadrado encontrado na seção \"raised\" espaço de nome.",
+  "options.raised.texture.patch": "Correção",
+  "options.raised.texture.patch.tooltip": "Corrige a linha de pixels ausente no seletor da hotbar por correção de textura. Desenha uma linha espelhada verticalmente tirada da parte superior do ativo abaixo do seletor não modificado.",
+  "options.raised.texture.auto": "Automático",
+  "options.raised.texture.auto.tooltip": "Corrige a linha de pixels ausente no seletor da hotbar por substituição de textura ou correção de textura, com base no fato do suporte ao Pacote de Recursos estar presente ou não.",
+  "options.raised.texture.none": "Nenhum",
+  "options.raised.texture.none.tooltip": "O seletor da hotbar não é modificado."
+}
