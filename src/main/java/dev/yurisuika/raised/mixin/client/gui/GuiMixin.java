@@ -2,7 +2,6 @@ package dev.yurisuika.raised.mixin.client.gui;
 
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.config.Config;
 import dev.yurisuika.raised.util.config.Option;
 import dev.yurisuika.raised.util.properties.Element;
 import dev.yurisuika.raised.util.resources.Texture;
