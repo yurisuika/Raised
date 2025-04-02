@@ -18,7 +18,7 @@ Raises the hotbar so the selector is not cut off!
 [[dependencies.raised]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.4,1.20)"
+versionRange = "[1.19.4]"
 ordering = "NONE"
 side = "CLIENT"
 
