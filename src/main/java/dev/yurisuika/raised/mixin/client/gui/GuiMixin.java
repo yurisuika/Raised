@@ -2,7 +2,6 @@ package dev.yurisuika.raised.mixin.client.gui;
 
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.config.Config;
 import dev.yurisuika.raised.util.config.Option;
 import dev.yurisuika.raised.util.properties.Element;
 import dev.yurisuika.raised.util.resources.Texture;
@@ -16,7 +15,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
