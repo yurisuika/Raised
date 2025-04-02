@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.serialization.Codec;
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.gui.components.IconToggleButton;
@@ -205,7 +204,6 @@ public class RaisedScreen extends Screen {
         guiGraphics.pose().pushPose();
         guiGraphics.pose().scale(2, 2, 1);
         guiGraphics.pose().translate((distance * 91), 0, 300);
-        RenderSystem.enableBlend();
         switch (element) {
             case HOTBAR -> {
                 int slot = Mth.lerpDiscrete(percentX, 5, 8) * 20;
@@ -305,7 +303,6 @@ public class RaisedScreen extends Screen {
                 guiGraphics.drawString(font, translatableY.getString() + ": " + y, -91 + 8, offset - 8 - 8, CommonColors.WHITE);
             }
         }
-        RenderSystem.disableBlend();
         guiGraphics.pose().popPose();
     }
 
