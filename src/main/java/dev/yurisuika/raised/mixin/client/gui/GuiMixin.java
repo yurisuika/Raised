@@ -2,7 +2,6 @@ package dev.yurisuika.raised.mixin.client.gui;
 
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.config.Config;
 import dev.yurisuika.raised.util.config.Option;
 import dev.yurisuika.raised.util.properties.Element;
 import dev.yurisuika.raised.util.resources.Texture;
@@ -85,7 +84,7 @@ public abstract class GuiMixin {
             @Inject(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"), locals = LocalCapture.CAPTURE_FAILHARD)
             private void patchHotbarSelector(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Player player) {
                 if (Option.getTexture() == Texture.PATCH  || (Option.getTexture() == Texture.AUTO && !Pack.getPack())) {
-                    int x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().selected * 20;
+                    int x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().getSelectedSlot() * 20;
                     int y = guiGraphics.guiHeight();
                     ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.tryParse("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 1, 1 / 23.0F, 0, -1);
                 }

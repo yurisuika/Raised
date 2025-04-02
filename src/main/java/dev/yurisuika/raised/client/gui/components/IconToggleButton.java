@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.client.gui.components;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -36,10 +35,8 @@ public class IconToggleButton extends Button {
 
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
-            RenderSystem.disableDepthTest();
             guiGraphics.blitSprite(RenderType::guiTextured, TEXTURES.get(!isToggled(), isHoveredOrFocused()), getX(), getY(), getWidth(), getHeight());
             guiGraphics.blitSprite(RenderType::guiTextured, texture, getX(), getY(), getWidth(), getHeight());
-            RenderSystem.enableDepthTest();
         }
     }
 
