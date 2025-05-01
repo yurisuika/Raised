@@ -8,7 +8,7 @@ import dev.yurisuika.raised.util.resources.Texture;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +28,7 @@ public abstract class GuiMixin {
 
             /**
              * Moves the {@code hotbar}, {@code health bar}, {@code armor bar}, {@code food bar}, {@code air bar},
-             * {@code mount health bar}, {@code mount jump bar}, {@code experience bar}, and {@code held item tooltip}
+             * {@code mount health bar}, {@code mount jump bar}, {@code experience bar}, {@code experience level}, and {@code held item tooltip}
              * for {@link Element.HOTBAR}.
              */
             @Inject(method = "renderHotbarAndDecorations", at = @At("HEAD"))
@@ -38,19 +38,6 @@ public abstract class GuiMixin {
 
             @Inject(method = "renderHotbarAndDecorations", at = @At("TAIL"))
             private void endMainHudTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.end(guiGraphics.pose());
-            }
-
-            /**
-             * Moves the {@code experience level} for {@link Element.HOTBAR}.
-             */
-            @Inject(method = "renderExperienceLevel", at = @At("HEAD"))
-            private void startExperienceLevelTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Element.HOTBAR);
-            }
-
-            @Inject(method = "renderExperienceLevel", at = @At("TAIL"))
-            private void endExperienceLevelTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
                 Translate.end(guiGraphics.pose());
             }
 
@@ -70,7 +57,7 @@ public abstract class GuiMixin {
             /**
              * Replaces the hotbar selector with a new square asset found under the {@code raised} namespace.
              */
-            @ModifyArgs(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Ljava/util/function/Function;Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1))
+            @ModifyArgs(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1))
             private void replaceHotbarSelector(Args args) {
                 if (Option.getTexture() == Texture.REPLACE || (Option.getTexture() == Texture.AUTO && Pack.getPack())) {
                     args.set(1, ResourceLocation.tryParse("raised:hud/hotbar_selection"));
@@ -81,12 +68,12 @@ public abstract class GuiMixin {
             /**
              * Draws a vertically mirrored row taken from the top of the asset below the unmodified selector.
              */
-            @Inject(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"), locals = LocalCapture.CAPTURE_FAILHARD)
+            @Inject(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), locals = LocalCapture.CAPTURE_FAILHARD)
             private void patchHotbarSelector(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Player player) {
                 if (Option.getTexture() == Texture.PATCH  || (Option.getTexture() == Texture.AUTO && !Pack.getPack())) {
                     int x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().getSelectedSlot() * 20;
                     int y = guiGraphics.guiHeight();
-                    ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.tryParse("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 1, 1 / 23.0F, 0, -1);
+                    ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(RenderPipelines.GUI_TEXTURED, ResourceLocation.tryParse("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 1, 1 / 23.0F, 0, -1);
                 }
             }
 
@@ -146,12 +133,12 @@ public abstract class GuiMixin {
             /**
              * Moves the {@code status effects} for {@link Element.EFFECTS}.
              */
-            @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getMobEffectTextures()Lnet/minecraft/client/resources/MobEffectTextureManager;"))
+            @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;getEffect()Lnet/minecraft/core/Holder;"))
             private void startStatusEffectTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
                 Translate.start(guiGraphics.pose(), Element.EFFECTS);
             }
 
-            @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
+            @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;IIIII)V", shift = At.Shift.AFTER))
             private void endStatusEffectTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
                 Translate.end(guiGraphics.pose());
             }

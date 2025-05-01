@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -35,8 +35,8 @@ public class IconToggleButton extends Button {
 
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
-            guiGraphics.blitSprite(RenderType::guiTextured, TEXTURES.get(!isToggled(), isHoveredOrFocused()), getX(), getY(), getWidth(), getHeight());
-            guiGraphics.blitSprite(RenderType::guiTextured, texture, getX(), getY(), getWidth(), getHeight());
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, TEXTURES.get(!isToggled(), isHoveredOrFocused()), getX(), getY(), getWidth(), getHeight());
+            guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, texture, getX(), getY(), getWidth(), getHeight());
         }
     }
 
