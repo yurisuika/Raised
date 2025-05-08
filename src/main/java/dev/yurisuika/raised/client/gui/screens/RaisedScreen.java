@@ -12,6 +12,7 @@ import dev.yurisuika.raised.util.properties.Sync;
 import dev.yurisuika.raised.util.resources.Texture;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.PlayerFaceRenderer;
@@ -248,8 +249,8 @@ public class RaisedScreen extends Screen {
                     guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
                 }
 
-                guiGraphics.drawString(font, translatableX, -91 + 8 + (width / 2) - (font.width(translatableX) / 2), offset - 5 - 9 - 19, 16777215);
-                guiGraphics.drawString(font, translatableY, -91 + 8 + (width / 2) - (font.width(translatableY) / 2), offset - 5 - 9, 16777215);
+                guiGraphics.drawString(font, translatableX, -91 + 8 + (width / 2) - (font.width(translatableX) / 2), offset - 5 - 9 - 19, CommonColors.WHITE);
+                guiGraphics.drawString(font, translatableY, -91 + 8 + (width / 2) - (font.width(translatableY) / 2), offset - 5 - 9, CommonColors.WHITE);
             }
             case SIDEBAR -> {
                 Component title = Component.translatable("options.raised.element.sidebar");
@@ -270,8 +271,8 @@ public class RaisedScreen extends Screen {
                 guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
                 guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
 
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, minecraft.getMobEffectTextures().get(MobEffects.LUCK), -91 + 1 + 3, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentX));
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, minecraft.getMobEffectTextures().get(MobEffects.UNLUCK), -91 + 1 + 3 + 24 + 1, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentY));
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(MobEffects.LUCK), -91 + 1 + 3, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentX));
+                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(MobEffects.UNLUCK), -91 + 1 + 3 + 24 + 1, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentY));
             }
             case PLAYERS -> {
                 guiGraphics.fill(-91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
