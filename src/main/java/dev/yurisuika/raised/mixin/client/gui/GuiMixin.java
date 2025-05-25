@@ -1,8 +1,9 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.yurisuika.raised.util.Layers;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -20,11 +21,11 @@ public abstract class GuiMixin {
         public abstract static class Pre {
 
             /**
-             * Moves the {@code hotbar item} for {@link Element.HOTBAR}.
+             * Moves the {@code hotbar item} for {@link Layer} key "minecraft:hotbar".
              */
             @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getModelViewStack()Lcom/mojang/blaze3d/vertex/PoseStack;"))
             private void startHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int i, CallbackInfo ci) {
-                Translate.start(RenderSystem.getModelViewStack(), Element.HOTBAR);
+                Translate.start(RenderSystem.getModelViewStack(), Layers.HOTBAR.toString());
             }
 
             @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;renderGuiItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", shift = At.Shift.AFTER))

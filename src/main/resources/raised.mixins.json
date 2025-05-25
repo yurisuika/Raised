@@ -5,11 +5,13 @@
   "refmap": "raised.refmap.json",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "mods.ForgeMixin$OverlayRegistryMixin"
   ],
   "client": [
     "client.OptionInvoker",
     "client.gui.GuiMixin$Hotbar$Pre",
-    "client.gui.OverlayRegistryMixin",
+    "client.gui.components.AbstractSelectionListMixin",
+    "client.gui.components.AbstractWidgetMixin",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
     "client.gui.components.toasts.ToastComponentMixin$Toasts$Pre"
   ],
