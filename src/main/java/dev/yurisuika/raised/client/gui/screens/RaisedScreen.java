@@ -1,365 +1,180 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.client.RaisedOptions;
-import dev.yurisuika.raised.client.gui.components.IconToggleButton;
+import dev.yurisuika.raised.client.gui.components.LayerList;
 import dev.yurisuika.raised.mixin.client.OptionInvoker;
+import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.util.Parse;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.properties.Element;
-import dev.yurisuika.raised.util.properties.Position;
-import dev.yurisuika.raised.util.properties.Sync;
+import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.CycleOption;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.ProgressOption;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.TooltipAccessor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 
 public class RaisedScreen extends Screen {
 
-    public ArrayList<IconToggleButton> elementsGrid = new ArrayList<>();
-    public ArrayList<AbstractWidget> propertiesGrid = new ArrayList<>();
-    public IconToggleButton hotbar;
-    public IconToggleButton chat;
-    public IconToggleButton bossbar;
-    public IconToggleButton sidebar;
-    public IconToggleButton effects;
-    public IconToggleButton players;
-    public IconToggleButton toasts;
-    public IconToggleButton other;
-    public AbstractWidget x;
-    public AbstractWidget y;
-    public AbstractWidget position;
+    public Screen lastScreen;
+    public ArrayList<AbstractWidget> optionsLayout;
+    public LayerList layerList;
+    public AbstractWidget displacementX;
+    public AbstractWidget displacementY;
+    public AbstractWidget directionX;
+    public AbstractWidget directionY;
     public AbstractWidget sync;
-    public double time = 0.0F;
-    public double duration = 25.0F;
-    public double distance = 0.0F;
-    public static Element element = Element.HOTBAR;
+    public static ResourceLocation current = Layers.HOTBAR;
+    public final int SPACING = 5;
+    public final int PADDING = 8;
+    public final int BUTTON_WIDTH = 150;
+    public final int BUTTON_HEIGHT = 20;
 
-    public RaisedScreen(Component title) {
-        super(title);
+    public RaisedScreen(Screen lastScreen) {
+        super(new TranslatableComponent("options.raised.title"));
+        this.lastScreen = lastScreen;
     }
 
+    @Override
     public void init() {
-        createLayersGrid();
-        createPropertiesGrid();
+        addList();
+        addOptions();
 
-        for (IconToggleButton widget : elementsGrid) {
-            addButton(widget);
+        repositionElements();
+    }
+
+    public void addList() {
+        layerList = new LayerList(minecraft, BUTTON_WIDTH + (PADDING * 2), height, this);
+        Option.getLayers().forEach((name, layer) -> {
+            if (Layers.OTHER_LAYERS.containsKey(ResourceLocation.tryParse(name)) || ResourceLocation.tryParse(name).getNamespace().equals("minecraft")) {
+                layerList.add(name);
+            }
+        });
+
+        addWidget(layerList);
+    }
+
+    public void addOptions() {
+        optionsLayout = new ArrayList<>();
+
+        if (Option.getLayer(current.toString()) != null) {
+            displacementX = new ProgressOption("options.raised.displacement.x", 0, minecraft.getWindow().getGuiScaledWidth() / 4, 1.0F, options -> (double) Option.getDisplacementX(current.toString()), (options, value) -> Option.setDisplacementX(current.toString(), value.intValue()), (options, option) -> {
+                option.setTooltip(font.split(new TranslatableComponent("options.raised.displacement.x.tooltip"), 200));
+                return option.get(options) == 0 ? ((OptionInvoker) option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker) option).invokeGenericValueLabel(new TextComponent(Option.getDisplacementX(current.toString()) + "px (" + Math.round(Math.ceil(((float) option.get(options) / ((float) option.getMaxValue())) * 100)) + "%)"));
+            }).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+            displacementY = new ProgressOption("options.raised.displacement.y", 0, minecraft.getWindow().getGuiScaledHeight() / 4, 1.0F, options -> (double) Option.getDisplacementY(current.toString()), (options, value) -> Option.setDisplacementY(current.toString(), value.intValue()), (options, option) -> {
+                option.setTooltip(font.split(new TranslatableComponent("options.raised.displacement.y.tooltip"), 200));
+                return option.get(options) == 0 ? ((OptionInvoker) option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker) option).invokeGenericValueLabel(new TextComponent(Option.getDisplacementY(current.toString()) + "px (" + Math.round(Math.ceil(((float) option.get(options) / ((float) option.getMaxValue())) * 100)) + "%)"));
+            }).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+
+            directionX = new CycleOption("options.raised.direction.x", (options, integer) -> Option.setDirectionX(current.toString(), Layer.Direction.X.byId(Option.getDirectionX(current.toString()).getId() < Layer.Direction.X.values().length - 1 ? Option.getDirectionX(current.toString()).getId() + 1 : 0)), (options, option) -> {
+                option.setTooltip(font.split(new TranslatableComponent("options.raised.direction.x.tooltip"), 200));
+                return ((OptionInvoker) option).invokeGenericValueLabel(new TranslatableComponent(Option.getDirectionX(current.toString()).getKey()));
+            }).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+            directionY = new CycleOption("options.raised.direction.y", (options, integer) -> Option.setDirectionY(current.toString(), Layer.Direction.Y.byId(Option.getDirectionY(current.toString()).getId() < Layer.Direction.Y.values().length - 1 ? Option.getDirectionX(current.toString()).getId() + 1 : 0)), (options, option) -> {
+                option.setTooltip(font.split(new TranslatableComponent("options.raised.direction.y.tooltip"), 200));
+                return ((OptionInvoker) option).invokeGenericValueLabel(new TranslatableComponent(Option.getDirectionY(current.toString()).getKey()));
+            }).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+
+            sync = new CycleOption("options.raised.sync", (options, integer) -> {
+                int id = Parse.listLoadedNames().indexOf(Option.getSync(current.toString()));
+                Option.setSync(current.toString(), Parse.listLoadedNames().get(id < Parse.listLoadedNames().size() - 1 ? id + 1 : 0));
+            }, (options, option) -> {
+                option.setTooltip(font.split(new TranslatableComponent("options.raised.sync.tooltip", new TranslatableComponent(current.toString())), 200));
+                return ((OptionInvoker) option).invokeGenericValueLabel(Parse.createLayerDisplay(Option.getSync(current.toString())));
+            }).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+
+
+            optionsLayout.add(displacementX);
+            optionsLayout.add(displacementY);
+            optionsLayout.add(directionX);
+            optionsLayout.add(directionY);
+            optionsLayout.add(sync);
         }
-        for (AbstractWidget widget : propertiesGrid) {
-            addButton(widget);
+
+        optionsLayout.add(new Button(PADDING, height - PADDING - BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT, CommonComponents.GUI_DONE, button -> onClose()));
+
+        optionsLayout.forEach(this::addButton);
+    }
+
+    public void resetOptions() {
+        optionsLayout.forEach(widget -> {
+            buttons.remove(widget);
+            children.remove(widget);
+        });
+        optionsLayout.clear();
+        addOptions();
+        repositionElements();
+    }
+
+    public void repositionElements() {
+        layerList.updateSize(BUTTON_WIDTH + (PADDING * 2), height, 0, height);
+        layerList.setLeftPos(width - (BUTTON_WIDTH + (PADDING * 2)));
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+        if (lastScreen != null) {
+            minecraft.setScreen(lastScreen);
         }
     }
 
-    public void createLayersGrid() {
-        hotbar = createIconToggleButton(Element.HOTBAR, 16, 16);
-        chat = createIconToggleButton(Element.CHAT, 16 + 20 + 10, 16);
-        bossbar = createIconToggleButton(Element.BOSSBAR, 16 + 20 + 10 + 20 + 10, 16);
-        sidebar = createIconToggleButton(Element.SIDEBAR, 16 + 20 + 10 + 20 + 10 + 20 + 10, 16);
-        effects = createIconToggleButton(Element.EFFECTS, 16, 16 + 20 + 5);
-        players = createIconToggleButton(Element.PLAYERS, 16 + 20 + 10, 16 + 20 + 5);
-        toasts = createIconToggleButton(Element.TOASTS, 16 + 20 + 10 + 20 + 10, 16 + 20 + 5);
-        other = createIconToggleButton(Element.OTHER, 16 + 20 + 10 + 20 + 10 + 20 + 10, 16 + 20 + 5);
+    @Override
+    public void resize(Minecraft minecraft, int width, int height) {
+        super.resize(minecraft, width, height);
 
-        setIconToggleButton(hotbar);
-        setIconToggleButton(chat);
-        setIconToggleButton(bossbar);
-        setIconToggleButton(sidebar);
-        setIconToggleButton(effects);
-        setIconToggleButton(players);
-        setIconToggleButton(toasts);
-        setIconToggleButton(other);
+        if (Option.getLayer(current.toString()) != null) {
+            if (Option.getDisplacementX(current.toString()) > minecraft.getWindow().getGuiScaledWidth() / 4) {
+                Option.setDisplacementX(current.toString(), minecraft.getWindow().getGuiScaledWidth() / 4);
+            }
+            if (Option.getDisplacementY(current.toString()) > minecraft.getWindow().getGuiScaledHeight() / 4) {
+                Option.setDisplacementY(current.toString(), minecraft.getWindow().getGuiScaledHeight() / 4);
+            }
+        }
 
-        elementsGrid.add(hotbar);
-        elementsGrid.add(chat);
-        elementsGrid.add(bossbar);
-        elementsGrid.add(sidebar);
-        elementsGrid.add(effects);
-        elementsGrid.add(players);
-        elementsGrid.add(toasts);
-        elementsGrid.add(other);
+        resetOptions();
     }
 
-    public void createPropertiesGrid() {
-        x = new ProgressOption("options.raised.x", 0, minecraft.getWindow().getGuiScaledWidth() / 4, 1.0F, gameOptions -> (double)Option.getX(element), (gameOptions, value) -> Option.setX(element, value.intValue()), (gameOptions, option) -> {
-            option.setTooltip(font.split(new TranslatableComponent("options.raised.x.tooltip"), 200));
-            return option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Option.getX(element) + "px (" + Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%)"));
-        }).createButton(minecraft.options, width - 110 - 16, 16, 110);
-        y = new ProgressOption("options.raised.y", 0, minecraft.getWindow().getGuiScaledHeight() / 4, 1.0F, gameOptions -> (double)Option.getY(element), (gameOptions, value) -> Option.setY(element, value.intValue()), (gameOptions, option) -> {
-            option.setTooltip(font.split(new TranslatableComponent("options.raised.y.tooltip"), 200));
-            return option.get(gameOptions) == 0 ? ((OptionInvoker)option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker)option).invokeGenericValueLabel(new TextComponent(Option.getY(element) + "px (" + Math.round(Math.ceil(((float)option.get(gameOptions) / ((float)option.getMaxValue())) * 100)) + "%)"));
-        }).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5, 110);
-        position = new CycleOption("options.raised.position", (gameOptions, integer) -> {
-            int id = Option.getPosition(element).getId();
-            Option.setPosition(element, Position.byId(id < Position.values().length - 1 ? id + 1 : 0));
-        }, (gameOptions, CycleOption) -> {
-            CycleOption.setTooltip(font.split(new TranslatableComponent("options.raised.position.tooltip"), 200));
-            return ((OptionInvoker)CycleOption).invokeGenericValueLabel(new TranslatableComponent(Option.getPosition(element).getKey()));
-        }).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5, 110);
-        sync = new CycleOption("options.raised.sync", (gameOptions, integer) -> {
-            int id = Option.getSync(element).getId();
-            Option.setSync(element, Sync.byId(id < Sync.values().length - 1 ? id + 1 : 0));
-        }, (gameOptions, CycleOption) -> {
-            CycleOption.setTooltip(font.split(new TranslatableComponent("options.raised.sync." + Option.getSync(element).getSerializedName() + ".tooltip", new TranslatableComponent(element.getKey())), 200));
-            return ((OptionInvoker)CycleOption).invokeGenericValueLabel(new TranslatableComponent(Option.getSync(element).getKey()));
-        }).createButton(minecraft.options, width - 110 - 16, 16 + 20 + 5 + 20 + 5 + 20 + 5, 110);
-
-        propertiesGrid.add(x);
-        propertiesGrid.add(y);
-        propertiesGrid.add(position);
-        propertiesGrid.add(sync);
-    }
-
-    public IconToggleButton createIconToggleButton(Element element, int x, int y) {
-        return new IconToggleButton(x, y, 20, 20, new TranslatableComponent(element.getKey()), 20, 20, ResourceLocation.tryParse("raised:textures/gui/icon/" + element.getSerializedName() + ".png"), button -> {
-            RaisedScreen.element = element;
-            minecraft.setScreen(new RaisedScreen(new TranslatableComponent("options.raised.title")));
-        }, element == RaisedScreen.element);
-    }
-
-    public void setIconToggleButton(IconToggleButton widget) {
-        widget.active = !widget.toggled;
-    }
-
+    @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        super.render(poseStack, mouseX, mouseY, partialTick);
-
         renderBackground(poseStack);
+        layerList.render(poseStack, mouseX, mouseY, partialTick);
         super.render(poseStack, mouseX, mouseY, partialTick);
 
-        drawCenteredString(poseStack, font, new TranslatableComponent("options.raised.title"), width / 2, 16 + 6, 16777215);
-        drawCenteredString(poseStack, font, new TranslatableComponent(element.getKey()), width / 2, 16 + 6 + 20 + 5, 16777215);
+        drawCenteredString(poseStack, font, title, PADDING + (BUTTON_WIDTH / 2), PADDING + 6, 16777215);
 
-        x.active = Option.getSync(element) == Sync.NONE;
-        y.active = Option.getSync(element) == Sync.NONE;
-
-        if (Option.getX(element) > minecraft.getWindow().getGuiScaledWidth() / 4) {
-            Option.setX(element, minecraft.getWindow().getGuiScaledWidth() / 4);
-            minecraft.setScreen(new RaisedScreen(new TranslatableComponent("options.raised.title")));
-        }
-        if (Option.getY(element) > minecraft.getWindow().getGuiScaledHeight() / 4) {
-            Option.setY(element, minecraft.getWindow().getGuiScaledHeight() / 4);
-            minecraft.setScreen(new RaisedScreen(new TranslatableComponent("options.raised.title")));
+        if (Option.getLayer(current.toString()) != null) {
+            displacementX.active = Option.getSync(current.toString()).equals(current.toString());
+            displacementY.active = Option.getSync(current.toString()).equals(current.toString());
         }
 
-        if (time < duration) {
-            time += partialTick;
-        }
-
-        double animation = Math.min(time / duration, duration);
-
-        if (animation < 1 / 2.75D) {
-            distance = 7.5625D * animation * animation;
-        } else if (animation < 2 / 2.75D) {
-            distance = 7.5625D * (animation -= 1.5D / 2.75D) * animation + 0.75D;
-        } else if (animation < 2.5D / 2.75D) {
-            distance = 7.5625D * (animation -= 2.25D / 2.75D) * animation + 0.9375D;
-        } else {
-            distance = 7.5625D * (animation -= 2.625D / 2.75D) * animation + 0.984375D;
-        }
-
-        int x = Option.getX(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
-        int y = Option.getY(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
-
-        float percentX = (float) Math.round(Math.ceil(((float) x / ((float) minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) / 100;
-        float percentY = (float) Math.round(Math.ceil(((float) y / ((float) minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) / 100;
-
-        int offset = (int) ((float) minecraft.getWindow().getGuiScaledHeight() / 2) - y;
-
-        String stringX = String.valueOf(x);
-        String stringY = String.valueOf(y);
-        int widthX = font.width(stringX);
-        int widthY = font.width(stringY);
-        Component translatableX = new TranslatableComponent("options.raised.x");
-        Component translatableY = new TranslatableComponent("options.raised.y");
-
-        RenderSystem.pushMatrix();
-        RenderSystem.scaled(2, 2, 1);
-        RenderSystem.translated((distance * 91), 0, 300);
-        RenderSystem.enableBlend();
-        switch (element) {
-            case HOTBAR: {
-                int slot = (int)Mth.lerp(percentX, 5, 8) * 20;
-
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/gui/widgets.png"));
-                blit(poseStack, -182, offset - 22, 0, 0, 182, 22);
-                blit(poseStack, -182 - 1 + slot, offset - 23, 0, 22, 24, 24);
-
-                itemRenderer.renderAndDecorateItem(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -182 + 123, offset - 19);
-                itemRenderer.renderAndDecorateItem(Items.GLISTERING_MELON_SLICE.getDefaultInstance(), -182 + 143, offset - 19);
-
-                itemRenderer.renderGuiItemDecorations(font, Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -182 + 123, offset - 19, stringX);
-                itemRenderer.renderGuiItemDecorations(font, Items.GLISTERING_MELON_SLICE.getDefaultInstance(), -182 + 143, offset - 19, stringY);
-                break;
-            }
-            case CHAT: {
-                int backgroundOpacity = (int) (255.0 * minecraft.options.textBackgroundOpacity);
-                int textOpacity = (int) (255.0F * minecraft.options.chatOpacity * 0.8999999761581421 + 0.10000000149011612);
-
-                fill(poseStack, -91, offset - 9 - 9, -91 + 120 + 4 + 4, offset, backgroundOpacity << 24);
-
-                font.drawShadow(poseStack, "<" + translatableX.getString() + "> " + x, -91 + 4, offset - 8 - 9, 16777215 + (textOpacity << 24));
-                font.drawShadow(poseStack, "<" + translatableY.getString() + "> " + y, -91 + 4, offset - 8, 16777215 + (textOpacity << 24));
-                break;
-            }
-            case BOSSBAR: {
-                int width = Math.max(font.width(translatableX), font.width(translatableY));
-
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/gui/bars.png"));
-                blit(poseStack,-182, offset - 5 - 19, 0, 20, 182, 5);
-                if (x > 0) {
-                    int progress = (int)Mth.lerp(percentX, 91, 182);
-                    blit(poseStack, -182, offset - 5 - 19, progress, 5, 0, 25, progress, 5, 256, 256);
+        for (AbstractWidget widget : optionsLayout) {
+            if (widget.equals(displacementX) || widget.equals(displacementY) || widget.equals(directionX) || widget.equals(directionY) || widget.equals(sync)) {
+                if (widget.isMouseOver(mouseX, mouseY)) {
+                    renderTooltip(poseStack, ((TooltipAccessor) widget).getTooltip().orElse(null), mouseX, mouseY);
                 }
-                blit(poseStack,-182, offset - 5, 0, 60, 182, 5);
-                if (y > 0) {
-                    int progress = (int)Mth.lerp(percentY, 91, 182);
-                    blit(poseStack, -182, offset - 5, progress, 5, 0, 65, progress, 5, 256, 256);
-                }
-
-                font.drawShadow(poseStack, translatableX, -91 + 8 + (width / 2) - (font.width(translatableX) / 2), offset - 5 - 9 - 19, 16777215);
-                font.drawShadow(poseStack, translatableY, -91 + 8 + (width / 2) - (font.width(translatableY) / 2), offset - 5 - 9, 16777215);
-                break;
-            }
-            case SIDEBAR: {
-                Component title = new TranslatableComponent("options.raised.element.sidebar");
-                int width = Math.max(2 + Math.max(font.width(translatableX), font.width(translatableY)) + 9 + Math.max(widthX, widthY), 2 + font.width(title));
-
-                fill(poseStack, -91 + 1, offset - 1 - 9 - 10 - 10, -91 + 1 + width, offset - 1 - 10 - 10, minecraft.options.getBackgroundColor(0.4F));
-                fill(poseStack, -91 + 1, offset - 1 - 10 - 10, -91 + 1 + width, offset - 1, minecraft.options.getBackgroundColor(0.3F));
-
-                font.draw(poseStack, title, -91 + 1 + (width / 2) - (font.width(title) / 2), offset - 1 - 8 - 10 - 10, -1);
-
-                font.draw(poseStack, translatableX, -91 + 1 + 2, offset - 1 - 9 - 10, -1);
-                font.draw(poseStack, translatableY, -91 + 1 + 2, offset - 1 - 9, -1);
-
-                font.draw(poseStack, String.valueOf(x), -91 + 1 + width - widthX, offset - 1 - 9 - 10, -2142128);
-                font.draw(poseStack, String.valueOf(y), -91 + 1 + width - widthY, offset - 1 - 9, -2142128);
-                break;
-            }
-            case EFFECTS: {
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/gui/container/inventory.png"));
-                blit(poseStack, -91 + 1, offset - 24 - 1, 141, 166, 24, 24);
-                blit(poseStack, -91 + 1 + 24 + 1, offset - 24 - 1, 141, 166, 24, 24);
-
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, percentX);
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/mob_effect/luck.png"));
-                blit(poseStack,-91 + 1 + 3, offset - 24 - 1 + 3, 0, 0, 18, 18, 18, 18);
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, percentY);
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/mob_effect/unluck.png"));
-                blit(poseStack,-91 + 1 + 3 + 24 + 1, offset - 24 - 1 + 3, 0, 0, 18, 18, 18, 18);
-
-                RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                break;
-            }
-            case PLAYERS: {
-                fill(poseStack, -91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
-                fill(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, -91 + 1 + 144, offset - 1 - 1 - 9, minecraft.options.getBackgroundColor(553648127));
-                fill(poseStack, -91 + 1 + 1, offset - 1 - 9, -91 + 1 + 144, offset - 1 - 1, minecraft.options.getBackgroundColor(553648127));
-
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/entity/steve.png"));
-                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, 8, 8.0F, 8.0F, 8, 8, 64, 64);
-                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9 - 9, 8, 8, 40.0F, 8.0F, 8, 8, 64, 64);
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/entity/alex.png"));
-                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9, 8, 8, 8.0F, 8.0F, 8, 8, 64, 64);
-                GuiComponent.blit(poseStack, -91 + 1 + 1, offset - 1 - 9, 8, 8, 40.0F, 8.0F, 8, 8, 64, 64);
-
-                font.drawShadow(poseStack, translatableX, -91 + 1 + 10, offset - 1 - 9 - 9, -1);
-                font.drawShadow(poseStack, translatableY, -91 + 1 + 10, offset - 1 - 9, -1);
-
-                font.drawShadow(poseStack, stringX, -91 + 1 + 144 - 1 - 10 - 1 - widthX, offset - 1 - 9 - 9, -171);
-                font.drawShadow(poseStack, stringY, -91 + 1 + 144 - 1 - 10 - 1 - widthY, offset - 1 - 9, -171);
-
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/gui/icons.png"));
-                blit(poseStack, -91 + 1 + 144 - 1 - 10, offset - 1 - 9 - 9, 0, 176 + getSignal(percentX) * 8, 10, 8);
-                blit(poseStack, -91 + 1 + 144 - 1 - 10, offset - 1 - 9, 0, 176 + getSignal(percentY) * 8, 10, 8);
-                break;
-            }
-            case TOASTS: {
-                minecraft.getTextureManager().bind(ResourceLocation.tryParse("textures/gui/toasts.png"));
-                blit(poseStack, -91 - 40, offset - 32, 0, 0, 160, 32);
-
-                itemRenderer.renderAndDecorateFakeItem(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -91 + 8, offset - 32 + 8);
-
-                font.draw(poseStack, translatableX.getString() + ": " + x, -91 + 30, offset - 32 + 7, 16776960 | -16777216);
-                font.draw(poseStack, translatableY.getString() + ": " + y, -91 + 30, offset - 32 + 18, -1);
-                break;
-            }
-            case OTHER: {
-                font.drawShadow(poseStack, translatableX.getString() + ": " + x, -91 + 8, offset - 8 - 8 - 4 - 8, -1);
-                font.drawShadow(poseStack, translatableY.getString() + ": " + y, -91 + 8, offset - 8 - 8, -1);
-                break;
-            }
-        }
-        RenderSystem.disableBlend();
-        RenderSystem.popMatrix();
-
-        for (IconToggleButton widget : elementsGrid) {
-            if (widget != null && widget.isMouseOver(mouseX, mouseY)) {
-                Element widgetElement = element;
-                if (widget.equals(hotbar)) {
-                    widgetElement = Element.HOTBAR;
-                } else if (widget.equals(chat)) {
-                    widgetElement = Element.CHAT;
-                } else if (widget.equals(bossbar)) {
-                    widgetElement = Element.BOSSBAR;
-                } else if (widget.equals(sidebar)) {
-                    widgetElement = Element.SIDEBAR;
-                } else if (widget.equals(effects)) {
-                    widgetElement = Element.EFFECTS;
-                } else if (widget.equals(players)) {
-                    widgetElement = Element.PLAYERS;
-                } else if (widget.equals(toasts)) {
-                    widgetElement = Element.TOASTS;
-                } else if (widget.equals(other)) {
-                    widgetElement = Element.OTHER;
-                }
-                renderTooltip(poseStack, font.split(new TranslatableComponent(widgetElement.getKey()), 200), mouseX, mouseY);
-            }
-        }
-        for (AbstractWidget widget : propertiesGrid) {
-            if (widget != null && widget.isMouseOver(mouseX, mouseY)) {
-                renderTooltip(poseStack, ((TooltipAccessor) widget).getTooltip().orElse(null), mouseX, mouseY);
             }
         }
     }
 
-    public static int getSignal(float percent) {
-        int i;
-        if (percent > 0.8F) {
-            i = 0;
-        } else if (percent > 0.6F) {
-            i = 1;
-        } else if (percent > 0.4F) {
-            i = 2;
-        } else if (percent > 0.2F) {
-            i = 3;
-        } else if (percent > 0.0F) {
-            i = 4;
-        } else {
-            i = 5;
-        }
-        return i;
-    }
-
+    @Override
     public void renderBackground(PoseStack poseStack) {
         fillGradient(poseStack, 0, 0, width, height, -1072689136, -804253680);
     }
 
+    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         super.keyPressed(keyCode, scanCode, modifiers);
-        if (RaisedOptions.options.matches(keyCode, scanCode)) {
+        if (RaisedOptions.OPTIONS.matches(keyCode, scanCode)) {
             onClose();
             return true;
         }

@@ -8,11 +8,13 @@
   ],
   "client": [
     "client.OptionInvoker",
-    "client.gui.ForgeIngameGuiMixin$Hotbar$Pre",
-    "client.gui.ForgeIngameGuiMixin$Sidebar$Pre",
     "client.gui.GuiMixin$Hotbar$Pre",
+    "client.gui.components.AbstractSelectionListMixin",
+    "client.gui.components.AbstractWidgetMixin",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
-    "client.gui.components.toasts.ToastComponentMixin$Toasts$Pre"
+    "client.gui.components.toasts.ToastComponentMixin$Toasts$Pre",
+    "mods.ForgeMixin$Hotbar$Pre",
+    "mods.ForgeMixin$Sidebar$Pre"
   ],
   "injectors": {
     "defaultRequire": 1
