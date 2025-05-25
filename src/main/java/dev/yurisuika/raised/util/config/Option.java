@@ -1,96 +1,103 @@
 package dev.yurisuika.raised.util.config;
 
-import dev.yurisuika.raised.util.config.options.Layers;
-import dev.yurisuika.raised.util.config.options.Properties;
-import dev.yurisuika.raised.util.properties.Element;
-import dev.yurisuika.raised.util.properties.Position;
-import dev.yurisuika.raised.util.properties.Sync;
+import dev.yurisuika.raised.util.config.options.Layer;
+
+import java.util.TreeMap;
 
 public class Option {
 
-    public static Layers getLayers() {
+    public static TreeMap<String, Layer> getLayers() {
         return Config.getOptions().getLayers();
     }
 
-    public static void setLayers(Layers layers) {
+    public static void setLayers(TreeMap<String, Layer> layers) {
         Config.getOptions().setLayers(layers);
         Config.saveConfig();
     }
 
-    public static Properties getProperties(Element element) {
-        if (element.equals(Element.HOTBAR)) {
-            return getLayers().getHotbar();
-        } else if (element.equals(Element.CHAT)) {
-            return getLayers().getChat();
-        } else if (element.equals(Element.BOSSBAR)) {
-            return getLayers().getBossbar();
-        } else if (element.equals(Element.SIDEBAR)) {
-            return getLayers().getSidebar();
-        } else if (element.equals(Element.EFFECTS)) {
-            return getLayers().getEffects();
-        } else if (element.equals(Element.PLAYERS)) {
-            return getLayers().getPlayers();
-        } else if (element.equals(Element.TOASTS)) {
-            return getLayers().getToasts();
-        } else {
-            return getLayers().getOther();
-        }
+    public static Layer getLayer(String name) {
+        return getLayers().get(name);
     }
 
-    public static void setProperties(Element element, Properties properties) {
-        if (element.equals(Element.HOTBAR)) {
-            getLayers().setHotbar(properties);
-        } else if (element.equals(Element.CHAT)) {
-            getLayers().setChat(properties);
-        } else if (element.equals(Element.BOSSBAR)) {
-            getLayers().setBossbar(properties);
-        } else if (element.equals(Element.SIDEBAR)) {
-            getLayers().setSidebar(properties);
-        } else if (element.equals(Element.EFFECTS)) {
-            getLayers().setEffects(properties);
-        } else if (element.equals(Element.PLAYERS)) {
-            getLayers().setPlayers(properties);
-        } else if (element.equals(Element.TOASTS)) {
-            getLayers().setToasts(properties);
-        } else {
-            getLayers().setOther(properties);
-        }
+    public static void setLayer(String name, Layer layer) {
+        setDisplacementX(name, layer.getDisplacement().getX());
+        setDisplacementY(name, layer.getDisplacement().getY());
+        setDirectionX(name, layer.getDirection().getX());
+        setDirectionY(name, layer.getDirection().getY());
+        setSync(name, layer.getSync());
         Config.saveConfig();
     }
 
-    public static int getX(Element element) {
-        return getProperties(element).getX();
-    }
-
-    public static void setX(Element element, int x) {
-        getProperties(element).setX(x);
+    public static void addLayer(String name, Layer layer) {
+        getLayers().put(name, layer);
         Config.saveConfig();
     }
 
-    public static int getY(Element element) {
-        return getProperties(element).getY();
-    }
-
-    public static void setY(Element element, int y) {
-        getProperties(element).setY(y);
+    public static void removeLayer(String name, Layer layer) {
+        getLayers().remove(name, layer);
         Config.saveConfig();
     }
 
-    public static Position getPosition(Element element) {
-        return getProperties(element).getPosition();
+    public static Layer.Displacement getDisplacement(String name) {
+        return getLayer(name).getDisplacement();
     }
 
-    public static void setPosition(Element element, Position position) {
-        getProperties(element).setPosition(position);
+    public static void setDisplacement(String name, int x, int y) {
+        getLayer(name).setDisplacement(new Layer.Displacement(x, y));
         Config.saveConfig();
     }
 
-    public static Sync getSync(Element element) {
-        return getProperties(element).getSync();
+    public static int getDisplacementX(String name) {
+        return getLayer(name).getDisplacement().getX();
     }
 
-    public static void setSync(Element element, Sync sync) {
-        getProperties(element).setSync(sync);
+    public static void setDisplacementX(String name, int x) {
+        getLayer(name).getDisplacement().setX(x);
+        Config.saveConfig();
+    }
+
+    public static int getDisplacementY(String name) {
+        return getLayer(name).getDisplacement().getY();
+    }
+
+    public static void setDisplacementY(String name, int y) {
+        getLayer(name).getDisplacement().setY(y);
+        Config.saveConfig();
+    }
+
+    public static Layer.Direction getDirection(String name) {
+        return getLayer(name).getDirection();
+    }
+
+    public static void setDirection(String name, Layer.Direction.X x, Layer.Direction.Y y) {
+        getLayer(name).setDirection(new Layer.Direction(x, y));
+        Config.saveConfig();
+    }
+
+    public static Layer.Direction.X getDirectionX(String name) {
+        return getLayer(name).getDirection().getX();
+    }
+
+    public static void setDirectionX(String name, Layer.Direction.X x) {
+        getLayer(name).getDirection().setX(x);
+        Config.saveConfig();
+    }
+
+    public static Layer.Direction.Y getDirectionY(String name) {
+        return getLayer(name).getDirection().getY();
+    }
+
+    public static void setDirectionY(String name, Layer.Direction.Y y) {
+        getLayer(name).getDirection().setY(y);
+        Config.saveConfig();
+    }
+
+    public static String getSync(String name) {
+        return getLayer(name).getSync();
+    }
+
+    public static void setSync(String name, String sync) {
+        getLayer(name).setSync(sync);
         Config.saveConfig();
     }
 
