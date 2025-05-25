@@ -1,110 +1,133 @@
 package dev.yurisuika.raised.api;
 
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.properties.Element;
-import dev.yurisuika.raised.util.properties.Position;
-import dev.yurisuika.raised.util.properties.Sync;
+import dev.yurisuika.raised.util.config.options.Layer;
 
 public class RaisedApi {
 
     /**
-     * <p>Retrieves the horizontal x-axis offset for the given element.
+     * <p>Retrieves the horizontal x-axis displacement for the given layer.
      *
-     * <p>The element is translated on the x-axis by this amount.
+     * <p>The layer is translated on the x-axis by this displacement amount.
      *
-     * @param element the given element {@link Element}
+     * @param name the given layer {@link Layer} Key
      *
-     * @return the horizontal x-axis offset int
+     * @return the horizontal x-axis displacement int
      */
-    public static int getX(Element element) {
-        return Option.getX(element);
+    public static int getDisplacementX(String name) {
+        return Option.getDisplacementX(name);
     }
 
     /**
-     * <p>Sets the horizontal x-axis offset for the given element.
+     * <p>Sets the horizontal x-axis displacement for the given layer.
      *
-     * @param element the given element {@link Element}
-     * @param x the horizontal x-axis offset int
+     * @param name the given layer {@link Layer} Key
+     * @param x the horizontal x-axis displacement int
      *
-     * @see #getX(Element)
+     * @see #getDisplacementX(String)
      */
-    public static void setX(Element element, int x) {
-        Option.setX(element, x);
+    public static void setDisplacementX(String name, int x) {
+        Option.setDisplacementX(name, x);
     }
 
     /**
-     * <p>Retrieves the vertical y-axis offset for the given element.
+     * <p>Retrieves the vertical y-axis displacement for the given layer.
      *
-     * <p>The element is translated on the y-axis by this amount.
+     * <p>The layer is translated on the y-axis by this displacement amount.
      *
-     * @param element the given element {@link Element}
+     * @param name the given layer {@link Layer} Key
      *
-     * @return the vertical y-axis offset int
+     * @return the vertical y-axis displacement int
      */
-    public static int getY(Element element) {
-        return Option.getY(element);
+    public static int getDisplacementY(String name) {
+        return Option.getDisplacementY(name);
     }
 
     /**
-     * <p>Sets the vertical y-axis offset for the given element.
+     * <p>Sets the vertical y-axis displacement for the given layer.
      *
-     * @param element the given element {@link Element}
-     * @param y the vertical y-axis offset int
+     * @param name the given layer {@link Layer} Key
+     * @param y the vertical y-axis displacement int
      *
-     * @see #getY(Element)
+     * @see #getDisplacementY(String)
      */
-    public static void setY(Element element, int y) {
-        Option.setY(element, y);
+    public static void setDisplacementY(String name, int y) {
+        Option.setDisplacementY(name, y);
     }
 
     /**
-     * <p>Retrieves the position for the given element.
+     * <p>Retrieves the horizontal x-axis direction for the given layer.
      *
-     * <p>The element is translated in the direction away from this position.
+     * <p>The layer is translated on the x-axis towards this direction.
      *
-     * @param element the given element {@link Element}
+     * @param name the given layer {@link Layer} Key
      *
-     * @return the synchronized element {@link Sync}
+     * @return the horizontal x-axis direction int
      */
-    public static Position getPosition(Element element) {
-        return Option.getPosition(element);
+    public static Layer.Direction.X getDirectionX(String name) {
+        return Option.getDirectionX(name);
     }
 
     /**
-     * <p>Sets the position for the given element.
+     * <p>Sets the horizontal x-axis direction for the given layer.
      *
-     * @param element the given element {@link Element}
-     * @param position the position {@link Position}
+     * @param name the given layer {@link Layer} Key
+     * @param x the horizontal x-axis direction int
      *
-     * @see #getPosition(Element)
+     * @see #getDirectionX(String)
      */
-    public static void setPosition(Element element, Position position) {
-        Option.setPosition(element, position);
+    public static void setDirectionX(String name, Layer.Direction.X x) {
+        Option.setDirectionX(name, x);
     }
 
     /**
-     * <p>Retrieves the synchronized element for the given element.
+     * <p>Retrieves the vertical y-axis direction for the given layer.
      *
-     * <p>The element is translated from its set position by the amount set for the synchronized element.
+     * <p>The layer is translated on the y-axis towards this direction.
      *
-     * @param element the given element {@link Element}
+     * @param name the given layer {@link Layer} Key
      *
-     * @return the synchronized element {@link Sync}
+     * @return the vertical y-axis direction int
      */
-    public static Sync getSync(Element element) {
-        return Option.getSync(element);
+    public static Layer.Direction.Y getDirectionY(String name) {
+        return Option.getDirectionY(name);
     }
 
     /**
-     * <p>Sets the synchronized element for the given element.
+     * <p>Sets the vertical y-axis direction for the given layer.
      *
-     * @param element the given element {@link Element}
-     * @param sync the synchronized element {@link Sync}
+     * @param name the given layer {@link Layer} Key
+     * @param y the vertical y-axis direction int
      *
-     * @see #getSync(Element)
+     * @see #getDirectionY(String)
      */
-    public static void setSync(Element element, Sync sync) {
-        Option.setSync(element, sync);
+    public static void setDirectionY(String name, Layer.Direction.Y y) {
+        Option.setDirectionY(name, y);
+    }
+
+    /**
+     * <p>Retrieves the synced layer for the given layer.
+     *
+     * <p>The layer is translated from its set position by the amount set for the synced layer.
+     *
+     * @param name the given layer {@link Layer} Key
+     *
+     * @return the synced layer key {@link String}
+     */
+    public static String getSync(String name) {
+        return Option.getSync(name);
+    }
+
+    /**
+     * <p>Sets the synced layer for the given layer.
+     *
+     * @param name the given layer {@link Layer} Key
+     * @param sync the synced layer key {@link String}
+     *
+     * @see #getSync(String)
+     */
+    public static void setSync(String name, String sync) {
+        Option.setSync(name, sync);
     }
 
 }
