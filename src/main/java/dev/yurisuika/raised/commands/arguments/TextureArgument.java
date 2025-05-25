@@ -1,22 +1,22 @@
 package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
-import dev.yurisuika.raised.util.resources.Texture;
+import dev.yurisuika.raised.util.config.options.Resource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.StringRepresentableArgument;
 
-public class TextureArgument extends StringRepresentableArgument<Texture> {
+public class TextureArgument extends StringRepresentableArgument<Resource.Texture> {
 
     public TextureArgument() {
-        super(Texture.CODEC, Texture::values);
+        super(Resource.Texture.CODEC, Resource.Texture::values);
     }
 
-    public static StringRepresentableArgument<Texture> texture() {
+    public static StringRepresentableArgument<Resource.Texture> texture() {
         return new TextureArgument();
     }
 
-    public static Texture getTexture(CommandContext<CommandSourceStack> context, String id) {
-        return context.getArgument(id, Texture.class);
+    public static Resource.Texture getTexture(CommandContext<CommandSourceStack> context, String id) {
+        return context.getArgument(id, Resource.Texture.class);
     }
 
 }
