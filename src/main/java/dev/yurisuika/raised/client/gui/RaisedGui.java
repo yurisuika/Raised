@@ -1,301 +1,82 @@
 package dev.yurisuika.raised.client.gui;
 
-import dev.yurisuika.raised.util.Overlay;
+import dev.yurisuika.raised.util.Layers;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.properties.Element;
+import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.util.config.options.Layer;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderGuiOverlayEvent;
 
 public class RaisedGui {
 
-    public static class Hotbar extends RaisedGui {
+    public boolean translated = false;
 
-        public boolean translated = false;
+    /**
+     * Moves the {@code layer} for the respective {@link Layer} key.
+     * */
+    public RaisedGui() {}
 
-        /**
-         * Moves the {@code spectator menu}, {@code hotbar}, {@code health bar}, {@code armor bar}, {@code food bar},
-         * {@code air bar}, {@code mount health bar}, {@code mount jump bar}, {@code experience bar},
-         * {@code held item tooltip}, {@code spectator tooltip}, and {@code overlay message} for {@link Element.HOTBAR}.
-         */
-        public Hotbar() {}
-
-        @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-        public void startHotbarTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getHotbar().contains(event.getOverlay().id())) {
+    @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
+    public void startTranslate(RenderGuiOverlayEvent.Pre event) {
+        String name = formatOverlay(event.getOverlay().id());
+        if (name != null) {
+            if (Option.getLayers().containsKey(name)) {
                 if (!translated) {
                     translated = true;
-                    Translate.start(event.getGuiGraphics().pose(), Element.HOTBAR);
+                    Translate.start(event.getGuiGraphics().pose(), name);
                 }
             }
         }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-        public void endHotbarTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getHotbar().contains(event.getOverlay().id()) && event.isCanceled()) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public void endHotbarTranslate(RenderGuiOverlayEvent.Post event) {
-            if (Overlay.getHotbar().contains(event.getOverlay().id())) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
     }
 
-    public static class Chat extends RaisedGui {
-
-        public boolean translated = false;
-
-        /**
-         * Moves the {@code chat} for {@link Element.CHAT}.
-         */
-        public Chat() {}
-
-        @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-        public void startChatTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getChat().contains(event.getOverlay().id())) {
-                if (!translated) {
-                    translated = true;
-                    Translate.start(event.getGuiGraphics().pose(), Element.CHAT);
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-        public void endChatTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getChat().contains(event.getOverlay().id()) && event.isCanceled()) {
+    @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+    public void endTranslate(RenderGuiOverlayEvent.Pre event) {
+        String name = formatOverlay(event.getOverlay().id());
+        if (name != null  && event.isCanceled()) {
+            if (Option.getLayers().containsKey(name)) {
                 if (translated) {
                     translated = false;
                     Translate.end(event.getGuiGraphics().pose());
                 }
             }
         }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public void endChatTranslate(RenderGuiOverlayEvent.Post event) {
-            if (Overlay.getChat().contains(event.getOverlay().id())) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
     }
 
-    public static class Bossbar extends RaisedGui {
-
-        public boolean translated = false;
-
-        /**
-         * Moves the {@code bossbar} for {@link Element.BOSSBAR}.
-         */
-        public Bossbar() {}
-
-        @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-        public void startBossbarTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getBossbar().contains(event.getOverlay().id())) {
-                if (!translated) {
-                    translated = true;
-                    Translate.start(event.getGuiGraphics().pose(), Element.BOSSBAR);
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-        public void endBossbarTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getBossbar().contains(event.getOverlay().id()) && event.isCanceled()) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void endTranslate(RenderGuiOverlayEvent.Post event) {
+        String name = formatOverlay(event.getOverlay().id());
+        if (name != null) {
+            if (Option.getLayers().containsKey(name)) {
                 if (translated) {
                     translated = false;
                     Translate.end(event.getGuiGraphics().pose());
                 }
             }
         }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public void endBossbarTranslate(RenderGuiOverlayEvent.Post event) {
-            if (Overlay.getBossbar().contains(event.getOverlay().id())) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
     }
 
-    public static class Sidebar extends RaisedGui {
-
-        public boolean translated = false;
-
-        /**
-         * Moves the {@code sidebar} for {@link Element.SIDEBAR}.
-         */
-        public Sidebar() {}
-
-        @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-        public void startSidebarTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getSidebar().contains(event.getOverlay().id())) {
-                if (!translated) {
-                    translated = true;
-                    Translate.start(event.getGuiGraphics().pose(), Element.SIDEBAR);
-                }
-            }
+    public static String formatOverlay(ResourceLocation id) {
+        String name = null;
+        if (Layers.HOTBAR_LAYERS.contains(id)) {
+            name = Layers.HOTBAR.toString();
+        } else if (Layers.CHAT_LAYERS.contains(id)) {
+            name = Layers.CHAT.toString();
+        } else if (Layers.BOSSBAR_LAYERS.contains(id)) {
+            name = Layers.BOSSBAR.toString();
+        } else if (Layers.SIDEBAR_LAYERS.contains(id)) {
+            name = Layers.SIDEBAR.toString();
+        } else if (Layers.EFFECTS_LAYERS.contains(id)) {
+            name = Layers.EFFECTS.toString();
+        } else if (Layers.PLAYERS_LAYERS.contains(id)) {
+            name = Layers.PLAYERS.toString();
+        } else if (Layers.TOASTS_LAYERS.contains(id)) {
+            name = Layers.TOASTS.toString();
+        } else if (Layers.OTHER_LAYERS.contains(id)) {
+            name = id.toString();
         }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-        public void endSidebarTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getSidebar().contains(event.getOverlay().id()) && event.isCanceled()) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public void endSidebarTranslate(RenderGuiOverlayEvent.Post event) {
-            if (Overlay.getSidebar().contains(event.getOverlay().id())) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-    }
-
-    public static class Effects extends RaisedGui {
-
-        public boolean translated = false;
-
-        /**
-         * Moves the {@code status effects} for {@link Element.EFFECTS}.
-         */
-        public Effects() {}
-
-        @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-        public void startEffectsTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getEffects().contains(event.getOverlay().id())) {
-                if (!translated) {
-                    translated = true;
-                    Translate.start(event.getGuiGraphics().pose(), Element.EFFECTS);
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-        public void endEffectsTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getEffects().contains(event.getOverlay().id()) && event.isCanceled()) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public void endEffectsTranslate(RenderGuiOverlayEvent.Post event) {
-            if (Overlay.getEffects().contains(event.getOverlay().id())) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-    }
-
-    public static class Players extends RaisedGui {
-
-        public boolean translated = false;
-
-        /**
-         * Moves the {@code player list} for {@link Element.PLAYERS}.
-         */
-        public Players() {}
-
-        @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-        public void startPlayersTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getPlayers().contains(event.getOverlay().id())) {
-                if (!translated) {
-                    translated = true;
-                    Translate.start(event.getGuiGraphics().pose(), Element.PLAYERS);
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-        public void endPlayersTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getPlayers().contains(event.getOverlay().id()) && event.isCanceled()) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public void endPlayersTranslate(RenderGuiOverlayEvent.Post event) {
-            if (Overlay.getPlayers().contains(event.getOverlay().id())) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-    }
-
-    public static class Other extends RaisedGui {
-
-        public boolean translated = false;
-
-        /**
-         * Moves registered mod elements for {@link Element.OTHER}.
-         */
-        public Other() {}
-
-        @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
-        public void startOtherTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getOther().contains(event.getOverlay().id())) {
-                if (!translated) {
-                    translated = true;
-                    Translate.start(event.getGuiGraphics().pose(), Element.OTHER);
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
-        public void endOtherTranslate(RenderGuiOverlayEvent.Pre event) {
-            if (Overlay.getOther().contains(event.getOverlay().id()) && event.isCanceled()) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public void endOtherTranslate(RenderGuiOverlayEvent.Post event) {
-            if (Overlay.getOther().contains(event.getOverlay().id())) {
-                if (translated) {
-                    translated = false;
-                    Translate.end(event.getGuiGraphics().pose());
-                }
-            }
-        }
-
+        return name;
     }
 
 }
