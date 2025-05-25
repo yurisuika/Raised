@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.mixin.client.gui.components;
 
-import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.properties.Element;
-import dev.yurisuika.raised.util.properties.Sync;
+import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.util.Translate;
+import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.components.ChatComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,29 +16,29 @@ public abstract class ChatComponentMixin {
         public abstract static class Pre {
 
             /**
-             * Moves the {@code chat click} for {@link Element.CHAT}.
+             * Moves the {@code chat click} for {@link Layer} key "minecraft:chat".
              */
             @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 0, argsOnly = true)
             private double adjustChatClickX(double value) {
-                return value - (Option.getX(Option.getSync(Element.CHAT) != Sync.NONE ? Element.byId(Option.getSync(Element.CHAT).getId()) : Element.CHAT) * Option.getPosition(Element.CHAT).getX());
+                return value - Translate.getX(Layers.CHAT.toString());
             }
 
             @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 1, argsOnly = true)
             private double adjustChatClickY(double value) {
-                return value - (Option.getY(Option.getSync(Element.CHAT) != Sync.NONE ? Element.byId(Option.getSync(Element.CHAT).getId()) : Element.CHAT) * Option.getPosition(Element.CHAT).getY());
+                return value - Translate.getY(Layers.CHAT.toString());
             }
 
             /**
-             * Moves the {@code chat tooltip} for {@link Element.CHAT}.
+             * Moves the {@code chat tooltip} for {@link Layer} key "minecraft:chat".
              */
             @ModifyVariable(method = "screenToChatX", at = @At("HEAD"), ordinal = 0, argsOnly = true)
             private double adjustChatTooltipX(double value) {
-                return value - (Option.getX(Option.getSync(Element.CHAT) != Sync.NONE ? Element.byId(Option.getSync(Element.CHAT).getId()) : Element.CHAT) * Option.getPosition(Element.CHAT).getX());
+                return value - Translate.getX(Layers.CHAT.toString());
             }
 
             @ModifyVariable(method = "screenToChatY", at = @At("HEAD"), ordinal = 0, argsOnly = true)
             private double adjustChatTooltipY(double value) {
-                return value - (Option.getY(Option.getSync(Element.CHAT) != Sync.NONE ? Element.byId(Option.getSync(Element.CHAT).getId()) : Element.CHAT) * Option.getPosition(Element.CHAT).getY());
+                return value - Translate.getY(Layers.CHAT.toString());
             }
 
         }

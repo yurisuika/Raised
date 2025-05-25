@@ -16,7 +16,8 @@
     "client.gui.GuiMixin$Other$Pre",
     "client.gui.GuiMixin$Players$Pre",
     "client.gui.GuiMixin$Sidebar$Pre",
-    "client.gui.components.BossHealthOverlayMixin$Boss$Pre",
+    "client.gui.components.AbstractSelectionListMixin",
+    "client.gui.components.BossHealthOverlayMixin$Bossbar$Pre",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
     "client.gui.components.toasts.ToastManagerMixin$Toasts$Pre",
     "client.gui.screens.ChatScreenMixin$Chat$Pre"

@@ -2,337 +2,157 @@ package dev.yurisuika.raised.client.gui.screens;
 
 import com.mojang.serialization.Codec;
 import dev.yurisuika.raised.client.RaisedOptions;
-import dev.yurisuika.raised.client.gui.components.IconToggleButton;
-import dev.yurisuika.raised.mixin.client.gui.GuiGraphicsInvoker;
-import dev.yurisuika.raised.util.Pack;
+import dev.yurisuika.raised.client.gui.components.LayerList;
+import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.util.Parse;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.properties.Element;
-import dev.yurisuika.raised.util.properties.Position;
-import dev.yurisuika.raised.util.properties.Sync;
-import dev.yurisuika.raised.util.resources.Texture;
+import dev.yurisuika.raised.util.config.options.Layer;
+import dev.yurisuika.raised.util.config.options.Resource;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.PlayerFaceRenderer;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.layouts.FrameLayout;
-import net.minecraft.client.gui.layouts.GridLayout;
+import net.minecraft.client.gui.layouts.LinearLayout;
+import net.minecraft.client.gui.layouts.SpacerElement;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ARGB;
-import net.minecraft.util.CommonColors;
-import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Items;
 
 import java.util.Arrays;
 
 public class RaisedScreen extends Screen {
 
-    public StringWidget title;
-    public StringWidget page;
-    public IconToggleButton hotbar;
-    public IconToggleButton chat;
-    public IconToggleButton bossbar;
-    public IconToggleButton sidebar;
-    public IconToggleButton effects;
-    public IconToggleButton players;
-    public IconToggleButton toasts;
-    public IconToggleButton other;
-    public AbstractWidget x;
-    public AbstractWidget y;
-    public AbstractWidget position;
+    public Screen lastScreen;
+    public LinearLayout optionsLayout;
+    public LayerList layerList;
+    public AbstractWidget displacementX;
+    public AbstractWidget displacementY;
+    public AbstractWidget directionX;
+    public AbstractWidget directionY;
     public AbstractWidget sync;
     public AbstractWidget texture;
-    public double time = 0.0F;
-    public double duration = 25.0F;
-    public double distance = 0.0F;
-    public static Element element = Element.HOTBAR;
+    public static ResourceLocation current = Layers.HOTBAR;
+    public final int SPACING = 5;
+    public final int PADDING = 8;
+    public final int BUTTON_WIDTH = 150;
+    public final int BUTTON_HEIGHT = 20;
 
-    public RaisedScreen(Component title) {
-        super(title);
+    public RaisedScreen(Screen lastScreen) {
+        super(Component.translatable("options.raised.title"));
+        this.lastScreen = lastScreen;
     }
 
+    @Override
     public void init() {
-        title = new StringWidget(Component.translatable("options.raised.title"), font);
-        page = new StringWidget(Component.translatable(element.getKey()), font);
+        addList();
+        addOptions();
 
-        title.setRectangle(width, 20, 0, 16 + 1);
-        page.setRectangle(width, 20, 0, 16 + 1 + 20 + 5);
-
-        addRenderableWidget(title);
-        addRenderableWidget(page);
-
-        createLayersGrid();
-        createPropertiesGrid();
-        createResourcesGrid();
+        repositionElements();
     }
 
-    public void createLayersGrid() {
-        GridLayout gridLayout = new GridLayout();
-        gridLayout.defaultCellSetting().padding(0, 0, 10, 5);
-        GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(4);
-
-        hotbar = createIconToggleButton(Element.HOTBAR);
-        chat = createIconToggleButton(Element.CHAT);
-        bossbar = createIconToggleButton(Element.BOSSBAR);
-        sidebar = createIconToggleButton(Element.SIDEBAR);
-        effects = createIconToggleButton(Element.EFFECTS);
-        players = createIconToggleButton(Element.PLAYERS);
-        toasts = createIconToggleButton(Element.TOASTS);
-        other = createIconToggleButton(Element.OTHER);
-
-        setIconToggleButton(hotbar);
-        setIconToggleButton(chat);
-        setIconToggleButton(bossbar);
-        setIconToggleButton(sidebar);
-        setIconToggleButton(effects);
-        setIconToggleButton(players);
-        setIconToggleButton(toasts);
-        setIconToggleButton(other);
-
-        rowHelper.addChild(hotbar);
-        rowHelper.addChild(chat);
-        rowHelper.addChild(bossbar);
-        rowHelper.addChild(sidebar);
-        rowHelper.addChild(effects);
-        rowHelper.addChild(players);
-        rowHelper.addChild(toasts);
-        rowHelper.addChild(other);
-
-        gridLayout.arrangeElements();
-        FrameLayout.alignInRectangle(gridLayout, 16, 16, width, height, 0.0F, 0.0F);
-        gridLayout.visitWidgets(this::addRenderableWidget);
+    public void addList() {
+        layerList = new LayerList(minecraft, BUTTON_WIDTH + (PADDING * 2), height, this);
+        Option.getLayers().forEach((name, layer) -> layerList.add(name));
+        
+        addRenderableWidget(layerList);
     }
 
-    public void createPropertiesGrid() {
-        GridLayout gridLayout = new GridLayout();
-        gridLayout.defaultCellSetting().padding(10, 0, 0, 5);
-        GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(4);
+    public void addOptions() {
+        optionsLayout = new LinearLayout(width, height, LinearLayout.Orientation.VERTICAL).spacing(SPACING);
 
-        x = new OptionInstance<>("options.raised.x", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.x.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Option.getX(element) + "px (" + Math.round(Math.ceil((value.floatValue() / ((float) minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) + "%)")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledWidth() / 4), Option.getX(element), value -> Option.setX(element, value)).createButton(minecraft.options, 0, 0, 110);
-        y = new OptionInstance<>("options.raised.y", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.y.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Option.getY(element) + "px (" + Math.round(Math.ceil((value.floatValue() / ((float) minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) + "%)")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledHeight() / 4), Option.getY(element), value -> Option.setY(element, value)).createButton(minecraft.options, 0, 0, 110);
-        position = new OptionInstance<>("options.raised.position", value -> Tooltip.create(Component.translatable("options.raised.position.tooltip")), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Position.values()), Codec.INT.xmap(Position::byId, Position::getId)), Position.byName(Option.getPosition(element).getSerializedName()), value -> Option.setPosition(element, value)).createButton(minecraft.options, 0, 0, 110);
-        sync = new OptionInstance<>("options.raised.sync", value -> Tooltip.create(Component.translatable("options.raised.sync." + value.getSerializedName() + ".tooltip", Component.translatable(element.getKey()))), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Sync.values()), Codec.INT.xmap(Sync::byId, Sync::getId)), Sync.byName(Option.getSync(element).getSerializedName()), value -> Option.setSync(element, value)).createButton(minecraft.options, 0, 0, 110);
+        optionsLayout.addChild(new StringWidget(BUTTON_WIDTH, BUTTON_HEIGHT, title, font));
 
-        rowHelper.addChild(x, 4);
-        rowHelper.addChild(y, 4);
-        rowHelper.addChild(position, 4);
-        rowHelper.addChild(sync, 4);
+        if (Option.getLayer(current.toString()) != null) {
+            displacementX = new OptionInstance<>("options.raised.displacement.x", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.displacement.x.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Option.getDisplacementX(current.toString()) + "px (" + Math.round(Math.ceil((value.floatValue() / ((float) minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) + "%)")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledWidth() / 4), Option.getDisplacementX(current.toString()), value -> Option.setDisplacementX(current.toString(), value)).createButton(minecraft.options, 0, 0, BUTTON_WIDTH);
+            displacementY = new OptionInstance<>("options.raised.displacement.y", OptionInstance.cachedConstantTooltip(Component.translatable("options.raised.displacement.y.tooltip")), (prefix, value) -> value == 0 ? Options.genericValueLabel(prefix, CommonComponents.OPTION_OFF) : Options.genericValueLabel(prefix, Component.literal(Option.getDisplacementY(current.toString()) + "px (" + Math.round(Math.ceil((value.floatValue() / ((float) minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) + "%)")), new OptionInstance.IntRange(0, minecraft.getWindow().getGuiScaledHeight() / 4), Option.getDisplacementY(current.toString()), value -> Option.setDisplacementY(current.toString(), value)).createButton(minecraft.options, 0, 0, BUTTON_WIDTH);
 
-        gridLayout.arrangeElements();
-        FrameLayout.alignInRectangle(gridLayout, -16, 16, width, height, 1.0F, 0.0F);
-        gridLayout.visitWidgets(this::addRenderableWidget);
+            directionX = new OptionInstance<>("options.raised.direction.x", value -> Tooltip.create(Component.translatable("options.raised.direction.x.tooltip")), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Layer.Direction.X.values()), Codec.INT.xmap(Layer.Direction.X::byId, Layer.Direction.X::getId)), Layer.Direction.X.byName(Option.getDirectionX(current.toString()).getSerializedName()), value -> Option.setDirectionX(current.toString(), value)).createButton(minecraft.options, 0, 0, BUTTON_WIDTH);
+            directionY = new OptionInstance<>("options.raised.direction.y", value -> Tooltip.create(Component.translatable("options.raised.direction.y.tooltip")), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Layer.Direction.Y.values()), Codec.INT.xmap(Layer.Direction.Y::byId, Layer.Direction.Y::getId)), Layer.Direction.Y.byName(Option.getDirectionY(current.toString()).getSerializedName()), value -> Option.setDirectionY(current.toString(), value)).createButton(minecraft.options, 0, 0, BUTTON_WIDTH);
+
+            sync = new OptionInstance<>("options.raised.sync", value -> Tooltip.create(Component.translatable("options.raised.sync.tooltip", value)), (prefix, value) -> Parse.createLayerDisplay(value), new OptionInstance.Enum<>(Parse.listLoadedNames(), Codec.STRING), Option.getSync(current.toString()), value -> Option.setSync(current.toString(), value)).createButton(minecraft.options, 0, 0, BUTTON_WIDTH);
+
+            optionsLayout.addChild(displacementX);
+            optionsLayout.addChild(displacementY);
+            optionsLayout.addChild(directionX);
+            optionsLayout.addChild(directionY);
+            optionsLayout.addChild(sync);
+            optionsLayout.addChild(new SpacerElement(BUTTON_WIDTH, height - PADDING - BUTTON_HEIGHT - SPACING - BUTTON_HEIGHT - SPACING - BUTTON_HEIGHT - SPACING - BUTTON_HEIGHT - SPACING - BUTTON_HEIGHT - SPACING - BUTTON_HEIGHT - SPACING - SPACING - BUTTON_HEIGHT - SPACING - BUTTON_HEIGHT - PADDING));
+        } else {
+            optionsLayout.addChild(new SpacerElement(BUTTON_WIDTH, height - PADDING - BUTTON_HEIGHT - SPACING - SPACING - BUTTON_HEIGHT - PADDING));
+        }
+
+        texture = new OptionInstance<>("options.raised.texture", value -> Tooltip.create(Component.translatable("options.raised.texture." + value.getSerializedName() + ".tooltip")), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Resource.Texture.values()), Codec.INT.xmap(Resource.Texture::byId, Resource.Texture::getId)), Resource.Texture.byName(Option.getTexture().getSerializedName()), Option::setTexture).createButton(minecraft.options, 0, 0, BUTTON_WIDTH);
+
+        optionsLayout.addChild(texture);
+        optionsLayout.addChild(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).width(BUTTON_WIDTH).build());
+
+        optionsLayout.visitWidgets(this::addRenderableWidget);
     }
 
-    public void createResourcesGrid() {
-        GridLayout gridLayout = new GridLayout();
-        gridLayout.defaultCellSetting().padding(10, 5, 0, 0);
-        GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(4);
-
-        texture = new OptionInstance<>("options.raised.texture", value -> Tooltip.create(Component.translatable("options.raised.texture." + value.getSerializedName() + ".tooltip")), OptionInstance.forOptionEnum(), new OptionInstance.Enum<>(Arrays.asList(Texture.values()), Codec.INT.xmap(Texture::byId, Texture::getId)), Texture.byName(Option.getTexture().getSerializedName()), Option::setTexture).createButton(minecraft.options, 0, 0, 110);
-
-        rowHelper.addChild(texture, 4);
-
-        gridLayout.arrangeElements();
-        FrameLayout.alignInRectangle(gridLayout, -16, -16, width, height, 1.0F, 1.0F);
-        gridLayout.visitWidgets(this::addRenderableWidget);
+    public void resetOptions() {
+        optionsLayout.visitWidgets(this::removeWidget);
+        addOptions();
+        repositionElements();
     }
 
-    public IconToggleButton createIconToggleButton(Element element) {
-        return IconToggleButton.builder(Component.translatable(element.getKey()), button -> {
-            RaisedScreen.element = element;
-            minecraft.setScreen(new RaisedScreen(Component.translatable("options.raised.title")));
-        }, element == RaisedScreen.element).size(20, 20).texture(ResourceLocation.tryParse("raised:icon/" + element.getSerializedName()), 20, 20).tooltip(Tooltip.create(Component.translatable(element.getKey()))).build();
+    @Override
+    public void repositionElements() {
+        layerList.setSize(BUTTON_WIDTH + (PADDING * 2), height);
+        layerList.setPosition(width - (BUTTON_WIDTH + (PADDING * 2)), 0);
+
+        optionsLayout.setPosition(PADDING, PADDING);
+        optionsLayout.arrangeElements();
     }
 
-    public void setIconToggleButton(IconToggleButton widget) {
-        widget.active = !widget.toggled;
+    @Override
+    public void onClose() {
+        super.onClose();
+        if (lastScreen != null) {
+            minecraft.setScreen(lastScreen);
+        }
     }
 
+    @Override
+    public void resize(Minecraft minecraft, int width, int height) {
+        super.resize(minecraft, width, height);
+
+        if (Option.getLayer(current.toString()) != null) {
+            if (Option.getDisplacementX(current.toString()) > minecraft.getWindow().getGuiScaledWidth() / 4) {
+                Option.setDisplacementX(current.toString(), minecraft.getWindow().getGuiScaledWidth() / 4);
+            }
+            if (Option.getDisplacementY(current.toString()) > minecraft.getWindow().getGuiScaledHeight() / 4) {
+                Option.setDisplacementY(current.toString(), minecraft.getWindow().getGuiScaledHeight() / 4);
+            }
+        }
+
+        resetOptions();
+    }
+
+    @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        x.active = Option.getSync(element) == Sync.NONE;
-        y.active = Option.getSync(element) == Sync.NONE;
-
-        if (Option.getX(element) > minecraft.getWindow().getGuiScaledWidth() / 4) {
-            Option.setX(element, minecraft.getWindow().getGuiScaledWidth() / 4);
-            minecraft.setScreen(new RaisedScreen(Component.translatable("options.raised.title")));
+        if (Option.getLayer(current.toString()) != null) {
+            displacementX.active = Option.getSync(current.toString()).equals(current.toString());
+            displacementY.active = Option.getSync(current.toString()).equals(current.toString());
         }
-        if (Option.getY(element) > minecraft.getWindow().getGuiScaledHeight() / 4) {
-            Option.setY(element, minecraft.getWindow().getGuiScaledHeight() / 4);
-            minecraft.setScreen(new RaisedScreen(Component.translatable("options.raised.title")));
-        }
-
-        if (time < duration) {
-            time += partialTick;
-        }
-
-        double animation = Math.min(time / duration, duration);
-
-        if (animation < 1 / 2.75D) {
-            distance = 7.5625D * animation * animation;
-        } else if (animation < 2 / 2.75D) {
-            distance = 7.5625D * (animation -= 1.5D / 2.75D) * animation + 0.75D;
-        } else if (animation < 2.5D / 2.75D) {
-            distance = 7.5625D * (animation -= 2.25D / 2.75D) * animation + 0.9375D;
-        } else {
-            distance = 7.5625D * (animation -= 2.625D / 2.75D) * animation + 0.984375D;
-        }
-
-        int x = Option.getX(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
-        int y = Option.getY(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element);
-
-        float percentX = (float) Math.round(Math.ceil(((float) x / ((float) minecraft.getWindow().getGuiScaledWidth() / 4)) * 100)) / 100;
-        float percentY = (float) Math.round(Math.ceil(((float) y / ((float) minecraft.getWindow().getGuiScaledHeight() / 4)) * 100)) / 100;
-
-        int offset = (int) ((float) guiGraphics.guiHeight() / 2) - y;
-
-        String stringX = String.valueOf(x);
-        String stringY = String.valueOf(y);
-        int widthX = font.width(stringX);
-        int widthY = font.width(stringY);
-        Component translatableX = Component.translatable("options.raised.x");
-        Component translatableY = Component.translatable("options.raised.y");
-
-        guiGraphics.pose().pushMatrix();
-        guiGraphics.pose().scale(2, 2);
-        guiGraphics.pose().translate((int) (distance * 91), 0);
-        switch (element) {
-            case HOTBAR -> {
-                int slot = Mth.lerpDiscrete(percentX, 5, 8) * 20;
-                Texture texture = Option.getTexture();
-
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("hud/hotbar"), -182, offset - 22, 182, 22);
-                if (texture == Texture.REPLACE || (texture == Texture.AUTO && Pack.getPack())) {
-                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.tryParse("raised:hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 24);
-                } else {
-                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("hud/hotbar_selection"), -182 - 1 + slot, offset - 23, 24, 23);
-                    if (texture == Texture.PATCH || (texture == Texture.AUTO && !Pack.getPack())) {
-                        ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), -182 - 1 + slot, -182 - 1 + slot + 24, offset, offset + 1, 0, 1, 1 / 23.0F, 0, -1);
-                    }
-                }
-
-                guiGraphics.renderItem(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -182 + 123, offset - 19);
-                guiGraphics.renderItem(Items.GLISTERING_MELON_SLICE.getDefaultInstance(), -182 + 143, offset - 19);
-
-                guiGraphics.renderItemDecorations(font, Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -182 + 123, offset - 19, stringX);
-                guiGraphics.renderItemDecorations(font, Items.GLISTERING_MELON_SLICE.getDefaultInstance(), -182 + 143, offset - 19, stringY);
-            }
-            case CHAT -> {
-                int backgroundOpacity = (int) (255.0 * minecraft.options.textBackgroundOpacity().get());
-                int textOpacity = (int) (255.0F * minecraft.options.chatOpacity().get() * 0.8999999761581421 + 0.10000000149011612);
-
-                guiGraphics.fill(-91, offset - 9 - 9, -91 + 120 + 4 + 4, offset, backgroundOpacity << 24);
-
-                guiGraphics.drawString(font, "<" + translatableX.getString() + "> " + x, -91 + 4, offset - 8 - 9, 16777215 + (textOpacity << 24));
-                guiGraphics.drawString(font, "<" + translatableY.getString() + "> " + y, -91 + 4, offset - 8, 16777215 + (textOpacity << 24));
-            }
-            case BOSSBAR -> {
-                int width = Math.max(font.width(translatableX), font.width(translatableY));
-
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("boss_bar/red_background"), -182, offset - 5 - 19, 182, 5);
-                if (x > 0) {
-                    int progress = Mth.lerpDiscrete(percentX, 91, 182);
-                    guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/red_progress.png"), -182, offset - 5 - 19, progress, 5, 0, 0, progress, 5, 182, 5);
-                }
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("boss_bar/white_background"), -182, offset - 5, 182, 5);
-                if (y > 0) {
-                    int progress = Mth.lerpDiscrete(percentY, 91, 182);
-                    guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("textures/gui/sprites/boss_bar/white_progress.png"), -182, offset - 5, progress, 5, 0, 0, progress, 5, 182, 5);
-                }
-
-                guiGraphics.drawString(font, translatableX, -91 + 8 + (width / 2) - (font.width(translatableX) / 2), offset - 5 - 9 - 19, CommonColors.WHITE);
-                guiGraphics.drawString(font, translatableY, -91 + 8 + (width / 2) - (font.width(translatableY) / 2), offset - 5 - 9, CommonColors.WHITE);
-            }
-            case SIDEBAR -> {
-                Component title = Component.translatable("options.raised.element.sidebar");
-                int width = Math.max(2 + Math.max(font.width(translatableX), font.width(translatableY)) + 9 + Math.max(widthX, widthY), 2 + font.width(title));
-
-                guiGraphics.fill(-91 + 1, offset - 1 - 9 - 10 - 10, -91 + 1 + width, offset - 1 - 10 - 10, minecraft.options.getBackgroundColor(0.4F));
-                guiGraphics.fill(-91 + 1, offset - 1 - 10 - 10, -91 + 1 + width, offset - 1, minecraft.options.getBackgroundColor(0.3F));
-
-                guiGraphics.drawString(font, title, -91 + 1 + (width / 2) - (font.width(title) / 2), offset - 1 - 8 - 10 - 10, CommonColors.WHITE, false);
-
-                guiGraphics.drawString(font, translatableX, -91 + 1 + 2, offset - 1 - 9 - 10, CommonColors.WHITE, false);
-                guiGraphics.drawString(font, translatableY, -91 + 1 + 2, offset - 1 - 9, CommonColors.WHITE, false);
-
-                guiGraphics.drawString(font, String.valueOf(x), -91 + 1 + width - widthX, offset - 1 - 9 - 10, CommonColors.SOFT_RED, false);
-                guiGraphics.drawString(font, String.valueOf(y), -91 + 1 + width - widthY, offset - 1 - 9, CommonColors.SOFT_RED, false);
-            }
-            case EFFECTS -> {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1, offset - 24 - 1, 24, 24);
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("hud/effect_background"), -91 + 1 + 24 + 1, offset - 24 - 1, 24, 24);
-
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(MobEffects.LUCK), -91 + 1 + 3, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentX));
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Gui.getMobEffectSprite(MobEffects.UNLUCK), -91 + 1 + 3 + 24 + 1, offset - 24 - 1 + 3, 18, 18, ARGB.white(percentY));
-            }
-            case PLAYERS -> {
-                guiGraphics.fill(-91 + 1, offset - 1 - 10 - 9, -91 + 1 + 144, offset - 1, Integer.MIN_VALUE);
-                guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9 - 9, -91 + 1 + 144, offset - 1 - 1 - 9, minecraft.options.getBackgroundColor(553648127));
-                guiGraphics.fill(-91 + 1 + 1, offset - 1 - 9, -91 + 1 + 144, offset - 1 - 1, minecraft.options.getBackgroundColor(553648127));
-
-                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/wide/steve.png"), -91 + 1 + 1, offset - 1 - 9 - 9, 8, true, false, -1);
-                PlayerFaceRenderer.draw(guiGraphics, ResourceLocation.withDefaultNamespace("textures/entity/player/slim/alex.png"), -91 + 1 + 1, offset - 1 - 9, 8, true, false, -1);
-
-                guiGraphics.drawString(font, translatableX, -91 + 1 + 10, offset - 1 - 9 - 9, CommonColors.WHITE);
-                guiGraphics.drawString(font, translatableY, -91 + 1 + 10, offset - 1 - 9, CommonColors.WHITE);
-
-                guiGraphics.drawString(font, stringX, -91 + 1 + 144 - 1 - 10 - 1 - widthX, offset - 1 - 9 - 9, CommonColors.SOFT_YELLOW);
-                guiGraphics.drawString(font, stringY, -91 + 1 + 144 - 1 - 10 - 1 - widthY, offset - 1 - 9, CommonColors.SOFT_YELLOW);
-
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, getSignal(percentX), -91 + 1 + 144 - 1 - 10, offset - 1 - 9 - 9, 10, 8);
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, getSignal(percentY), -91 + 1 + 144 - 1 - 10, offset - 1 - 9, 10, 8);
-            }
-            case TOASTS -> {
-                guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ResourceLocation.withDefaultNamespace("toast/advancement"), -91 - 40, offset - 32, 160, 32);
-
-                guiGraphics.renderFakeItem(Items.ENCHANTED_GOLDEN_APPLE.getDefaultInstance(), -91 + 8, offset - 32 + 8);
-
-                guiGraphics.drawString(font, translatableX.getString() + ": " + x, -91 + 30, offset - 32 + 7, 16776960 | CommonColors.BLACK, false);
-                guiGraphics.drawString(font, translatableY.getString() + ": " + y, -91 + 30, offset - 32 + 18, CommonColors.WHITE, false);
-            }
-            case OTHER -> {
-                guiGraphics.drawString(font, translatableX.getString() + ": " + x, -91 + 8, offset - 8 - 8 - 4 - 8, CommonColors.WHITE);
-                guiGraphics.drawString(font, translatableY.getString() + ": " + y, -91 + 8, offset - 8 - 8, CommonColors.WHITE);
-            }
-        }
-        guiGraphics.pose().popMatrix();
     }
 
-    public static ResourceLocation getSignal(float percent) {
-        ResourceLocation resourceLocation;
-        if (percent > 0.8F) {
-            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_5");
-        } else if (percent > 0.6F) {
-            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_4");
-        } else if (percent > 0.4F) {
-            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_3");
-        } else if (percent > 0.2F) {
-            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_2");
-        } else if (percent > 0.0F) {
-            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_1");
-        } else {
-            resourceLocation = ResourceLocation.withDefaultNamespace("icon/ping_unknown");
-        }
-        return resourceLocation;
-    }
-
+    @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBlurredBackground(guiGraphics);
         renderMenuBackground(guiGraphics);
     }
 
+    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         super.keyPressed(keyCode, scanCode, modifiers);
-        if (RaisedOptions.options.matches(keyCode, scanCode)) {
+        if (RaisedOptions.OPTIONS.matches(keyCode, scanCode)) {
             onClose();
             return true;
         }
