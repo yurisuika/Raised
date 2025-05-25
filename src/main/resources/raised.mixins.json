@@ -7,7 +7,7 @@
   "mixins": [
   ],
   "client": [
-    "client.gui.GuiMixin$Boss$Pre",
+    "client.gui.GuiMixin$Bossbar$Pre",
     "client.gui.GuiMixin$Chat$Pre",
     "client.gui.GuiMixin$Effects$Pre",
     "client.gui.GuiMixin$Hotbar$Pre",
@@ -15,6 +15,8 @@
     "client.gui.GuiMixin$Other$Pre",
     "client.gui.GuiMixin$Players$Pre",
     "client.gui.GuiMixin$Sidebar$Pre",
+    "client.gui.components.AbstractSelectionListMixin",
+    "client.gui.components.AbstractWidgetMixin",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
     "client.gui.components.toasts.ToastComponentMixin$Toasts$Pre"
   ],
