@@ -1,28 +1,30 @@
 package dev.yurisuika.raised.config;
 
-import dev.yurisuika.raised.util.config.options.Layers;
-import dev.yurisuika.raised.util.config.options.Properties;
-import dev.yurisuika.raised.util.properties.Position;
-import dev.yurisuika.raised.util.properties.Sync;
+import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.util.config.options.Layer;
+
+import java.util.TreeMap;
 
 public class Options {
 
-    public Layers layers = new Layers(
-            new Properties(0, 2, Position.BOTTOM, Sync.NONE),
-            new Properties(0, 0, Position.BOTTOM, Sync.NONE),
-            new Properties(0, 0, Position.TOP, Sync.NONE),
-            new Properties(0, 0, Position.RIGHT, Sync.NONE),
-            new Properties(0, 0, Position.TOP_RIGHT, Sync.NONE),
-            new Properties(0, 0, Position.TOP, Sync.NONE),
-            new Properties(0, 0, Position.TOP_RIGHT, Sync.NONE),
-            new Properties(0, 0, Position.BOTTOM, Sync.NONE)
-    );
+    public TreeMap<String, Layer> layers = new TreeMap<>() {
+        {
+            put(Layers.HOTBAR.toString(), new Layer(new Layer.Displacement(0, 2), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.UP), Layers.HOTBAR.toString()));
+            put(Layers.CHAT.toString(), new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.UP), Layers.CHAT.toString()));
+            put(Layers.BOSSBAR.toString(), new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.DOWN), Layers.BOSSBAR.toString()));
+            put(Layers.SIDEBAR.toString(), new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.LEFT, Layer.Direction.Y.NONE), Layers.SIDEBAR.toString()));
+            put(Layers.EFFECTS.toString(), new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN), Layers.EFFECTS.toString()));
+            put(Layers.PLAYERS.toString(), new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.DOWN), Layers.PLAYERS.toString()));
+            put(Layers.TOASTS.toString(), new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN), Layers.TOASTS.toString()));
+            put(Layers.OTHER.toString(), new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.NONE), Layers.OTHER.toString()));
+        }
+    };
 
-    public Layers getLayers() {
+    public TreeMap<String, Layer> getLayers() {
         return layers;
     }
 
-    public void setLayers(Layers layers) {
+    public void setLayers(TreeMap<String, Layer> layers) {
         this.layers = layers;
     }
 
