@@ -2,22 +2,32 @@ package dev.yurisuika.raised.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.properties.Element;
-import dev.yurisuika.raised.util.properties.Sync;
 
 public class Translate {
 
-    public static int getX(Element element) {
-        return Option.getX(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element) * Option.getPosition(element).getX();
+    public static int getX(String name) {
+        if (Option.getLayer(name) == null) {
+            return 0;
+        }
+        if (Option.getLayer(Option.getSync(name)) == null) {
+            return Option.getDisplacementX(name) * Option.getDirectionX(name).getX();
+        }
+        return Option.getDisplacementX(Option.getSync(name)) * Option.getDirectionX(name).getX();
     }
 
-    public static int getY(Element element) {
-        return Option.getY(Option.getSync(element) != Sync.NONE ? Element.byId(Option.getSync(element).getId()) : element) * Option.getPosition(element).getY();
+    public static int getY(String name) {
+        if (Option.getLayer(name) == null) {
+            return 0;
+        }
+        if (Option.getLayer(Option.getSync(name)) == null) {
+            return Option.getDisplacementY(name) * Option.getDirectionX(name).getX();
+        }
+        return Option.getDisplacementY(Option.getSync(name)) * Option.getDirectionY(name).getY();
     }
 
-    public static void start(PoseStack poseStack, Element element) {
+    public static void start(PoseStack poseStack, String name) {
         poseStack.pushPose();
-        poseStack.translate(getX(element), getY(element), 0);
+        poseStack.translate(getX(name), getY(name), 0);
     }
 
     public static void end(PoseStack poseStack) {

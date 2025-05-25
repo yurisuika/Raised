@@ -2,13 +2,12 @@ package dev.yurisuika.raised.client.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import dev.yurisuika.raised.commands.arguments.PositionArgument;
-import dev.yurisuika.raised.commands.arguments.SyncArgument;
+import dev.yurisuika.raised.commands.arguments.DirectionArgument;
+import dev.yurisuika.raised.commands.arguments.LayerArgument;
 import dev.yurisuika.raised.commands.arguments.TextureArgument;
-import dev.yurisuika.raised.config.Options;
+import dev.yurisuika.raised.util.Validate;
 import dev.yurisuika.raised.util.config.Config;
 import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.properties.Element;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.CommandBuildContext;
@@ -22,96 +21,118 @@ public class RaisedCommand {
                         .then(ClientCommandManager.literal("reload")
                                 .executes(commandContext -> {
                                     Config.loadConfig();
+                                    Validate.checkForOldConfig();
                                     commandContext.getSource().sendFeedback(Component.translatable("commands.raised.config.reload"));
                                     return 1;
                                 })
                         )
                         .then(ClientCommandManager.literal("reset")
                                 .executes(commandContext -> {
-                                    Option.setLayers(new Options().getLayers());
-                                    Option.setResources(new Options().getResources());
+                                    Validate.resetConfig();
                                     commandContext.getSource().sendFeedback(Component.translatable("commands.raised.config.reset"));
                                     return 1;
                                 })
                         )
                 )
-                .then(ClientCommandManager.literal("resources")
+                .then(ClientCommandManager.literal("layer")
+                        .then(ClientCommandManager.argument("name", LayerArgument.layer())
+                                .then(ClientCommandManager.literal("displacement")
+                                        .then(ClientCommandManager.literal("x")
+                                                .executes(commandContext -> {
+                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.x.query", name, Option.getDisplacementX(name)));
+                                                    return 1;
+                                                })
+                                                .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
+                                                        .executes(commandContext -> {
+                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                            Option.setDisplacementX(name, IntegerArgumentType.getInteger(commandContext, "x"));
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.x.set", name, Option.getDisplacementX(name)));
+                                                            return 1;
+                                                        })
+                                                )
+                                        )
+                                        .then(ClientCommandManager.literal("y")
+                                                .executes(commandContext -> {
+                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.y.query",name, Option.getDisplacementY(name)));
+                                                    return 1;
+                                                })
+                                                .then(ClientCommandManager.argument("y", IntegerArgumentType.integer(0))
+                                                        .executes(commandContext -> {
+                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                            Option.setDisplacementY(name, IntegerArgumentType.getInteger(commandContext, "y"));
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.y.set", name, Option.getDisplacementY(name)));
+                                                            return 1;
+                                                        })
+                                                )
+                                        )
+                                )
+                                .then(ClientCommandManager.literal("direction")
+                                        .then(ClientCommandManager.literal("x")
+                                                .executes(commandContext -> {
+                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.query", name, Option.getDirectionX(name).getKey()));
+                                                    return 1;
+                                                })
+                                                .then(ClientCommandManager.argument("x", DirectionArgument.X.x())
+                                                        .executes(commandContext -> {
+                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                            Option.setDirectionX(name, DirectionArgument.X.getX(commandContext, "x"));
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.set", name, Option.getDirectionX(name).getKey()));
+                                                            return 1;
+                                                        })
+                                                )
+                                        )
+                                        .then(ClientCommandManager.literal("y")
+                                                .executes(commandContext -> {
+                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.query", name, Option.getDirectionY(name).getKey()));
+                                                    return 1;
+                                                })
+                                                .then(ClientCommandManager.argument("y", DirectionArgument.Y.y())
+                                                        .executes(commandContext -> {
+                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                            Option.setDirectionY(name, DirectionArgument.Y.getY(commandContext, "y"));
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.set", name, Option.getDirectionY(name).getKey()));
+                                                            return 1;
+                                                        })
+                                                )
+                                        )
+                                )
+                                .then(ClientCommandManager.literal("sync")
+                                        .executes(commandContext -> {
+                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.sync.query", name, Option.getSync(name)));
+                                            return 1;
+                                        })
+                                        .then(ClientCommandManager.argument("sync", LayerArgument.layer())
+                                                .executes(commandContext -> {
+                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
+                                                    Option.setSync(name, LayerArgument.getLayer(commandContext, "sync").toString());
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.sync.set", name, Option.getSync(name)));
+                                                    return 1;
+                                                })
+                                        )
+                                )
+                        )
+                )
+                .then(ClientCommandManager.literal("resource")
                         .then(ClientCommandManager.literal("texture")
                                 .executes(commandContext -> {
-                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.query", Component.translatable(Config.getOptions().getResources().getTexture().getKey())));
+                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.query", Component.translatable(Option.getTexture().getKey())));
                                     return 1;
                                 })
                                 .then(ClientCommandManager.argument("texture", TextureArgument.texture())
                                         .executes(commandContext -> {
                                             Option.setTexture(TextureArgument.getTexture(commandContext, "texture"));
-                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.set", Component.translatable(Config.getOptions().getResources().getTexture().getKey())));
+                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resources.texture.set", Component.translatable(Option.getTexture().getKey())));
                                             return 1;
                                         })
                                 )
                         )
                 )
         );
-
-        for (Element element : Element.values()) {
-            dispatcher.register(ClientCommandManager.literal("raised")
-                    .then(ClientCommandManager.literal("layers")
-                            .then(ClientCommandManager.literal(element.getSerializedName())
-                                    .then(ClientCommandManager.literal("x")
-                                            .executes(commandContext -> {
-                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.x.query", Component.translatable(element.getKey()), Option.getX(element)));
-                                                return 1;
-                                            })
-                                            .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
-                                                    .executes(commandContext -> {
-                                                        Option.setX(element, IntegerArgumentType.getInteger(commandContext, "x"));
-                                                        commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.x.set", Component.translatable(element.getKey()), Option.getX(element)));
-                                                        return 1;
-                                                    })
-                                            )
-                                    )
-                                    .then(ClientCommandManager.literal("y")
-                                            .executes(commandContext -> {
-                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.y.query", Component.translatable(element.getKey()), Option.getY(element)));
-                                                return 1;
-                                            })
-                                            .then(ClientCommandManager.argument("y", IntegerArgumentType.integer(0))
-                                                    .executes(commandContext -> {
-                                                        Option.setY(element, IntegerArgumentType.getInteger(commandContext, "y"));
-                                                        commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.y.set", Component.translatable(element.getKey()), Option.getY(element)));
-                                                        return 1;
-                                                    })
-                                            )
-                                    )
-                                    .then(ClientCommandManager.literal("position")
-                                            .executes(commandContext -> {
-                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.position.query", Component.translatable(element.getKey()), Component.translatable(Option.getPosition(element).getKey())));
-                                                return 1;
-                                            })
-                                            .then(ClientCommandManager.argument("position", PositionArgument.position())
-                                                    .executes(commandContext -> {
-                                                        Option.setPosition(element, PositionArgument.getPosition(commandContext, "position"));
-                                                        commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.position.set", Component.translatable(element.getKey()), Component.translatable(Option.getPosition(element).getKey())));
-                                                        return 1;
-                                                    })
-                                            )
-                                    )
-                                    .then(ClientCommandManager.literal("sync")
-                                            .executes(commandContext -> {
-                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.sync.query", Component.translatable(element.getKey()), Component.translatable(Option.getSync(element).getKey())));
-                                                return 1;
-                                            })
-                                            .then(ClientCommandManager.argument("sync", SyncArgument.sync())
-                                                    .executes(commandContext -> {
-                                                        Option.setSync(element, SyncArgument.getSync(commandContext, "sync"));
-                                                        commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layers.element.sync.set", Component.translatable(element.getKey()), Component.translatable(Option.getSync(element).getKey())));
-                                                        return 1;
-                                                    })
-                                            )
-                                    )
-                            )
-                    )
-            );
-        }
     }
 
 }
