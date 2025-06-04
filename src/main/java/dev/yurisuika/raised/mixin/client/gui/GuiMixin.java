@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.Option;
@@ -32,7 +32,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderHotbarAndDecorations", at = @At("HEAD"))
             private void startMainHudTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "renderHotbarAndDecorations", at = @At("TAIL"))
@@ -45,7 +45,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderExperienceLevel", at = @At("HEAD"))
             private void startExperienceLevelTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "renderExperienceLevel", at = @At("TAIL"))
@@ -58,7 +58,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
             private void startOverlayMessageTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
@@ -113,7 +113,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderChat", at = @At("HEAD"))
             private void startChatTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.CHAT.toString());
+                Translate.start(guiGraphics.pose(), Layers.CHAT);
             }
 
             @Inject(method = "renderChat", at = @At("TAIL"))
@@ -135,7 +135,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At("HEAD"))
             private void startScoreboardTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.SIDEBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.SIDEBAR);
             }
 
             @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At("TAIL"))
@@ -157,7 +157,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getMobEffectTextures()Lnet/minecraft/client/resources/MobEffectTextureManager;"))
             private void startStatusEffectTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.EFFECTS.toString());
+                Translate.start(guiGraphics.pose(), Layers.EFFECTS);
             }
 
             @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
@@ -179,7 +179,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderTabList", at = @At("HEAD"))
             private void startPlayerListTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.PLAYERS.toString());
+                Translate.start(guiGraphics.pose(), Layers.PLAYERS);
             }
 
             @Inject(method = "renderTabList", at = @At("TAIL"))
@@ -201,12 +201,12 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At("HEAD"))
             private void startRenderHeadTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.OTHER.toString());
+                Translate.start(guiGraphics.pose(), Layers.OTHER);
             }
 
             @Inject(method = "render", at = @At("TAIL"))
             private void startRenderTailTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.OTHER.toString());
+                Translate.start(guiGraphics.pose(), Layers.OTHER);
             }
 
         }
