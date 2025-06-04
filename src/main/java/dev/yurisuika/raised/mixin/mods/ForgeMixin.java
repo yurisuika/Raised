@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.mods;
 
-import dev.yurisuika.raised.util.Layers;
-import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.client.gui.GuiEvents;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.IIngameOverlay;
@@ -42,11 +42,9 @@ public abstract class ForgeMixin {
         @Unique
         private static void addLayer(ResourceLocation id, IIngameOverlay overlay) {
             if (!id.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-                Layers.OTHER_LAYERS.put(id, overlay);
-                String name = id.toString();
-                if (!Option.getLayers().containsKey(name)) {
-                    Option.addLayer(name, new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.NONE), name));
-                }
+                GuiEvents.MODS.put(id, overlay);
+
+                Layers.register(id, new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.NONE), id.toString()));
             }
         }
 
