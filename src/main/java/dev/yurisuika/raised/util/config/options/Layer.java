@@ -99,91 +99,91 @@ public class Layer {
         }
 
         public enum X implements StringRepresentable {
-    
+
             LEFT(0, "options.raised.direction.x.left", -1),
             NONE(1, "options.raised.direction.x.none", 0),
             RIGHT(2, "options.raised.direction.x.right", 1);
-    
+
             public static final Codec<X> CODEC = StringRepresentable.fromEnum(X::values, X::byName);
             public static final X[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(movement -> movement.id)).toArray(X[]::new);
             public final int id;
             public final String key;
             public final int x;
-    
+
             X(int id, String key, int x) {
                 this.id = id;
                 this.key = key;
                 this.x = x;
             }
-    
+
             public int getId() {
                 return id;
             }
-    
+
             public String getKey() {
                 return key;
             }
-    
+
             public static X byName(String name) {
                 return Arrays.stream(X.values()).collect(Collectors.toMap(X::getSerializedName, element -> element)).get(name);
             }
-    
+
             public static X byId(int id) {
                 return VALUES[Mth.abs(id % VALUES.length)];
             }
-    
+
             public String getSerializedName() {
                 return name().toLowerCase();
             }
-    
+
             public int getX() {
                 return x;
             }
-    
+
         }
 
         public enum Y implements StringRepresentable {
-    
+
             UP(0, "options.raised.direction.y.up", -1),
             NONE(1, "options.raised.direction.y.none", 0),
             DOWN(2, "options.raised.direction.y.down", 1);
-    
+
             public static final Codec<Y> CODEC = StringRepresentable.fromEnum(Y::values, Y::byName);
             public static final Y[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(movement -> movement.id)).toArray(Y[]::new);
             public final int id;
             public final String key;
             public final int y;
-    
+
             Y(int id, String key, int y) {
                 this.id = id;
                 this.key = key;
                 this.y = y;
             }
-    
+
             public int getId() {
                 return id;
             }
-    
+
             public String getKey() {
                 return key;
             }
-    
+
             public static Y byName(String name) {
                 return Arrays.stream(Y.values()).collect(Collectors.toMap(Y::getSerializedName, element -> element)).get(name);
             }
-    
+
             public static Y byId(int id) {
                 return VALUES[Mth.abs(id % VALUES.length)];
             }
-    
+
             public String getSerializedName() {
                 return name().toLowerCase();
             }
-    
+
             public int getY() {
                 return y;
             }
-    
+
         }
 
     }
