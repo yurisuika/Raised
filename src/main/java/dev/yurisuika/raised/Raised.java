@@ -2,7 +2,8 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
-import dev.yurisuika.raised.client.gui.RaisedGui;
+import dev.yurisuika.raised.client.gui.GuiEvents;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
 import dev.yurisuika.raised.util.Validate;
 import dev.yurisuika.raised.util.config.Config;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class Raised {
 
@@ -45,7 +47,7 @@ public class Raised {
 
             @SubscribeEvent
             public static void registerGuiEvents(FMLClientSetupEvent event) {
-                MinecraftForge.EVENT_BUS.register(new RaisedGui());
+                MinecraftForge.EVENT_BUS.register(new GuiEvents());
             }
 
             @SubscribeEvent
@@ -58,11 +60,16 @@ public class Raised {
                 ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (client, parent) -> new RaisedScreen(parent));
             }
 
+            @SubscribeEvent
+            public static void registerLayers(FMLClientSetupEvent event) {
+                Validate.checkForOldConfig();
+                Layers.boostrap();
+            }
+
         }
 
         public Client() {
             Config.loadConfig();
-            Validate.checkForOldConfig();
         }
 
     }

@@ -7,7 +7,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import dev.yurisuika.raised.util.Parse;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.config.Option;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.concurrent.CompletableFuture;
 
 public class LayerArgument implements ArgumentType<ResourceLocation> {
@@ -42,7 +43,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext, SuggestionsBuilder suggestionsBuilder) {
-        return SharedSuggestionProvider.suggestResource(Parse.listLoadedIds().stream(), suggestionsBuilder);
+        return SharedSuggestionProvider.suggestResource(Layers.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)), suggestionsBuilder);
     }
 
     @Override

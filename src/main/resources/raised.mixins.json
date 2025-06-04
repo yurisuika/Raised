@@ -9,11 +9,15 @@
   "client": [
     "client.OptionInvoker",
     "client.gui.GuiMixin$Hotbar$Pre",
+    "client.gui.GuiMixin$Other$Post",
+    "client.gui.GuiMixin$Other$Pre",
     "client.gui.components.AbstractSelectionListMixin",
     "client.gui.components.AbstractWidgetMixin",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
     "client.gui.components.toasts.ToastComponentMixin$Toasts$Pre",
     "mods.ForgeMixin$Hotbar$Pre",
+    "mods.ForgeMixin$Other$Post",
+    "mods.ForgeMixin$Other$Pre",
     "mods.ForgeMixin$Sidebar$Pre"
   ],
   "injectors": {

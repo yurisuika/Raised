@@ -30,10 +30,9 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
         return screen.BUTTON_WIDTH;
     }
 
-    public void add(String name) {
-        addEntry(new Entry(screen, name));
+    public void add(ResourceLocation name) {
+        addEntry(new LayerList.Entry(screen, name));
     }
-
     @Override
     public int getMaxScroll() {
         return Math.max(0, getMaxPosition() - height);
@@ -71,25 +70,24 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
     public static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
 
         public final RaisedScreen screen;
-        public final String name;
+        public final ResourceLocation name;
         public final LayerButton button;
 
-        public Entry(RaisedScreen screen, String name) {
+        public Entry(RaisedScreen screen, ResourceLocation name) {
             this.screen = screen;
             this.name = name;
             this.button = createLayerButton(name);
         }
 
         public void updateButtonStates() {
-            button.toggled = RaisedScreen.current.toString().equals(name);
+            button.toggled = RaisedScreen.current.equals(name);
             button.active = !button.toggled;
         }
 
-        public LayerButton createLayerButton(String name) {
+        public LayerButton createLayerButton(ResourceLocation name) {
             String texture;
-            ResourceLocation id = ResourceLocation.tryParse(name);
-            if (id.getNamespace().equals("minecraft")) {
-                switch (id.getPath()) {
+            if (name.getNamespace().equals("minecraft")) {
+                switch (name.getPath()) {
                     case "hotbar":
                         texture = "hotbar";
                         break;
@@ -120,10 +118,10 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
             }
 
             return LayerButton.builder(Parse.createLayerDisplay(name), button -> {
-                RaisedScreen.current = id;
+                RaisedScreen.current = name;
                 screen.resetOptions();
-                screen.layerList.children().forEach(Entry::updateButtonStates);
-            }, name.equals(RaisedScreen.current.toString())).size(screen.BUTTON_WIDTH, screen.BUTTON_HEIGHT).texture(ResourceLocation.tryParse("raised:textures/gui/icon/" + texture + ".png"), screen.BUTTON_HEIGHT).tooltip((button, poseStack, mouseX, mouseY) -> screen.renderTooltip(poseStack, new TextComponent(name), mouseX, mouseY)).build();
+                screen.layers.children().forEach(Entry::updateButtonStates);
+            }, name.equals(RaisedScreen.current)).size(screen.BUTTON_WIDTH, screen.BUTTON_HEIGHT).texture(ResourceLocation.tryParse("raised:textures/gui/icon/" + texture + ".png"), screen.BUTTON_HEIGHT).tooltip((button, poseStack, mouseX, mouseY) -> screen.renderTooltip(poseStack, new TextComponent(name.toString()), mouseX, mouseY)).build();
         }
 
         @Override
