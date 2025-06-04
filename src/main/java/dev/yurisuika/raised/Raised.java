@@ -2,7 +2,8 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
-import dev.yurisuika.raised.client.gui.RaisedGui;
+import dev.yurisuika.raised.client.gui.GuiEvents;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
 import dev.yurisuika.raised.util.Validate;
 import dev.yurisuika.raised.util.config.Config;
@@ -46,7 +47,7 @@ public class Raised {
 
             @SubscribeEvent
             public static void registerGuiEvents(FMLClientSetupEvent event) {
-                NeoForge.EVENT_BUS.register(new RaisedGui());
+                NeoForge.EVENT_BUS.register(new GuiEvents());
             }
 
             @SubscribeEvent
@@ -57,6 +58,12 @@ public class Raised {
             @SubscribeEvent
             public static void registerConfigScreens(FMLConstructModEvent event) {
                 ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, parent) -> new RaisedScreen(parent)));
+            }
+
+            @SubscribeEvent
+            public static void registerLayers(FMLClientSetupEvent event) {
+                Validate.checkForOldConfig();
+                Layers.boostrap();
             }
 
         }
