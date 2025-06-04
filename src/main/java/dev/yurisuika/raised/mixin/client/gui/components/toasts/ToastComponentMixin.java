@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.mixin.client.gui.components.toasts;
 
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,7 +21,7 @@ public abstract class ToastComponentMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"))
             private void startToastsTranslate(int x, GuiGraphics guiGraphics, CallbackInfoReturnable<Boolean> cir) {
-                Translate.start(guiGraphics.pose(), Layers.TOASTS.toString());
+                Translate.start(guiGraphics.pose(), Layers.TOASTS);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.AFTER))
