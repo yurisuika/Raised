@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.mixin.client.gui.components.toasts;
 
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,7 +21,7 @@ public abstract class ToastManagerMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;pushMatrix()Lorg/joml/Matrix3x2fStack;"))
             private void startToastsTranslate(GuiGraphics guiGraphics, int i, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.TOASTS.toString());
+                Translate.start(guiGraphics.pose(), Layers.TOASTS);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;popMatrix()Lorg/joml/Matrix3x2fStack;", shift = At.Shift.AFTER))

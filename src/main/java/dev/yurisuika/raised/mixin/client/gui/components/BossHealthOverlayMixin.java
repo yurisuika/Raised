@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.mixin.client.gui.components;
 
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,7 +22,7 @@ public abstract class BossHealthOverlayMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
             private void startBossBarTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.BOSSBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.BOSSBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))

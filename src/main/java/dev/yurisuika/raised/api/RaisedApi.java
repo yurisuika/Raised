@@ -1,162 +1,94 @@
 package dev.yurisuika.raised.api;
 
-import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.client.gui.Layers;
+import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
-import dev.yurisuika.raised.util.config.options.Resource;
+import net.minecraft.resources.ResourceLocation;
 
 public class RaisedApi {
 
     /**
-     * <p>Retrieves the horizontal x-axis displacement for the given layer.
+     * <p>Retrieves the horizontal offset for the given layer.
      *
-     * <p>The layer is translated on the x-axis by this displacement amount.
+     * <p>The displacement for the layer is modified with the direction of movement on the x-axis. If the layer is
+     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
+     * layer itself is null, returns 0.
      *
-     * @param name the given layer {@link Layer} Key
+     * @param name the {@link Layer} key as a {@link String}
      *
-     * @return the horizontal x-axis displacement int
+     * @return the horizontal offset int
      */
-    public static int getDisplacementX(String name) {
-        return Option.getDisplacementX(name);
+    public static int getX(String name) {
+        return Translate.getX(name);
     }
 
     /**
-     * <p>Sets the horizontal x-axis displacement for the given layer.
+     * <p>Retrieves the horizontal offset for the given layer.
      *
-     * @param name the given layer {@link Layer} Key
-     * @param x the horizontal x-axis displacement int
+     * <p>The displacement for the layer is modified with the direction of movement on the x-axis. If the layer is
+     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
+     * layer itself is null, returns 0.
      *
-     * @see #getDisplacementX(String)
+     * @param name the {@link Layer} key as a {@link ResourceLocation}
+     *
+     * @return the horizontal offset int
      */
-    public static void setDisplacementX(String name, int x) {
-        Option.setDisplacementX(name, x);
+    public static int getX(ResourceLocation name) {
+        return Translate.getX(name);
     }
 
     /**
-     * <p>Retrieves the vertical y-axis displacement for the given layer.
+     * <p>Retrieves the vertical offset for the given layer.
      *
-     * <p>The layer is translated on the y-axis by this displacement amount.
+     * <p>The displacement for the layer is modified with the direction of movement on the y-axis. If the layer is
+     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
+     * layer itself is null, returns 0.
      *
-     * @param name the given layer {@link Layer} Key
+     * @param name the {@link Layer} key as a {@link String}
      *
-     * @return the vertical y-axis displacement int
+     * @return the vertical offset int
      */
-    public static int getDisplacementY(String name) {
-        return Option.getDisplacementY(name);
+    public static int getY(String name) {
+        return Translate.getY(name);
     }
 
     /**
-     * <p>Sets the vertical y-axis displacement for the given layer.
+     * <p>Retrieves the vertical offset for the given layer.
      *
-     * @param name the given layer {@link Layer} Key
-     * @param y the vertical y-axis displacement int
+     * <p>The displacement for the layer is modified with the direction of movement on the y-axis. If the layer is
+     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
+     * layer itself is null, returns 0.
      *
-     * @see #getDisplacementY(String)
+     * @param name the {@link Layer} key as a {@link ResourceLocation}
+     *
+     * @return the vertical offset int
      */
-    public static void setDisplacementY(String name, int y) {
-        Option.setDisplacementY(name, y);
+    public static int getY(ResourceLocation name) {
+        return Translate.getY(name);
     }
 
     /**
-     * <p>Retrieves the horizontal x-axis direction for the given layer.
+     * <p>Registers a layer for the user to configure.
      *
-     * <p>The layer is translated on the x-axis towards this direction.
+     * <p>A default layer configuration is added to Raised's config under the provided key if the key does not exist.
      *
-     * @param name the given layer {@link Layer} Key
-     *
-     * @return the horizontal x-axis direction int
+     * @param name the {@link Layer} key to register as a {@link String}
+     * @param layer the default {@link Layer} configuration
      */
-    public static Layer.Direction.X getDirectionX(String name) {
-        return Option.getDirectionX(name);
+    public static void register(String name, Layer layer) {
+        Layers.register(name, layer);
     }
 
     /**
-     * <p>Sets the horizontal x-axis direction for the given layer.
+     * <p>Registers a layer for the user to configure.
      *
-     * @param name the given layer {@link Layer} Key
-     * @param x the horizontal x-axis direction int
+     * <p>A default layer configuration is added to Raised's config under the provided key if the key does not exist.
      *
-     * @see #getDirectionX(String)
+     * @param name the {@link Layer} key to register as a {@link ResourceLocation}
+     * @param layer the default {@link Layer} configuration
      */
-    public static void setDirectionX(String name, Layer.Direction.X x) {
-        Option.setDirectionX(name, x);
-    }
-
-    /**
-     * <p>Retrieves the vertical y-axis direction for the given layer.
-     *
-     * <p>The layer is translated on the y-axis towards this direction.
-     *
-     * @param name the given layer {@link Layer} Key
-     *
-     * @return the vertical y-axis direction int
-     */
-    public static Layer.Direction.Y getDirectionY(String name) {
-        return Option.getDirectionY(name);
-    }
-
-    /**
-     * <p>Sets the vertical y-axis direction for the given layer.
-     *
-     * @param name the given layer {@link Layer} Key
-     * @param y the vertical y-axis direction int
-     *
-     * @see #getDirectionY(String)
-     */
-    public static void setDirectionY(String name, Layer.Direction.Y y) {
-        Option.setDirectionY(name, y);
-    }
-
-    /**
-     * <p>Retrieves the synced layer for the given layer.
-     *
-     * <p>The layer is translated from its set position by the amount set for the synced layer.
-     *
-     * @param name the given layer {@link Layer} Key
-     *
-     * @return the synced layer key {@link String}
-     */
-    public static String getSync(String name) {
-        return Option.getSync(name);
-    }
-
-    /**
-     * <p>Sets the synced layer for the given layer.
-     *
-     * @param name the given layer {@link Layer} Key
-     * @param sync the synced layer key {@link String}
-     *
-     * @see #getSync(String)
-     */
-    public static void setSync(String name, String sync) {
-        Option.setSync(name, sync);
-    }
-
-    /**
-     * <p>Retrieves the texture modification method for the hotbar selector.
-     *
-     * <p>{@code Texture.REPLACE} - replaces the hotbar selector with a new square asset found under the "raised" namespace.
-     *
-     * <p>{@code Texture.PATCH} - draws a vertically mirrored row taken from the top of the asset below the unmodified selector.
-     *
-     * <p>{@code Texture.AUTO} - fixes based on whether resource pack support is present.
-     *
-     * <p>{@code Texture.NONE} - the selector is not modified.
-     *
-     * @return the texture modification method {@link Resource.Texture}
-     */
-    public static Resource.Texture getTexture() {
-        return Option.getTexture();
-    }
-
-    /**
-     * <p>Sets the texture modification method for the hotbar selector.
-     *
-     * @param texture the texture modification method {@link Resource.Texture}
-     *
-     * @see #getTexture()
-     */
-    public static void setTexture(Resource.Texture texture) {
-        Option.setTexture(texture);
+    public static void register(ResourceLocation name, Layer layer) {
+        Layers.register(name, layer);
     }
 
 }

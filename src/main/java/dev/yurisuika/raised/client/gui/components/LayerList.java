@@ -28,10 +28,9 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
         return screen.BUTTON_WIDTH;
     }
 
-    public void add(String name) {
-        addEntry(new Entry(screen, name));
+    public void add(ResourceLocation name) {
+        addEntry(new LayerList.Entry(screen, name));
     }
-
     @Override
     public void renderListSeparators(GuiGraphics guiGraphics) {}
 
@@ -61,25 +60,24 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
     public static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
 
         public final RaisedScreen screen;
-        public final String name;
+        public final ResourceLocation name;
         public final LayerButton button;
 
-        public Entry(RaisedScreen screen, String name) {
+        public Entry(RaisedScreen screen, ResourceLocation name) {
             this.screen = screen;
             this.name = name;
             this.button = createLayerButton(name);
         }
 
         public void updateButtonStates() {
-            button.toggled = RaisedScreen.current.toString().equals(name);
+            button.toggled = RaisedScreen.current.equals(name);
             button.active = !button.toggled;
         }
 
-        public LayerButton createLayerButton(String name) {
+        public LayerButton createLayerButton(ResourceLocation name) {
             String texture;
-            ResourceLocation id = ResourceLocation.tryParse(name);
-            if (id.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-                texture = switch (id.getPath()) {
+            if (name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
+                texture = switch (name.getPath()) {
                     case "hotbar" -> "hotbar";
                     case "chat" -> "chat";
                     case "bossbar" -> "bossbar";
@@ -94,10 +92,10 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
             }
 
             return LayerButton.builder(Parse.createLayerDisplay(name), button -> {
-                RaisedScreen.current = id;
+                RaisedScreen.current = name;
                 screen.resetOptions();
-                screen.layerList.children().forEach(Entry::updateButtonStates);
-            }, name.equals(RaisedScreen.current.toString())).size(screen.BUTTON_WIDTH, screen.BUTTON_HEIGHT).texture(ResourceLocation.fromNamespaceAndPath("raised", "icon/" + texture), screen.BUTTON_HEIGHT).tooltip(Tooltip.create(Component.literal(name))).build();
+                screen.layers.children().forEach(Entry::updateButtonStates);
+            }, name.equals(RaisedScreen.current)).size(screen.BUTTON_WIDTH, screen.BUTTON_HEIGHT).texture(ResourceLocation.fromNamespaceAndPath("raised", "icon/" + texture), screen.BUTTON_HEIGHT).tooltip(Tooltip.create(Component.literal(name.toString()))).build();
         }
 
         @Override
