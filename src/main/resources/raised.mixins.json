@@ -9,6 +9,8 @@
   ],
   "client": [
     "client.gui.GuiMixin$Hotbar$Pre",
+    "client.gui.GuiMixin$Other$Post",
+    "client.gui.GuiMixin$Other$Pre",
     "client.gui.components.AbstractSelectionListMixin",
     "client.gui.components.AbstractWidgetMixin",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
