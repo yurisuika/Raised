@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.gui.components.LayerList;
 import dev.yurisuika.raised.mixin.client.OptionInvoker;
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Parse;
 import dev.yurisuika.raised.util.config.Option;
 import dev.yurisuika.raised.util.config.options.Layer;
@@ -21,12 +21,13 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class RaisedScreen extends Screen {
 
     public Screen lastScreen;
-    public ArrayList<AbstractWidget> optionsLayout;
-    public LayerList layerList;
+    public ArrayList<AbstractWidget> options;
+    public LayerList layers;
     public AbstractWidget displacementX;
     public AbstractWidget displacementY;
     public AbstractWidget directionX;
@@ -52,46 +53,45 @@ public class RaisedScreen extends Screen {
     }
 
     public void addList() {
-        layerList = new LayerList(minecraft, BUTTON_WIDTH + (PADDING * 2), height, this);
-        Option.getLayers().forEach((name, layer) -> layerList.add(name));
+        layers = new LayerList(minecraft, BUTTON_WIDTH + (PADDING * 2), height, this);
+        Layers.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)).forEach(name -> layers.add(name));
 
-        addRenderableWidget(layerList);
+        addRenderableWidget(layers);
     }
 
     public void addOptions() {
-        optionsLayout = new ArrayList<>();
+        options = new ArrayList<>();
 
         if (Option.getLayer(current.toString()) != null) {
-            displacementX = new ProgressOption("options.raised.displacement.x", 0, minecraft.getWindow().getGuiScaledWidth() / 4, 1.0F, options -> (double) Option.getDisplacementX(current.toString()), (options, value) -> Option.setDisplacementX(current.toString(), value.intValue()), (options, option) -> option.get(options) == 0 ? ((OptionInvoker) option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker) option).invokeGenericValueLabel(new TextComponent(Option.getDisplacementX(current.toString()) + "px (" + Math.round(Math.ceil(((float) option.get(options) / ((float) option.getMaxValue())) * 100)) + "%)")), client -> font.split(new TranslatableComponent("options.raised.displacement.x.tooltip"), 200)).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
-            displacementY = new ProgressOption("options.raised.displacement.y", 0, minecraft.getWindow().getGuiScaledHeight() / 4, 1.0F, options -> (double) Option.getDisplacementY(current.toString()), (options, value) -> Option.setDisplacementY(current.toString(), value.intValue()), (options, option) -> option.get(options) == 0 ? ((OptionInvoker) option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker) option).invokeGenericValueLabel(new TextComponent(Option.getDisplacementY(current.toString()) + "px (" + Math.round(Math.ceil(((float) option.get(options) / ((float) option.getMaxValue())) * 100)) + "%)")), client -> font.split(new TranslatableComponent("options.raised.displacement.y.tooltip"), 200)).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+            displacementX = new ProgressOption("options.raised.displacement.x", 0.0D, (double) minecraft.getWindow().getGuiScaledWidth() / 4, 1.0F, options -> (double) Option.getDisplacementX(current.toString()), (options, value) -> Option.setDisplacementX(current.toString(), value.intValue()), (options, option) -> option.get(options) == 0 ? ((OptionInvoker) option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker) option).invokeGenericValueLabel(new TextComponent(Option.getDisplacementX(current.toString()) + "px (" + Math.round(Math.ceil(((float) option.get(options) / ((float) option.getMaxValue())) * 100)) + "%)")), client -> font.split(new TranslatableComponent("options.raised.displacement.x.tooltip"), 200)).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+            displacementY = new ProgressOption("options.raised.displacement.y", 0.0D, (double) minecraft.getWindow().getGuiScaledHeight() / 4, 1.0F, options -> (double) Option.getDisplacementY(current.toString()), (options, value) -> Option.setDisplacementY(current.toString(), value.intValue()), (options, option) -> option.get(options) == 0 ? ((OptionInvoker) option).invokeGenericValueLabel(CommonComponents.OPTION_OFF) : ((OptionInvoker) option).invokeGenericValueLabel(new TextComponent(Option.getDisplacementY(current.toString()) + "px (" + Math.round(Math.ceil(((float) option.get(options) / ((float) option.getMaxValue())) * 100)) + "%)")), client -> font.split(new TranslatableComponent("options.raised.displacement.y.tooltip"), 200)).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
 
             directionX = CycleOption.create("options.raised.direction.x", Layer.Direction.X.values(), value -> new TranslatableComponent(value.getKey()), options -> Option.getDirectionX(current.toString()), (options, option, value) -> Option.setDirectionX(current.toString(), value)).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.direction.x.tooltip"), 200)).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
             directionY = CycleOption.create("options.raised.direction.y", Layer.Direction.Y.values(), value -> new TranslatableComponent(value.getKey()), options -> Option.getDirectionY(current.toString()), (options, option, value) -> Option.setDirectionY(current.toString(), value)).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.direction.y.tooltip"), 200)).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
 
-            sync = CycleOption.create("options.raised.sync", Parse.listLoadedNames(), Parse::createLayerDisplay, options -> Option.getSync(current.toString()), (options, option, value) -> Option.setSync(current.toString(), value)).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.sync.tooltip", value), 200)).createButton(minecraft.options, PADDING, PADDING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING + BUTTON_HEIGHT + SPACING, BUTTON_WIDTH);
+            sync = CycleOption.create("options.raised.sync", Layers.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)).toList(), Parse::createLayerDisplay, options -> ResourceLocation.tryParse(Option.getSync(current.toString())), (options, option, value) -> Option.setSync(current.toString(), value.toString())).setTooltip(client -> value -> font.split(new TranslatableComponent("options.raised.sync.tooltip", value.toString()), 200)).createButton(minecraft.options, PADDING, PADDING + (BUTTON_HEIGHT + SPACING) * 5, BUTTON_WIDTH);
 
-            optionsLayout.add(displacementX);
-            optionsLayout.add(displacementY);
-            optionsLayout.add(directionX);
-            optionsLayout.add(directionY);
-            optionsLayout.add(sync);
+            options.add(displacementX);
+            options.add(displacementY);
+            options.add(directionX);
+            options.add(directionY);
+            options.add(sync);
         }
 
-        optionsLayout.add(new Button(PADDING, height - PADDING - BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT, CommonComponents.GUI_DONE, button -> onClose()));
+        options.add(new Button(PADDING, height - (PADDING + BUTTON_HEIGHT), BUTTON_WIDTH, BUTTON_HEIGHT, CommonComponents.GUI_DONE, button -> onClose()));
 
-        optionsLayout.forEach(this::addRenderableWidget);
+        options.forEach(this::addRenderableWidget);
     }
 
     public void resetOptions() {
-        optionsLayout.forEach(this::removeWidget);
-        optionsLayout.clear();
+        options.forEach(this::removeWidget);
+        options.clear();
         addOptions();
-        repositionElements();
     }
 
     public void repositionElements() {
-        layerList.updateSize(BUTTON_WIDTH + (PADDING * 2), height, 0, height);
-        layerList.setLeftPos(width - (BUTTON_WIDTH + (PADDING * 2)));
+        layers.updateSize(BUTTON_WIDTH + (PADDING * 2), height, 0, height);
+        layers.setLeftPos(width - (BUTTON_WIDTH + (PADDING * 2)));
     }
 
     @Override
@@ -123,14 +123,14 @@ public class RaisedScreen extends Screen {
         renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTick);
 
-        drawCenteredString(poseStack, font, title, PADDING + (BUTTON_WIDTH / 2), PADDING + 6, 16777215);
+        drawCenteredString(poseStack, font, title, PADDING + (BUTTON_WIDTH / 2), PADDING + 5, 16777215);
 
         if (Option.getLayer(current.toString()) != null) {
             displacementX.active = Option.getSync(current.toString()).equals(current.toString());
             displacementY.active = Option.getSync(current.toString()).equals(current.toString());
         }
 
-        for (AbstractWidget widget : optionsLayout) {
+        for (AbstractWidget widget : options) {
             if (widget.equals(displacementX) || widget.equals(displacementY) || widget.equals(directionX) || widget.equals(directionY) || widget.equals(sync)) {
                 if (widget.isMouseOver(mouseX, mouseY)) {
                     renderTooltip(poseStack, ((TooltipAccessor) widget).getTooltip(), mouseX, mouseY);

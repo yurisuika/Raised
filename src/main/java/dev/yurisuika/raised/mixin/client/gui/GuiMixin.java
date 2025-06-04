@@ -2,7 +2,7 @@ package dev.yurisuika.raised.mixin.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.Gui;
@@ -27,7 +27,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderHotbar(Lcom/mojang/blaze3d/vertex/PoseStack;F)V"))
             private void startSpectatorMenuTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderHotbar(Lcom/mojang/blaze3d/vertex/PoseStack;F)V", shift = At.Shift.AFTER))
@@ -40,7 +40,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderHotbar(FLcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startHotbarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderHotbar(FLcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -54,7 +54,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderPlayerHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startStatusBarsTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderPlayerHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -67,7 +67,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startMountHealthTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -80,7 +80,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lcom/mojang/blaze3d/vertex/PoseStack;I)V"))
             private void startMountJumpBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lcom/mojang/blaze3d/vertex/PoseStack;I)V", shift = At.Shift.AFTER))
@@ -93,7 +93,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderExperienceBar(Lcom/mojang/blaze3d/vertex/PoseStack;I)V"))
             private void startExperienceBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderExperienceBar(Lcom/mojang/blaze3d/vertex/PoseStack;I)V", shift = At.Shift.AFTER))
@@ -106,7 +106,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSelectedItemName(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startHeldItemTooltipTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSelectedItemName(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -119,7 +119,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderTooltip(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startSpectatorTooltipTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderTooltip(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -132,7 +132,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V", ordinal = 0))
             private void startOverlayMessageTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", ordinal = 0, shift = At.Shift.AFTER))
@@ -145,7 +145,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getModelViewStack()Lcom/mojang/blaze3d/vertex/PoseStack;"))
             private void startHotbarItemTranslate(int x, int y, float partialTick, Player player, ItemStack stack, int i, CallbackInfo ci) {
-                Translate.start(RenderSystem.getModelViewStack(), Layers.HOTBAR.toString());
+                Translate.start(RenderSystem.getModelViewStack(), Layers.HOTBAR);
             }
 
             @Inject(method = "renderSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;renderGuiItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", shift = At.Shift.AFTER))
@@ -175,7 +175,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;render(Lcom/mojang/blaze3d/vertex/PoseStack;I)V"))
             private void startChatTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.HOTBAR.toString());
+                Translate.start(poseStack, Layers.CHAT);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;render(Lcom/mojang/blaze3d/vertex/PoseStack;I)V", shift = At.Shift.AFTER))
@@ -197,7 +197,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startBossBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.BOSSBAR.toString());
+                Translate.start(poseStack, Layers.BOSSBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -219,7 +219,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V"))
             private void startScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.SIDEBAR.toString());
+                Translate.start(poseStack, Layers.SIDEBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
@@ -241,7 +241,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderEffects(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startStatusEffectTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.EFFECTS.toString());
+                Translate.start(poseStack, Layers.EFFECTS);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderEffects(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -263,7 +263,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lcom/mojang/blaze3d/vertex/PoseStack;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V"))
             private void startPlayerListTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.PLAYERS.toString());
+                Translate.start(poseStack, Layers.PLAYERS);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lcom/mojang/blaze3d/vertex/PoseStack;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
@@ -285,12 +285,12 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At("HEAD"))
             private void startRenderHeadTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.OTHER.toString());
+                Translate.start(poseStack, Layers.OTHER);
             }
 
             @Inject(method = "render", at = @At("TAIL"))
             private void startRenderTailTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(poseStack, Layers.OTHER.toString());
+                Translate.start(poseStack, Layers.OTHER);
             }
 
         }
