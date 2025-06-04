@@ -6,7 +6,6 @@ import dev.yurisuika.raised.commands.arguments.DirectionArgument;
 import dev.yurisuika.raised.commands.arguments.LayerArgument;
 import dev.yurisuika.raised.commands.arguments.TextureArgument;
 import dev.yurisuika.raised.util.Validate;
-import dev.yurisuika.raised.util.config.Config;
 import dev.yurisuika.raised.util.config.Option;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
@@ -20,8 +19,7 @@ public class RaisedCommand {
                 .then(ClientCommandManager.literal("config")
                         .then(ClientCommandManager.literal("reload")
                                 .executes(commandContext -> {
-                                    Config.loadConfig();
-                                    Validate.checkForOldConfig();
+                                    Validate.reloadConfig();
                                     commandContext.getSource().sendFeedback(Component.translatable("commands.raised.config.reload"));
                                     return 1;
                                 })
@@ -72,14 +70,14 @@ public class RaisedCommand {
                                         .then(ClientCommandManager.literal("x")
                                                 .executes(commandContext -> {
                                                     String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.query", name, Option.getDirectionX(name).getKey()));
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.query", name, Component.translatable(Option.getDirectionX(name).getKey())));
                                                     return 1;
                                                 })
                                                 .then(ClientCommandManager.argument("x", DirectionArgument.X.x())
                                                         .executes(commandContext -> {
                                                             String name = LayerArgument.getLayer(commandContext, "name").toString();
                                                             Option.setDirectionX(name, DirectionArgument.X.getX(commandContext, "x"));
-                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.set", name, Option.getDirectionX(name).getKey()));
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.set", name, Component.translatable(Option.getDirectionX(name).getKey())));
                                                             return 1;
                                                         })
                                                 )
@@ -87,14 +85,14 @@ public class RaisedCommand {
                                         .then(ClientCommandManager.literal("y")
                                                 .executes(commandContext -> {
                                                     String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.query", name, Option.getDirectionY(name).getKey()));
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.query", name, Component.translatable(Option.getDirectionY(name).getKey())));
                                                     return 1;
                                                 })
                                                 .then(ClientCommandManager.argument("y", DirectionArgument.Y.y())
                                                         .executes(commandContext -> {
                                                             String name = LayerArgument.getLayer(commandContext, "name").toString();
                                                             Option.setDirectionY(name, DirectionArgument.Y.getY(commandContext, "y"));
-                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.set", name, Option.getDirectionY(name).getKey()));
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.set", name, Component.translatable(Option.getDirectionY(name).getKey())));
                                                             return 1;
                                                         })
                                                 )
