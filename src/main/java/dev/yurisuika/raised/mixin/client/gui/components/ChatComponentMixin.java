@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.mixin.client.gui.components;
 
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.components.ChatComponent;
@@ -20,12 +20,12 @@ public abstract class ChatComponentMixin {
              */
             @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 0, argsOnly = true)
             private double adjustChatClickX(double value) {
-                return value - Translate.getX(Layers.CHAT.toString());
+                return value - Translate.getX(Layers.CHAT);
             }
 
             @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 1, argsOnly = true)
             private double adjustChatClickY(double value) {
-                return value - Translate.getY(Layers.CHAT.toString());
+                return value - Translate.getY(Layers.CHAT);
             }
 
             /**
@@ -33,12 +33,12 @@ public abstract class ChatComponentMixin {
              */
             @ModifyVariable(method = "screenToChatX", at = @At("HEAD"), ordinal = 0, argsOnly = true)
             private double adjustChatTooltipX(double value) {
-                return value - Translate.getX(Layers.CHAT.toString());
+                return value - Translate.getX(Layers.CHAT);
             }
 
             @ModifyVariable(method = "screenToChatY", at = @At("HEAD"), ordinal = 0, argsOnly = true)
             private double adjustChatTooltipY(double value) {
-                return value - Translate.getY(Layers.CHAT.toString());
+                return value - Translate.getY(Layers.CHAT);
             }
 
         }
