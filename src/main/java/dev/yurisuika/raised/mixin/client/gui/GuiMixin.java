@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
-import dev.yurisuika.raised.util.Layers;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.Gui;
@@ -24,7 +24,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderHotbar(Lnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startSpectatorMenuTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderHotbar(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -37,7 +37,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderHotbar(FLnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startHotbarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderHotbar(FLnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -51,7 +51,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderPlayerHealth(Lnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startStatusBarsTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderPlayerHealth(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -64,7 +64,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startMountHealthTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderVehicleHealth(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -77,7 +77,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lnet/minecraft/world/entity/PlayerRideableJumping;Lnet/minecraft/client/gui/GuiGraphics;I)V"))
             private void startMountJumpBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderJumpMeter(Lnet/minecraft/world/entity/PlayerRideableJumping;Lnet/minecraft/client/gui/GuiGraphics;I)V", shift = At.Shift.AFTER))
@@ -90,7 +90,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderExperienceBar(Lnet/minecraft/client/gui/GuiGraphics;I)V"))
             private void startExperienceBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderExperienceBar(Lnet/minecraft/client/gui/GuiGraphics;I)V", shift = At.Shift.AFTER))
@@ -103,7 +103,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startHeldItemTooltipTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -116,7 +116,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderTooltip(Lnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startSpectatorTooltipTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderTooltip(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -129,7 +129,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V", ordinal = 0))
             private void startOverlayMessageTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", ordinal = 0, shift = At.Shift.AFTER))
@@ -159,7 +159,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;render(Lnet/minecraft/client/gui/GuiGraphics;III)V"))
             private void startChatTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.HOTBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.CHAT);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;render(Lnet/minecraft/client/gui/GuiGraphics;III)V", shift = At.Shift.AFTER))
@@ -181,7 +181,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startBossBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.BOSSBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.BOSSBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -203,7 +203,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V"))
             private void startScoreboardTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.SIDEBAR.toString());
+                Translate.start(guiGraphics.pose(), Layers.SIDEBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
@@ -225,7 +225,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderEffects(Lnet/minecraft/client/gui/GuiGraphics;)V"))
             private void startStatusEffectTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.EFFECTS.toString());
+                Translate.start(guiGraphics.pose(), Layers.EFFECTS);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderEffects(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
@@ -247,7 +247,7 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V"))
             private void startPlayerListTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.PLAYERS.toString());
+                Translate.start(guiGraphics.pose(), Layers.PLAYERS);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
@@ -269,12 +269,12 @@ public abstract class GuiMixin {
              */
             @Inject(method = "render", at = @At("HEAD"))
             private void startRenderHeadTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.OTHER.toString());
+                Translate.start(guiGraphics.pose(), Layers.OTHER);
             }
 
             @Inject(method = "render", at = @At("TAIL"))
             private void startRenderTailTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-                Translate.start(guiGraphics.pose(), Layers.OTHER.toString());
+                Translate.start(guiGraphics.pose(), Layers.OTHER);
             }
 
         }
