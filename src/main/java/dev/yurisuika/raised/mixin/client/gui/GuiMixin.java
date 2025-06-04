@@ -1,7 +1,10 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Pack;
+import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.util.config.options.Layer;
 import dev.yurisuika.raised.util.config.options.Resource;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.Gui;
@@ -54,6 +57,46 @@ public abstract class GuiMixin {
                     int y = guiGraphics.guiHeight();
                     ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(RenderType::guiTextured, ResourceLocation.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 1, 1 / 23.0F, 0, -1);
                 }
+            }
+
+        }
+
+    }
+
+    public abstract static class Other {
+
+        @Mixin(value = Gui.class, priority = -999999999)
+        public abstract static class Pre {
+
+            /**
+             * Moves mod elements at the head/tail of the HUD render for {@link Layer} key "minecraft:other".
+             */
+            @Inject(method = "render", at = @At("HEAD"))
+            private void startRenderHeadTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+                Translate.start(guiGraphics.pose(), Layers.OTHER);
+            }
+
+            @Inject(method = "render", at = @At("TAIL"))
+            private void startRenderTailTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+                Translate.start(guiGraphics.pose(), Layers.OTHER);
+            }
+
+        }
+
+        @Mixin(value = Gui.class, priority = 999999999)
+        public abstract static class Post {
+
+            /**
+             * Moves mod elements at the head/tail of the HUD render for {@link Layer} key "minecraft:other".
+             */
+            @Inject(method = "render", at = @At("HEAD"))
+            private void endRenderHeadTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+                Translate.end(guiGraphics.pose());
+            }
+
+            @Inject(method = "render", at = @At("TAIL"))
+            private void endRenderTailTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+                Translate.end(guiGraphics.pose());
             }
 
         }
