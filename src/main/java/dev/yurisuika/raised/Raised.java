@@ -2,6 +2,7 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
+import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
 import dev.yurisuika.raised.util.Validate;
 import dev.yurisuika.raised.util.config.Config;
@@ -14,6 +15,7 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 
 public class Raised {
@@ -51,11 +53,16 @@ public class Raised {
                 ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, parent) -> new RaisedScreen(parent)));
             }
 
+            @SubscribeEvent
+            public static void registerLayers(FMLClientSetupEvent event) {
+                Validate.checkForOldConfig();
+                Layers.boostrap();
+            }
+
         }
 
         public Client() {
             Config.loadConfig();
-            Validate.checkForOldConfig();
         }
 
     }
