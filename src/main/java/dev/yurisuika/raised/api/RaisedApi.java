@@ -70,7 +70,7 @@ public class RaisedApi {
     /**
      * <p>Registers a layer for the user to configure.
      *
-     * <p>A default layer configuration is added to Raised's config under the provided key if the key does not exist.
+     * <p>This layer configuration is written to Raised's config under the provided key if the key does not exist.
      *
      * @param name the {@link Layer} key to register as a {@link String}
      * @param layer the default {@link Layer} configuration
@@ -82,13 +82,35 @@ public class RaisedApi {
     /**
      * <p>Registers a layer for the user to configure.
      *
-     * <p>A default layer configuration is added to Raised's config under the provided key if the key does not exist.
+     * <p>This layer configuration is written to Raised's config under the provided key if the key does not exist.
      *
      * @param name the {@link Layer} key to register as a {@link ResourceLocation}
      * @param layer the default {@link Layer} configuration
      */
     public static void register(ResourceLocation name, Layer layer) {
         Layers.register(name, layer);
+    }
+
+    /**
+     * <p>Registers a layer for the user to configure with a default layer configuration.
+     *
+     * <p>A default layer configuration is written to Raised's config under the provided key if the key does not exist.
+     *
+     * @param name the {@link Layer} key to register as a {@link String}
+     */
+    public static void register(String name) {
+        Layers.register(name);
+    }
+
+    /**
+     * <p>Registers a layer for the user to configure with a default layer configuration.
+     *
+     * <p>A default layer configuration is written to Raised's config under the provided key if the key does not exist.
+     *
+     * @param name the {@link Layer} key to register as a {@link ResourceLocation}
+     */
+    public static void register(ResourceLocation name) {
+        Layers.register(name);
     }
 
 }
