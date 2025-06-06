@@ -18,6 +18,14 @@ public class Layers {
     public static final ResourceLocation TOASTS = ResourceLocation.withDefaultNamespace("toasts");
     public static final ResourceLocation OTHER = ResourceLocation.withDefaultNamespace("other");
 
+    public static void register(String name) {
+        register(ResourceLocation.tryParse(name), createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+    }
+
+    public static void register(ResourceLocation name) {
+        register(name, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name.toString()));
+    }
+
     public static void register(String name, Layer layer) {
         register(ResourceLocation.tryParse(name), layer);
     }
