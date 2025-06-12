@@ -90,6 +90,8 @@ public class GuiEvents {
             return Layers.EFFECTS;
         } else if (name.equals(VanillaGuiLayers.TAB_LIST)) {
             return Layers.PLAYERS;
+        } else if (name.equals(VanillaGuiLayers.SUBTITLE_OVERLAY)) {
+            return Layers.SUBTITLES;
         } else if (MODS.contains(name)) {
             return name;
         } else {
