@@ -18,6 +18,7 @@
     "client.gui.components.AbstractSelectionListMixin",
     "client.gui.components.AbstractWidgetMixin",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
+    "client.gui.components.SubtitleOverlayMixin$Subtitles$Pre",
     "client.gui.components.toasts.ToastComponentMixin$Toasts$Pre"
   ],
   "injectors": {
