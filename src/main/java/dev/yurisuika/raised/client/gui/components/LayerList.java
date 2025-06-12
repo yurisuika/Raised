@@ -84,6 +84,7 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
                     case "sidebar" -> "sidebar";
                     case "effects" -> "effects";
                     case "players" -> "players";
+                    case "subtitles" -> "subtitles";
                     case "toasts" -> "toasts";
                     default -> "other";
                 };

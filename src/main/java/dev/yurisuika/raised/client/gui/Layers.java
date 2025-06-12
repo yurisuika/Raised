@@ -15,6 +15,7 @@ public class Layers {
     public static final ResourceLocation SIDEBAR = ResourceLocation.withDefaultNamespace("sidebar");
     public static final ResourceLocation EFFECTS = ResourceLocation.withDefaultNamespace("effects");
     public static final ResourceLocation PLAYERS = ResourceLocation.withDefaultNamespace("players");
+    public static final ResourceLocation SUBTITLES = ResourceLocation.withDefaultNamespace("subtitles");
     public static final ResourceLocation TOASTS = ResourceLocation.withDefaultNamespace("toasts");
     public static final ResourceLocation OTHER = ResourceLocation.withDefaultNamespace("other");
 
@@ -60,6 +61,7 @@ public class Layers {
         register(SIDEBAR, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.NONE, SIDEBAR));
         register(EFFECTS, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN, EFFECTS));
         register(PLAYERS, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.DOWN, PLAYERS));
+        register(SUBTITLES, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.UP, SUBTITLES));
         register(TOASTS, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN, TOASTS));
         register(OTHER, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
     }
