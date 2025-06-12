@@ -120,6 +120,8 @@ public class GuiEvents {
             return Layers.EFFECTS;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.PLAYER_LIST)) {
             return Layers.PLAYERS;
+        } else if (elementType.equals(RenderGameOverlayEvent.ElementType.SUBTITLES)) {
+            return Layers.SUBTITLES;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.ALL)) {
             return Layers.OTHER;
         } else {
