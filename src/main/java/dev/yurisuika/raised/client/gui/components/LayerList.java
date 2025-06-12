@@ -106,6 +106,9 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
                     case "players":
                         texture = "players";
                         break;
+                    case "subtitles":
+                        texture = "subtitles";
+                        break;
                     case "toasts":
                         texture = "toasts";
                         break;
