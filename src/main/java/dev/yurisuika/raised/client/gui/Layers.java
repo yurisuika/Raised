@@ -15,6 +15,7 @@ public class Layers {
     public static final ResourceLocation SIDEBAR = ResourceLocation.tryParse("sidebar");
     public static final ResourceLocation EFFECTS = ResourceLocation.tryParse("effects");
     public static final ResourceLocation PLAYERS = ResourceLocation.tryParse("players");
+    public static final ResourceLocation SUBTITLES = ResourceLocation.tryParse("subtitles");
     public static final ResourceLocation TOASTS = ResourceLocation.tryParse("toasts");
     public static final ResourceLocation OTHER = ResourceLocation.tryParse("other");
 
@@ -60,6 +61,7 @@ public class Layers {
         register(SIDEBAR, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.NONE, SIDEBAR));
         register(EFFECTS, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN, EFFECTS));
         register(PLAYERS, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.DOWN, PLAYERS));
+        register(SUBTITLES, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.UP, SUBTITLES));
         register(TOASTS, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN, TOASTS));
         register(OTHER, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
     }
