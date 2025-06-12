@@ -86,6 +86,8 @@ public class GuiEvents {
             return Layers.EFFECTS;
         } else if (overlay.equals(ForgeIngameGui.PLAYER_LIST_ELEMENT)) {
             return Layers.PLAYERS;
+        } else if (overlay.equals(ForgeIngameGui.SUBTITLES_ELEMENT)) {
+            return Layers.SUBTITLES;
         } else if (MODS.containsValue(overlay)) {
             return MODS.entrySet().stream().filter(entry -> entry.getValue().equals(overlay)).map(Map.Entry::getKey).findFirst().get();
         } else {
