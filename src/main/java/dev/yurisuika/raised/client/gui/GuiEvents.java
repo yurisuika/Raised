@@ -55,39 +55,41 @@ public class GuiEvents {
         }
     }
 
-    public static ResourceLocation formatOverlay(ResourceLocation id) {
-        if (id.equals(VanillaGuiOverlay.HOTBAR.id())) {
+    public static ResourceLocation formatOverlay(ResourceLocation name) {
+        if (name.equals(VanillaGuiOverlay.HOTBAR.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.PLAYER_HEALTH.id())) {
+        } else if (name.equals(VanillaGuiOverlay.PLAYER_HEALTH.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.ARMOR_LEVEL.id())) {
+        } else if (name.equals(VanillaGuiOverlay.ARMOR_LEVEL.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.FOOD_LEVEL.id())) {
+        } else if (name.equals(VanillaGuiOverlay.FOOD_LEVEL.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.AIR_LEVEL.id())) {
+        } else if (name.equals(VanillaGuiOverlay.AIR_LEVEL.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.MOUNT_HEALTH.id())) {
+        } else if (name.equals(VanillaGuiOverlay.MOUNT_HEALTH.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.JUMP_BAR.id())) {
+        } else if (name.equals(VanillaGuiOverlay.JUMP_BAR.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.EXPERIENCE_BAR.id())) {
+        } else if (name.equals(VanillaGuiOverlay.EXPERIENCE_BAR.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.ITEM_NAME.id())) {
+        } else if (name.equals(VanillaGuiOverlay.ITEM_NAME.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.RECORD_OVERLAY.id())) {
+        } else if (name.equals(VanillaGuiOverlay.RECORD_OVERLAY.id())) {
             return Layers.HOTBAR;
-        } else if (id.equals(VanillaGuiOverlay.CHAT_PANEL.id())) {
+        } else if (name.equals(VanillaGuiOverlay.CHAT_PANEL.id())) {
             return Layers.CHAT;
-        } else if (id.equals(VanillaGuiOverlay.BOSS_EVENT_PROGRESS.id())) {
+        } else if (name.equals(VanillaGuiOverlay.BOSS_EVENT_PROGRESS.id())) {
             return Layers.BOSSBAR;
-        } else if (id.equals(VanillaGuiOverlay.SCOREBOARD.id())) {
+        } else if (name.equals(VanillaGuiOverlay.SCOREBOARD.id())) {
             return Layers.SIDEBAR;
-        } else if (id.equals(VanillaGuiOverlay.POTION_ICONS.id())) {
+        } else if (name.equals(VanillaGuiOverlay.POTION_ICONS.id())) {
             return Layers.EFFECTS;
-        } else if (id.equals(VanillaGuiOverlay.PLAYER_LIST.id())) {
+        } else if (name.equals(VanillaGuiOverlay.PLAYER_LIST.id())) {
             return Layers.PLAYERS;
-        } else if (MODS.contains(id)) {
-            return id;
+        } else if (name.equals(VanillaGuiOverlay.SUBTITLES.id())) {
+            return Layers.SUBTITLES;
+        } else if (MODS.contains(name)) {
+            return name;
         } else {
             return null;
         }
