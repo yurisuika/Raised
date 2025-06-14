@@ -38,7 +38,7 @@ public class LayerButton extends Button {
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (texture != null) {
             guiGraphics.blitSprite(RenderType::guiTextured, TEXTURES.get(!isToggled(), isHoveredOrFocused()), getX(), getY(), getWidth(), getHeight());
-            guiGraphics.blitSprite(RenderType::guiTextured, texture, getX(), getY(), textureSize, textureSize);
+            guiGraphics.blit(RenderType::guiTextured, texture, getX(), getY(), 0, 0, textureSize, textureSize, textureSize, textureSize);
             renderScrollingString(guiGraphics, Minecraft.getInstance().font, message, getX() + textureSize, getY(), getX() + getWidth() - 2, getY() + getHeight(), -1);
         }
     }
