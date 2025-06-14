@@ -88,10 +88,12 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
 
         public LayerButton createLayerButton(ResourceLocation name) {
             AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.tryParse("raised:textures/layer/default.png"));
-            Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> pack.getResources(PackType.CLIENT_RESOURCES, "raised", "textures/layer/" + name.getNamespace() + "/" + name.getPath() + ".png", location -> {
-                texture.set(location);
-                return true;
-            }));
+            Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
+                ResourceLocation layer = ResourceLocation.tryParse("raised:textures/layer/" + name.getNamespace() + "/" + name.getPath() + ".png");
+                if (pack.hasResource(PackType.CLIENT_RESOURCES, layer)) {
+                    texture.set(layer);
+                }
+            });
 
             return LayerButton.builder(Parse.createLayerDisplay(name), button -> {
                 RaisedScreen.current = name;
