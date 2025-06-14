@@ -22,7 +22,7 @@ public class Pack {
 
         Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
             if (!pack.packId().contentEquals("raised")) {
-                pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/sprites/hud/hotbar_selection.png", (id, supplier) -> exists.set(true));
+                pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/sprites/hud/hotbar_selection.png", (location, supplier) -> exists.set(true));
             }
         });
 
