@@ -8,9 +8,11 @@ import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
 
@@ -85,46 +87,17 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
         }
 
         public LayerButton createLayerButton(ResourceLocation name) {
-            String texture;
-            if (name.getNamespace().equals("minecraft")) {
-                switch (name.getPath()) {
-                    case "hotbar":
-                        texture = "hotbar";
-                        break;
-                    case "chat":
-                        texture = "chat";
-                        break;
-                    case "bossbar":
-                        texture = "bossbar";
-                        break;
-                    case "sidebar":
-                        texture = "sidebar";
-                        break;
-                    case "effects":
-                        texture = "effects";
-                        break;
-                    case "players":
-                        texture = "players";
-                        break;
-                    case "subtitles":
-                        texture = "subtitles";
-                        break;
-                    case "toasts":
-                        texture = "toasts";
-                        break;
-                    default:
-                        texture = "other";
-                        break;
-                }
-            } else {
-                texture = "other";
-            }
+            AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.tryParse("raised:textures/layer/default.png"));
+            Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> pack.getResources(PackType.CLIENT_RESOURCES, "raised", "textures/layer/" + name.getNamespace() + "/" + name.getPath() + ".png", Integer.MAX_VALUE, location -> {
+                texture.set(ResourceLocation.tryParse("raised:textures/layer/" + name.getNamespace() + "/" + name.getPath() + ".png"));
+                return true;
+            }));
 
             return LayerButton.builder(Parse.createLayerDisplay(name), button -> {
                 RaisedScreen.current = name;
                 screen.resetOptions();
                 screen.layers.children().forEach(Entry::updateButtonStates);
-            }, name.equals(RaisedScreen.current)).size(screen.BUTTON_WIDTH, screen.BUTTON_HEIGHT).texture(ResourceLocation.tryParse("raised:textures/gui/icon/" + texture + ".png"), screen.BUTTON_HEIGHT).tooltip((button, poseStack, mouseX, mouseY) -> screen.renderTooltip(poseStack, new TextComponent(name.toString()), mouseX, mouseY)).build();
+            }, name.equals(RaisedScreen.current)).size(screen.BUTTON_WIDTH, screen.BUTTON_HEIGHT).texture(texture.get(), screen.BUTTON_HEIGHT).tooltip((button, poseStack, mouseX, mouseY) -> screen.renderTooltip(poseStack, new TextComponent(name.toString()), mouseX, mouseY)).build();
         }
 
         @Override
