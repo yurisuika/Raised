@@ -21,22 +21,22 @@ public abstract class ForgeMixin {
 
         @Inject(method = "registerOverlayBottom", at = @At("HEAD"))
         private static void addLayerBelowAll(String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
-            addLayer(createId(formatNamespace(), displayName), overlay);
+            addLayer(ResourceLocation.tryParse(formatNamespace() + ":" + formatPath(displayName)), overlay);
         }
 
         @Inject(method = "registerOverlayBelow", at = @At("HEAD"))
         private static void addLayerBelow(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
-            addLayer(createId(formatNamespace(), displayName), overlay);
+            addLayer(ResourceLocation.tryParse(formatNamespace() + ":" + formatPath(displayName)), overlay);
         }
 
         @Inject(method = "registerOverlayAbove", at = @At("HEAD"))
         private static void addLayerAbove(IIngameOverlay other, String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
-            addLayer(createId(formatNamespace(), displayName), overlay);
+            addLayer(ResourceLocation.tryParse(formatNamespace() + ":" + formatPath(displayName)), overlay);
         }
 
         @Inject(method = "registerOverlayTop", at = @At("HEAD"))
         private static void addLayerAboveAll(String displayName, IIngameOverlay overlay, CallbackInfoReturnable<IIngameOverlay> cir) {
-            addLayer(createId(formatNamespace(), displayName), overlay);
+            addLayer(ResourceLocation.tryParse(formatNamespace() + ":" + formatPath(displayName)), overlay);
         }
 
         @Unique
@@ -44,17 +44,17 @@ public abstract class ForgeMixin {
             if (!id.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
                 GuiEvents.MODS.put(id, overlay);
 
-                Layers.LAYERS.put(id, Layers.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, id));
+                Layers.register(id, new Layer(new Layer.Displacement(0, 0), new Layer.Direction(Layer.Direction.X.NONE, Layer.Direction.Y.NONE), id.toString()));
             }
         }
 
         @Unique
-        private static ResourceLocation createId(String namespace, String displayName) {
+        private static String formatPath(String displayName) {
             String path = displayName;
             path = StringUtils.replaceChars(path, ' ', '_');
             path = StringUtils.remove(path, ':');
             path = path.toLowerCase();
-            return ResourceLocation.tryParse(namespace + ":" + path);
+            return path;
         }
 
         @Unique
