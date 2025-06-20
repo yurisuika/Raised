@@ -23,9 +23,6 @@
 
   "options.raised.title": "Raised Options",
 
-  "options.raised.layer.missing": "%s (Missing)",
-  "options.raised.layer.unloaded": "%s (Unloaded)",
-
   "options.raised.displacement.x": "Displacement (X)",
   "options.raised.displacement.x.tooltip": "Displacement of the layer on the x-axis.\nMoves the layer this amount.\nMaximum slider value is a quarter of scaled screen width.",
   "options.raised.displacement.y": "Displacement (Y)",
