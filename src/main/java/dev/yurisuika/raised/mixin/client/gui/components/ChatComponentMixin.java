@@ -31,12 +31,12 @@ public abstract class ChatComponentMixin {
             /**
              * Moves the {@code chat tooltip} for {@link Layer} key "minecraft:chat".
              */
-            @ModifyVariable(method = "screenToChatX", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+            @ModifyVariable(method = "getClickedComponentStyleAt", at = @At("HEAD"), ordinal = 0, argsOnly = true)
             private double adjustChatTooltipX(double value) {
                 return value - Translate.getX(Layers.CHAT);
             }
 
-            @ModifyVariable(method = "screenToChatY", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+            @ModifyVariable(method = "getClickedComponentStyleAt", at = @At("HEAD"), ordinal = 1, argsOnly = true)
             private double adjustChatTooltipY(double value) {
                 return value - Translate.getY(Layers.CHAT);
             }

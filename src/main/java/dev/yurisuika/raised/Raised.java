@@ -14,6 +14,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -62,8 +63,12 @@ public class Raised {
 
             @SubscribeEvent
             public static void registerLayers(FMLClientSetupEvent event) {
-                Validate.checkForOldConfig();
                 Layers.boostrap();
+            }
+
+            @SubscribeEvent(priority = EventPriority.LOWEST)
+            public static void validateConfig(FMLClientSetupEvent event) {
+                Validate.validateConfig();
             }
 
         }
