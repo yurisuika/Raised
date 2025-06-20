@@ -12,8 +12,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -35,7 +36,7 @@ public class Raised {
             }
 
             @SubscribeEvent
-            public static void registerCommands(RegisterClientCommandsEvent event) {
+            public static void registerCommands(RegisterCommandsEvent event) {
                 RaisedCommand.register(event.getDispatcher());
             }
 
@@ -61,8 +62,12 @@ public class Raised {
 
             @SubscribeEvent
             public static void registerLayers(FMLClientSetupEvent event) {
-                Validate.checkForOldConfig();
                 Layers.boostrap();
+            }
+
+            @SubscribeEvent(priority = EventPriority.LOWEST)
+            public static void validateConfig(FMLClientSetupEvent event) {
+                Validate.validateConfig();
             }
 
         }
