@@ -1,7 +1,5 @@
 package dev.yurisuika.raised.util;
 
-import dev.yurisuika.raised.client.gui.Layers;
-import dev.yurisuika.raised.util.config.Option;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,12 +22,6 @@ public class Parse {
     }
 
     public static Component createLayerDisplay(ResourceLocation name) {
-        if (!Option.getLayers().containsKey(name.toString())) {
-            return Component.translatable("options.raised.layer.missing", name);
-        }
-        if (!Layers.LAYERS.containsKey(name)) {
-            return Component.translatable("options.raised.layer.unloaded", name);
-        }
         return Component.literal(parseNamespace(name) + " - " + parsePath(name));
     }
 
