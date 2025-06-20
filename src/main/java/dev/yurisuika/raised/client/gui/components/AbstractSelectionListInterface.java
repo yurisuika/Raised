@@ -2,6 +2,6 @@ package dev.yurisuika.raised.client.gui.components;
 
 public interface AbstractSelectionListInterface {
 
-    void setPadding(int padding);
+    void setAdjusted(boolean adjusted);
 
 }
