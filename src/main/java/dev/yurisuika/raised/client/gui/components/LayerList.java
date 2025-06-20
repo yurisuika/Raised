@@ -1,40 +1,48 @@
 package dev.yurisuika.raised.client.gui.components;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.yurisuika.raised.client.gui.Layers;
+import dev.yurisuika.raised.client.gui.Scissor;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
 import dev.yurisuika.raised.util.Parse;
+import dev.yurisuika.raised.util.config.Option;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.ContainerObjectSelectionList;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.sounds.SoundEvents;
 
-import java.util.List;
+import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
+public class LayerList extends ObjectSelectionList<LayerList.Entry> {
 
     public RaisedScreen screen;
 
     public LayerList(Minecraft minecraft, int width, int height, RaisedScreen screen) {
-        super(minecraft, width, height, 0, height, screen.BUTTON_HEIGHT + screen.SPACING);
+        super(minecraft, width, height, screen.HEADER_HEIGHT, screen.height, screen.WIDGET_HEIGHT);
         this.screen = screen;
-        ((AbstractSelectionListInterface) this).setPadding(screen.PADDING);
+        ((AbstractSelectionListInterface) this).setAdjusted(true);
         setRenderBackground(false);
         setRenderTopAndBottom(false);
         setRenderHeader(false, 0);
     }
 
-    @Override
-    public int getRowWidth() {
-        return screen.BUTTON_WIDTH;
+    public void setList() {
+        clearEntries();
+        Layers.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)).filter(location -> location.getNamespace().equals(RaisedScreen.current.getNamespace())).forEach(name -> addEntry(new Entry(screen, name)));
     }
 
-    public void add(ResourceLocation name) {
-        addEntry(new LayerList.Entry(screen, name));
+    @Override
+    public int getRowWidth() {
+        return screen.WIDGET_WIDTH_WIDE;
     }
+
     @Override
     public int getMaxScroll() {
         return Math.max(0, getMaxPosition() - height);
@@ -42,21 +50,7 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
 
     @Override
     public int getMaxPosition() {
-        return screen.PADDING + headerHeight + (getItemCount() * itemHeight) - screen.SPACING + screen.PADDING;
-    }
-
-    @Override
-    public void renderDecorations(PoseStack poseStack, int mouseX, int mouseY) {
-        for (int i = 0; i < children().size(); i++) {
-            if (getEntry(i).button.isHovered() || getEntry(i).button.isFocused()) {
-                getEntry(i).button.renderToolTip(poseStack, mouseX, mouseY);
-            }
-        }
-    }
-
-    @Override
-    public int getRowTop(int index) {
-        return y0 + screen.PADDING - (int) getScrollAmount() + index * itemHeight + headerHeight;
+        return screen.PADDING + (getItemCount() * itemHeight) + screen.PADDING;
     }
 
     @Override
@@ -69,54 +63,53 @@ public class LayerList extends ContainerObjectSelectionList<LayerList.Entry> {
         return getRowRight() + screen.PADDING - 6;
     }
 
-    public static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
+    public class Entry extends ObjectSelectionList.Entry<Entry> {
 
         public final RaisedScreen screen;
         public final ResourceLocation name;
-        public final LayerButton button;
 
         public Entry(RaisedScreen screen, ResourceLocation name) {
             this.screen = screen;
             this.name = name;
-            this.button = createLayerButton(name);
-        }
-
-        public void updateButtonStates() {
-            button.toggled = RaisedScreen.current.equals(name);
-            button.active = !button.toggled;
-        }
-
-        public LayerButton createLayerButton(ResourceLocation name) {
-            AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.tryParse("raised:textures/layer/default.png"));
-            Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
-                ResourceLocation layer = ResourceLocation.tryParse("raised:textures/layer/" + name.getNamespace() + "/" + name.getPath() + ".png");
-                if (pack.hasResource(PackType.CLIENT_RESOURCES, layer)) {
-                    texture.set(layer);
-                }
-            });
-
-            return LayerButton.builder(Parse.createLayerDisplay(name), button -> {
-                RaisedScreen.current = name;
-                screen.resetOptions();
-                screen.layers.children().forEach(Entry::updateButtonStates);
-            }, name.equals(RaisedScreen.current)).size(screen.BUTTON_WIDTH, screen.BUTTON_HEIGHT).texture(texture.get(), screen.BUTTON_HEIGHT).tooltip((button, poseStack, mouseX, mouseY) -> screen.renderTooltip(poseStack, new TextComponent(name.toString()), mouseX, mouseY)).build();
+            setCurrent(RaisedScreen.current.equals(name));
         }
 
         @Override
         public void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            button.y = top;
-            button.x = left;
-            button.render(poseStack, mouseX, mouseY, partialTick);
+            Scissor.renderScrollingString(poseStack, Minecraft.getInstance().font, new TextComponent(Parse.parsePath(name)), left + screen.WIDGET_WIDTH_SQUARE, top, left + (screen.WIDGET_WIDTH_WIDE - screen.WIDGET_WIDTH_SQUARE), top + screen.WIDGET_HEIGHT, -1);
+
+            AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.tryParse("raised:textures/gui/layer/default.png"));
+            Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
+                ResourceLocation layer = ResourceLocation.tryParse("raised:textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png");
+                if (pack.hasResource(PackType.CLIENT_RESOURCES, layer)) {
+                    texture.set(layer);
+                }
+            });
+            RenderSystem.setShaderTexture(0, texture.get());
+            blit(poseStack, left, top, 0, 0, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT);
+
+            RenderSystem.setShaderTexture(0, ResourceLocation.tryParse("raised:textures/gui/direction/" + Option.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Option.getDirectionY(name.toString()).toString().toLowerCase() + ".png"));
+            blit(poseStack, left + (screen.WIDGET_WIDTH_WIDE - screen.WIDGET_WIDTH_SQUARE), top, 0, 0, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT);
         }
 
         @Override
-        public List<? extends GuiEventListener> children() {
-            return List.of(button);
+        public Component getNarration() {
+            return new TranslatableComponent("narrator.select", Parse.createLayerDisplay(name));
         }
 
         @Override
-        public List<? extends NarratableEntry> narratables() {
-            return List.of(button);
+        public boolean mouseClicked(double mouseX, double mouseY, int button) {
+            Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+            setCurrent(true);
+            return true;
+        }
+
+        public void setCurrent(boolean current) {
+            if (current) {
+                RaisedScreen.current = name;
+                screen.resetOptions();
+                LayerList.this.setSelected(this);
+            }
         }
 
     }
