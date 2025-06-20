@@ -21,12 +21,12 @@ public abstract class ToastComponentMixin {
              * Moves the {@code toasts} for {@link Layer} key "minecraft:toasts".
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"))
-            private void startToastsTranslate(int x, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
+            private void startToastsTranslate(int x, int y, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
                 Translate.start(RenderSystem.getModelViewStack(), Layers.TOASTS);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.AFTER))
-            private void endToastsTranslate(int x, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
+            private void endToastsTranslate(int x, int y, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
                 Translate.end(RenderSystem.getModelViewStack());
             }
 
