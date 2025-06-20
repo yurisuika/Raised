@@ -4,39 +4,43 @@ import dev.yurisuika.raised.client.gui.components.AbstractSelectionListInterface
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(AbstractSelectionList.class)
 public abstract class AbstractSelectionListMixin implements AbstractSelectionListInterface {
 
     @Unique
-    public int padding = 4;
+    public boolean adjusted = false;
 
-    @ModifyVariable(method = "renderWidget", at = @At("STORE"), ordinal = 3)
+    @ModifyConstant(method = "renderWidget", constant = @Constant(intValue = 4, ordinal = 0))
     private int adjustHeaderSpacing(int value) {
-        return value + (padding - 4);
+        return adjusted ? 8 : value;
     }
 
-    @ModifyArg(method = "getEntryAtPosition", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;floor(D)I"), index = 0)
-    public double adjustEntrySpacing(double value) {
-        return value - (padding - 4);
+    @ModifyConstant(method = "getEntryAtPosition", constant = @Constant(intValue = 4, ordinal = 0))
+    private int adjustEntrySpacing(int value) {
+        return adjusted ? 8 : value;
     }
 
-    @ModifyVariable(method = "ensureVisible", at = @At("STORE"), ordinal = 1)
-    public int adjustVisibleSpacing(int value) {
-        return value - (padding - 4);
+    @ModifyConstant(method = "ensureVisible", constant = @Constant(intValue = 4, ordinal = 0))
+    private int adjustVisibleSpacing(int value) {
+        return adjusted ? 8 : value;
     }
 
-    @ModifyVariable(method = "renderListItems", at = @At("STORE"), ordinal = 4)
-    public int adjustItemHeight(int value) {
-        return value - (padding - 4);
+    @ModifyConstant(method = "getRowTop", constant = @Constant(intValue = 4, ordinal = 0))
+    private int adjustRowTop(int value) {
+        return adjusted ? 8 : value;
+    }
+
+    @ModifyConstant(method = "renderListItems", constant = @Constant(intValue = 4, ordinal = 0))
+    private int adjustItemHeight(int value) {
+        return adjusted ? 0 : value;
     }
 
     @Override
-    public void setPadding(int padding) {
-        this.padding = padding;
+    public void setAdjusted(boolean adjusted) {
+        this.adjusted = adjusted;
     }
 
 }
