@@ -12,13 +12,7 @@ public class Translate {
     }
 
     public static int getX(String name) {
-        if (Option.getLayer(name) == null) {
-            return 0;
-        }
-        if (Option.getLayer(Option.getSync(name)) == null) {
-            return Option.getDisplacementX(name) * Option.getDirectionX(name).getX();
-        }
-        return Option.getDisplacementX(Option.getSync(name)) * Option.getDirectionX(name).getX();
+        return Option.getLayer(name) == null ? 0 : Option.getDisplacementX(Option.getSync(name)) * Option.getDirectionX(name).getX();
     }
 
     public static int getY(ResourceLocation name) {
@@ -26,13 +20,7 @@ public class Translate {
     }
 
     public static int getY(String name) {
-        if (Option.getLayer(name) == null) {
-            return 0;
-        }
-        if (Option.getLayer(Option.getSync(name)) == null) {
-            return Option.getDisplacementY(name) * Option.getDirectionX(name).getX();
-        }
-        return Option.getDisplacementY(Option.getSync(name)) * Option.getDirectionY(name).getY();
+        return Option.getLayer(name) == null ? 0 : Option.getDisplacementY(Option.getSync(name)) * Option.getDirectionY(name).getY();
     }
 
     public static void start(ResourceLocation name) {
