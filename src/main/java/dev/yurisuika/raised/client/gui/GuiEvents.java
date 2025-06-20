@@ -22,7 +22,7 @@ public class GuiEvents {
         if (name != null && !name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
-                Translate.start(name.toString());
+                Translate.start(name);
             }
         }
     }
@@ -55,7 +55,7 @@ public class GuiEvents {
         if (name != null && name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
-                Translate.start(name.toString());
+                Translate.start(name);
             }
         }
     }
@@ -77,7 +77,7 @@ public class GuiEvents {
         if (name != null && name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
-                Translate.start(name.toString());
+                Translate.start(name);
             }
         }
     }
