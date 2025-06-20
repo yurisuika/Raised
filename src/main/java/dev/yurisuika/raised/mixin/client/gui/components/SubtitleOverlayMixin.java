@@ -20,12 +20,12 @@ public abstract class SubtitleOverlayMixin {
             /**
              * Moves the {@code subtitles} for {@link Layer} key "minecraft:subtitles".
              */
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;pushMatrix()Lorg/joml/Matrix3x2fStack;"))
             private void startSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
                 Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
             }
 
-            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.AFTER))
+            @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;popMatrix()Lorg/joml/Matrix3x2fStack;", shift = At.Shift.AFTER))
             private void endSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
                 Translate.end(guiGraphics.pose());
             }

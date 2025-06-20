@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.util;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.util.config.Option;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix3x2fStack;
 
 public class Translate {
 
@@ -11,13 +11,7 @@ public class Translate {
     }
 
     public static int getX(String name) {
-        if (Option.getLayer(name) == null) {
-            return 0;
-        }
-        if (Option.getLayer(Option.getSync(name)) == null) {
-            return Option.getDisplacementX(name) * Option.getDirectionX(name).getX();
-        }
-        return Option.getDisplacementX(Option.getSync(name)) * Option.getDirectionX(name).getX();
+        return Option.getLayer(name) == null ? 0 : Option.getDisplacementX(Option.getSync(name)) * Option.getDirectionX(name).getX();
     }
 
     public static int getY(ResourceLocation name) {
@@ -25,26 +19,20 @@ public class Translate {
     }
 
     public static int getY(String name) {
-        if (Option.getLayer(name) == null) {
-            return 0;
-        }
-        if (Option.getLayer(Option.getSync(name)) == null) {
-            return Option.getDisplacementY(name) * Option.getDirectionX(name).getX();
-        }
-        return Option.getDisplacementY(Option.getSync(name)) * Option.getDirectionY(name).getY();
+        return Option.getLayer(name) == null ? 0 : Option.getDisplacementY(Option.getSync(name)) * Option.getDirectionY(name).getY();
     }
 
-    public static void start(PoseStack poseStack, ResourceLocation name) {
-        start(poseStack, name.toString());
+    public static void start(Matrix3x2fStack matrix3x2fStack, ResourceLocation name) {
+        start(matrix3x2fStack, name.toString());
     }
 
-    public static void start(PoseStack poseStack, String name) {
-        poseStack.pushPose();
-        poseStack.translate(getX(name), getY(name), 0);
+    public static void start(Matrix3x2fStack matrix3x2fStack, String name) {
+        matrix3x2fStack.pushMatrix();
+        matrix3x2fStack.translate(getX(name), getY(name));
     }
 
-    public static void end(PoseStack poseStack) {
-        poseStack.popPose();
+    public static void end(Matrix3x2fStack matrix3x2fStack) {
+        matrix3x2fStack.popMatrix();
     }
 
 }

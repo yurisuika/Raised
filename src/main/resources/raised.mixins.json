@@ -17,6 +17,7 @@
     "client.gui.GuiMixin$Players$Pre",
     "client.gui.GuiMixin$Sidebar$Pre",
     "client.gui.components.AbstractSelectionListMixin",
+    "client.gui.components.AbstractWidgetInvoker",
     "client.gui.components.BossHealthOverlayMixin$Bossbar$Pre",
     "client.gui.components.ChatComponentMixin$Chat$Pre",
     "client.gui.components.SubtitleOverlayMixin$Subtitles$Pre",
