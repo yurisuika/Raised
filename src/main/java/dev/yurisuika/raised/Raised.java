@@ -8,6 +8,7 @@ import dev.yurisuika.raised.util.Validate;
 import dev.yurisuika.raised.util.config.Config;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 
@@ -32,8 +33,11 @@ public class Raised {
         }
 
         public static void registerLayers() {
-            Validate.checkForOldConfig();
             Layers.boostrap();
+        }
+
+        public static void validateLayers() {
+            ClientLifecycleEvents.CLIENT_STARTED.register(minecraft -> Validate.validateConfig());
         }
 
         public void onInitializeClient() {
@@ -43,6 +47,7 @@ public class Raised {
             registerInputEvents();
             registerCommands();
             registerLayers();
+            validateLayers();
         }
 
     }
