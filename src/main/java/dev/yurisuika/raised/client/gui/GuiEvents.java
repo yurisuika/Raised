@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.client.gui;
 
-import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.Translate;
 import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +27,7 @@ public class GuiEvents {
         if (name != null && Layers.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
-                Translate.start(event.getGuiGraphics().pose(), name.toString());
+                Translate.start(event.getGuiGraphics().pose(), name);
             }
         }
     }

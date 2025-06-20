@@ -9,6 +9,7 @@ import dev.yurisuika.raised.util.Validate;
 import dev.yurisuika.raised.util.config.Config;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -62,17 +63,19 @@ public class Raised {
 
             @SubscribeEvent
             public static void registerLayers(FMLClientSetupEvent event) {
-                Validate.checkForOldConfig();
                 Layers.boostrap();
+            }
+
+            @SubscribeEvent(priority = EventPriority.LOWEST)
+            public static void validateConfig(FMLClientSetupEvent event) {
+                Validate.validateConfig();
             }
 
         }
 
         public Client() {
             Config.loadConfig();
-            Validate.checkForOldConfig();
         }
-
 
     }
 
