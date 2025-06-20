@@ -28,7 +28,7 @@ public class GuiEvents {
         if (name != null && Layers.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
-                Translate.start(event.getPoseStack(), name.toString());
+                Translate.start(event.getPoseStack(), name);
             }
         }
     }
