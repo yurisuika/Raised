@@ -3,9 +3,9 @@ package dev.yurisuika.raised.mixin.mods;
 import dev.yurisuika.raised.client.gui.GuiEvents;
 import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.util.config.options.Layer;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,22 +18,22 @@ public abstract class NeoForgeMixin {
     public abstract static class RegisterGuiLayersEventMixin {
 
         @Inject(method = "registerBelowAll", at = @At("HEAD"))
-        private void addLayerBelowAll(ResourceLocation id, LayeredDraw.Layer layer, CallbackInfo ci) {
+        private void addLayerBelowAll(ResourceLocation id, GuiLayer layer, CallbackInfo ci) {
             addLayer(id);
         }
 
         @Inject(method = "registerBelow", at = @At("HEAD"))
-        private void addLayerBelow(ResourceLocation other, ResourceLocation id, LayeredDraw.Layer layer, CallbackInfo ci) {
+        private void addLayerBelow(ResourceLocation other, ResourceLocation id, GuiLayer layer, CallbackInfo ci) {
             addLayer(id);
         }
 
         @Inject(method = "registerAbove", at = @At("HEAD"))
-        private void addLayerAbove(ResourceLocation other, ResourceLocation id, LayeredDraw.Layer layer, CallbackInfo ci) {
+        private void addLayerAbove(ResourceLocation other, ResourceLocation id, GuiLayer layer, CallbackInfo ci) {
             addLayer(id);
         }
 
         @Inject(method = "registerAboveAll", at = @At("HEAD"))
-        private void addLayerAboveAll(ResourceLocation id, LayeredDraw.Layer layer, CallbackInfo ci) {
+        private void addLayerAboveAll(ResourceLocation id, GuiLayer layer, CallbackInfo ci) {
             addLayer(id);
         }
 

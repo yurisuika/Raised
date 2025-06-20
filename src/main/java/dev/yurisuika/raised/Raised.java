@@ -9,6 +9,7 @@ import dev.yurisuika.raised.util.Validate;
 import dev.yurisuika.raised.util.config.Config;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -26,8 +27,8 @@ public class Raised {
     @Mod(value = "raised", dist = Dist.CLIENT)
     public static class Client {
 
-        @EventBusSubscriber(modid = "raised", bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
-        public static class GameEvents {
+        @EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
+        public static class Events {
 
             @SubscribeEvent
             public static void registerInputEvents(InputEvent.Key event) {
@@ -40,11 +41,6 @@ public class Raised {
             public static void registerCommands(RegisterClientCommandsEvent event) {
                 RaisedCommand.register(event.getDispatcher(), event.getBuildContext());
             }
-
-        }
-
-        @EventBusSubscriber(modid = "raised", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-        public static class ModEvents {
 
             @SubscribeEvent
             public static void registerGuiEvents(FMLClientSetupEvent event) {
@@ -63,8 +59,12 @@ public class Raised {
 
             @SubscribeEvent
             public static void registerLayers(FMLClientSetupEvent event) {
-                Validate.checkForOldConfig();
                 Layers.boostrap();
+            }
+
+            @SubscribeEvent(priority = EventPriority.LOWEST)
+            public static void validateConfig(FMLClientSetupEvent event) {
+                Validate.validateConfig();
             }
 
         }

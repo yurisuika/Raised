@@ -27,7 +27,7 @@ public class GuiEvents {
         if (name != null && Layers.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
-                Translate.start(event.getGuiGraphics().pose(), name.toString());
+                Translate.start(event.getGuiGraphics().pose(), name);
             }
         }
     }
@@ -67,11 +67,11 @@ public class GuiEvents {
             return Layers.HOTBAR;
         } else if (name.equals(VanillaGuiLayers.VEHICLE_HEALTH)) {
             return Layers.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.JUMP_METER)) {
-            return Layers.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.EXPERIENCE_BAR)) {
+        } else if (name.equals(VanillaGuiLayers.CONTEXTUAL_INFO_BAR_BACKGROUND)) {
             return Layers.HOTBAR;
         } else if (name.equals(VanillaGuiLayers.EXPERIENCE_LEVEL)) {
+            return Layers.HOTBAR;
+        } else if (name.equals(VanillaGuiLayers.CONTEXTUAL_INFO_BAR)) {
             return Layers.HOTBAR;
         } else if (name.equals(VanillaGuiLayers.SELECTED_ITEM_NAME)) {
             return Layers.HOTBAR;
