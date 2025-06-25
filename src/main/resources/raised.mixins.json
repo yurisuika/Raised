@@ -10,13 +10,12 @@
   ],
   "client": [
     "client.gui.GuiGraphicsInvoker",
-    "client.gui.GuiMixin$Hotbar$Pre",
-    "client.gui.GuiMixin$Other$Post",
-    "client.gui.GuiMixin$Other$Pre",
+    "client.gui.GuiMixin$Post",
+    "client.gui.GuiMixin$Pre",
     "client.gui.components.AbstractSelectionListMixin",
-    "client.gui.components.ChatComponentMixin$Chat$Pre",
-    "client.gui.components.toasts.ToastManagerMixin$Toasts$Pre",
-    "client.gui.screens.ChatScreenMixin$Chat$Pre"
+    "client.gui.components.ChatComponentMixin$Pre",
+    "client.gui.components.toasts.ToastManagerMixin$Pre",
+    "client.gui.screens.ChatScreenMixin$Pre"
   ],
   "injectors": {
     "defaultRequire": 1

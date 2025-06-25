@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.util;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
@@ -19,10 +18,6 @@ public class Parse {
         layer = StringUtils.replaceChars(layer, '-', ' ');
         layer = WordUtils.capitalize(layer);
         return layer;
-    }
-
-    public static Component createLayerDisplay(ResourceLocation name) {
-        return Component.literal(parseNamespace(name) + " - " + parsePath(name));
     }
 
 }
