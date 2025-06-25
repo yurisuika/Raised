@@ -1,15 +1,19 @@
-package dev.yurisuika.raised.client.gui;
+package dev.yurisuika.raised.mixin.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.yurisuika.raised.client.gui.GuiComponentInterface;
 import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import org.spongepowered.asm.mixin.Mixin;
 
-public class Scissor {
+@Mixin(GuiComponent.class)
+public abstract class GuiComponentMixin implements GuiComponentInterface {
 
-    public static void renderScrollingString(PoseStack poseStack, Font font, Component text, int minX, int minY, int maxX, int maxY, int color) {
+    @Override
+    public void renderScrollingString(PoseStack poseStack, Font font, Component text, int minX, int minY, int maxX, int maxY, int color) {
         int i = font.width(text);
         int j = (minY + maxY - 9) / 2 + 1;
         int k = maxX - minX;
