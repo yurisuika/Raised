@@ -2,11 +2,11 @@ package dev.yurisuika.raised.client.gui.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.yurisuika.raised.client.gui.Layers;
-import dev.yurisuika.raised.client.gui.Scissor;
+import dev.yurisuika.raised.client.gui.GuiComponentInterface;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
+import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Parse;
-import dev.yurisuika.raised.util.config.Option;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -31,9 +31,9 @@ public class LayerList extends ObjectSelectionList<LayerList.Entry> {
         setRenderHeader(false, 0);
     }
 
-    public void setList() {
+    public void setLayers() {
         clearEntries();
-        Layers.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)).filter(location -> location.getNamespace().equals(RaisedScreen.current.getNamespace())).forEach(name -> addEntry(new Entry(screen, name)));
+        LayerRegistry.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)).filter(location -> location.getNamespace().equals(RaisedScreen.current.getNamespace())).forEach(name -> addEntry(new Entry(screen, name)));
     }
 
     @Override
@@ -74,7 +74,7 @@ public class LayerList extends ObjectSelectionList<LayerList.Entry> {
 
         @Override
         public void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            Scissor.renderScrollingString(poseStack, Minecraft.getInstance().font, Component.literal(Parse.parsePath(name)), left + screen.WIDGET_WIDTH_SQUARE, top, left + (screen.WIDGET_WIDTH_WIDE - screen.WIDGET_WIDTH_SQUARE), top + screen.WIDGET_HEIGHT, -1);
+            ((GuiComponentInterface) screen).renderScrollingString(poseStack, Minecraft.getInstance().font, Component.literal(Parse.parsePath(name)), left + screen.WIDGET_WIDTH_SQUARE, top, left + (screen.WIDGET_WIDTH_WIDE - screen.WIDGET_WIDTH_SQUARE), top + screen.WIDGET_HEIGHT, -1);
 
             AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.tryParse("raised:textures/gui/layer/default.png"));
             Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
@@ -86,13 +86,13 @@ public class LayerList extends ObjectSelectionList<LayerList.Entry> {
             RenderSystem.setShaderTexture(0, texture.get());
             blit(poseStack, left, top, 0, 0, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT);
 
-            RenderSystem.setShaderTexture(0, ResourceLocation.tryParse("raised:textures/gui/direction/" + Option.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Option.getDirectionY(name.toString()).toString().toLowerCase() + ".png"));
+            RenderSystem.setShaderTexture(0, ResourceLocation.tryParse("raised:textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"));
             blit(poseStack, left + (screen.WIDGET_WIDTH_WIDE - screen.WIDGET_WIDTH_SQUARE), top, 0, 0, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT, screen.WIDGET_WIDTH_SQUARE, screen.WIDGET_HEIGHT);
         }
 
         @Override
         public Component getNarration() {
-            return Component.translatable("narrator.select", Parse.createLayerDisplay(name));
+            return Component.translatable("narrator.select", Parse.parsePath(name));
         }
 
         @Override
