@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.mixin.mods;
 
 import dev.yurisuika.raised.client.gui.GuiEvents;
-import dev.yurisuika.raised.client.gui.Layers;
-import dev.yurisuika.raised.util.config.options.Layer;
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.GuiLayer;
@@ -42,7 +42,7 @@ public abstract class NeoForgeMixin {
             if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
                 GuiEvents.MODS.add(name);
 
-                Layers.register(name, Layers.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+                LayerRegistry.register(name, LayerRegistry.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
             }
         }
 

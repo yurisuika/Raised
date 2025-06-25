@@ -3,10 +3,10 @@ package dev.yurisuika.raised;
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
 import dev.yurisuika.raised.client.gui.GuiEvents;
-import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
+import dev.yurisuika.raised.config.Config;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Validate;
-import dev.yurisuika.raised.util.config.Config;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -59,7 +59,7 @@ public class Raised {
 
             @SubscribeEvent
             public static void registerLayers(FMLClientSetupEvent event) {
-                Layers.boostrap();
+                LayerRegistry.boostrap();
             }
 
             @SubscribeEvent(priority = EventPriority.LOWEST)

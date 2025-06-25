@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.util;
 
-import dev.yurisuika.raised.util.config.Option;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix3x2fStack;
 
@@ -11,7 +10,7 @@ public class Translate {
     }
 
     public static int getX(String name) {
-        return Option.getLayer(name) == null ? 0 : Option.getDisplacementX(Option.getSync(name)) * Option.getDirectionX(name).getX();
+        return Configure.getDisplacementX(Configure.getLayer(Configure.getSync(name)) == null ? name : Configure.getSync(name)) * Configure.getDirectionX(name).getX();
     }
 
     public static int getY(ResourceLocation name) {
@@ -19,7 +18,7 @@ public class Translate {
     }
 
     public static int getY(String name) {
-        return Option.getLayer(name) == null ? 0 : Option.getDisplacementY(Option.getSync(name)) * Option.getDirectionY(name).getY();
+        return Configure.getDisplacementY(Configure.getLayer(Configure.getSync(name)) == null ? name : Configure.getSync(name)) * Configure.getDirectionY(name).getY();
     }
 
     public static void start(Matrix3x2fStack matrix3x2fStack, ResourceLocation name) {
