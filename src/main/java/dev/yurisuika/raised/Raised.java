@@ -2,10 +2,10 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
-import dev.yurisuika.raised.client.gui.Layers;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
+import dev.yurisuika.raised.config.Config;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Validate;
-import dev.yurisuika.raised.util.config.Config;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -33,7 +33,7 @@ public class Raised {
         }
 
         public static void registerLayers() {
-            Layers.boostrap();
+            LayerRegistry.boostrap();
         }
 
         public static void validateLayers() {
