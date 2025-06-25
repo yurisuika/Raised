@@ -1,11 +1,12 @@
-package dev.yurisuika.raised.util.config;
+package dev.yurisuika.raised.util;
 
-import dev.yurisuika.raised.util.config.options.Layer;
-import dev.yurisuika.raised.util.config.options.Resource;
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.client.gui.Resource;
+import dev.yurisuika.raised.config.Config;
 
 import java.util.TreeMap;
 
-public class Option {
+public class Configure {
 
     public static TreeMap<String, Layer> getLayers() {
         return Config.getOptions().getLayers();
