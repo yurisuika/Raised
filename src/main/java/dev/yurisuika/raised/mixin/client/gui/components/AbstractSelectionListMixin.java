@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.mixin.client.gui.components;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.yurisuika.raised.client.gui.GuiComponentInterface;
 import dev.yurisuika.raised.client.gui.components.AbstractSelectionListInterface;
-import dev.yurisuika.raised.client.gui.Scissor;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -52,14 +52,14 @@ public abstract class AbstractSelectionListMixin implements AbstractSelectionLis
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/AbstractSelectionList;renderList(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIF)V"))
     private void enableScissor(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         if (adjusted) {
-            Scissor.enableScissor(x0, y0, x1, y1);
+            ((GuiComponentInterface) this).enableScissor(x0, y0, x1, y1);
         }
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/AbstractSelectionList;renderList(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIF)V", shift = At.Shift.AFTER))
     private void disableScissor(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         if (adjusted) {
-            Scissor.disableScissor();
+            ((GuiComponentInterface) this).disableScissor();
         }
     }
 
