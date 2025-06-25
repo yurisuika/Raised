@@ -1,9 +1,9 @@
 package dev.yurisuika.raised.mixin.mods;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.yurisuika.raised.client.gui.Layers;
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.client.gui.Gui;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +23,7 @@ public abstract class ForgeMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderHotbar(Lcom/mojang/blaze3d/vertex/PoseStack;F)V"))
             private void startSpectatorMenuTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(Layers.HOTBAR);
+                Translate.start(LayerRegistry.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderHotbar(Lcom/mojang/blaze3d/vertex/PoseStack;F)V", shift = At.Shift.AFTER))
@@ -36,7 +36,7 @@ public abstract class ForgeMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderSelectedItemName(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startHeldItemTooltipTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(Layers.HOTBAR);
+                Translate.start(LayerRegistry.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderSelectedItemName(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -49,7 +49,7 @@ public abstract class ForgeMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderTooltip(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startSpectatorTooltipTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(Layers.HOTBAR);
+                Translate.start(LayerRegistry.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/spectator/SpectatorGui;renderTooltip(Lcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -62,7 +62,7 @@ public abstract class ForgeMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderRecordOverlay(IIFLcom/mojang/blaze3d/vertex/PoseStack;)V"))
             private void startOverlayMessageTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(Layers.HOTBAR);
+                Translate.start(LayerRegistry.HOTBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderRecordOverlay(IIFLcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
@@ -84,7 +84,7 @@ public abstract class ForgeMixin {
              */
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V"))
             private void startScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(Layers.SIDEBAR);
+                Translate.start(LayerRegistry.SIDEBAR);
             }
 
             @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
@@ -106,12 +106,12 @@ public abstract class ForgeMixin {
              */
             @Inject(method = "render", at = @At("HEAD"))
             private void startRenderHeadTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(Layers.OTHER);
+                Translate.start(LayerRegistry.OTHER);
             }
 
             @Inject(method = "render", at = @At("TAIL"))
             private void startRenderTailTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
-                Translate.start(Layers.OTHER);
+                Translate.start(LayerRegistry.OTHER);
             }
 
         }

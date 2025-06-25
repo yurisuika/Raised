@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.client.gui;
 
+import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -19,7 +19,7 @@ public class GuiEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
     public void startTranslate(RenderGameOverlayEvent.Pre event) {
         ResourceLocation name = formatOverlay(event.getType());
-        if (name != null && !name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
+        if (name != null && !name.equals(LayerRegistry.OTHER) && LayerRegistry.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
                 Translate.start(name);
@@ -30,7 +30,7 @@ public class GuiEvents {
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endTranslate(RenderGameOverlayEvent.Pre event) {
         ResourceLocation name = formatOverlay(event.getType());
-        if (name != null && !name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name) && event.isCanceled()) {
+        if (name != null && !name.equals(LayerRegistry.OTHER) && LayerRegistry.LAYERS.containsKey(name) && event.isCanceled()) {
             if (translated) {
                 translated = false;
                 Translate.end();
@@ -41,7 +41,7 @@ public class GuiEvents {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void endTranslate(RenderGameOverlayEvent.Post event) {
         ResourceLocation name = formatOverlay(event.getType());
-        if (name != null && !name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
+        if (name != null && !name.equals(LayerRegistry.OTHER) && LayerRegistry.LAYERS.containsKey(name)) {
             if (translated) {
                 translated = false;
                 Translate.end();
@@ -52,7 +52,7 @@ public class GuiEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
     public void startAllPreTranslate(RenderGameOverlayEvent.Pre event) {
         ResourceLocation name = formatOverlay(event.getType());
-        if (name != null && name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
+        if (name != null && name.equals(LayerRegistry.OTHER) && LayerRegistry.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
                 Translate.start(name);
@@ -63,7 +63,7 @@ public class GuiEvents {
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endAllPreTranslate(RenderGameOverlayEvent.Pre event) {
         ResourceLocation name = formatOverlay(event.getType());
-        if (name != null && name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
+        if (name != null && name.equals(LayerRegistry.OTHER) && LayerRegistry.LAYERS.containsKey(name)) {
             if (translated) {
                 translated = false;
                 Translate.end();
@@ -74,7 +74,7 @@ public class GuiEvents {
     @SubscribeEvent(priority = EventPriority.HIGHEST, receiveCanceled = true)
     public void startAllPostTranslate(RenderGameOverlayEvent.Post event) {
         ResourceLocation name = formatOverlay(event.getType());
-        if (name != null && name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
+        if (name != null && name.equals(LayerRegistry.OTHER) && LayerRegistry.LAYERS.containsKey(name)) {
             if (!translated) {
                 translated = true;
                 Translate.start(name);
@@ -85,7 +85,7 @@ public class GuiEvents {
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
     public void endAllPostTranslate(RenderGameOverlayEvent.Post event) {
         ResourceLocation name = formatOverlay(event.getType());
-        if (name != null && name.equals(Layers.OTHER) && Layers.LAYERS.containsKey(name)) {
+        if (name != null && name.equals(LayerRegistry.OTHER) && LayerRegistry.LAYERS.containsKey(name)) {
             if (translated) {
                 translated = false;
                 Translate.end();
@@ -95,35 +95,35 @@ public class GuiEvents {
 
     public static ResourceLocation formatOverlay(RenderGameOverlayEvent.ElementType elementType) {
         if (elementType.equals(RenderGameOverlayEvent.ElementType.HOTBAR)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.HEALTH)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.ARMOR)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.FOOD)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.AIR)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.HEALTHMOUNT)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.JUMPBAR)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.EXPERIENCE)) {
-            return Layers.HOTBAR;
+            return LayerRegistry.HOTBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.CHAT)) {
-            return Layers.CHAT;
+            return LayerRegistry.CHAT;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.BOSSHEALTH)) {
-            return Layers.BOSSBAR;
+            return LayerRegistry.BOSSBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.BOSSINFO)) {
-            return Layers.BOSSBAR;
+            return LayerRegistry.BOSSBAR;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.POTION_ICONS)) {
-            return Layers.EFFECTS;
+            return LayerRegistry.EFFECTS;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.PLAYER_LIST)) {
-            return Layers.PLAYERS;
+            return LayerRegistry.PLAYERS;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.SUBTITLES)) {
-            return Layers.SUBTITLES;
+            return LayerRegistry.SUBTITLES;
         } else if (elementType.equals(RenderGameOverlayEvent.ElementType.ALL)) {
-            return Layers.OTHER;
+            return LayerRegistry.OTHER;
         } else {
             return null;
         }

@@ -1,4 +1,4 @@
-package dev.yurisuika.raised.util.config.options;
+package dev.yurisuika.raised.client.gui;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.Mth;
