@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
-import dev.yurisuika.raised.util.config.options.Layer;
-import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
+import dev.yurisuika.raised.client.gui.Layer;
+import net.minecraft.commands.CommandSourceStack;
 
 public abstract class DirectionArgument {
 
@@ -16,7 +16,7 @@ public abstract class DirectionArgument {
             return new X();
         }
 
-        public static Layer.Direction.X getX(CommandContext<FabricClientCommandSource> context, String id) {
+        public static Layer.Direction.X getX(CommandContext<CommandSourceStack> context, String id) {
             return context.getArgument(id, Layer.Direction.X.class);
         }
 
@@ -32,7 +32,7 @@ public abstract class DirectionArgument {
             return new Y();
         }
 
-        public static Layer.Direction.Y getY(CommandContext<FabricClientCommandSource> context, String id) {
+        public static Layer.Direction.Y getY(CommandContext<CommandSourceStack> context, String id) {
             return context.getArgument(id, Layer.Direction.Y.class);
         }
 

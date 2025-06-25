@@ -1,8 +1,10 @@
 package dev.yurisuika.raised.mixin.client.gui.components;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import dev.yurisuika.raised.client.gui.GuiComponentInterface;
 import dev.yurisuika.raised.client.gui.components.AbstractSelectionListInterface;
-import dev.yurisuika.raised.client.gui.Scissor;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,6 +25,16 @@ public abstract class AbstractSelectionListMixin implements AbstractSelectionLis
     protected int y1;
     @Unique
     public boolean adjusted = false;
+
+    @ModifyConstant(method = "getMaxScroll", constant = @Constant(intValue = 4, ordinal = 0))
+    private int adjustMaxScroll(int value) {
+        return adjusted ? 0 : value;
+    }
+
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/BufferBuilder;vertex(DDD)Lcom/mojang/blaze3d/vertex/VertexConsumer;"), slice = @Slice(to = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/AbstractSelectionList;getMaxScroll()I")))
+    private VertexConsumer removeBackground(BufferBuilder instance, double x, double y, double z) {
+        return adjusted ? instance.vertex(0, 0, 0) : instance.vertex(x, y, z);
+    }
 
     @ModifyConstant(method = "render", constant = @Constant(intValue = 4, ordinal = 0))
     private int adjustHeaderSpacing(int value) {
@@ -50,16 +62,16 @@ public abstract class AbstractSelectionListMixin implements AbstractSelectionLis
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/AbstractSelectionList;renderList(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIF)V"))
-    private void enableScissor(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void startScissoringList(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         if (adjusted) {
-            Scissor.enableScissor(x0, y0, x1, y1);
+            ((GuiComponentInterface) this).enableScissor(x0, y0, x1, y1);
         }
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/AbstractSelectionList;renderList(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIF)V", shift = At.Shift.AFTER))
-    private void disableScissor(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void endScissoringList(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         if (adjusted) {
-            Scissor.disableScissor();
+            ((GuiComponentInterface) this).disableScissor();
         }
     }
 

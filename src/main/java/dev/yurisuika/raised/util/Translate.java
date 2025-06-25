@@ -1,8 +1,7 @@
 package dev.yurisuika.raised.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.yurisuika.raised.client.gui.Layers;
-import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 public class Translate {
@@ -12,7 +11,7 @@ public class Translate {
     }
 
     public static int getX(String name) {
-        return Option.getLayer(name) == null ? 0 : Option.getDisplacementX(Option.getSync(name)) * Option.getDirectionX(name).getX();
+        return Configure.getDisplacementX(Configure.getLayer(Configure.getSync(name)) == null ? name : Configure.getSync(name)) * Configure.getDirectionX(name).getX();
     }
 
     public static int getY(ResourceLocation name) {
@@ -20,7 +19,7 @@ public class Translate {
     }
 
     public static int getY(String name) {
-        return Option.getLayer(name) == null ? 0 : Option.getDisplacementY(Option.getSync(name)) * Option.getDirectionY(name).getY();
+        return Configure.getDisplacementY(Configure.getLayer(Configure.getSync(name)) == null ? name : Configure.getSync(name)) * Configure.getDirectionY(name).getY();
     }
 
     public static void start(ResourceLocation name) {
@@ -29,7 +28,7 @@ public class Translate {
 
     public static void start(String name) {
         RenderSystem.pushMatrix();
-        RenderSystem.translated(getX(name), getY(name), name.equals(Layers.CHAT.toString()) ? 300 : 0);
+        RenderSystem.translated(getX(name), getY(name), name.equals(LayerRegistry.CHAT.toString()) ? 300 : 0);
     }
 
     public static void end() {

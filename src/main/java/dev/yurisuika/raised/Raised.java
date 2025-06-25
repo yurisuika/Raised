@@ -2,15 +2,15 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
-import dev.yurisuika.raised.client.gui.Layers;
+import dev.yurisuika.raised.client.event.ClientStartedEvent;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
+import dev.yurisuika.raised.config.Config;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Validate;
-import dev.yurisuika.raised.util.config.Config;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.event.client.ClientTickCallback;
+import net.fabricmc.fabric.api.registry.CommandRegistry;
 
 public class Raised {
 
@@ -21,7 +21,7 @@ public class Raised {
         }
 
         public static void registerInputEvents() {
-            ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
+            ClientTickCallback.EVENT.register(minecraft -> {
                 while (RaisedOptions.OPTIONS.consumeClick()) {
                     minecraft.setScreen(new RaisedScreen(null));
                 }
@@ -29,15 +29,15 @@ public class Raised {
         }
 
         public static void registerCommands() {
-            RaisedCommand.register(ClientCommandManager.DISPATCHER);
+            CommandRegistry.INSTANCE.register(false, RaisedCommand::register);
         }
 
         public static void registerLayers() {
-            Layers.boostrap();
+            LayerRegistry.boostrap();
         }
 
         public static void validateLayers() {
-            ClientLifecycleEvents.CLIENT_STARTED.register(minecraft -> Validate.validateConfig());
+            ClientStartedEvent.CLIENT_STARTED.register(minecraft -> Validate.validateConfig());
         }
 
         public void onInitializeClient() {

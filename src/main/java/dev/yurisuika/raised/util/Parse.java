@@ -1,8 +1,6 @@
 package dev.yurisuika.raised.util;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -20,10 +18,6 @@ public class Parse {
         layer = StringUtils.replaceChars(layer, '-', ' ');
         layer = WordUtils.capitalize(layer);
         return layer;
-    }
-
-    public static Component createLayerDisplay(ResourceLocation name) {
-        return new TextComponent(parseNamespace(name) + " - " + parsePath(name));
     }
 
 }
