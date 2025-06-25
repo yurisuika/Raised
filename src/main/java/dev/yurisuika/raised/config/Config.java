@@ -1,8 +1,7 @@
-package dev.yurisuika.raised.util.config;
+package dev.yurisuika.raised.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.yurisuika.raised.config.Options;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.File;
