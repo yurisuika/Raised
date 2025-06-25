@@ -1,12 +1,12 @@
-package dev.yurisuika.raised.client.gui;
+package dev.yurisuika.raised.registry;
 
-import dev.yurisuika.raised.util.config.Option;
-import dev.yurisuika.raised.util.config.options.Layer;
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.util.Configure;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.TreeMap;
 
-public class Layers {
+public class LayerRegistry {
 
     public static final TreeMap<ResourceLocation, Layer> LAYERS = new TreeMap<ResourceLocation, Layer>();
     public static final ResourceLocation HOTBAR = ResourceLocation.withDefaultNamespace("hotbar");
@@ -20,7 +20,7 @@ public class Layers {
     public static final ResourceLocation OTHER = ResourceLocation.withDefaultNamespace("other");
 
     public static void register(String name) {
-        register(ResourceLocation.tryParse(name), createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+        register(name, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
     }
 
     public static void register(ResourceLocation name) {
@@ -37,13 +37,13 @@ public class Layers {
     }
 
     public static void addLayerToConfig(ResourceLocation name, Layer layer) {
-        if (!Option.getLayers().containsKey(name.toString())) {
-            Option.addLayer(name.toString(), layer);
+        if (!Configure.getLayers().containsKey(name.toString())) {
+            Configure.addLayer(name.toString(), layer);
         }
     }
 
     public static void addLayersToConfig() {
-        LAYERS.forEach(Layers::addLayerToConfig);
+        LAYERS.forEach(LayerRegistry::addLayerToConfig);
     }
 
     public static Layer createLayer(int displacementX, int displacementY, Layer.Direction.X directionX, Layer.Direction.Y directionY, ResourceLocation sync) {
