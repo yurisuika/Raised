@@ -7,8 +7,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import dev.yurisuika.raised.client.gui.Layers;
-import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.util.Configure;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
@@ -34,7 +34,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
     @Override
     public ResourceLocation parse(StringReader reader) throws CommandSyntaxException {
         ResourceLocation name = ResourceLocation.read(reader);
-        if (Option.getLayers().containsKey(name.toString())) {
+        if (Configure.getLayers().containsKey(name.toString())) {
             return name;
         } else {
             throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.layer.unknown", object)).createWithContext(reader, name);
@@ -43,7 +43,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext, SuggestionsBuilder suggestionsBuilder) {
-        return SharedSuggestionProvider.suggestResource(Layers.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)), suggestionsBuilder);
+        return SharedSuggestionProvider.suggestResource(LayerRegistry.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)), suggestionsBuilder);
     }
 
     @Override
