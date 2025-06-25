@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.api;
 
-import dev.yurisuika.raised.client.gui.Layers;
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Translate;
-import dev.yurisuika.raised.util.config.options.Layer;
 import net.minecraft.resources.ResourceLocation;
 
 public class RaisedApi {
@@ -11,8 +11,7 @@ public class RaisedApi {
      * <p>Retrieves the horizontal offset for the given layer.
      *
      * <p>The displacement for the layer is modified with the direction of movement on the x-axis. If the layer is
-     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
-     * layer itself is null, returns 0.
+     * synced with another layer, the synced layer's displacement is used instead.
      *
      * @param name the {@link Layer} key as a {@link String}
      *
@@ -26,8 +25,7 @@ public class RaisedApi {
      * <p>Retrieves the horizontal offset for the given layer.
      *
      * <p>The displacement for the layer is modified with the direction of movement on the x-axis. If the layer is
-     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
-     * layer itself is null, returns 0.
+     * synced with another layer, the synced layer's displacement is used instead.
      *
      * @param name the {@link Layer} key as a {@link ResourceLocation}
      *
@@ -41,8 +39,7 @@ public class RaisedApi {
      * <p>Retrieves the vertical offset for the given layer.
      *
      * <p>The displacement for the layer is modified with the direction of movement on the y-axis. If the layer is
-     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
-     * layer itself is null, returns 0.
+     * synced with another layer, the synced layer's displacement is used instead.
      *
      * @param name the {@link Layer} key as a {@link String}
      *
@@ -56,8 +53,7 @@ public class RaisedApi {
      * <p>Retrieves the vertical offset for the given layer.
      *
      * <p>The displacement for the layer is modified with the direction of movement on the y-axis. If the layer is
-     * synced with itself or the synced layer is null (not in the config), the layer's own displacement is used. If the
-     * layer itself is null, returns 0.
+     * synced with another layer, the synced layer's displacement is used instead.
      *
      * @param name the {@link Layer} key as a {@link ResourceLocation}
      *
@@ -70,47 +66,23 @@ public class RaisedApi {
     /**
      * <p>Registers a layer for the user to configure.
      *
-     * <p>This layer configuration is written to Raised's config under the provided key if the key does not exist.
-     *
-     * @param name the {@link Layer} key to register as a {@link String}
-     * @param layer the default {@link Layer} configuration
-     */
-    public static void register(String name, Layer layer) {
-        Layers.register(name, layer);
-    }
-
-    /**
-     * <p>Registers a layer for the user to configure.
-     *
-     * <p>This layer configuration is written to Raised's config under the provided key if the key does not exist.
-     *
-     * @param name the {@link Layer} key to register as a {@link ResourceLocation}
-     * @param layer the default {@link Layer} configuration
-     */
-    public static void register(ResourceLocation name, Layer layer) {
-        Layers.register(name, layer);
-    }
-
-    /**
-     * <p>Registers a layer for the user to configure with a default layer configuration.
-     *
      * <p>A default layer configuration is written to Raised's config under the provided key if the key does not exist.
      *
      * @param name the {@link Layer} key to register as a {@link String}
      */
     public static void register(String name) {
-        Layers.register(name);
+        LayerRegistry.register(name);
     }
 
     /**
-     * <p>Registers a layer for the user to configure with a default layer configuration.
+     * <p>Registers a layer for the user to configure.
      *
      * <p>A default layer configuration is written to Raised's config under the provided key if the key does not exist.
      *
      * @param name the {@link Layer} key to register as a {@link ResourceLocation}
      */
     public static void register(ResourceLocation name) {
-        Layers.register(name);
+        LayerRegistry.register(name);
     }
 
 }
