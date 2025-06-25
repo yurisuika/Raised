@@ -1,15 +1,14 @@
 package dev.yurisuika.raised.util;
 
-import dev.yurisuika.raised.client.gui.Layers;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.config.Options;
-import dev.yurisuika.raised.util.config.Config;
-import dev.yurisuika.raised.util.config.Option;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
 
 public class Validate {
 
     public static void validateConfig() {
-        Option.getLayers().forEach((name, layer) -> {
+        Configure.getLayers().forEach((name, layer) -> {
             if (layer.getDisplacement() == null) {
                 resetConfig();
             }
@@ -19,21 +18,21 @@ public class Validate {
 
     public static void reloadConfig() {
         Config.loadConfig();
-        Layers.addLayersToConfig();
+        LayerRegistry.addLayersToConfig();
         validateLayers();
     }
 
     public static void resetConfig() {
-        Option.setLayers(new Options().getLayers());
-        Option.setResource(new Options().getResource());
-        Layers.addLayersToConfig();
+        Configure.setLayers(new Options().getLayers());
+        Configure.setResource(new Options().getResource());
+        LayerRegistry.addLayersToConfig();
         validateLayers();
     }
 
     public static void validateLayers() {
-        Option.getLayers().forEach((name, layer) -> {
-            if (!Layers.LAYERS.containsKey(ResourceLocation.tryParse(layer.getSync()))) {
-                Option.setSync(name, name);
+        Configure.getLayers().forEach((name, layer) -> {
+            if (!LayerRegistry.LAYERS.containsKey(ResourceLocation.tryParse(layer.getSync()))) {
+                Configure.setSync(name, name);
             }
         });
     }

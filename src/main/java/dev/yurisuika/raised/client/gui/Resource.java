@@ -1,4 +1,4 @@
-package dev.yurisuika.raised.util.config.options;
+package dev.yurisuika.raised.client.gui;
 
 import net.minecraft.util.Mth;
 import net.minecraft.util.OptionEnum;

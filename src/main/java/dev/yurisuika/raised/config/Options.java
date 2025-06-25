@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.config;
 
-import dev.yurisuika.raised.util.config.options.Layer;
-import dev.yurisuika.raised.util.config.options.Resource;
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.client.gui.Resource;
 
 import java.util.TreeMap;
 

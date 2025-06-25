@@ -9,20 +9,15 @@
   ],
   "client": [
     "client.gui.GuiGraphicsInvoker",
-    "client.gui.GuiMixin$Chat$Pre",
-    "client.gui.GuiMixin$Effects$Pre",
-    "client.gui.GuiMixin$Hotbar$Pre",
-    "client.gui.GuiMixin$Other$Post",
-    "client.gui.GuiMixin$Other$Pre",
-    "client.gui.GuiMixin$Players$Pre",
-    "client.gui.GuiMixin$Sidebar$Pre",
+    "client.gui.GuiMixin$Post",
+    "client.gui.GuiMixin$Pre",
     "client.gui.components.AbstractSelectionListMixin",
     "client.gui.components.AbstractWidgetInvoker",
-    "client.gui.components.BossHealthOverlayMixin$Bossbar$Pre",
-    "client.gui.components.ChatComponentMixin$Chat$Pre",
-    "client.gui.components.SubtitleOverlayMixin$Subtitles$Pre",
-    "client.gui.components.toasts.ToastManagerMixin$Toasts$Pre",
-    "client.gui.screens.ChatScreenMixin$Chat$Pre"
+    "client.gui.components.BossHealthOverlayMixin$Pre",
+    "client.gui.components.ChatComponentMixin$Pre",
+    "client.gui.components.SubtitleOverlayMixin$Pre",
+    "client.gui.components.toasts.ToastManagerMixin$Pre",
+    "client.gui.screens.ChatScreenMixin$Pre"
   ],
   "injectors": {
     "defaultRequire": 1
