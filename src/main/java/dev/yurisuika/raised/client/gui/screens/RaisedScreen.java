@@ -5,6 +5,7 @@ import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.gui.Layer;
 import dev.yurisuika.raised.client.gui.Resource;
 import dev.yurisuika.raised.client.gui.components.LayerList;
+import dev.yurisuika.raised.mixin.client.gui.components.AbstractWidgetInvoker;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Parse;
@@ -178,7 +179,7 @@ public class RaisedScreen extends Screen {
 
         guiGraphics.drawCenteredString(font, title, PADDING + (WIDGET_WIDTH_WIDE / 2), PADDING + 6, -1);
 
-        AbstractWidget.renderScrollingString(guiGraphics, font, Component.literal(Parse.parseNamespace(current)), width - (PADDING + WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), PADDING, width - (PADDING + WIDGET_WIDTH_SQUARE), PADDING + WIDGET_HEIGHT, -1);
+        AbstractWidgetInvoker.invokeRenderScrollingString(guiGraphics, font, Component.literal(Parse.parseNamespace(current)), width - (PADDING + WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), PADDING, width - (PADDING + WIDGET_WIDTH_SQUARE), PADDING + WIDGET_HEIGHT, -1);
     }
 
     @Override

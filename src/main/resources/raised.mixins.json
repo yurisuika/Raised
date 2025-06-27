@@ -13,6 +13,7 @@
     "client.gui.GuiMixin$Post",
     "client.gui.GuiMixin$Pre",
     "client.gui.components.AbstractSelectionListMixin",
+    "client.gui.components.AbstractWidgetInvoker",
     "client.gui.components.ChatComponentMixin$Pre",
     "client.gui.components.toasts.ToastComponentMixin$Pre"
   ],
