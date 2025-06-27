@@ -1,12 +1,10 @@
 <p align="center"><img src="https://github.com/yurisuika/Raised/blob/Fabric-1.18.2/src/main/resources/assets/raised/icon.png?raw=true" width="256" height="256"></p>
 
-**Raised** is a Fabric/Forge mod for Minecraft that fixes the hotbar! Perhaps if you've not used many resource packs you may not have noticed, but the hotbar has been broken for a long time in Java Edition ([MC-67532](https://bugs.mojang.com/browse/MC-67532)). Not only is the selector texture cut off by a couple pixels, but the entire hotbar was actually designed for being raised up off of the bottom of the screen. Restore how it was meant to be and raise it up!
+**Raised** is a mod for Minecraft that allows you to move around the in-game GUI!
 
-Please note that, for Minecraft 1.20.2 and up, the hotbar selector has seen further alterations that require attention. Raised now allows you to fix it by several methods or not at all if you so wish! See the wiki for more information.
+Starting out as simply a fix for the broken hotbar selector (which is still broken!), Raised now encompasses the ability to move many vanilla GUI layers. Control them individually or sync them to each other to make the entire in-game GUI move together!
 
-4.x brings big changes to Raised! This update adds support to move the bossbar, scoreboard sidebar, effects icons, players list, and toasts, in addition to the existing support to move the hotbar, chat, and other mod elements! You can move these elements on both the x-axis and y-axis from any cardinal or ordinal direction. Either use the GUI or commands to control the configurable options. See the wiki for more information.
-
-Raised supports mods in various ways, depending on the platform. If your mod does not work with any of the native support, Raised now has an API! See the wiki for more information.
+Raised allows mods to register layer entries for their own GUI overlays for you to configure their movement. See the wiki for more info!
 
 #### Compiling
 
