@@ -1,6 +1,7 @@
 package dev.yurisuika.raised.client.gui.components;
 
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
+import dev.yurisuika.raised.mixin.client.gui.components.AbstractWidgetInvoker;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Parse;
@@ -79,7 +80,7 @@ public class LayerList extends ObjectSelectionList<LayerList.Entry> {
 
         @Override
         public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
-            renderScrollingString(guiGraphics, Minecraft.getInstance().font, Component.literal(Parse.parsePath(name)), left + screen.WIDGET_WIDTH_SQUARE, top, left + (screen.WIDGET_WIDTH_WIDE - screen.WIDGET_WIDTH_SQUARE), top + screen.WIDGET_HEIGHT, -1);
+            AbstractWidgetInvoker.invokeRenderScrollingString(guiGraphics, Minecraft.getInstance().font, Component.literal(Parse.parsePath(name)), left + screen.WIDGET_WIDTH_SQUARE, top, left + (screen.WIDGET_WIDTH_WIDE - screen.WIDGET_WIDTH_SQUARE), top + screen.WIDGET_HEIGHT, -1);
 
             AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.tryParse("raised:textures/gui/layer/default.png"));
             Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png", (location, supplier) -> texture.set(location)));
