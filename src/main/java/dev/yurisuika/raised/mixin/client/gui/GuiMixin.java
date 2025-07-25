@@ -114,7 +114,7 @@ public abstract class GuiMixin {
         /**
          * Moves the {@code status effects} for {@link Layer} key "minecraft:effects".
          */
-        @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;getEffect()Lnet/minecraft/core/Holder;"))
+        @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;isAmbient()Z"))
         private void startStatusEffectTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
             Translate.start(guiGraphics.pose(), LayerRegistry.EFFECTS);
         }

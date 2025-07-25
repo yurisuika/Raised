@@ -40,6 +40,7 @@ public class Raised {
             ClientLifecycleEvents.CLIENT_STARTED.register(minecraft -> Validate.validateConfig());
         }
 
+        @Override
         public void onInitializeClient() {
             Config.loadConfig();
 
