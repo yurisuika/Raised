@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ToastManagerMixin {
 
     @Mixin(targets = "net.minecraft.client.gui.components.toasts.ToastManager$ToastInstance", priority = -999999999)
-    public abstract static class Pre {
+    public abstract static class ToastInstanceMixin {
 
         /**
          * Moves the {@code toasts} for {@link Layer} key "minecraft:toasts".
