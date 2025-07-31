@@ -11,7 +11,6 @@
     "client.gui.GuiGraphicsInvoker",
     "client.gui.GuiMixin",
     "client.gui.GuiMixin$Last",
-    "client.gui.components.AbstractSelectionListMixin",
     "client.gui.components.AbstractWidgetInvoker",
     "client.gui.components.BossHealthOverlayMixin",
     "client.gui.components.ChatComponentMixin",

@@ -6,7 +6,6 @@ import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Parse;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -17,14 +16,13 @@ import net.minecraft.sounds.SoundEvents;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class LayerList extends ObjectSelectionList<LayerList.Entry> {
+public class LayerList extends SpacedSelectionList<LayerList.Entry> {
 
     public RaisedScreen screen;
 
     public LayerList(Minecraft minecraft, int width, int height, RaisedScreen screen) {
-        super(minecraft, width, height, 0, screen.WIDGET_HEIGHT);
+        super(minecraft, width, height, 0, screen.WIDGET_HEIGHT, screen.PADDING);
         this.screen = screen;
-        ((AbstractSelectionListInterface) this).setAdjusted(true);
     }
 
     public void setLayers() {
@@ -32,41 +30,7 @@ public class LayerList extends ObjectSelectionList<LayerList.Entry> {
         LayerRegistry.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)).filter(location -> location.getNamespace().equals(RaisedScreen.current.getNamespace())).forEach(name -> addEntry(new Entry(screen, name)));
     }
 
-    @Override
-    public int getRowWidth() {
-        return screen.WIDGET_WIDTH_WIDE;
-    }
-
-    @Override
-    public void renderListSeparators(GuiGraphics guiGraphics) {}
-
-    @Override
-    public void renderListBackground(GuiGraphics guiGraphics) {}
-
-    @Override
-    public int contentHeight() {
-        return screen.PADDING + (getItemCount() * itemHeight) + screen.PADDING;
-    }
-
-    @Override
-    public int getRowLeft() {
-        return getX() + screen.PADDING;
-    }
-
-    @Override
-    public int scrollBarX() {
-        return getRowRight() + screen.PADDING - 6;
-    }
-
-    @Override
-    public void renderSelection(GuiGraphics guiGraphics, int top, int width, int height, int outerColor, int innerColor) {
-        int i = getX() + (this.width - width) / 2;
-        int j = getX() + (this.width + width) / 2;
-        guiGraphics.fill(i, top, j, top + screen.WIDGET_HEIGHT, outerColor);
-        guiGraphics.fill(i + 1, top + 1, j - 1, top + screen.WIDGET_HEIGHT - 1, innerColor);
-    }
-
-    public class Entry extends ObjectSelectionList.Entry<Entry> {
+    public class Entry extends SpacedSelectionList.Entry<Entry> {
 
         public final RaisedScreen screen;
         public final ResourceLocation name;
