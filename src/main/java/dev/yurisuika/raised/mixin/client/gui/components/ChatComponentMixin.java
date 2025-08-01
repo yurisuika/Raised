@@ -14,12 +14,12 @@ public abstract class ChatComponentMixin {
     /**
      * Moves the {@code chat click} for {@link Layer} key "minecraft:chat".
      */
-    @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 0)
     private double adjustChatClickX(double value) {
         return value - Translate.getX(LayerRegistry.CHAT);
     }
 
-    @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 1, argsOnly = true)
+    @ModifyVariable(method = "handleChatQueueClicked", at = @At("HEAD"), ordinal = 1)
     private double adjustChatClickY(double value) {
         return value - Translate.getY(LayerRegistry.CHAT);
     }
@@ -27,12 +27,12 @@ public abstract class ChatComponentMixin {
     /**
      * Moves the {@code chat tooltip} for {@link Layer} key "minecraft:chat".
      */
-    @ModifyVariable(method = "screenToChatX", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    @ModifyVariable(method = "screenToChatX", at = @At("HEAD"), ordinal = 0)
     private double adjustChatTooltipX(double value) {
         return value - Translate.getX(LayerRegistry.CHAT);
     }
 
-    @ModifyVariable(method = "screenToChatY", at = @At("HEAD"), ordinal = 0, argsOnly = true)
+    @ModifyVariable(method = "screenToChatY", at = @At("HEAD"), ordinal = 0)
     private double adjustChatTooltipY(double value) {
         return value - Translate.getY(LayerRegistry.CHAT);
     }
