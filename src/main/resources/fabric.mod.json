@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Raised",
-  "description": "Raises the hotbar so the selector is not cut off!",
+  "description": "Fixes the hotbar selector texture and lets you move around GUI layers to your liking!",
   "authors": [
     "yurisuika"
   ],
