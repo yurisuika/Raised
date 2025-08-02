@@ -58,7 +58,7 @@ public class LayerList extends SpacedSelectionList<LayerList.Entry> {
         }
 
         @Override
-        public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        public boolean mouseClicked(double mouseX, double mouseY, int button, boolean bl) {
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
             setCurrent(true);
             return true;
