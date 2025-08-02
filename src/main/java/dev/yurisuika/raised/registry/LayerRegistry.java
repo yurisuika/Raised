@@ -1,9 +1,9 @@
 package dev.yurisuika.raised.registry;
 
-import com.mojang.logging.LogUtils;
 import dev.yurisuika.raised.client.gui.Layer;
 import dev.yurisuika.raised.util.Configure;
 import net.minecraft.resources.ResourceLocation;
+import org.slf4j.LoggerFactory;
 
 import java.util.TreeMap;
 
@@ -35,7 +35,7 @@ public class LayerRegistry {
     public static void register(ResourceLocation name, Layer layer) {
         LAYERS.put(name, layer);
         addLayerToConfig(name, layer);
-        LogUtils.getLogger().info("Registering Raised layer '{}'!", name);
+        LoggerFactory.getLogger("raised").info("Registering Raised layer '{}'", name);
     }
 
     public static void addLayerToConfig(ResourceLocation name, Layer layer) {
