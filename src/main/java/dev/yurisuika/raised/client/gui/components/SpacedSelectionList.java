@@ -18,7 +18,7 @@ public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>
     public E getEntryAtPosition(double mouseX, double mouseY) {
         int i = getRowWidth() / 2;
         int j = getX() + width / 2;
-        int m = Mth.floor(mouseY - (double) getY()) - (int) scrollAmount() - padding;
+        int m = Mth.floor(mouseY - (double) getY()) + (int) scrollAmount() - padding;
         int n = m / itemHeight;
         return mouseX >= (double) (j - i) && mouseX <= (double) (j + i) && n >= 0 && m >= 0 && n < getItemCount() ? children().get(n) : null;
     }
