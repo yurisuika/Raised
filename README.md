@@ -4,7 +4,7 @@
 
 Starting out as simply a fix for the broken hotbar selector (which is still broken!), Raised now encompasses the ability to move many vanilla GUI layers. Control them individually or sync them to each other to make the entire in-game GUI move together!
 
-Raised allows mods to register layer entries for their own GUI overlays for you to configure their movement. See the wiki for more info!
+Raised allows mods to register layer entries for their own GUI overlays for you to configure their movement. You may edit the config via commands or the options screen (openable via `~` by default). See the wiki for more info!
 
 #### Compiling
 
