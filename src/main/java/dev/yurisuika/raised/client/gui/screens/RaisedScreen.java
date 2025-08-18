@@ -217,18 +217,18 @@ public class RaisedScreen extends Screen {
         public class Entry extends SpacedSelectionList.Entry<Entry> {
 
             public final ResourceLocation name;
+            public final AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/layer/default.png"));
 
             public Entry(ResourceLocation name) {
                 this.name = name;
                 setCurrent(RaisedScreen.current.equals(name));
+                setTexture();
             }
 
             @Override
             public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
                 renderScrollingString(guiGraphics, Minecraft.getInstance().font, Component.literal(Parse.parsePath(name)), left + WIDGET_WIDTH_SQUARE, top, left + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), top + WIDGET_HEIGHT, -1);
 
-                AtomicReference<ResourceLocation> texture = new AtomicReference<>(ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/layer/default.png"));
-                Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png", (location, supplier) -> texture.set(location)));
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, texture.get(), left, top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
 
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"), left + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
@@ -252,6 +252,10 @@ public class RaisedScreen extends Screen {
                     resetOptions();
                     LayerList.this.setSelected(this);
                 }
+            }
+
+            public void setTexture() {
+                Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png", (location, supplier) -> texture.set(location)));
             }
 
         }
