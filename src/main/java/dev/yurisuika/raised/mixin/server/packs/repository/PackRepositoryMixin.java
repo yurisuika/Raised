@@ -1,5 +1,6 @@
 package dev.yurisuika.raised.mixin.server.packs.repository;
 
+import dev.yurisuika.raised.util.Icon;
 import dev.yurisuika.raised.util.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +17,7 @@ public abstract class PackRepositoryMixin {
     @Inject(method = "reload", at = @At("TAIL"))
     private void checkPacks(CallbackInfo ci) {
         Pack.checkResources();
+        Icon.checkResources();
     }
 
 }
