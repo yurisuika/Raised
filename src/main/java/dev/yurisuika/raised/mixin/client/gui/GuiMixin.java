@@ -100,38 +100,51 @@ public abstract class GuiMixin {
      * Moves the {@code sidebar} for {@link Layer} key "minecraft:sidebar".
      */
     @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At("HEAD"))
-    private void startScoreboardTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void startSidebarTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), LayerRegistry.SIDEBAR);
     }
 
     @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At("TAIL"))
-    private void endScoreboardTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void endSidebarTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.end(guiGraphics.pose());
     }
 
     /**
-     * Moves the {@code status effects} for {@link Layer} key "minecraft:effects".
+     * Moves the {@code effects} for {@link Layer} key "minecraft:effects".
      */
     @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;isAmbient()Z"))
-    private void startStatusEffectTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void startEffectsTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), LayerRegistry.EFFECTS);
     }
 
     @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIIII)V", shift = At.Shift.AFTER))
-    private void endStatusEffectTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void endEffectsTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.end(guiGraphics.pose());
     }
 
     /**
-     * Moves the {@code player list} for {@link Layer} key "minecraft:players".
+     * Moves the {@code players} for {@link Layer} key "minecraft:players".
      */
     @Inject(method = "renderTabList", at = @At("HEAD"))
-    private void startPlayerListTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void startPlayersTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), LayerRegistry.PLAYERS);
     }
 
     @Inject(method = "renderTabList", at = @At("TAIL"))
-    private void endPlayerListTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void endPlayersTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        Translate.end(guiGraphics.pose());
+    }
+
+    /**
+     * Moves the {@code titles} for {@link Layer} key "minecraft:titles".
+     */
+    @Inject(method = "renderTitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
+    private void startTitlesTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        Translate.start(guiGraphics.pose(), LayerRegistry.TITLES);
+    }
+
+    @Inject(method = "renderTitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
+    private void endTitlesTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.end(guiGraphics.pose());
     }
 
