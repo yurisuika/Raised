@@ -18,6 +18,8 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.CommonComponents;
@@ -82,8 +84,6 @@ public class RaisedScreen extends Screen {
     public void addLayers() {
         layers = new LayerList(minecraft, PANEL_WIDTH, height - HEADER_HEIGHT);
 
-        layers.setLayers();
-
         addRenderableWidget(layers);
     }
 
@@ -140,14 +140,12 @@ public class RaisedScreen extends Screen {
     }
 
     public void resetLayers() {
-        layers.children().clear();
         layers.setLayers();
     }
 
     @Override
     public void repositionElements() {
-        layers.setSize(PANEL_WIDTH, height - HEADER_HEIGHT);
-        layers.setPosition(width - PANEL_WIDTH, HEADER_HEIGHT);
+        layers.updateSizeAndPosition(PANEL_WIDTH, height - HEADER_HEIGHT, width - PANEL_WIDTH, HEADER_HEIGHT);
     }
 
     @Override
@@ -193,9 +191,9 @@ public class RaisedScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        super.keyPressed(keyCode, scanCode, modifiers);
-        if (RaisedOptions.OPTIONS.matches(keyCode, scanCode)) {
+    public boolean keyPressed(KeyEvent keyEvent) {
+        super.keyPressed(keyEvent);
+        if (RaisedOptions.OPTIONS.matches(keyEvent)) {
             onClose();
             return true;
         }
@@ -206,6 +204,7 @@ public class RaisedScreen extends Screen {
 
         public LayerList(Minecraft minecraft, int width, int height) {
             super(minecraft, width, height, 0, WIDGET_HEIGHT, PADDING);
+            setLayers();
         }
 
         public void setLayers() {
@@ -223,12 +222,12 @@ public class RaisedScreen extends Screen {
             }
 
             @Override
-            public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
-                renderScrollingString(guiGraphics, Minecraft.getInstance().font, Component.literal(Parse.parsePath(name)), left + WIDGET_WIDTH_SQUARE, top, left + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), top + WIDGET_HEIGHT, -1);
+            public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float partialTick) {
+                renderScrollingString(guiGraphics, Minecraft.getInstance().font, Component.literal(Parse.parsePath(name)), getX() + WIDGET_WIDTH_SQUARE, getY(), getX() + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), getY() + WIDGET_HEIGHT, -1);
 
-                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Icon.getLayerIcon(name), left, top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Icon.getLayerIcon(name), getX(), getY(), 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
 
-                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"), left + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"), getX() + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), getY(), 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
             }
 
             @Override
@@ -237,7 +236,7 @@ public class RaisedScreen extends Screen {
             }
 
             @Override
-            public boolean mouseClicked(double mouseX, double mouseY, int button, boolean bl) {
+            public boolean mouseClicked(MouseButtonEvent mouseButtonEvent, boolean bl) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 setCurrent(true);
                 return true;

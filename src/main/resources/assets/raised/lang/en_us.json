@@ -17,7 +17,7 @@
   "commands.raised.resource.texture.query": "Hotbar selector texture is currently set to: %s",
   "commands.raised.resource.texture.set": "Hotbar selector texture is now set to: %s",
 
-  "key.raised.categories.raised": "Raised",
+  "key.category.raised.raised": "Raised",
 
   "key.raised.options": "Open Raised Options",
 

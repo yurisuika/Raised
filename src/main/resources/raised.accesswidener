@@ -1,5 +1,6 @@
 accessWidener v2 named
 
 extendable method net/minecraft/client/gui/components/AbstractSelectionList getEntryAtPosition (DD)Lnet/minecraft/client/gui/components/AbstractSelectionList$Entry;
+extendable method net/minecraft/client/gui/components/AbstractSelectionList getFirstEntryY ()I
 
 accessible field net/minecraft/client/gui/components/AbstractSelectionList hovered Lnet/minecraft/client/gui/components/AbstractSelectionList$Entry;
