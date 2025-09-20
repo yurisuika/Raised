@@ -24,7 +24,7 @@ public abstract class ToastManagerMixin {
 
         @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;popMatrix()Lorg/joml/Matrix3x2fStack;", shift = At.Shift.AFTER))
         private void endToastsTranslate(GuiGraphics guiGraphics, int i, CallbackInfo ci) {
-            Translate.end(guiGraphics.pose());
+            Translate.end(guiGraphics.pose(), LayerRegistry.TOASTS);
         }
 
     }

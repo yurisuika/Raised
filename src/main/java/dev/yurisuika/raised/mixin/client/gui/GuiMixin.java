@@ -67,7 +67,7 @@ public abstract class GuiMixin {
 
     @Inject(method = "renderHotbarAndDecorations", at = @At("TAIL"))
     private void endMainHudTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.HOTBAR);
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class GuiMixin {
 
     @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
     private void endOverlayMessageTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.HOTBAR);
     }
 
     /**
@@ -93,7 +93,7 @@ public abstract class GuiMixin {
 
     @Inject(method = "renderChat", at = @At("TAIL"))
     private void endChatTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.CHAT);
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class GuiMixin {
 
     @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At("TAIL"))
     private void endSidebarTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.SIDEBAR);
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class GuiMixin {
 
     @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIIII)V", shift = At.Shift.AFTER))
     private void endEffectsTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.EFFECTS);
     }
 
     /**
@@ -132,7 +132,7 @@ public abstract class GuiMixin {
 
     @Inject(method = "renderTabList", at = @At("TAIL"))
     private void endPlayersTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.PLAYERS);
     }
 
     /**
@@ -145,7 +145,7 @@ public abstract class GuiMixin {
 
     @Inject(method = "renderTitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
     private void endTitlesTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.TITLES);
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class GuiMixin {
          */
         @Inject(method = "render", at = @At("HEAD"))
         private void endRenderHeadTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-            Translate.end(guiGraphics.pose());
+            Translate.end(guiGraphics.pose(), LayerRegistry.OTHER);
         }
 
         /**
@@ -180,7 +180,7 @@ public abstract class GuiMixin {
          */
         @Inject(method = "render", at = @At("TAIL"))
         private void endRenderTailTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-            Translate.end(guiGraphics.pose());
+            Translate.end(guiGraphics.pose(), LayerRegistry.OTHER);
         }
 
     }

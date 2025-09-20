@@ -23,7 +23,7 @@ public abstract class SubtitleOverlayMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;popMatrix()Lorg/joml/Matrix3x2fStack;", shift = At.Shift.AFTER))
     private void endSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.SUBTITLES);
     }
 
 }

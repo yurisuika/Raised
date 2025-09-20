@@ -23,7 +23,7 @@ public abstract class BossHealthOverlayMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
     private void endBossBarTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose());
+        Translate.end(guiGraphics.pose(), LayerRegistry.BOSSBAR);
     }
 
 }
