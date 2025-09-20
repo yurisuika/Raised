@@ -1,5 +1,9 @@
 package dev.yurisuika.raised.mixin.client.gui;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import dev.yurisuika.raised.client.gui.Layer;
 import dev.yurisuika.raised.client.gui.Resource;
 import dev.yurisuika.raised.registry.LayerRegistry;
@@ -17,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = Gui.class, priority = -999999999)
 public abstract class GuiMixin {
@@ -46,11 +49,12 @@ public abstract class GuiMixin {
     /**
      * Draws a vertically mirrored row taken from the top of the asset below the unmodified selector.
      */
-    @Inject(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void patchHotbarSelector(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Player player) {
+    @WrapOperation(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1))
+    private void patchHotbarSelector(GuiGraphics guiGraphics, RenderPipeline pipeline, ResourceLocation sprite, int x, int y, int width, int height, Operation<Void> operation, @Local(ordinal = 0) Player player) {
+        operation.call(guiGraphics, pipeline, sprite, x, y, width, height);
         if (Configure.getTexture() == Resource.Texture.PATCH  || (Configure.getTexture() == Resource.Texture.AUTO && !Pack.getPack())) {
-            int x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().getSelectedSlot() * 20;
-            int y = guiGraphics.guiHeight();
+            x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().getSelectedSlot() * 20;
+            y = guiGraphics.guiHeight();
             ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(RenderPipelines.GUI_TEXTURED, ResourceLocation.tryParse("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 1, 1 / 23.0F, 0, -1);
         }
     }
