@@ -68,11 +68,6 @@ public class LayerRegistry {
         register(SUBTITLES, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.UP, SUBTITLES));
         register(TOASTS, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN, TOASTS));
         register(OTHER, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
-        register(ResourceLocation.withDefaultNamespace("test1"), createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
-        register(ResourceLocation.withDefaultNamespace("test2"), createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
-        register(ResourceLocation.withDefaultNamespace("test3"), createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
-        register(ResourceLocation.withDefaultNamespace("test4"), createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
-        register(ResourceLocation.withDefaultNamespace("test5"), createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
     }
 
 }
