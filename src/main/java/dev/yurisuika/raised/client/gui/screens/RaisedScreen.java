@@ -185,12 +185,6 @@ public class RaisedScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        renderBlurredBackground(guiGraphics);
-        renderMenuBackground(guiGraphics);
-    }
-
-    @Override
     public boolean keyPressed(KeyEvent keyEvent) {
         super.keyPressed(keyEvent);
         if (RaisedOptions.OPTIONS.matches(keyEvent)) {
