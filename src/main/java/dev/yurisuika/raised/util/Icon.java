@@ -12,7 +12,13 @@ public class Icon {
     public static final TreeMap<ResourceLocation, ResourceLocation> TEXTURES = new TreeMap<ResourceLocation, ResourceLocation>();
 
     public static void checkResources() {
-        Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> LayerRegistry.LAYERS.forEach((name, layer) -> pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png", (location, supplier) -> TEXTURES.put(name, location))));
+        TEXTURES.clear();
+        Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> LayerRegistry.LAYERS.forEach((name, layer) -> {
+            ResourceLocation location = ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png");
+            if (pack.getResource(PackType.CLIENT_RESOURCES, location) != null) {
+                TEXTURES.put(name, location);
+            }
+        }));
     }
 
     public static ResourceLocation getLayerIcon(ResourceLocation name) {

@@ -1,6 +1,7 @@
 package dev.yurisuika.raised.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -22,7 +23,9 @@ public class Pack {
 
         Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
             if (!pack.packId().contentEquals("raised")) {
-                pack.listResources(PackType.CLIENT_RESOURCES, "raised", "textures/gui/sprites/hud/hotbar_selection.png", (location, supplier) -> exists.set(true));
+                if (pack.getResource(PackType.CLIENT_RESOURCES, ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/sprites/hud/hotbar_selection.png")) != null) {
+                    exists.set(true);
+                }
             }
         });
 
