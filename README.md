@@ -1,5 +1,3 @@
-<p align="center"><img src="https://github.com/yurisuika/Raised/blob/Fabric-1.18.2/src/main/resources/assets/raised/icon.png?raw=true" width="256" height="256"></p>
-
 **Raised** is a mod for Minecraft that allows you to move around the in-game GUI!
 
 Starting out as simply a fix for the broken hotbar selector (which is still broken!), Raised now encompasses the ability to move many vanilla GUI layers. Control them individually or sync them to each other to make the entire in-game GUI move together!
