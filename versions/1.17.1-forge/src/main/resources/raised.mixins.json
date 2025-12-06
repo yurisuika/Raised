@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.yurisuika.raised.mixin",
+  "refmap": "raised.refmap.json",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "minecraft.server.packs.repository.PackRepositoryMixin"
+  ],
+  "client": [
+    "minecraft.client.OptionInvoker",
+    "minecraft.client.gui.GuiComponentMixin",
+    "minecraft.client.gui.GuiMixin",
+    "minecraft.client.gui.GuiMixin$Last",
+    "minecraft.client.gui.components.ChatComponentMixin",
+    "minecraft.client.gui.components.toasts.ToastComponentMixin$ToastInstanceMixin",
+    "minecraftforge.client.gui.OverlayRegistryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

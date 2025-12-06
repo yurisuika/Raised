@@ -1,33 +1,33 @@
-**Raised** is a mod for Minecraft that allows you to move around the in-game GUI!
+*Take control of the position of your GUI and fix the broken hotbar selection texture!*
 
-Starting out as simply a fix for the broken hotbar selector (which is still broken!), Raised now encompasses the ability to move many vanilla GUI layers. Control them individually or sync them to each other to make the entire in-game GUI move together!
+### Move around the GUI!
+Raised lets you move around both vanilla and modded GUI layers (that are supported)!
 
-Raised allows mods to register layer entries for their own GUI overlays for you to configure their movement. You may edit the config via commands or the options screen (openable via `~` by default). See the wiki for more info!
+Want the hotbar closer to the middle of the screen? Raised has got your back! Take control of a layer and move it where you please! Control them individually or sync them to make the entire in-game GUI move together!
 
-#### Compiling
+### Working with mods!
+Raised allows mods to register layer entries for their own GUI overlays for you to configure their movement. However, Raised can also natively work with mods in several ways that do not require their support!
 
-To build from source you will need have JDK 21 to compile and, optionally, Git to clone the repository. Otherwise, download the archive and just run `./gradlew build` from the root project folder.
+Any mod that registers their (Neo)Forge overlay via the respective registry is automatically captured and added to Raised's layer registry. This allows you to individually control the layers of many mods without any special support!
 
-When using Git, just choose a directory you wish to keep the project root folder in, decide which branch you wish to compile, and then run these commands:
+Any mod that renders its overlay solely via a (Neo)Forge render event for one of the vanilla layers that Raised supports will be moved along with that vanilla layer. Much the same on Fabric, any mod that injects its overlay render within the scope of Raised's targets in the code will also be moved!
 
-```shell script
-git clone --branch <branch> --recursive https://github.com/yurisuika/raised.git
+### Set it up however you like!
+You can edit the layer configurations directly from the config, from a suite of commands, or from the options screen (openable via `~` by default or from the (Neo)Forge mods screen). Please note that the options screen limits the amount that a layer may be displaced to accommodate the use of slider controls. For unlimited displacement, use commands or directly edit the config!
 
-cd ./raised
+### Get the goods!
+You can find releases of Raised on both *[Modrinth]* and *[CurseForge]* and also access development builds on *[GitHub]*!
 
-./gradlew build
-```
+Raised supports Fabric 1.16+, Forge 1.16+, and NeoForge 1.20.2+.
 
-Afterwards, your compiled JAR will be in `./build/libs`.
+### Figure it all out!
+You can delve into the *[wiki]* for details or submit a *[bug report]* if something isn't quite right!
 
-#### Releases
+Still need help? Drop into the *[Discord]* for quick support.
 
-Don't want to bother building from source? Get the releases *[right here](https://github.com/yurisuika/Raised/releases)* now!
-
-#### Repositories
-
-You can find Raised on both *[CurseForge](https://www.curseforge.com/minecraft/mc-mods/raised)* and *[Modrinth](https://modrinth.com/mod/raised)*!
-
-#### Community
-
-The one and only! Join the *[Discord](https://discord.gg/0zdNEkQle7Qg9C1H)* for the latest discussion on our server, resource pack, mods, or just to chat!
+[Modrinth]: https://modrinth.com/mod/raised
+[CurseForge]: https://www.curseforge.com/minecraft/mc-mods/raised
+[GitHub]: https://github.com/yurisuika/raised
+[wiki]: https://github.com/yurisuika/raised/wiki
+[bug report]: https://github.com/yurisuika/raised/issues
+[Discord]: https://discord.gg/0zdNEkQle7Qg9C1H

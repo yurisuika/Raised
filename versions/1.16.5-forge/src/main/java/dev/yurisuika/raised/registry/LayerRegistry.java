@@ -1,0 +1,73 @@
+package dev.yurisuika.raised.registry;
+
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.util.Configure;
+import net.minecraft.resources.ResourceLocation;
+import org.apache.logging.log4j.LogManager;
+
+import java.util.TreeMap;
+
+public class LayerRegistry {
+
+    public static final TreeMap<ResourceLocation, Layer> LAYERS = new TreeMap<ResourceLocation, Layer>();
+    public static final ResourceLocation HOTBAR = new ResourceLocation("hotbar");
+    public static final ResourceLocation CHAT = new ResourceLocation("chat");
+    public static final ResourceLocation BOSSBAR = new ResourceLocation("bossbar");
+    public static final ResourceLocation SIDEBAR = new ResourceLocation("sidebar");
+    public static final ResourceLocation EFFECTS = new ResourceLocation("effects");
+    public static final ResourceLocation PLAYERS = new ResourceLocation("players");
+    public static final ResourceLocation TITLES = new ResourceLocation("titles");
+    public static final ResourceLocation SUBTITLES = new ResourceLocation("subtitles");
+    public static final ResourceLocation TOASTS = new ResourceLocation("toasts");
+    public static final ResourceLocation OTHER = new ResourceLocation("other");
+
+    public static void register(String name) {
+        register(name, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+    }
+
+    public static void register(ResourceLocation name) {
+        register(name, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name.toString()));
+    }
+
+    public static void register(String name, Layer layer) {
+        register(ResourceLocation.tryParse(name), layer);
+    }
+
+    public static void register(ResourceLocation name, Layer layer) {
+        LAYERS.put(name, layer);
+        addLayerToConfig(name, layer);
+        LogManager.getLogger("raised").info("Registering Raised layer '{}'", name);
+    }
+
+    public static void addLayerToConfig(ResourceLocation name, Layer layer) {
+        if (!Configure.getLayers().containsKey(name.toString())) {
+            Configure.addLayer(name.toString(), layer);
+        }
+    }
+
+    public static void addLayersToConfig() {
+        LAYERS.forEach(LayerRegistry::addLayerToConfig);
+    }
+
+    public static Layer createLayer(int displacementX, int displacementY, Layer.Direction.X directionX, Layer.Direction.Y directionY, ResourceLocation sync) {
+        return createLayer(displacementX, displacementY, directionX, directionY, sync.toString());
+    }
+
+    public static Layer createLayer(int displacementX, int displacementY, Layer.Direction.X directionX, Layer.Direction.Y directionY, String sync) {
+        return new Layer(new Layer.Displacement(displacementX, displacementY), new Layer.Direction(directionX, directionY), sync);
+    }
+
+    public static void boostrap() {
+        register(HOTBAR, createLayer(0, 2, Layer.Direction.X.NONE, Layer.Direction.Y.UP, HOTBAR));
+        register(CHAT, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.UP, CHAT));
+        register(BOSSBAR, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.DOWN, BOSSBAR));
+        register(SIDEBAR, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.NONE, SIDEBAR));
+        register(EFFECTS, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN, EFFECTS));
+        register(PLAYERS, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.DOWN, PLAYERS));
+        register(TITLES, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, TITLES));
+        register(SUBTITLES, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.UP, SUBTITLES));
+        register(TOASTS, createLayer(0, 0, Layer.Direction.X.LEFT, Layer.Direction.Y.DOWN, TOASTS));
+        register(OTHER, createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, OTHER));
+    }
+
+}

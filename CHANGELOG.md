@@ -1,0 +1,4 @@
+- Added support for new ForgeLayeredDraw layer management recently added to Forge 50+ for 1.20.5+ (requires late builds of Forge).
+- Changed (Neo)Forge overlay/layer management to map and format filtered vanilla identifiers at registration instead of separately filtering vanilla overlays/layers upon render.
+- Fixed layer list scroll position potentially being out of range upon tab change.
+- Fixed conflict with generational ZGC by manually closing resource packs after evaluation.

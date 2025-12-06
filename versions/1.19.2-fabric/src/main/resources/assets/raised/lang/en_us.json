@@ -1,0 +1,41 @@
+{
+  "commands.raised.config.reload": "Raised config reloaded",
+  "commands.raised.config.reset": "Raised config reset to defaults",
+
+  "commands.raised.layer.displacement.x.query": "X-axis displacement of %s is currently set to: %dpx",
+  "commands.raised.layer.displacement.x.set": "X-axis displacement of %s is now set to: %dpx",
+  "commands.raised.layer.displacement.y.query": "Y-axis displacement of %s is currently set to: %dpx",
+  "commands.raised.layer.displacement.y.set": "Y-axis displacement of %s is now set to: %dpx",
+  "commands.raised.layer.direction.x.query": "X-axis direction of %s is currently set to: %s",
+  "commands.raised.layer.direction.x.set": "X-axis direction of %s is now set to: %s",
+  "commands.raised.layer.direction.y.query": "Y-axis direction of %s is currently set to: %s",
+  "commands.raised.layer.direction.y.set": "Y-axis direction of %s is now set to: %s",
+  "commands.raised.layer.sync.query": "Synced layer of %s is currently set to: %s",
+  "commands.raised.layer.sync.set": "Synced layer of %s is now set to: %s",
+  "commands.raised.layer.unknown": "Unknown layer %s",
+
+  "key.categories.raised.raised": "Raised",
+
+  "key.raised.options": "Open Raised Options",
+
+  "options.raised.title": "Raised Options",
+
+  "options.raised.displacement.x": "Displacement (X)",
+  "options.raised.displacement.x.tooltip": "Displacement of the layer on the x-axis.\nMaximum slider value is a quarter of scaled screen width.",
+  "options.raised.displacement.y": "Displacement (Y)",
+  "options.raised.displacement.y.tooltip": "Displacement of the layer on the y-axis.\nMaximum slider value is a quarter of scaled screen height.",
+
+  "options.raised.direction.x": "Direction (X)",
+  "options.raised.direction.x.left": "Left",
+  "options.raised.direction.x.none": "None",
+  "options.raised.direction.x.right": "Right",
+  "options.raised.direction.x.tooltip": "Direction of the layer's displacement on the x-axis.",
+  "options.raised.direction.y": "Direction (Y)",
+  "options.raised.direction.y.up": "Up",
+  "options.raised.direction.y.none": "None",
+  "options.raised.direction.y.down": "Down",
+  "options.raised.direction.y.tooltip": "Direction of the layer's displacement on the y-axis.",
+
+  "options.raised.sync": "Sync",
+  "options.raised.sync.tooltip": "Synchronized layer.\nOverrides the layer's displacement with the configuration for %s."
+}
