@@ -11,10 +11,13 @@ jobs:
         with:
           java-version: 21
           distribution: jetbrains
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.2.1'
       - run: chmod +x gradlew
-      - run: ./gradlew build --stacktrace --info
+      - run: ./gradlew buildAndCollect --stacktrace --info
       - uses: actions/upload-artifact@v4
         with:
           name: Raised
-          path: build/libs/
+          path: build/libs/**/
           if-no-files-found: error
