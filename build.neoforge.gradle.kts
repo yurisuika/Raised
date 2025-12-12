@@ -159,7 +159,7 @@ publishMods {
 
         content = changelog.map { "# Check out ${project.property("mod.name")} ${project.property("mod.version")}!\n" + it}
 
-        username = "yuribot"
+        username = "suikabot"
 
         style {
             look = "MODERN"
