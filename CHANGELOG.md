@@ -2,3 +2,4 @@
 - Changed (Neo)Forge overlay/layer management to map and format filtered vanilla identifiers at registration instead of separately filtering vanilla overlays/layers upon render.
 - Fixed layer list scroll position potentially being out of range upon tab change.
 - Fixed conflict with generational ZGC by manually closing resource packs after evaluation.
+- Fixed subtitles with deferred rendering outside of render event on NeoForge 21.9+ not moving.

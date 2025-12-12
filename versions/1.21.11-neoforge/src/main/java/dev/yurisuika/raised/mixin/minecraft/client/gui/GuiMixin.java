@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = Gui.class, priority = -999999999)
 public abstract class GuiMixin {
@@ -94,6 +95,19 @@ public abstract class GuiMixin {
             Translate.end(guiGraphics.pose(), LayerRegistry.OTHER);
         }
 
+    }
+
+    /**
+     * Moves the subtitles deferred by NeoForge for {@link Layer} key "minecraft:subtitles".
+     */
+    @Inject(method = "lambda$renderSubtitleOverlay$13(Lnet/minecraft/client/gui/GuiGraphics;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SubtitleOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void startDeferredSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
+        Translate.start(guiGraphics.pose(), LayerRegistry.SUBTITLES);
+    }
+
+    @Inject(method = "lambda$renderSubtitleOverlay$13(Lnet/minecraft/client/gui/GuiGraphics;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SubtitleOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void endDeferredSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
+        Translate.end(guiGraphics.pose(), LayerRegistry.SUBTITLES);
     }
 
 }
