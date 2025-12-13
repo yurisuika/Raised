@@ -56,6 +56,176 @@ public abstract class GuiMixin {
     }
 
     /**
+     * Moves the {@code hotbar}, {@code health bar}, {@code armor bar}, {@code food bar}, {@code air bar},
+     * {@code mount health bar}, {@code mount jump bar}, {@code experience bar}, and {@code held item tooltip}
+     * for {@link Layer} key "minecraft:hotbar".
+     */
+    @Inject(method = "renderHotbarAndDecorations", at = @At("HEAD"))
+    private void startMainHudTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.HOTBAR);
+        }
+    }
+
+    @Inject(method = "renderHotbarAndDecorations", at = @At("TAIL"))
+    private void endMainHudTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.HOTBAR);
+        }
+    }
+
+    /**
+     * Moves the {@code experience level} for {@link Layer} key "minecraft:hotbar".
+     */
+    @Inject(method = "renderExperienceLevel", at = @At("HEAD"))
+    private void startExperienceLevelTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.HOTBAR);
+        }
+    }
+
+    @Inject(method = "renderExperienceLevel", at = @At("TAIL"))
+    private void endExperienceLevelTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.HOTBAR);
+        }
+    }
+
+    /**
+     * Moves the {@code overlay message} for {@link Layer} key "minecraft:hotbar".
+     */
+    @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
+    private void startOverlayMessageTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.HOTBAR);
+        }
+    }
+
+    @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
+    private void endOverlayMessageTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.HOTBAR);
+        }
+    }
+
+    /**
+     * Moves the {@code chat} for {@link Layer} key "minecraft:chat".
+     */
+    @Inject(method = "renderChat", at = @At("HEAD"))
+    private void startChatTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.CHAT);
+        }
+    }
+
+    @Inject(method = "renderChat", at = @At("TAIL"))
+    private void endChatTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.CHAT);
+        }
+    }
+
+    /**
+     * Moves the {@code sidebar} for {@link Layer} key "minecraft:sidebar".
+     */
+    @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At("HEAD"))
+    private void startSidebarTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.SIDEBAR);
+        }
+    }
+
+    @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At("TAIL"))
+    private void endSidebarTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.SIDEBAR);
+        }
+    }
+
+    /**
+     * Moves the {@code effects} for {@link Layer} key "minecraft:effects".
+     */
+    @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getMobEffectTextures()Lnet/minecraft/client/resources/MobEffectTextureManager;"))
+    private void startEffectsTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.EFFECTS);
+        }
+    }
+
+    @Inject(method = "renderEffects", at = @At(value = "INVOKE", target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V", shift = At.Shift.AFTER))
+    private void endEffectsTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.EFFECTS);
+        }
+    }
+
+    /**
+     * Moves the {@code players} for {@link Layer} key "minecraft:players".
+     */
+    @Inject(method = "renderTabList", at = @At("HEAD"))
+    private void startPlayersTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.PLAYERS);
+        }
+    }
+
+    @Inject(method = "renderTabList", at = @At("TAIL"))
+    private void endPlayersTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.PLAYERS);
+        }
+    }
+
+    /**
+     * Moves the {@code titles} for {@link Layer} key "minecraft:titles".
+     */
+    @Inject(method = "renderTitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
+    private void startTitlesTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.start(guiGraphics.pose(), LayerRegistry.TITLES);
+        }
+    }
+
+    @Inject(method = "renderTitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
+    private void endTitlesTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+        try {
+            Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
+        } catch (ClassNotFoundException e) {
+            Translate.end(guiGraphics.pose(), LayerRegistry.TITLES);
+        }
+    }
+
+    /**
      * Moves layers injected at the head of the main render method for {@link Layer} key "minecraft:other".
      */
     @Inject(method = "render", at = @At("HEAD"))

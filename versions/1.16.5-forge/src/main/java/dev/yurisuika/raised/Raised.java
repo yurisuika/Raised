@@ -4,9 +4,13 @@ import dev.yurisuika.raised.config.Config;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod("raised")
 public class Raised {
+
+    public static final Logger LOGGER = LogManager.getLogger("raised");
 
     @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModEvents {
