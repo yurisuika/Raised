@@ -9,7 +9,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod("raised")
 public class Raised {
 
-    @EventBusSubscriber(modid = "raised")
+    @EventBusSubscriber(modid = "raised", bus = EventBusSubscriber.Bus.MOD)
     public static class ModEvents {
 
         @SubscribeEvent

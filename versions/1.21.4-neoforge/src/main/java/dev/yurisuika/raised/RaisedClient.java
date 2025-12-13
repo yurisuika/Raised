@@ -24,7 +24,7 @@ import net.neoforged.neoforge.common.NeoForge;
 @Mod(value = "raised", dist = Dist.CLIENT)
 public class RaisedClient {
 
-    @EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
+    @EventBusSubscriber(modid = "raised", bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
     public static class GameEvents {
 
         @SubscribeEvent
@@ -41,7 +41,7 @@ public class RaisedClient {
 
     }
 
-    @EventBusSubscriber(modid = "raised", value = Dist.CLIENT)
+    @EventBusSubscriber(modid = "raised", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ModEvents {
 
         @SubscribeEvent
