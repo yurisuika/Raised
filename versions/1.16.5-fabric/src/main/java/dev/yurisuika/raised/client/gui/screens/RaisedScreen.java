@@ -1,6 +1,7 @@
 package dev.yurisuika.raised.client.gui.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.gui.GuiComponentInterface;
 import dev.yurisuika.raised.client.gui.Layer;
@@ -263,7 +264,7 @@ public class RaisedScreen extends Screen {
                 Minecraft.getInstance().getTextureManager().bind(Icon.getLayerIcon(name));
                 blit(poseStack, left, top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
 
-                Minecraft.getInstance().getTextureManager().bind(new ResourceLocation("raised", "textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"));
+                Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(Raised.MOD_ID, "textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"));
                 blit(poseStack, left + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
             }
 

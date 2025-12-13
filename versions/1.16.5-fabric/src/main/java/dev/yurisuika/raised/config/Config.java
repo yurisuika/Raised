@@ -2,6 +2,7 @@ package dev.yurisuika.raised.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dev.yurisuika.raised.Raised;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.BufferedWriter;
@@ -14,7 +15,7 @@ import java.util.stream.Stream;
 
 public class Config {
 
-    public static File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), "raised.json");
+    public static File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), Raised.MOD_ID + ".json");
     public static Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().disableHtmlEscaping().create();
     public static Options options = new Options();
 

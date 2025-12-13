@@ -19,10 +19,10 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod("raised")
+@Mod(Raised.MOD_ID)
 public class RaisedClient {
 
-    @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = Raised.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
     public static class GameEvents {
 
         @SubscribeEvent
@@ -39,7 +39,7 @@ public class RaisedClient {
 
     }
 
-    @Mod.EventBusSubscriber(modid = "raised", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = Raised.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ModEvents {
 
         @SubscribeEvent

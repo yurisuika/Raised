@@ -2,6 +2,7 @@ package dev.yurisuika.raised.client.gui.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.gui.Layer;
 import dev.yurisuika.raised.client.gui.components.SpacedSelectionList;
@@ -220,7 +221,7 @@ public class RaisedScreen extends Screen {
                 RenderSystem.setShaderTexture(0, Icon.getLayerIcon(name));
                 blit(poseStack, left, top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
 
-                RenderSystem.setShaderTexture(0, new ResourceLocation("raised", "textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"));
+                RenderSystem.setShaderTexture(0, new ResourceLocation(Raised.MOD_ID, "textures/gui/direction/" + Configure.getDirectionX(name.toString()).toString().toLowerCase() + "_" + Configure.getDirectionY(name.toString()).toString().toLowerCase() + ".png"));
                 blit(poseStack, left + (WIDGET_WIDTH_WIDE - WIDGET_WIDTH_SQUARE), top, 0, 0, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT, WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT);
             }
 

@@ -2,6 +2,7 @@ package dev.yurisuika.raised.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dev.yurisuika.raised.Raised;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import java.nio.file.Files;
 
 public class Config {
 
-    public static File file = new File(FMLPaths.CONFIGDIR.get().toFile(), "raised.json");
+    public static File file = new File(FMLPaths.CONFIGDIR.get().toFile(), Raised.MOD_ID + ".json");
     public static Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().disableHtmlEscaping().create();
     public static Options options = new Options();
 

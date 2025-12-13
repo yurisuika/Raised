@@ -7,7 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 public class Raised implements ModInitializer {
 
-    public static final Logger LOGGER = LogManager.getLogger("raised");
+    public static final String MOD_ID = "raised";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void loadConfiguration() {
         Config.loadConfig();

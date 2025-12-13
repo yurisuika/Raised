@@ -1,5 +1,6 @@
 package dev.yurisuika.raised.mixin.minecraftforge.client.event;
 
+import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.Layer;
 import dev.yurisuika.raised.client.gui.MappedLayers;
 import dev.yurisuika.raised.registry.LayerRegistry;
@@ -48,7 +49,7 @@ public abstract class RegisterGuiOverlaysEventMixin {
     @Unique
     public String formatNamespace() {
         String namespace = ModLoadingContext.get().getActiveNamespace();
-        return namespace.equals("raised") ? ResourceLocation.DEFAULT_NAMESPACE : namespace;
+        return namespace.equals(Raised.MOD_ID) ? ResourceLocation.DEFAULT_NAMESPACE : namespace;
     }
 
 }

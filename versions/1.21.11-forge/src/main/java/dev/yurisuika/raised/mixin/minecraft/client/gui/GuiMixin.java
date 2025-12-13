@@ -1,5 +1,6 @@
 package dev.yurisuika.raised.mixin.minecraft.client.gui;
 
+import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.Layer;
 import dev.yurisuika.raised.client.gui.Resource;
 import dev.yurisuika.raised.registry.LayerRegistry;
@@ -28,7 +29,7 @@ public abstract class GuiMixin {
     @ModifyArg(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 1), index = 1)
     private Identifier replaceHotbarSelectorIdentifier(Identifier sprite) {
         if (Configure.getTexture() == Resource.Texture.REPLACE || (Configure.getTexture() == Resource.Texture.AUTO && Pack.getPack())) {
-            return Identifier.fromNamespaceAndPath("raised", "hud/hotbar_selection");
+            return Identifier.fromNamespaceAndPath(Raised.MOD_ID, "hud/hotbar_selection");
         } else {
             return sprite;
         }

@@ -1,5 +1,2 @@
-- Added support for new ForgeLayeredDraw layer management recently added to Forge 50+ for 1.20.5+ (requires late builds of Forge).
-- Changed (Neo)Forge overlay/layer management to map and format filtered vanilla identifiers at registration instead of separately filtering vanilla overlays/layers upon render.
-- Fixed layer list scroll position potentially being out of range upon tab change.
-- Fixed conflict with generational ZGC by manually closing resource packs after evaluation.
-- Fixed subtitles with deferred rendering outside of render event on NeoForge 21.9+ not moving.
+- Fixed NeoForge event bus not being defined crashing 1.21.2 through 1.21.5.
+- Fixed overlays not moving in certain cases on Forge 50-58 through conditional mixin translations that run when ForgeLayeredDraw does not exist (as it was not fully backported and to support older Forge versions).

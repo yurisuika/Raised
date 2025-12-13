@@ -21,10 +21,10 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 
-@Mod(value = "raised", dist = Dist.CLIENT)
+@Mod(value = Raised.MOD_ID, dist = Dist.CLIENT)
 public class RaisedClient {
 
-    @EventBusSubscriber(modid = "raised", bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = Raised.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
     public static class GameEvents {
 
         @SubscribeEvent
@@ -41,7 +41,7 @@ public class RaisedClient {
 
     }
 
-    @EventBusSubscriber(modid = "raised", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = Raised.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ModEvents {
 
         @SubscribeEvent

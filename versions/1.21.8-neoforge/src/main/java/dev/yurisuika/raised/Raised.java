@@ -8,12 +8,13 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Mod("raised")
+@Mod(Raised.MOD_ID)
 public class Raised {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger("raised");
+    public static final String MOD_ID = "raised";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    @EventBusSubscriber(modid = "raised")
+    @EventBusSubscriber(modid = MOD_ID)
     public static class ModEvents {
 
         @SubscribeEvent

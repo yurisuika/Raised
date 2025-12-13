@@ -1,5 +1,6 @@
 package dev.yurisuika.raised.util;
 
+import dev.yurisuika.raised.Raised;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
@@ -22,8 +23,8 @@ public class Pack {
         AtomicBoolean exists = new AtomicBoolean(false);
 
         Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
-            if (!pack.packId().contentEquals("raised")) {
-                if (pack.getResource(PackType.CLIENT_RESOURCES, ResourceLocation.fromNamespaceAndPath("raised", "textures/gui/sprites/hud/hotbar_selection.png")) != null) {
+            if (!pack.packId().contentEquals(Raised.MOD_ID)) {
+                if (pack.getResource(PackType.CLIENT_RESOURCES, ResourceLocation.fromNamespaceAndPath(Raised.MOD_ID, "textures/gui/sprites/hud/hotbar_selection.png")) != null) {
                     exists.set(true);
                 }
             }
