@@ -5,10 +5,8 @@ import dev.yurisuika.raised.client.commands.RaisedCommand;
 import dev.yurisuika.raised.client.gui.MappedLayers;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Validate;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -61,11 +59,6 @@ public class RaisedClient {
         @SubscribeEvent
         public static void registerLayers(FMLClientSetupEvent event) {
             LayerRegistry.boostrap();
-        }
-
-        @SubscribeEvent(priority = EventPriority.LOWEST)
-        public static void validateConfig(FMLClientSetupEvent event) {
-            Validate.validateConfig();
         }
 
     }

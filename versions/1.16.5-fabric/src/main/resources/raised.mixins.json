@@ -8,7 +8,6 @@
     "minecraft.server.packs.repository.PackRepositoryMixin"
   ],
   "client": [
-    "minecraft.client.MinecraftMixin",
     "minecraft.client.gui.GuiComponentMixin",
     "minecraft.client.gui.GuiMixin",
     "minecraft.client.gui.GuiMixin$Last",

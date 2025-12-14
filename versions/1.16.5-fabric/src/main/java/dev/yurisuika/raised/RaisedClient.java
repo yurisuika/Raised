@@ -2,10 +2,8 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
-import dev.yurisuika.raised.client.event.ClientStartedEvent;
 import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Validate;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
@@ -33,17 +31,12 @@ public class RaisedClient implements ClientModInitializer {
         LayerRegistry.boostrap();
     }
 
-    public static void validateLayers() {
-        ClientStartedEvent.CLIENT_STARTED.register(minecraft -> Validate.validateConfig());
-    }
-
     @Override
     public void onInitializeClient() {
         registerKeyMappings();
         registerInputEvents();
         registerCommands();
         registerLayers();
-        validateLayers();
     }
 
 }

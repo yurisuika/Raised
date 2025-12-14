@@ -1,20 +1,12 @@
 package dev.yurisuika.raised.util;
 
+import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.config.Options;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.Identifier;
 
 public class Validate {
-
-    public static void validateConfig() {
-        Configure.getLayers().forEach((name, layer) -> {
-            if (layer.getDisplacement() == null) {
-                resetConfig();
-            }
-        });
-        validateLayers();
-    }
 
     public static void reloadConfig() {
         Config.loadConfig();
@@ -29,12 +21,15 @@ public class Validate {
         validateLayers();
     }
 
+    public static void validateSync(String name) {
+        if (!LayerRegistry.LAYERS.containsKey(Identifier.tryParse(Configure.getSync(name)))) {
+            Configure.setSync(name, name);
+            Raised.LOGGER.warn("Invalid sync for Raised layer '{}'", name);
+        }
+    }
+
     public static void validateLayers() {
-        Configure.getLayers().forEach((name, layer) -> {
-            if (!LayerRegistry.LAYERS.containsKey(Identifier.tryParse(layer.getSync()))) {
-                Configure.setSync(name, name);
-            }
-        });
+        LayerRegistry.LAYERS.forEach((name, layer) -> validateSync(name.toString()));
     }
 
 }

@@ -1,9 +1,7 @@
 package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.config.Config;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,16 +11,12 @@ public class Raised {
     public static final String MOD_ID = "raised";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ModEvents {
-
-        @SubscribeEvent
-        public static void loadConfiguration(FMLCommonSetupEvent event) {
-            Config.loadConfig();
-        }
-
+    public static void loadConfiguration() {
+        Config.loadConfig();
     }
 
-    public Raised() {}
+    public Raised() {
+        loadConfiguration();
+    }
 
 }

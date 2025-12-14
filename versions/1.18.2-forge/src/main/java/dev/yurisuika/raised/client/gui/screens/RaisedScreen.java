@@ -12,6 +12,7 @@ import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Icon;
 import dev.yurisuika.raised.util.Parse;
+import dev.yurisuika.raised.util.Validate;
 import net.minecraft.client.CycleOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ProgressOption;
@@ -51,6 +52,8 @@ public class RaisedScreen extends Screen {
 
     @Override
     public void init() {
+        Validate.validateLayers();
+
         addOptions();
         addControls();
         addLayers();
