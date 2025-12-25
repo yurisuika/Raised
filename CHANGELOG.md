@@ -1,6 +1,2 @@
-- Fixed NeoForge event bus not being defined crashing 1.21.2 through 1.21.5.
-- Fixed overlays not moving in certain cases on Forge 50-58 through conditional mixin translations that run when ForgeLayeredDraw does not exist (as it was not fully backported and to support older Forge versions).
-- Fixed config being overwritten due to loading on mod event bus instead of on mod construction as it did before in (Neo)Forge.
-- Changed layer validation to run on config screen init to prevent late loading mod registration resetting sync value.
-- Changed layer validation to only validate currently registered layers instead of config layers.
-- Removed no longer needed ClientStartedEvent from Fabric 1.16.
+- Fixed config not loading on Forge and NeoForge (1.20.4 and lower) because of duplicate entrypoint in client mod class causing main constructor to be ignored.
+- Added log message when config is loaded for potential troubleshooting of early-registering mod layers.

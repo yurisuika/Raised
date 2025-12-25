@@ -12,6 +12,7 @@ public class Raised {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void loadConfiguration() {
+        LOGGER.info("Loading Raised config...");
         Config.loadConfig();
     }
 
