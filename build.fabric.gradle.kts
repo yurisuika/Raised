@@ -1,10 +1,20 @@
+import net.fabricmc.loom.api.LoomGradleExtensionAPI
+
 plugins {
-    id("fabric-loom") version "1.14-SNAPSHOT"
+    id("net.fabricmc.fabric-loom") version "1.14-SNAPSHOT" apply false
+    id("net.fabricmc.fabric-loom-remap") version "1.14-SNAPSHOT" apply false
     id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
+val unobfuscated = project.name.startsWith("26")
+println("unobfuscated minecraft? $unobfuscated")
+
+apply(plugin = if (unobfuscated) "net.fabricmc.fabric-loom" else "net.fabricmc.fabric-loom-remap")
+
+val loomExt = project.extensions.getByType<LoomGradleExtensionAPI>()
+
 base {
-    archivesName = "${property("mod.id")}"
+    archivesName.set("${property("mod.id")}")
 }
 
 val requiredJava = when {
@@ -19,42 +29,39 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${property("minecraft.version")}")
-    mappings(loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${property("parchment.version")}@zip")
-    })
-    modImplementation("net.fabricmc:fabric-loader:${property("loader.version")}")
-
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("api.version")}")
-}
-
-fabricApi {
-    configureDataGeneration() {
-        client = true
-        outputDirectory = project.file("src/generated/resources")
+    add("minecraft", "com.mojang:minecraft:${property("minecraft.version")}")
+    
+    if (!unobfuscated) {
+        add("mappings", loomExt.layered {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${property("parchment.version")}@zip")
+        })
     }
+    
+    implementation("net.fabricmc:fabric-loader:${property("loader.version")}")
+    
+    implementation("net.fabricmc.fabric-api:fabric-api:${property("api.version")}")
 }
 
-loom {
-    fabricModJsonPath = project.file("src/main/resources/fabric.mod.json")
-    accessWidenerPath = project.file("src/main/resources/${property("mod.id")}.accesswidener")
+loomExt.apply {
+    accessWidenerPath.set(project.file("src/main/resources/${property("mod.id")}.accesswidener"))
 
-    mixin {
-        useLegacyMixinAp = true
-        defaultRefmapName = "${property("mod.id")}.refmap.json"
+    if (!unobfuscated) {
+        mixin {
+            useLegacyMixinAp.set(true)
+            defaultRefmapName.set("${property("mod.id")}.refmap.json")
+        }
     }
 }
 
 java {
     withSourcesJar()
-
     targetCompatibility = requiredJava
     sourceCompatibility = requiredJava
-
-    version = "fabric-${property("minecraft.version")}-${property("mod.version")}"
-    group = "${property("mod.group")}"
 }
+
+version = "fabric-${property("minecraft.version")}-${property("mod.version")}"
+group = "${property("mod.group")}"
 
 tasks {
     processResources {
@@ -81,30 +88,37 @@ tasks {
         }
     }
 
-    register<Copy>("buildAndCollect") {
-        group = "build"
-        from(remapJar.map { it.archiveFile }, remapSourcesJar.map { it.archiveFile })
-        into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
-        dependsOn("build")
-    }
-
-    jar {
+    named<org.gradle.jvm.tasks.Jar>("jar") {
         exclude(".cache")
     }
 
-    remapJar {
-        from(rootProject.file("LICENSE"))
+    if (!unobfuscated) {
+        named<org.gradle.jvm.tasks.Jar>("remapJar") {
+            from(rootProject.file("LICENSE"))
+        }
+        named<org.gradle.jvm.tasks.Jar>("remapSourcesJar") {
+            from(rootProject.file("LICENSE"))
+        }
     }
 
-    remapSourcesJar {
-        from(rootProject.file("LICENSE"))
+    register<Copy>("buildAndCollect") {
+        group = "build"
+        
+        val targetJar = if (unobfuscated) named<org.gradle.jvm.tasks.Jar>("jar") else named<org.gradle.jvm.tasks.Jar>("remapJar")
+        val targetSourcesJar = if (unobfuscated) named<org.gradle.jvm.tasks.Jar>("sourcesJar") else named<org.gradle.jvm.tasks.Jar>("remapSourcesJar")
+        
+        from(targetJar.map { it.archiveFile }, targetSourcesJar.map { it.archiveFile })
+        into(rootProject.layout.buildDirectory.dir("libs/${project.property("mod.version")}"))
+        dependsOn("build")
     }
 }
 
 publishMods {
     dryRun = true
 
-    file = tasks.remapJar.map { it.archiveFile.get() }
+    val targetPublishJar = if (unobfuscated) tasks.named<org.gradle.jvm.tasks.Jar>("jar") else tasks.named<org.gradle.jvm.tasks.Jar>("remapJar")
+    file.set(targetPublishJar.flatMap { it.archiveFile })
+    
     displayName = "${property("mod.name")} ${property("mod.version")} (Fabric ${property("minecraft.version")})"
     version = "Fabric-${property("minecraft.version")}-${property("mod.version")}"
     changelog = rootProject.file("CHANGELOG.md").readText()
@@ -145,7 +159,9 @@ publishMods {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
         repository = "${property("mod.author")}/${property("mod.name")}"
 
-        additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
+        val targetSources = if (unobfuscated) tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar") else tasks.named<org.gradle.jvm.tasks.Jar>("remapSourcesJar")
+        additionalFiles.from(targetSources.flatMap { it.archiveFile })
+        
         displayName = "${property("mod.version")}"
         version = "${property("mod.version")}"
         tagName = "${property("mod.version")}"
@@ -160,7 +176,7 @@ publishMods {
         webhookUrl = providers.environmentVariable("DISCORD_WEBHOOK")
         dryRunWebhookUrl = providers.environmentVariable("DISCORD_WEBHOOK_DRY_RUN")
 
-        content = changelog.map { "# Check out ${project.property("mod.name")} ${project.property("mod.version")}!\n" + it}
+        content = changelog.map { "# Check out ${project.property("mod.name")} ${project.property("mod.version")}!\n$it" }
 
         username = "suikabot"
 
