@@ -1,5 +1,5 @@
 plugins {
-    id("dev.architectury.loom") version "1.13-SNAPSHOT"
+    id("dev.architectury.loom-no-remap") version "1.14-SNAPSHOT"
     id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
@@ -7,23 +7,10 @@ base {
     archivesName = "${property("mod.id")}"
 }
 
-val requiredJava = when {
-    stonecutter.eval(stonecutter.current.version, ">=1.20.6") -> JavaVersion.VERSION_21
-    stonecutter.eval(stonecutter.current.version, ">=1.18") -> JavaVersion.VERSION_17
-    stonecutter.eval(stonecutter.current.version, ">=1.17") -> JavaVersion.VERSION_16
-    else -> JavaVersion.VERSION_1_8
-}
-
-repositories {
-    maven("https://maven.parchmentmc.org/")
-}
+repositories {}
 
 dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft.version")}")
-    mappings(loom.layered() {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${property("parchment.version")}@zip")
-    })
     forge("net.minecraftforge:forge:${property("minecraft.version")}-${property("api.version")}")
 }
 
@@ -39,7 +26,7 @@ loom {
     }
 
     mixin {
-        useLegacyMixinAp = true
+        useLegacyMixinAp = false
         defaultRefmapName = "${property("mod.id")}.refmap.json"
     }
 
@@ -52,6 +39,14 @@ loom {
             programArgs("--existing", project.file("src/main/resources").absolutePath)
         }
     }
+}
+
+val requiredJava = when {
+    sc.eval(sc.current.version, ">=26.1") -> JavaVersion.VERSION_25
+    sc.eval(sc.current.version, ">=1.20.6") -> JavaVersion.VERSION_21
+    sc.eval(sc.current.version, ">=1.18") -> JavaVersion.VERSION_17
+    sc.eval(sc.current.version, ">=1.17") -> JavaVersion.VERSION_16
+    else -> JavaVersion.VERSION_1_8
 }
 
 java {
@@ -89,30 +84,31 @@ tasks {
         }
     }
 
-    register<Copy>("buildAndCollect") {
-        group = "build"
-        from(remapJar.map { it.archiveFile }, remapSourcesJar.map { it.archiveFile })
-        into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
-        dependsOn("build")
-    }
-
-    jar {
+    named<Jar>("jar") {
         exclude(".cache")
-    }
-
-    remapJar {
         from(rootProject.file("LICENSE"))
     }
 
-    remapSourcesJar {
+    named<Jar>("sourcesJar") {
+        exclude(".cache")
         from(rootProject.file("LICENSE"))
     }
+}
+
+val exportJar = tasks.named<org.gradle.jvm.tasks.Jar>("jar").get().archiveFile
+val exportSourcesJar = tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar").get().archiveFile
+
+val TaskContainer.buildAndCollect by tasks.registering(Copy::class) {
+    group = "build"
+    from(exportJar, exportSourcesJar)
+    into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
+    dependsOn("build")
 }
 
 publishMods {
     dryRun = true
 
-    file = tasks.remapJar.map { it.archiveFile.get() }
+    file = exportJar
     displayName = "${property("mod.name")} ${property("mod.version")} (Forge ${property("minecraft.version")})"
     version = "Forge-${property("minecraft.version")}-${property("mod.version")}"
     changelog = rootProject.file("CHANGELOG.md").readText()
@@ -145,7 +141,7 @@ publishMods {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
         repository = "${property("mod.author")}/${property("mod.name")}"
 
-        additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
+        additionalFiles.from(exportSourcesJar)
         displayName = "${property("mod.version")}"
         version = "${property("mod.version")}"
         tagName = "${property("mod.version")}"
