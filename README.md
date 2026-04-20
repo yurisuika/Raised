@@ -23,11 +23,12 @@ Raised supports Fabric 1.16+, Forge 1.16+, and NeoForge 1.20.2+.
 ### Figure it all out!
 You can delve into the *[wiki]* for details or submit a *[bug report]* if something isn't quite right!
 
-Still need help? Drop into the *[Discord]* for quick support.
+Still need something? Head on over to the *[discussions]* forum for support, to read announcements, or discuss anything about the mod!
 
 [Modrinth]: https://modrinth.com/mod/raised
 [CurseForge]: https://www.curseforge.com/minecraft/mc-mods/raised
 [GitHub]: https://github.com/yurisuika/raised
 [wiki]: https://github.com/yurisuika/raised/wiki
 [bug report]: https://github.com/yurisuika/raised/issues
+[discussions]: https://github.com/yurisuika/raised/discussions
 [Discord]: https://discord.gg/0zdNEkQle7Qg9C1H
