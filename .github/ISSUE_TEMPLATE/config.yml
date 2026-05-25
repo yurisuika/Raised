@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Support Forum"
+    url: https://github.com/yurisuika/Raised/discussions/categories/support
+    about: "Get the support you need!"
+  - name: "Ideas Forum"
+    url: https://github.com/yurisuika/Raised/discussions/categories/ideas
+    about: "Suggest your ideas!"
