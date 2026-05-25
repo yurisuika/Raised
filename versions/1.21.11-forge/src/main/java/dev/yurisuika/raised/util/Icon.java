@@ -16,9 +16,9 @@ public class Icon {
         TEXTURES.clear();
         Minecraft.getInstance().getResourcePackRepository().openAllSelected().forEach(pack -> {
             LayerRegistry.LAYERS.forEach((name, layer) -> {
-                Identifier location = Identifier.fromNamespaceAndPath(Raised.MOD_ID, "textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png");
-                if (pack.getResource(PackType.CLIENT_RESOURCES, location) != null) {
-                    TEXTURES.put(name, location);
+                Identifier identifier = Identifier.fromNamespaceAndPath(Raised.MOD_ID, "textures/gui/layer/" + name.getNamespace() + "/" + name.getPath() + ".png");
+                if (pack.getResource(PackType.CLIENT_RESOURCES, identifier) != null) {
+                    TEXTURES.put(name, identifier);
                 }
             });
             pack.close();

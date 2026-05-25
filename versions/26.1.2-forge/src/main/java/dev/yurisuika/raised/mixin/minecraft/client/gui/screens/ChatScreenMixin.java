@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = ChatScreen.class, priority = -999999999)
+@Mixin(value = ChatScreen.class, priority = -999999999, remap = false)
 public abstract class ChatScreenMixin {
 
     /**

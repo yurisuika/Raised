@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(value = Gui.class, priority = -999999999)
+@Mixin(value = Gui.class, priority = -999999999, remap = false)
 public abstract class GuiMixin {
 
     /**
@@ -77,7 +77,7 @@ public abstract class GuiMixin {
         Translate.start(guiGraphics.pose(), LayerRegistry.OTHER);
     }
 
-    @Mixin(value = Gui.class, priority = 999999999)
+    @Mixin(value = Gui.class, priority = 999999999, remap = false)
     public abstract static class Last {
 
         /**

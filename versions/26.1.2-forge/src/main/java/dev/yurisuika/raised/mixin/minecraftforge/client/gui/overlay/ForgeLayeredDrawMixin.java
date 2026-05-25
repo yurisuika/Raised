@@ -22,14 +22,14 @@ import java.util.Iterator;
 @Mixin(value = ForgeLayeredDraw.class, remap = false)
 public abstract class ForgeLayeredDrawMixin {
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;render(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "extract", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;extract(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void startTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Iterator iterator, ForgeLayer layer) {
         if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
             Translate.start(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));
         }
     }
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;render(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "extract", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;extract(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     private void endTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Iterator iterator, ForgeLayer layer) {
         if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
             Translate.end(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));

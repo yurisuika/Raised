@@ -82,14 +82,11 @@ tasks {
         }
     }
 
-    named<Jar>("jar") {
-        exclude(".cache")
-        from(rootProject.file("LICENSE"))
-    }
-
-    named<Jar>("sourcesJar") {
-        exclude(".cache")
-        from(rootProject.file("LICENSE"))
+    listOf("jar", "sourcesJar").forEach { name ->
+        named<Jar>(name) {
+            exclude(".cache")
+            from(rootProject.file("LICENSE"))
+        }
     }
 }
 

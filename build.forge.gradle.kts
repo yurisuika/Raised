@@ -1,5 +1,5 @@
 plugins {
-    id("dev.architectury.loom-no-remap") version "1.14-SNAPSHOT"
+    id("net.minecraftforge.gradle") version "[7.0.17,8)"
     id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
@@ -7,11 +7,17 @@ base {
     archivesName = "${property("mod.id")}"
 }
 
-repositories {}
+repositories {
+    minecraft.mavenizer(this)
+    maven(fg.forgeMaven)
+    maven(fg.minecraftLibsMaven)
+    mavenCentral()
+}
 
 dependencies {
-    minecraft("com.mojang:minecraft:${property("minecraft.version")}")
-    forge("net.minecraftforge:forge:${property("minecraft.version")}-${property("api.version")}")
+    implementation(minecraft.dependency("net.minecraftforge:forge:${property("minecraft.version")}-${property("api.version")}"))
+    annotationProcessor("net.minecraftforge:eventbus-validator:7.0.1")
+    annotationProcessor("org.spongepowered:mixin:0.8.7:processor")
 }
 
 sourceSets {
@@ -20,23 +26,20 @@ sourceSets {
     }
 }
 
-loom {
-    forge {
-        mixinConfigs = listOf("${property("mod.id")}.mixins.json")
-    }
-
-    mixin {
-        useLegacyMixinAp = false
-        defaultRefmapName = "${property("mod.id")}.refmap.json"
-    }
+minecraft {
+    accessTransformers = files(project.file("src/main/resources/META-INF/accesstransformer.cfg").absolutePath)
 
     runs {
+        configureEach {
+            workingDir.convention(layout.projectDirectory.dir("run"))
+            args("--mixin.config", "${property("mod.id")}.mixins.json")
+        }
+
         register("datagen") {
-            data()
-            programArgs("--all")
-            programArgs("--mod", "${property("mod.id")}")
-            programArgs("--output", project.file("src/generated/resources").absolutePath)
-            programArgs("--existing", project.file("src/main/resources").absolutePath)
+            args("--all")
+            args("--mod", "${property("mod.id")}")
+            args("--output", project.file("src/generated/resources").absolutePath)
+            args("--existing", project.file("src/main/resources").absolutePath)
         }
     }
 }
@@ -84,14 +87,15 @@ tasks {
         }
     }
 
-    named<Jar>("jar") {
-        exclude(".cache")
-        from(rootProject.file("LICENSE"))
-    }
+    listOf("jar", "sourcesJar").forEach { name ->
+        named<Jar>(name) {
+            exclude(".cache")
+            from(rootProject.file("LICENSE"))
 
-    named<Jar>("sourcesJar") {
-        exclude(".cache")
-        from(rootProject.file("LICENSE"))
+            manifest {
+                attributes["MixinConfigs"] = "${project.property("mod.id")}.mixins.json"
+            }
+        }
     }
 }
 

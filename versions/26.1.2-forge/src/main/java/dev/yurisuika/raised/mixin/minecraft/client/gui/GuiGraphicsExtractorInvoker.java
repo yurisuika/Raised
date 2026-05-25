@@ -6,7 +6,7 @@ import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(GuiGraphicsExtractor.class)
+@Mixin(value = GuiGraphicsExtractor.class, remap = false)
 public interface GuiGraphicsExtractorInvoker {
 
     @Invoker("innerBlit")

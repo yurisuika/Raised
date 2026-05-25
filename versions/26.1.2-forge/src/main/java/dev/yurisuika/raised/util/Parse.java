@@ -12,7 +12,7 @@ public class Parse {
 
     public static String parseNamespace(Identifier name) {
         String namespace = name.getNamespace();
-        Optional<? extends ModContainer> optional = ModList.get().getModContainerById(namespace);
+        Optional<? extends ModContainer> optional = ModList.getModContainerById(namespace);
         return optional.isPresent() ? optional.get().getModInfo().getDisplayName() : namespace;
     }
 
