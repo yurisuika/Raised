@@ -1,0 +1,106 @@
+package dev.yurisuika.raised.mixin.minecraftforge.client.gui.overlay;
+
+import dev.yurisuika.raised.client.gui.Layer;
+import dev.yurisuika.raised.client.gui.MappedLayers;
+import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.util.Translate;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.resources.Identifier;
+import net.minecraftforge.client.gui.overlay.ForgeLayer;
+import net.minecraftforge.client.gui.overlay.ForgeLayeredDraw;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.Iterator;
+import java.util.function.BooleanSupplier;
+
+@Mixin(value = ForgeLayeredDraw.class, remap = false)
+public abstract class ForgeLayeredDrawMixin {
+
+    @Inject(method = "extract", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;extract(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void startTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Iterator iterator, ForgeLayer layer) {
+        if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
+            Translate.start(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));
+        }
+    }
+
+    @Inject(method = "extract", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;extract(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void endTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Iterator iterator, ForgeLayer layer) {
+        if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
+            Translate.end(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));
+        }
+    }
+
+    @Inject(method = "add(Lnet/minecraft/resources/Identifier;Lnet/minecraftforge/client/gui/overlay/ForgeLayer;)Lnet/minecraftforge/client/gui/overlay/ForgeLayeredDraw;", at = @At("RETURN"))
+    private void registerLayer(Identifier name, ForgeLayer forgeLayer, CallbackInfoReturnable<ForgeLayeredDraw> cir) {
+        addLayer(name, forgeLayer);
+    }
+
+    @Inject(method = "addConditionTo(Lnet/minecraft/resources/Identifier;Ljava/util/function/BooleanSupplier;)Lnet/minecraftforge/client/gui/overlay/ForgeLayeredDraw;", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void registerComputedLayer(Identifier targetLayer, BooleanSupplier condition, CallbackInfoReturnable<ForgeLayeredDraw> cir, ForgeLayer result) {
+        addLayer(targetLayer, result);
+    }
+
+    @Unique
+    public void addLayer(Identifier name, ForgeLayer forgeLayer) {
+        if (name.getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
+            name = formatName(name);
+        } else {
+            LayerRegistry.register(name, LayerRegistry.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+        }
+
+        if (name != null) {
+            MappedLayers.MAPPED_LAYERS.put(forgeLayer, name);
+        }
+    }
+
+    @Unique
+    public Identifier formatName(Identifier name) {
+        if (name.equals(ForgeLayeredDraw.HOTBAR_AND_DECOS)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.SPECTATOR_HOTBAR)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.ITEM_HOTBAR)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.HEALTH_BAR)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.VEHICLE_HEALTH)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.BACKGROUND)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.EXPERIENCE_LEVEL)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.CONTEXTUAL_INFO)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.SELECTED_ITEM_NAME)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.SPECTATOR_ACTION)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.HOTBAR_MESSAGE)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(ForgeLayeredDraw.CHAT_OVERLAY)) {
+            return LayerRegistry.CHAT;
+        } else if (name.equals(ForgeLayeredDraw.BOSS_OVERLAY)) {
+            return LayerRegistry.BOSSBAR;
+        } else if (name.equals(ForgeLayeredDraw.SCOREBOARD)) {
+            return LayerRegistry.SIDEBAR;
+        } else if (name.equals(ForgeLayeredDraw.POTION_EFFECTS)) {
+            return LayerRegistry.EFFECTS;
+        } else if (name.equals(ForgeLayeredDraw.TAB_LIST)) {
+            return LayerRegistry.PLAYERS;
+        } else if (name.equals(ForgeLayeredDraw.TITLE_OVERLAY)) {
+            return LayerRegistry.TITLES;
+        } else if (name.equals(ForgeLayeredDraw.SUBTITLE_OVERLAY)) {
+            return LayerRegistry.SUBTITLES;
+        } else {
+            return null;
+        }
+    }
+
+}

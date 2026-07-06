@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Iterator;
+import java.util.function.BooleanSupplier;
 
 @Mixin(value = ForgeLayeredDraw.class, remap = false)
 public abstract class ForgeLayeredDrawMixin {
@@ -41,6 +42,11 @@ public abstract class ForgeLayeredDrawMixin {
         addLayer(name, forgeLayer);
     }
 
+    @Inject(method = "addConditionTo(Lnet/minecraft/resources/Identifier;Ljava/util/function/BooleanSupplier;)Lnet/minecraftforge/client/gui/overlay/ForgeLayeredDraw;", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void registerComputedLayer(Identifier targetLayer, BooleanSupplier condition, CallbackInfoReturnable<ForgeLayeredDraw> cir, ForgeLayer result) {
+        addLayer(targetLayer, result);
+    }
+
     @Unique
     public void addLayer(Identifier name, ForgeLayer forgeLayer) {
         if (name.getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
@@ -57,6 +63,24 @@ public abstract class ForgeLayeredDrawMixin {
     @Unique
     public Identifier formatName(Identifier name) {
         if (name.equals(ForgeLayeredDraw.HOTBAR_AND_DECOS)) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("item_hotbar"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("spectator_hotbar"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("health_bar"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("vehicle_health"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("background"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("experience_level"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("contextual_info"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("selected_item_name"))) {
+            return LayerRegistry.HOTBAR;
+        } else if (name.equals(Identifier.withDefaultNamespace("spectator_action"))) {
             return LayerRegistry.HOTBAR;
         } else if (name.equals(ForgeLayeredDraw.HOTBAR_MESSAGE)) {
             return LayerRegistry.HOTBAR;

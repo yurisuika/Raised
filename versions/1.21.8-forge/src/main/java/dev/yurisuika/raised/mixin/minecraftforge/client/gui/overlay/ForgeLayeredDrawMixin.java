@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Iterator;
+import java.util.function.BooleanSupplier;
 
 @Mixin(value = ForgeLayeredDraw.class, remap = false)
 public abstract class ForgeLayeredDrawMixin {
@@ -39,6 +40,11 @@ public abstract class ForgeLayeredDrawMixin {
     @Inject(method = "add(Lnet/minecraft/resources/ResourceLocation;Lnet/minecraftforge/client/gui/overlay/ForgeLayer;)Lnet/minecraftforge/client/gui/overlay/ForgeLayeredDraw;", at = @At("RETURN"))
     private void registerLayer(ResourceLocation name, ForgeLayer forgeLayer, CallbackInfoReturnable<ForgeLayeredDraw> cir) {
         addLayer(name, forgeLayer);
+    }
+
+    @Inject(method = "addConditionTo(Lnet/minecraft/resources/ResourceLocation;Ljava/util/function/BooleanSupplier;)Lnet/minecraftforge/client/gui/overlay/ForgeLayeredDraw;", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void registerComputedLayer(ResourceLocation targetLayer, BooleanSupplier condition, CallbackInfoReturnable<ForgeLayeredDraw> cir, ForgeLayer result) {
+        addLayer(targetLayer, result);
     }
 
     @Unique

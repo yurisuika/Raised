@@ -1,0 +1,54 @@
+{
+  "commands.raised.config.reload": "Raised config reloaded",
+  "commands.raised.config.reset": "Raised config reset to defaults",
+
+  "commands.raised.layer.displacement.x.query": "X-axis displacement of %s is currently set to: %dpx",
+  "commands.raised.layer.displacement.x.set": "X-axis displacement of %s is now set to: %dpx",
+  "commands.raised.layer.displacement.y.query": "Y-axis displacement of %s is currently set to: %dpx",
+  "commands.raised.layer.displacement.y.set": "Y-axis displacement of %s is now set to: %dpx",
+  "commands.raised.layer.direction.x.query": "X-axis direction of %s is currently set to: %s",
+  "commands.raised.layer.direction.x.set": "X-axis direction of %s is now set to: %s",
+  "commands.raised.layer.direction.y.query": "Y-axis direction of %s is currently set to: %s",
+  "commands.raised.layer.direction.y.set": "Y-axis direction of %s is now set to: %s",
+  "commands.raised.layer.sync.query": "Synced layer of %s is currently set to: %s",
+  "commands.raised.layer.sync.set": "Synced layer of %s is now set to: %s",
+  "commands.raised.layer.unknown": "Unknown layer %s",
+
+  "commands.raised.resource.texture.query": "Hotbar selector texture is currently set to: %s",
+  "commands.raised.resource.texture.set": "Hotbar selector texture is now set to: %s",
+
+  "key.category.raised.raised": "Raised",
+
+  "key.raised.options": "Open Raised Options",
+
+  "options.raised.title": "Raised Options",
+
+  "options.raised.displacement.x": "Displacement (X)",
+  "options.raised.displacement.x.tooltip": "Displacement of the layer on the x-axis.\nMaximum slider value is a quarter of scaled screen width.",
+  "options.raised.displacement.y": "Displacement (Y)",
+  "options.raised.displacement.y.tooltip": "Displacement of the layer on the y-axis.\nMaximum slider value is a quarter of scaled screen height.",
+
+  "options.raised.direction.x": "Direction (X)",
+  "options.raised.direction.x.left": "Left",
+  "options.raised.direction.x.none": "None",
+  "options.raised.direction.x.right": "Right",
+  "options.raised.direction.x.tooltip": "Direction of the layer's displacement on the x-axis.",
+  "options.raised.direction.y": "Direction (Y)",
+  "options.raised.direction.y.up": "Up",
+  "options.raised.direction.y.none": "None",
+  "options.raised.direction.y.down": "Down",
+  "options.raised.direction.y.tooltip": "Direction of the layer's displacement on the y-axis.",
+
+  "options.raised.sync": "Sync",
+  "options.raised.sync.tooltip": "Synchronized layer.\nOverrides the layer's displacement with the configuration for %s.",
+
+  "options.raised.texture": "Texture",
+  "options.raised.texture.replace": "Replace",
+  "options.raised.texture.replace.tooltip": "Restores the cut-off hotbar selector by texture replacement.\nReplaces the selector asset with the square pre-1.20.2 texture.",
+  "options.raised.texture.patch": "Patch",
+  "options.raised.texture.patch.tooltip": "Restores the cut-off hotbar selector by texture patch.\nFills in the missing bottom of the selector by mirroring the top of the texture.",
+  "options.raised.texture.auto": "Auto",
+  "options.raised.texture.auto.tooltip": "Restores the cut-off hotbar selector automatically by either texture replacement or patch based on whether resource pack support is present.",
+  "options.raised.texture.none": "None",
+  "options.raised.texture.none.tooltip": "The hotbar selector is not modified."
+}
