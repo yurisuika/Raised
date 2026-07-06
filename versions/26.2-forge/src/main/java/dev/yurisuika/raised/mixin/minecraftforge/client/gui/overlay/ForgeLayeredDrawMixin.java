@@ -62,9 +62,7 @@ public abstract class ForgeLayeredDrawMixin {
 
     @Unique
     public Identifier formatName(Identifier name) {
-        if (name.equals(ForgeLayeredDraw.HOTBAR_AND_DECOS)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(ForgeLayeredDraw.SPECTATOR_HOTBAR)) {
+        if (name.equals(ForgeLayeredDraw.SPECTATOR_HOTBAR)) {
             return LayerRegistry.HOTBAR;
         } else if (name.equals(ForgeLayeredDraw.ITEM_HOTBAR)) {
             return LayerRegistry.HOTBAR;
