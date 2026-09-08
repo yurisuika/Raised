@@ -30,7 +30,7 @@ public class GroupArgument implements ArgumentType<String> {
 
     @Override
     public String parse(StringReader reader) throws CommandSyntaxException {
-        String groupName = reader.getRead();
+        String groupName = reader.readString();
         if (Configure.Groups.getGroups().containsKey(groupName)) {
             return groupName;
         } else {
