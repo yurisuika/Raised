@@ -140,6 +140,11 @@ public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>
         return width - (paddingX * 2) - (getMaxScroll() > 0 ? 6 : 0);
     }
 
+    @Override
+    public boolean isFocused() {
+        return getFocused() != null;
+    }
+
     public int getEntryX(E entry) {
         return getRowLeft();
     }
