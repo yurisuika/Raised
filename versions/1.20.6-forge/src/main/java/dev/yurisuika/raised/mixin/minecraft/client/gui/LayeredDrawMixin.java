@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.mixin.minecraft.client.gui;
 
-import dev.yurisuika.raised.client.gui.MappedLayers;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -17,15 +17,15 @@ public abstract class LayeredDrawMixin {
 
     @Inject(method = "renderInner", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/LayeredDraw$Layer;render(Lnet/minecraft/client/gui/GuiGraphics;F)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void startTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci, Iterator iterator, LayeredDraw.Layer layer) {
-        if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
-            Translate.start(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));
+        if (Layers.Curated.CURATED_LAYERS.containsKey(layer)) {
+            Translate.start(guiGraphics.pose(), Layers.Curated.CURATED_LAYERS.get(layer));
         }
     }
 
     @Inject(method = "renderInner", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/LayeredDraw$Layer;render(Lnet/minecraft/client/gui/GuiGraphics;F)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     private void endTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci, Iterator iterator, LayeredDraw.Layer layer) {
-        if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
-            Translate.end(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));
+        if (Layers.Curated.CURATED_LAYERS.containsKey(layer)) {
+            Translate.end(guiGraphics.pose(), Layers.Curated.CURATED_LAYERS.get(layer));
         }
     }
 

@@ -2,8 +2,8 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
-import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
-import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.client.gui.layer.Layers;
+import dev.yurisuika.raised.client.gui.screens.SelectScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -18,7 +18,7 @@ public class RaisedClient implements ClientModInitializer {
     public static void registerInputEvents() {
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
             while (RaisedOptions.OPTIONS.consumeClick()) {
-                minecraft.setScreen(new RaisedScreen(null));
+                minecraft.setScreen(new SelectScreen(null));
             }
         });
     }
@@ -28,7 +28,7 @@ public class RaisedClient implements ClientModInitializer {
     }
 
     public static void registerLayers() {
-        LayerRegistry.boostrap();
+        Layers.boostrap();
     }
 
     @Override

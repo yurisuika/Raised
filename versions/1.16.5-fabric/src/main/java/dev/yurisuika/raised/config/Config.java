@@ -3,6 +3,7 @@ package dev.yurisuika.raised.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.yurisuika.raised.Raised;
+import dev.yurisuika.raised.option.Options;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.BufferedWriter;

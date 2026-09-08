@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.minecraft.client.gui.components;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SubtitleOverlay;
@@ -18,12 +18,12 @@ public abstract class SubtitleOverlayMixin {
      */
     @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;pushMatrix()Lorg/joml/Matrix3x2fStack;"))
     private void startSubtitlesTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
-        Translate.start(guiGraphics.pose(), LayerRegistry.SUBTITLES);
+        Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
     }
 
     @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;popMatrix()Lorg/joml/Matrix3x2fStack;", shift = At.Shift.AFTER))
     private void endSubtitlesTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose(), LayerRegistry.SUBTITLES);
+        Translate.end(guiGraphics.pose(), Layers.SUBTITLES);
     }
 
 }

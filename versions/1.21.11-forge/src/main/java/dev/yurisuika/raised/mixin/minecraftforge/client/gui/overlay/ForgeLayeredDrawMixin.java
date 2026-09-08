@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.minecraftforge.client.gui.overlay;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.client.gui.MappedLayers;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.DeltaTracker;
@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.function.BooleanSupplier;
 
 @Mixin(value = ForgeLayeredDraw.class, remap = false)
@@ -25,15 +26,15 @@ public abstract class ForgeLayeredDrawMixin {
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;render(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void startTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Iterator iterator, ForgeLayer layer) {
-        if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
-            Translate.start(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));
+        if (Layers.Curated.CURATED_LAYERS.containsKey(layer)) {
+            Translate.start(guiGraphics.pose(), Layers.Curated.CURATED_LAYERS.get(layer));
         }
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/overlay/ForgeLayer;render(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     private void endTranslate(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci, Iterator iterator, ForgeLayer layer) {
-        if (MappedLayers.MAPPED_LAYERS.containsKey(layer)) {
-            Translate.end(guiGraphics.pose(), MappedLayers.MAPPED_LAYERS.get(layer));
+        if (Layers.Curated.CURATED_LAYERS.containsKey(layer)) {
+            Translate.end(guiGraphics.pose(), Layers.Curated.CURATED_LAYERS.get(layer));
         }
     }
 
@@ -49,40 +50,32 @@ public abstract class ForgeLayeredDrawMixin {
 
     @Unique
     public void addLayer(Identifier name, ForgeLayer forgeLayer) {
-        if (name.getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
-            name = formatName(name);
+        if (!name.getNamespace().equals(Identifier.DEFAULT_NAMESPACE)) {
+            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
         } else {
-            LayerRegistry.register(name, LayerRegistry.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+            name = curateName(name);
         }
 
         if (name != null) {
-            MappedLayers.MAPPED_LAYERS.put(forgeLayer, name);
+            Layers.Curated.CURATED_LAYERS.put(forgeLayer, name);
         }
     }
 
     @Unique
-    public Identifier formatName(Identifier name) {
-        if (name.equals(ForgeLayeredDraw.HOTBAR_AND_DECOS)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(ForgeLayeredDraw.HOTBAR_MESSAGE)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(ForgeLayeredDraw.CHAT_OVERLAY)) {
-            return LayerRegistry.CHAT;
-        } else if (name.equals(ForgeLayeredDraw.BOSS_OVERLAY)) {
-            return LayerRegistry.BOSSBAR;
-        } else if (name.equals(ForgeLayeredDraw.SCOREBOARD)) {
-            return LayerRegistry.SIDEBAR;
-        } else if (name.equals(ForgeLayeredDraw.POTION_EFFECTS)) {
-            return LayerRegistry.EFFECTS;
-        } else if (name.equals(ForgeLayeredDraw.TAB_LIST)) {
-            return LayerRegistry.PLAYERS;
-        } else if (name.equals(ForgeLayeredDraw.TITLE_OVERLAY)) {
-            return LayerRegistry.TITLES;
-        } else if (name.equals(ForgeLayeredDraw.SUBTITLE_OVERLAY)) {
-            return LayerRegistry.SUBTITLES;
-        } else {
-            return null;
-        }
+    public Identifier curateName(Identifier name) {
+        Map<Identifier, Identifier> map = Map.ofEntries(
+                Map.entry(ForgeLayeredDraw.HOTBAR_AND_DECOS, Layers.HOTBAR),
+                Map.entry(ForgeLayeredDraw.HOTBAR_MESSAGE, Layers.ACTION_BAR),
+                Map.entry(ForgeLayeredDraw.CHAT_OVERLAY, Layers.CHAT),
+                Map.entry(ForgeLayeredDraw.BOSS_OVERLAY, Layers.BOSS_BAR),
+                Map.entry(ForgeLayeredDraw.SCOREBOARD, Layers.SCOREBOARD),
+                Map.entry(ForgeLayeredDraw.POTION_EFFECTS, Layers.EFFECTS),
+                Map.entry(ForgeLayeredDraw.TAB_LIST, Layers.PLAYER_LIST),
+                Map.entry(ForgeLayeredDraw.TITLE_OVERLAY, Layers.TITLES),
+                Map.entry(ForgeLayeredDraw.SUBTITLE_OVERLAY, Layers.SUBTITLES)
+        );
+
+        return map.getOrDefault(name, null);
     }
 
 }

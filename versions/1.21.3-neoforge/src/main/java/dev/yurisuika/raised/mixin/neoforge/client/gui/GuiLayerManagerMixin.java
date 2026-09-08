@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.neoforge.client.gui;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.client.gui.MappedLayers;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Map;
+
 @Mixin(value = GuiLayerManager.class, remap = false)
 public abstract class GuiLayerManagerMixin {
 
@@ -23,62 +25,44 @@ public abstract class GuiLayerManagerMixin {
 
     @Unique
     public void addLayer(ResourceLocation name) {
-        ResourceLocation formattedName = name;
+        ResourceLocation curatedName = null;
 
         if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            LayerRegistry.register(name, LayerRegistry.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
         } else {
-            formattedName = formatName(name);
+            curatedName = curateName(name);
         }
 
-        if (formattedName != null) {
-            MappedLayers.MAPPED_LAYERS.put(name, formattedName);
+        if (curatedName != null) {
+            Layers.Curated.CURATED_LAYERS.put(name, curatedName);
         }
     }
 
     @Unique
-    public ResourceLocation formatName(ResourceLocation name) {
-        if (name.equals(VanillaGuiLayers.HOTBAR)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.PLAYER_HEALTH)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.ARMOR_LEVEL)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.FOOD_LEVEL)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.AIR_LEVEL)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.VEHICLE_HEALTH)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.JUMP_METER)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.EXPERIENCE_BAR)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.EXPERIENCE_LEVEL)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.SELECTED_ITEM_NAME)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.SPECTATOR_TOOLTIP)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.OVERLAY_MESSAGE)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(VanillaGuiLayers.CHAT)) {
-            return LayerRegistry.CHAT;
-        } else if (name.equals(VanillaGuiLayers.BOSS_OVERLAY)) {
-            return LayerRegistry.BOSSBAR;
-        } else if (name.equals(VanillaGuiLayers.SCOREBOARD_SIDEBAR)) {
-            return LayerRegistry.SIDEBAR;
-        } else if (name.equals(VanillaGuiLayers.EFFECTS)) {
-            return LayerRegistry.EFFECTS;
-        } else if (name.equals(VanillaGuiLayers.TAB_LIST)) {
-            return LayerRegistry.PLAYERS;
-        } else if (name.equals(VanillaGuiLayers.TITLE)) {
-            return LayerRegistry.TITLES;
-        } else if (name.equals(VanillaGuiLayers.SUBTITLE_OVERLAY)) {
-            return LayerRegistry.SUBTITLES;
-        } else {
-            return null;
-        }
+    public ResourceLocation curateName(ResourceLocation name) {
+        Map<ResourceLocation, ResourceLocation> map = Map.ofEntries(
+                Map.entry(VanillaGuiLayers.HOTBAR, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.PLAYER_HEALTH, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.ARMOR_LEVEL, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.FOOD_LEVEL, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.AIR_LEVEL, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.VEHICLE_HEALTH, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.JUMP_METER, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.EXPERIENCE_BAR, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.EXPERIENCE_LEVEL, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.SELECTED_ITEM_NAME, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.SPECTATOR_TOOLTIP, Layers.HOTBAR),
+                Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, Layers.ACTION_BAR),
+                Map.entry(VanillaGuiLayers.CHAT, Layers.CHAT),
+                Map.entry(VanillaGuiLayers.BOSS_OVERLAY, Layers.BOSS_BAR),
+                Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, Layers.SCOREBOARD),
+                Map.entry(VanillaGuiLayers.EFFECTS, Layers.EFFECTS),
+                Map.entry(VanillaGuiLayers.TAB_LIST, Layers.PLAYER_LIST),
+                Map.entry(VanillaGuiLayers.TITLE, Layers.TITLES),
+                Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Layers.SUBTITLES)
+        );
+
+        return map.getOrDefault(name, null);
     }
 
 }

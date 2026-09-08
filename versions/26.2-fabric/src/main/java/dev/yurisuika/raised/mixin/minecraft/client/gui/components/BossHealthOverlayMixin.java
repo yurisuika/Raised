@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.minecraft.client.gui.components;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.BossHealthOverlay;
@@ -14,16 +14,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BossHealthOverlayMixin {
 
     /**
-     * Moves the {@code bossbar} for {@link Layer} key "minecraft:bossbar".
+     * Moves the {@code bossbar} for {@link Layer} key "minecraft:boss_bar".
      */
     @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
     private void startBossBarTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
-        Translate.start(guiGraphics.pose(), LayerRegistry.BOSSBAR);
+        Translate.start(guiGraphics.pose(), Layers.BOSS_BAR);
     }
 
     @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
     private void endBossBarTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose(), LayerRegistry.BOSSBAR);
+        Translate.end(guiGraphics.pose(), Layers.BOSS_BAR);
     }
 
 }

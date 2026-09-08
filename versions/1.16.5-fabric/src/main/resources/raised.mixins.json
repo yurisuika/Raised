@@ -8,11 +8,9 @@
     "minecraft.server.packs.repository.PackRepositoryMixin"
   ],
   "client": [
-    "minecraft.client.gui.GuiComponentMixin",
     "minecraft.client.gui.GuiMixin",
     "minecraft.client.gui.GuiMixin$Last",
     "minecraft.client.gui.components.ChatComponentMixin",
-    "minecraft.client.gui.components.SliderButtonAccessor",
     "minecraft.client.gui.components.SubtitleOverlayMixin",
     "minecraft.client.gui.components.toasts.ToastComponentMixin$ToastInstanceMixin"
   ],

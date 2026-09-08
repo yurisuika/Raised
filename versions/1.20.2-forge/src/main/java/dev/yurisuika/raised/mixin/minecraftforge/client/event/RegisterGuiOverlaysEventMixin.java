@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.mixin.minecraftforge.client.event;
 
 import dev.yurisuika.raised.Raised;
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.client.gui.MappedLayers;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -19,37 +19,37 @@ public abstract class RegisterGuiOverlaysEventMixin {
 
     @Inject(method = "registerBelowAll", at = @At("HEAD"))
     private void addLayerBelowAll(String id, IGuiOverlay overlay, CallbackInfo ci) {
-        addLayer(new ResourceLocation(formatNamespace(), id));
+        addLayer(id);
     }
 
     @Inject(method = "registerBelow", at = @At("HEAD"))
     private void addLayerBelow(ResourceLocation other, String id, IGuiOverlay overlay, CallbackInfo ci) {
-        addLayer(new ResourceLocation(formatNamespace(), id));
+        addLayer(id);
     }
 
     @Inject(method = "registerAbove", at = @At("HEAD"))
     private void addLayerAbove(ResourceLocation other, String id, IGuiOverlay overlay, CallbackInfo ci) {
-        addLayer(new ResourceLocation(formatNamespace(), id));
+        addLayer(id);
     }
 
     @Inject(method = "registerAboveAll", at = @At("HEAD"))
     private void addLayerAboveAll(String id, IGuiOverlay overlay, CallbackInfo ci) {
-        addLayer(new ResourceLocation(formatNamespace(), id));
+        addLayer(id);
     }
 
+    /**
+     * <p>Vanilla layers get registered as Raised, so those are ignored.
+     */
     @Unique
-    public void addLayer(ResourceLocation name) {
-        if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            LayerRegistry.register(name, LayerRegistry.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
-
-            MappedLayers.MAPPED_LAYERS.put(name, name);
-        }
-    }
-
-    @Unique
-    public String formatNamespace() {
+    public void addLayer(String path) {
         String namespace = ModLoadingContext.get().getActiveNamespace();
-        return namespace.equals(Raised.MOD_ID) ? ResourceLocation.DEFAULT_NAMESPACE : namespace;
+        namespace = namespace.equals(Raised.MOD_ID) ? ResourceLocation.DEFAULT_NAMESPACE : namespace;
+        ResourceLocation name = new ResourceLocation(namespace, path);
+
+        if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
+            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
+            Layers.Curated.CURATED_LAYERS.put(name, name);
+        }
     }
 
 }

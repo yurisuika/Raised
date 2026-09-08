@@ -33,17 +33,17 @@ public class LayerArgument implements ArgumentType<Identifier> {
 
     @Override
     public Identifier parse(StringReader reader) throws CommandSyntaxException {
-        Identifier name = Identifier.read(reader);
-        if (Configure.getLayers().containsKey(name.toString())) {
-            return name;
+        Identifier layerName = Identifier.read(reader);
+        if (Configure.Layers.getLayers().containsKey(layerName.toString())) {
+            return layerName;
         } else {
-            throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.layer.unknown", object)).createWithContext(reader, name);
+            throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.layer.unknown", object)).createWithContext(reader, layerName);
         }
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext, SuggestionsBuilder suggestionsBuilder) {
-        return SharedSuggestionProvider.suggestResource(LayerRegistry.LAYERS.keySet().stream().sorted(Comparator.comparing(Identifier::toString)), suggestionsBuilder);
+        return SharedSuggestionProvider.suggestResource(LayerRegistry.LAYERS.stream().sorted(Comparator.comparing(Identifier::toString)), suggestionsBuilder);
     }
 
     @Override

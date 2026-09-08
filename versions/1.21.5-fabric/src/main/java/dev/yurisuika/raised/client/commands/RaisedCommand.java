@@ -2,15 +2,22 @@ package dev.yurisuika.raised.client.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import dev.yurisuika.raised.commands.arguments.DirectionArgument;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import dev.yurisuika.raised.client.gui.group.Group;
+import dev.yurisuika.raised.commands.arguments.AnchorArgument;
+import dev.yurisuika.raised.commands.arguments.GroupArgument;
+import dev.yurisuika.raised.commands.arguments.HotbarSelectionFixArgument;
 import dev.yurisuika.raised.commands.arguments.LayerArgument;
-import dev.yurisuika.raised.commands.arguments.TextureArgument;
+import dev.yurisuika.raised.config.Config;
+import dev.yurisuika.raised.option.Options;
+import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Configure;
-import dev.yurisuika.raised.util.Validate;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.network.chat.Component;
+
+import java.util.TreeSet;
 
 public class RaisedCommand {
 
@@ -19,112 +26,164 @@ public class RaisedCommand {
                 .then(ClientCommandManager.literal("config")
                         .then(ClientCommandManager.literal("reload")
                                 .executes(commandContext -> {
-                                    Validate.reloadConfig();
+                                    Config.loadConfig();
+                                    LayerRegistry.addLayersToConfig();
                                     commandContext.getSource().sendFeedback(Component.translatable("commands.raised.config.reload"));
                                     return 1;
                                 })
                         )
                         .then(ClientCommandManager.literal("reset")
                                 .executes(commandContext -> {
-                                    Validate.resetConfig();
+                                    Configure.Groups.setGroups(new Options().getGroups());
+                                    Configure.Layers.setLayers(new Options().getLayers());
+                                    Configure.setAdditionalSettings(new Options().getAdditionalSettings());
+                                    LayerRegistry.addLayersToConfig();
                                     commandContext.getSource().sendFeedback(Component.translatable("commands.raised.config.reset"));
                                     return 1;
                                 })
                         )
                 )
-                .then(ClientCommandManager.literal("layer")
-                        .then(ClientCommandManager.argument("name", LayerArgument.layer())
-                                .then(ClientCommandManager.literal("displacement")
-                                        .then(ClientCommandManager.literal("x")
-                                                .executes(commandContext -> {
-                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.x.query", name, Configure.getDisplacementX(name)));
-                                                    return 1;
-                                                })
-                                                .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
-                                                        .executes(commandContext -> {
-                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                            Configure.setDisplacementX(name, IntegerArgumentType.getInteger(commandContext, "x"));
-                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.x.set", name, Configure.getDisplacementX(name)));
-                                                            return 1;
-                                                        })
-                                                )
-                                        )
-                                        .then(ClientCommandManager.literal("y")
-                                                .executes(commandContext -> {
-                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.y.query",name, Configure.getDisplacementY(name)));
-                                                    return 1;
-                                                })
-                                                .then(ClientCommandManager.argument("y", IntegerArgumentType.integer(0))
-                                                        .executes(commandContext -> {
-                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                            Configure.setDisplacementY(name, IntegerArgumentType.getInteger(commandContext, "y"));
-                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.displacement.y.set", name, Configure.getDisplacementY(name)));
-                                                            return 1;
-                                                        })
-                                                )
-                                        )
-                                )
-                                .then(ClientCommandManager.literal("direction")
-                                        .then(ClientCommandManager.literal("x")
-                                                .executes(commandContext -> {
-                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.query", name, Configure.getDirectionX(name).caption()));
-                                                    return 1;
-                                                })
-                                                .then(ClientCommandManager.argument("x", DirectionArgument.X.x())
-                                                        .executes(commandContext -> {
-                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                            Configure.setDirectionX(name, DirectionArgument.X.getX(commandContext, "x"));
-                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.x.set", name, Configure.getDirectionX(name).caption()));
-                                                            return 1;
-                                                        })
-                                                )
-                                        )
-                                        .then(ClientCommandManager.literal("y")
-                                                .executes(commandContext -> {
-                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.query", name, Configure.getDirectionY(name).caption()));
-                                                    return 1;
-                                                })
-                                                .then(ClientCommandManager.argument("y", DirectionArgument.Y.y())
-                                                        .executes(commandContext -> {
-                                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                            Configure.setDirectionY(name, DirectionArgument.Y.getY(commandContext, "y"));
-                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.direction.y.set", name, Configure.getDirectionY(name).caption()));
-                                                            return 1;
-                                                        })
-                                                )
-                                        )
-                                )
-                                .then(ClientCommandManager.literal("sync")
+                .then(ClientCommandManager.literal("group")
+                        .then(ClientCommandManager.literal("add")
+                                .then(ClientCommandManager.argument("name", StringArgumentType.string())
                                         .executes(commandContext -> {
-                                            String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.sync.query", name, Configure.getSync(name)));
+                                            String name = StringArgumentType.getString(commandContext, "name");
+                                            if (Configure.Groups.getGroups().containsKey(name)) {
+                                                commandContext.getSource().sendError(Component.translatable("commands.raised.group.error", name));
+                                                return 0;
+                                            } else {
+                                                Configure.Groups.addGroup(name, new Group(new Group.Offset(0, 0), new TreeSet<>()));
+                                                commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.add", name));
+                                                return 1;
+                                            }
+                                        })
+                                )
+                        )
+                        .then(ClientCommandManager.literal("remove")
+                                .then(ClientCommandManager.argument("group", GroupArgument.group())
+                                        .executes(commandContext -> {
+                                            String group = GroupArgument.getGroup(commandContext, "group");
+                                            Configure.Groups.removeGroup(group);
+                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.add", group));
                                             return 1;
                                         })
-                                        .then(ClientCommandManager.argument("sync", LayerArgument.layer())
+                                )
+                        )
+                        .then(ClientCommandManager.literal("rename")
+                                .then(ClientCommandManager.argument("group", GroupArgument.group())
+                                        .then(ClientCommandManager.argument("name", StringArgumentType.string())
                                                 .executes(commandContext -> {
-                                                    String name = LayerArgument.getLayer(commandContext, "name").toString();
-                                                    Configure.setSync(name, LayerArgument.getLayer(commandContext, "sync").toString());
-                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.sync.set", name, Configure.getSync(name)));
-                                                    return 1;
+                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                    String name = StringArgumentType.getString(commandContext, "name");
+                                                    if (Configure.Groups.getGroups().containsKey(name)) {
+                                                        commandContext.getSource().sendError(Component.translatable("commands.raised.group.error", name));
+                                                        return 0;
+                                                    } else {
+                                                        Configure.Groups.renameGroup(group, name);
+                                                        commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.add", group));
+                                                        return 1;
+                                                    }
                                                 })
                                         )
                                 )
                         )
+                        .then(ClientCommandManager.literal("settings")
+                                .then(ClientCommandManager.argument("group", GroupArgument.group())
+                                        .then(ClientCommandManager.literal("offset")
+                                                .then(ClientCommandManager.literal("x")
+                                                        .executes(commandContext -> {
+                                                            String group = GroupArgument.getGroup(commandContext, "group");
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.offset.x.query", group, Configure.Groups.getOffsetX(group)));
+                                                            return 1;
+                                                        })
+                                                        .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
+                                                                .executes(commandContext -> {
+                                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                                    Configure.Groups.setOffsetX(group, IntegerArgumentType.getInteger(commandContext, "x"));
+                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.offset.x.set", group, Configure.Groups.getOffsetX(group)));
+                                                                    return 1;
+                                                                })
+                                                        )
+                                                )
+                                                .then(ClientCommandManager.literal("y")
+                                                        .executes(commandContext -> {
+                                                            String group = GroupArgument.getGroup(commandContext, "group");
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.offset.y.query",group, Configure.Groups.getOffsetY(group)));
+                                                            return 1;
+                                                        })
+                                                        .then(ClientCommandManager.argument("y", IntegerArgumentType.integer(0))
+                                                                .executes(commandContext -> {
+                                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                                    Configure.Groups.setOffsetY(group, IntegerArgumentType.getInteger(commandContext, "y"));
+                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.offset.y.set", group, Configure.Groups.getOffsetY(group)));
+                                                                    return 1;
+                                                                })
+                                                        )
+                                                )
+                                        )
+                                        .then(ClientCommandManager.literal("layers")
+                                                .executes(commandContext -> {
+                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.query", group, Configure.Groups.getLayers(group)));
+                                                    return 1;
+                                                })
+                                                .then(ClientCommandManager.literal("add")
+                                                        .then(ClientCommandManager.argument("layer", LayerArgument.layer())
+                                                                .executes(commandContext -> {
+                                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                                    String layer = LayerArgument.getLayer(commandContext, "layer").toString();
+                                                                    Configure.Groups.addLayer(group, layer);
+                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.add", layer, group));
+                                                                    return 1;
+                                                                })
+                                                        )
+                                                )
+                                                .then(ClientCommandManager.literal("remove")
+                                                        .then(ClientCommandManager.argument("layer", LayerArgument.layer())
+                                                                .executes(commandContext -> {
+                                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                                    String layer = LayerArgument.getLayer(commandContext, "layer").toString();
+                                                                    Configure.Groups.removeLayer(group, layer);
+                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.remove", layer, group));
+                                                                    return 1;
+                                                                })
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
                 )
-                .then(ClientCommandManager.literal("resource")
-                        .then(ClientCommandManager.literal("texture")
+                .then(ClientCommandManager.literal("layer")
+                        .then(ClientCommandManager.literal("settings")
+                                .then(ClientCommandManager.argument("layer", LayerArgument.layer())
+                                        .then(ClientCommandManager.literal("anchor")
+                                                .executes(commandContext -> {
+                                                    String layer = LayerArgument.getLayer(commandContext, "layer").toString();
+                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.settings.anchor.query", layer, Configure.Layers.getAnchor(layer).caption()));
+                                                    return 1;
+                                                })
+                                                .then(ClientCommandManager.argument("anchor", AnchorArgument.anchor())
+                                                        .executes(commandContext -> {
+                                                            String layer = LayerArgument.getLayer(commandContext, "layer").toString();
+                                                            Configure.Layers.setAnchor(layer, AnchorArgument.getAnchor(commandContext, "anchor"));
+                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.settings.anchor.set", layer, Configure.Layers.getAnchor(layer).caption()));
+                                                            return 1;
+                                                        })
+                                                )
+                                        )
+                                )
+                        )
+                )
+                .then(ClientCommandManager.literal("additionalSettings")
+                        .then(ClientCommandManager.literal("hotbarSelectionFix")
                                 .executes(commandContext -> {
-                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resource.texture.query", Configure.getTexture().caption()));
+                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.additional_settings.hotbar_selection_fix.query", Configure.getHotbarSelectionFix().caption()));
                                     return 1;
                                 })
-                                .then(ClientCommandManager.argument("texture", TextureArgument.texture())
+                                .then(ClientCommandManager.argument("texture", HotbarSelectionFixArgument.hotbarSelectionFix())
                                         .executes(commandContext -> {
-                                            Configure.setTexture(TextureArgument.getTexture(commandContext, "texture"));
-                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.resource.texture.set", Configure.getTexture().caption()));
+                                            Configure.setHotbarSelectionFix(HotbarSelectionFixArgument.getHotbarSelectionFix(commandContext, "hotbarSelectionFix"));
+                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.additional_settings.hotbar_selection_fix.set", Configure.getHotbarSelectionFix().caption()));
                                             return 1;
                                         })
                                 )

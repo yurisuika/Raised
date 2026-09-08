@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.minecraft.client.gui.components;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.SubtitleOverlay;
@@ -18,12 +18,12 @@ public abstract class SubtitleOverlayMixin {
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"))
     private void startSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.start(guiGraphics.pose(), LayerRegistry.SUBTITLES);
+        Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.AFTER))
     private void endSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose(), LayerRegistry.SUBTITLES);
+        Translate.end(guiGraphics.pose(), Layers.SUBTITLES);
     }
 
 }

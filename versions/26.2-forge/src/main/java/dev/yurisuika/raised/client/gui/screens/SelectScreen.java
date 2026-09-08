@@ -1,0 +1,330 @@
+package dev.yurisuika.raised.client.gui.screens;
+
+import dev.yurisuika.raised.Raised;
+import dev.yurisuika.raised.client.gui.components.SpacedSelectionList;
+import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.util.Configure;
+import dev.yurisuika.raised.util.Parse;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarratedElementType;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class SelectScreen extends AbstractLayersScreen {
+
+    public AbstractWidget controlClose;
+    public AbstractWidget controlSettings;
+    public AbstractWidget controlEditGroup;
+    public AbstractWidget controlRenameGroup;
+    public AbstractWidget controlAddGroup;
+    public AbstractWidget controlRemoveGroup;
+    public GroupList leftList;
+    public LayerList rightList;
+    public int widgetWidthWide;
+
+    public SelectScreen(Screen parent) {
+        super(parent, 2, 1);
+    }
+
+    public List<String> listGroups() {
+        return Configure.Groups.getGroups().keySet().stream()
+                .sorted(Comparator.comparing(String::toString))
+                .toList();
+    }
+
+    public List<Identifier> listLayers() {
+        return LayerRegistry.LAYERS.stream()
+                .sorted(Comparator.comparing(Identifier::toString))
+                .filter(layerName -> layerName.getNamespace().equals(selectedNamespace))
+                .toList();
+    }
+
+    @Override
+    public void setSizes() {
+        super.setSizes();
+
+        widgetWidthWide = (panelWidth - ((PANEL_GAP) + (PANEL_GAP + WIDGET_WIDTH_SQUARE + PANEL_GAP + WIDGET_WIDTH_SQUARE))) / 2;
+    }
+
+    @Override
+    public void addLeftControls() {
+        leftControls = new ArrayList<>();
+
+        controlClose = Button.builder(Component.translatable("options.raised.control.close"), button -> onClose())
+                .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
+                .pos(leftPanelX, leftPanelY)
+                .build();
+        controlSettings = Button.builder(Component.translatable("options.raised.control.additional_settings"), button -> minecraft.gui.setScreen(new AdditionalSettingsScreen(this)))
+                .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
+                .pos(leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE, leftPanelY)
+                .tooltip(Tooltip.create(Component.translatable("options.raised.control.additional_settings.tooltip")))
+                .build();
+        controlEditGroup = Button.builder(Component.translatable("options.raised.control.edit"), button -> minecraft.gui.setScreen(new EditScreen(this)))
+                .size(widgetWidthWide, WIDGET_HEIGHT)
+                .pos(leftPanelX, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .tooltip(Tooltip.create(Component.translatable("options.raised.control.edit.tooltip")))
+                .build();
+        controlRenameGroup = Button.builder(Component.translatable("options.raised.control.rename"), button -> minecraft.gui.setScreen(new RenameScreen(this)))
+                .size(widgetWidthWide, WIDGET_HEIGHT)
+                .pos(leftPanelX + widgetWidthWide + PANEL_GAP, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .tooltip(Tooltip.create(Component.translatable("options.raised.control.rename.tooltip")))
+                .build();
+        controlAddGroup = Button.builder(Component.translatable("options.raised.control.add"), button -> minecraft.gui.setScreen(new AddScreen(this)))
+                .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
+                .pos(leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE - PANEL_GAP - WIDGET_WIDTH_SQUARE, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .tooltip(Tooltip.create(Component.translatable("options.raised.control.add.tooltip")))
+                .build();
+        controlRemoveGroup = Button.builder(Component.translatable("options.raised.control.remove"), button -> minecraft.gui.setScreen(new RemoveScreen(this)))
+                .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
+                .pos(leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .tooltip(Tooltip.create(Component.translatable("options.raised.control.remove.tooltip")))
+                .build();
+
+        leftControls.add(controlClose);
+        leftControls.add(controlSettings);
+        leftControls.add(controlEditGroup);
+        leftControls.add(controlRenameGroup);
+        leftControls.add(controlAddGroup);
+        leftControls.add(controlRemoveGroup);
+
+        leftControls.forEach(this::addRenderableWidget);
+    }
+
+    @Override
+    public void addLeftList() {
+        leftList = new GroupList(minecraft, this, listWidth, leftListHeight, leftListY);
+
+        addRenderableWidget(leftList);
+    }
+
+    @Override
+    public void addRightList() {
+        rightList = new LayerList(minecraft, this, listWidth, rightListHeight, rightListY);
+
+        addRenderableWidget(rightList);
+    }
+
+    @Override
+    public void resetLeftList() {
+        if (leftList != null) {
+            leftList.setScrollAmount(0.0F);
+            leftList.setEntries();
+        }
+    }
+
+    @Override
+    public void resetRightList() {
+        if (rightList != null) {
+            rightList.setScrollAmount(0.0F);
+            rightList.setEntries();
+        }
+    }
+
+    @Override
+    public void repositionElements() {
+        leftList.updateSizeAndPosition(
+                listWidth,
+                leftListHeight,
+                leftPanelX + LIST_BORDER,
+                leftListY);
+        rightList.updateSizeAndPosition(
+                listWidth,
+                rightListHeight,
+                rightPanelX + LIST_BORDER,
+                rightListY);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        controlEditGroup.active = !(leftList.getSelected() == null);
+        controlRenameGroup.active = !(leftList.getSelected() == null);
+        controlRemoveGroup.active = !(leftList.getSelected() == null);
+    }
+
+    @Override
+    public void extractBackground(final GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
+        guiGraphics.blitSprite(
+                RenderPipelines.GUI_TEXTURED,
+                Identifier.fromNamespaceAndPath(Raised.MOD_ID, "select/background"),
+                containerX,
+                containerY,
+                containerWidth,
+                containerHeight);
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+
+        guiGraphics.textRenderer().acceptScrollingWithDefaultCenter(
+                title,
+                leftPanelX + WIDGET_WIDTH_SQUARE + PANEL_GAP,
+                leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE - PANEL_GAP,
+                rightPanelY,
+                rightPanelY + WIDGET_HEIGHT);
+
+        if (leftList.children().isEmpty()) {
+            MutableComponent empty = Component.translatable("options.raised.list.groups.empty");
+            guiGraphics.centeredText(
+                    font,
+                    empty.withStyle(ChatFormatting.GRAY),
+                    leftPanelX + (panelWidth / 2),
+                    leftPanelY + panelHeight - LIST_BORDER - (leftListHeight / 2) - (font.lineHeight / 2),
+                    -1);
+            minecraft.getNarrator().saySystemNow(empty);
+        }
+    }
+
+    public class GroupList extends SpacedSelectionList<GroupList.Entry> {
+
+        protected final SelectScreen parent;
+
+        public GroupList(Minecraft minecraft, SelectScreen parent, int width, int height, int y) {
+            super(minecraft, width, height, y, ENTRY_HEIGHT, LIST_PADDING_X, LIST_PADDING_Y);
+            this.parent = parent;
+            setEntries();
+        }
+
+        @Override
+        public void setEntries() {
+            clearEntries();
+            listGroups().forEach(groupName -> addEntry(new Entry(groupName)));
+        }
+
+        public class Entry extends SpacedSelectionList.Entry<Entry> {
+
+            private final String groupName;
+
+            public Entry(String groupName) {
+                this.groupName = groupName;
+                setSelected(getCurrentGroup() == null);
+            }
+
+            public String getGroupName() {
+                return groupName;
+            }
+
+            @Override
+            public int getWidth() {
+                return super.getWidth() - (GroupList.this.scrollable() ? GroupList.this.scrollbarWidth() : 0);
+            }
+
+            @Override
+            public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean bl, float partialTick) {
+                guiGraphics.textRenderer().acceptScrollingWithDefaultCenter(
+                        Component.literal(groupName),
+                        getX() + ENTRY_PADDING,
+                        getX() + getWidth() - ENTRY_PADDING,
+                        getY(),
+                        getY() + ENTRY_HEIGHT);
+            }
+
+            @Override
+            public List<? extends GuiEventListener> children() {
+                return List.of();
+            }
+
+            @Override
+            public List<? extends NarratableEntry> narratables() {
+                NarratableEntry narration = new NarratableEntry() {
+
+                    @Override
+                    public NarrationPriority narrationPriority() {
+                        return NarrationPriority.NONE;
+                    }
+
+                    @Override
+                    public void updateNarration(NarrationElementOutput output) {
+                        output.add(NarratedElementType.TITLE, Component.literal(groupName));
+                    }
+
+                };
+
+                return List.of(narration);
+            }
+
+            @Override
+            public boolean mouseClicked(MouseButtonEvent mouseButtonEvent, boolean doubleClick) {
+                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                setSelected(true);
+                return true;
+            }
+
+            public void setSelected(boolean focused) {
+                if (focused) {
+                    parent.setCurrentGroup(this);
+                    GroupList.this.setSelected(this);
+                }
+            }
+
+        }
+
+    }
+
+    public class LayerList extends AbstractLayerList<LayerList.Entry> {
+
+        public LayerList(Minecraft minecraft, SelectScreen parent, int width, int height, int y) {
+            super(minecraft, parent, width, height, y);
+        }
+
+        @Override
+        public void setEntries() {
+            clearEntries();
+            listLayers().forEach(layerName -> addEntry(new Entry(layerName)));
+        }
+
+        public class Entry extends AbstractLayerList.Entry<Entry> {
+
+            public Entry(Identifier layerName) {
+                super(layerName);
+            }
+
+            @Override
+            public int getWidth() {
+                return super.getWidth() - (LayerList.this.scrollable() ? LayerList.this.scrollbarWidth() : 0);
+            }
+
+            @Override
+            public String entryText() {
+                return Parse.parsePath(layerName.getPath());
+            }
+
+            @Override
+            public boolean handleClick(final MouseButtonEvent event) {
+                return false;
+            }
+
+            @Override
+            public void setSelected(boolean focused) {
+                if (focused) {
+                    LayerList.this.setSelected(this);
+                }
+            }
+
+        }
+
+    }
+
+}

@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.minecraftforge.client.gui.overlay;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.client.gui.MappedLayers;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.mixin.minecraft.client.gui.LayeredDrawAccessor;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.client.gui.LayeredDraw;
@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.util.Map;
 import java.util.function.BooleanSupplier;
 
 @Mixin(value = ForgeLayeredDraw.class, remap = false)
@@ -38,42 +39,33 @@ public abstract class ForgeLayeredDrawMixin {
 
     @Unique
     public void addLayer(ResourceLocation name, LayeredDraw.Layer layer) {
-        if (name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            name = formatName(name);
+        if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
+            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
         } else {
-            LayerRegistry.register(name, LayerRegistry.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+            name = curateName(name);
         }
 
         if (name != null) {
-            MappedLayers.MAPPED_LAYERS.put(layer, name);
+            Layers.Curated.CURATED_LAYERS.put(layer, name);
         }
     }
 
     @Unique
-    public ResourceLocation formatName(ResourceLocation name) {
-        if (name.equals(ForgeLayeredDraw.HOTBAR)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(ForgeLayeredDraw.EXPERIENCE)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(ForgeLayeredDraw.HOTBAR_MESSAGE)) {
-            return LayerRegistry.HOTBAR;
-        } else if (name.equals(ForgeLayeredDraw.CHAT_OVERLAY)) {
-            return LayerRegistry.CHAT;
-        } else if (name.equals(ForgeLayeredDraw.BOSS_OVERLAY)) {
-            return LayerRegistry.BOSSBAR;
-        } else if (name.equals(ForgeLayeredDraw.SCOREBOARD)) {
-            return LayerRegistry.SIDEBAR;
-        } else if (name.equals(ForgeLayeredDraw.POTION_EFFECTS)) {
-            return LayerRegistry.EFFECTS;
-        } else if (name.equals(ForgeLayeredDraw.TAB_LIST)) {
-            return LayerRegistry.PLAYERS;
-        } else if (name.equals(ForgeLayeredDraw.TITLE_OVERLAY)) {
-            return LayerRegistry.TITLES;
-        } else if (name.equals(ForgeLayeredDraw.SUBTITLE_OVERLAY)) {
-            return LayerRegistry.SUBTITLES;
-        } else {
-            return null;
-        }
+    public ResourceLocation curateName(ResourceLocation name) {
+        Map<ResourceLocation, ResourceLocation> map = Map.ofEntries(
+                Map.entry(ForgeLayeredDraw.HOTBAR, Layers.HOTBAR),
+                Map.entry(ForgeLayeredDraw.EXPERIENCE, Layers.HOTBAR),
+                Map.entry(ForgeLayeredDraw.HOTBAR_MESSAGE, Layers.ACTION_BAR),
+                Map.entry(ForgeLayeredDraw.CHAT_OVERLAY, Layers.CHAT),
+                Map.entry(ForgeLayeredDraw.BOSS_OVERLAY, Layers.BOSS_BAR),
+                Map.entry(ForgeLayeredDraw.SCOREBOARD, Layers.SCOREBOARD),
+                Map.entry(ForgeLayeredDraw.POTION_EFFECTS, Layers.EFFECTS),
+                Map.entry(ForgeLayeredDraw.TAB_LIST, Layers.PLAYER_LIST),
+                Map.entry(ForgeLayeredDraw.TITLE_OVERLAY, Layers.TITLES),
+                Map.entry(ForgeLayeredDraw.SUBTITLE_OVERLAY, Layers.SUBTITLES)
+        );
+
+        return map.getOrDefault(name, null);
     }
 
 }

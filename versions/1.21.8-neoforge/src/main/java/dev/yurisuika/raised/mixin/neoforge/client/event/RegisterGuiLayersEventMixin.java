@@ -1,7 +1,6 @@
 package dev.yurisuika.raised.mixin.neoforge.client.event;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.client.gui.MappedLayers;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -37,9 +36,9 @@ public abstract class RegisterGuiLayersEventMixin {
 
     @Unique
     public void addLayer(ResourceLocation name) {
-        LayerRegistry.register(name, LayerRegistry.createLayer(0, 0, Layer.Direction.X.NONE, Layer.Direction.Y.NONE, name));
+        LayerRegistry.register(name);
 
-        MappedLayers.MAPPED_LAYERS.put(name, name);
+        Layers.Curated.CURATED_LAYERS.put(name, name);
     }
 
 }

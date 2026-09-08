@@ -14,9 +14,9 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class LayerArgument implements ArgumentType<ResourceLocation> {
@@ -33,22 +33,22 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
 
     @Override
     public ResourceLocation parse(StringReader reader) throws CommandSyntaxException {
-        ResourceLocation name = ResourceLocation.read(reader);
-        if (Configure.getLayers().containsKey(name.toString())) {
-            return name;
+        ResourceLocation layerName = ResourceLocation.read(reader);
+        if (Configure.Layers.getLayers().containsKey(layerName.toString())) {
+            return layerName;
         } else {
-            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", object)).createWithContext(reader, name);
+            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", object)).createWithContext(reader, layerName);
         }
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext, SuggestionsBuilder suggestionsBuilder) {
-        return SharedSuggestionProvider.suggestResource(LayerRegistry.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)), suggestionsBuilder);
+        return SharedSuggestionProvider.suggestResource(LayerRegistry.LAYERS.stream().sorted(Comparator.comparing(ResourceLocation::toString)), suggestionsBuilder);
     }
 
     @Override
     public Collection<String> getExamples() {
-        return Arrays.asList("minecraft:hotbar", "appleskin:saturation_level", "farmersdelight:nourishment");
+        return List.of("minecraft:hotbar", "appleskin:saturation_level", "farmersdelight:nourishment");
     }
 
 }

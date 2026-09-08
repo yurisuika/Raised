@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.util;
 
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
@@ -10,14 +9,12 @@ import java.util.Optional;
 
 public class Parse {
 
-    public static String parseNamespace(ResourceLocation name) {
-        String namespace = name.getNamespace();
+    public static String parseNamespace(String namespace) {
         Optional<? extends ModContainer> optional = ModList.get().getModContainerById(namespace);
         return optional.isPresent() ? optional.get().getModInfo().getDisplayName() : namespace;
     }
 
-    public static String parsePath(ResourceLocation name) {
-        String path = name.getPath();
+    public static String parsePath(String path) {
         String layer = StringUtils.replaceChars(path, '_', ' ');
         layer = StringUtils.replaceChars(layer, '-', ' ');
         layer = WordUtils.capitalize(layer);

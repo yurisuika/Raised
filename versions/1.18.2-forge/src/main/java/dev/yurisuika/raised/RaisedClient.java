@@ -2,9 +2,8 @@ package dev.yurisuika.raised;
 
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.commands.RaisedCommand;
-import dev.yurisuika.raised.client.gui.MappedLayers;
-import dev.yurisuika.raised.client.gui.screens.RaisedScreen;
-import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.client.gui.layer.Layers;
+import dev.yurisuika.raised.client.gui.screens.SelectScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
@@ -25,7 +24,7 @@ public class RaisedClient {
         @SubscribeEvent
         public static void registerInputEvents(InputEvent.KeyInputEvent event) {
             while (RaisedOptions.OPTIONS.consumeClick()) {
-                Minecraft.getInstance().setScreen(new RaisedScreen(null));
+                Minecraft.getInstance().setScreen(new SelectScreen(null));
             }
         }
 
@@ -41,7 +40,7 @@ public class RaisedClient {
 
         @SubscribeEvent
         public static void registerGuiEvents(FMLClientSetupEvent event) {
-            MinecraftForge.EVENT_BUS.register(new MappedLayers());
+            MinecraftForge.EVENT_BUS.register(new Layers.Curated());
         }
 
         @SubscribeEvent
@@ -51,12 +50,12 @@ public class RaisedClient {
 
         @SubscribeEvent
         public static void registerConfigScreens(FMLClientSetupEvent event) {
-            ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((client, parent) -> new RaisedScreen(parent)));
+            ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((client, screen) -> new SelectScreen(screen)));
         }
 
         @SubscribeEvent
         public static void registerLayers(FMLClientSetupEvent event) {
-            LayerRegistry.boostrap();
+            Layers.boostrap();
         }
 
     }

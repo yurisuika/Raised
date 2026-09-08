@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.mixin.minecraft.client.gui.components;
 
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.SubtitleOverlay;
@@ -21,7 +21,7 @@ public abstract class SubtitleOverlayMixin {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
-            Translate.start(guiGraphics.pose(), LayerRegistry.SUBTITLES);
+            Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
         }
     }
 
@@ -30,7 +30,7 @@ public abstract class SubtitleOverlayMixin {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
-            Translate.end(guiGraphics.pose(), LayerRegistry.SUBTITLES);
+            Translate.end(guiGraphics.pose(), Layers.SUBTITLES);
         }
     }
 

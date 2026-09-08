@@ -33,17 +33,17 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
 
     @Override
     public ResourceLocation parse(StringReader reader) throws CommandSyntaxException {
-        ResourceLocation name = ResourceLocation.read(reader);
-        if (Configure.getLayers().containsKey(name.toString())) {
-            return name;
+        ResourceLocation layerName = ResourceLocation.read(reader);
+        if (Configure.Layers.getLayers().containsKey(layerName.toString())) {
+            return layerName;
         } else {
-            throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.layer.unknown", object)).createWithContext(reader, name);
+            throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.layer.unknown", object)).createWithContext(reader, layerName);
         }
     }
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext, SuggestionsBuilder suggestionsBuilder) {
-        return SharedSuggestionProvider.suggestResource(LayerRegistry.LAYERS.keySet().stream().sorted(Comparator.comparing(ResourceLocation::toString)), suggestionsBuilder);
+        return SharedSuggestionProvider.suggestResource(LayerRegistry.LAYERS.stream().sorted(Comparator.comparing(ResourceLocation::toString)), suggestionsBuilder);
     }
 
     @Override

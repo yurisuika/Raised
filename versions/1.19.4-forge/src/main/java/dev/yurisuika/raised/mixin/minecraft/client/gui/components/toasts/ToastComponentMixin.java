@@ -1,8 +1,8 @@
 package dev.yurisuika.raised.mixin.minecraft.client.gui.components.toasts;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.yurisuika.raised.client.gui.Layer;
-import dev.yurisuika.raised.registry.LayerRegistry;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.util.Translate;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,12 +19,12 @@ public abstract class ToastComponentMixin {
          */
         @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"))
         private void startToastsTranslate(int x, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
-            Translate.start(poseStack, LayerRegistry.TOASTS);
+            Translate.start(poseStack, Layers.TOASTS);
         }
 
         @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.AFTER))
         private void endToastsTranslate(int x, PoseStack poseStack, CallbackInfoReturnable<Boolean> cir) {
-            Translate.end(poseStack, LayerRegistry.TOASTS);
+            Translate.end(poseStack, Layers.TOASTS);
         }
 
     }

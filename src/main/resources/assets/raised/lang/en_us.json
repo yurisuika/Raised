@@ -1,0 +1,91 @@
+{
+  "commands.raised.config.reload": "Raised config reloaded",
+  "commands.raised.config.reset": "Raised config reset to defaults",
+
+  "commands.raised.group.add": "Added group %s",
+  "commands.raised.group.remove": "Removed group %s",
+  "commands.raised.group.rename": "Renamed group %s to %s",
+  "commands.raised.group.settings.offset.x.query": "X-axis offset of %s is currently set to: %dpx",
+  "commands.raised.group.settings.offset.x.set": "X-axis offset of %s is now set to: %dpx",
+  "commands.raised.group.settings.offset.y.query": "Y-axis offset of %s is currently set to: %dpx",
+  "commands.raised.group.settings.offset.y.set": "Y-axis offset of %s is now set to: %dpx",
+  "commands.raised.group.settings.layers.query": "Layers in group %s: %s",
+  "commands.raised.group.settings.layers.add": "Added layer %s to group %s",
+  "commands.raised.group.settings.layers.remove": "Removed layer %s from group %s",
+  "commands.raised.group.unknown": "Unknown group %s",
+  "commands.raised.group.error": "A group already exists under the name '%s'.",
+
+  "commands.raised.layer.settings.anchor.query": "Anchor of %s is currently set to: %s",
+  "commands.raised.layer.settings.anchor.set": "Anchor of %s is now set to: %s",
+  "commands.raised.layer.unknown": "Unknown layer %s",
+
+  "commands.raised.additional_settings.hotbar_selection_fix.query": "Hotbar selector texture is currently set to: %s",
+  "commands.raised.additional_settings.hotbar_selection_fix.set": "Hotbar selector texture is now set to: %s",
+
+  "key.category.raised.raised": "Raised",
+
+  "key.raised.options": "Open Raised Options",
+
+  "options.raised.title": "Raised Options",
+
+  "options.raised.control.close": "\u00D7",
+  "options.raised.control.return": "\u2190",
+  "options.raised.control.add": "+",
+  "options.raised.control.add.tooltip": "Add a new group.",
+  "options.raised.control.remove": "-",
+  "options.raised.control.remove.tooltip": "Remove the selected group.",
+  "options.raised.control.edit": "Edit",
+  "options.raised.control.edit.tooltip": "Edit the selected group.",
+  "options.raised.control.rename": "Rename",
+  "options.raised.control.rename.tooltip": "Rename the selected group.",
+  "options.raised.control.additional_settings": "...",
+  "options.raised.control.additional_settings.tooltip": "Configure additional settings.",
+  "options.raised.control.previous": "<",
+  "options.raised.control.next": ">",
+
+  "options.raised.add": "Add Group",
+  "options.raised.remove": "Remove Group",
+  "options.raised.rename": "Rename Group",
+  "options.raised.additional_settings": "Additional Settings",
+
+  "options.raised.popup.cancel": "Cancel",
+  "options.raised.popup.confirm": "Confirm",
+  "options.raised.popup.input": "Enter Group Name",
+  "options.raised.popup.submit.tooltip": "A group already exists under the name '%s'.",
+
+  "options.raised.list.groups.empty": "No groups",
+  "options.raised.list.selected_layers.empty": "No selected layers",
+  "options.raised.list.available_layers.empty": "No available layers",
+
+  "options.raised.offset.x": "X Offset",
+  "options.raised.offset.x.tooltip": "X-axis offset of the group.\nMaximum slider value is a quarter of scaled screen width.",
+  "options.raised.offset.y": "Y Offset",
+  "options.raised.offset.y.tooltip": "Y-axis offset of the group.\nMaximum slider value is a quarter of scaled screen height.",
+
+  "options.raised.group.layers.add": "+",
+  "options.raised.group.layers.add.tooltip": "Add the selected layer to this group.",
+  "options.raised.group.layers.remove": "-",
+  "options.raised.group.layers.remove.tooltip": "Remove the selected layer from this group.",
+
+  "options.raised.anchor": "Anchor",
+  "options.raised.anchor.none": "None",
+  "options.raised.anchor.left": "Left",
+  "options.raised.anchor.right": "Right",
+  "options.raised.anchor.top": "Top",
+  "options.raised.anchor.bottom": "Bottom",
+  "options.raised.anchor.top_left": "Top Left",
+  "options.raised.anchor.top_right": "Top Right",
+  "options.raised.anchor..bottom_left": "Bottom Left",
+  "options.raised.anchor.bottom_right": "Bottom Right",
+  "options.raised.anchor.tooltip": "This layer is anchored to: %s",
+
+  "options.raised.hotbar_selection_fix": "Hotbar Selection Fix",
+  "options.raised.hotbar_selection_fix.replace": "Replace",
+  "options.raised.hotbar_selection_fix.replace.tooltip": "Fixes the hotbar selection indicator by texture replacement.\nReplaces the new broken texture with the old pre-1.20.2 texture.",
+  "options.raised.hotbar_selection_fix.patch": "Patch",
+  "options.raised.hotbar_selection_fix.patch.tooltip": "Fixes the hotbar selection indicator by texture patch.\nAdds the missing bottom of the indicator by mirroring the top of the texture.",
+  "options.raised.hotbar_selection_fix.auto": "Auto",
+  "options.raised.hotbar_selection_fix.auto.tooltip": "Fixes the hotbar selection indicator automatically by either texture replacement or patch, depending on whether resource pack support is present.",
+  "options.raised.hotbar_selection_fix.none": "None",
+  "options.raised.hotbar_selection_fix.none.tooltip": "The hotbar selection indicator is not modified."
+}

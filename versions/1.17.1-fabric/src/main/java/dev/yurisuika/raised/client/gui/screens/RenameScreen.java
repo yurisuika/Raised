@@ -1,0 +1,24 @@
+package dev.yurisuika.raised.client.gui.screens;
+
+import dev.yurisuika.raised.util.Configure;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+
+public class RenameScreen extends AbstractInputPopupScreen {
+
+    public RenameScreen(SelectScreen parent) {
+        super(parent);
+    }
+
+    @Override
+    public void confirmAction() {
+        Configure.Groups.renameGroup(parent.getCurrentGroup().getGroupName(), optionInput.getValue());
+        super.confirmAction();
+    }
+
+    @Override
+    public Component getPopupTitle() {
+        return new TranslatableComponent("options.raised.rename");
+    }
+
+}

@@ -8,8 +8,6 @@
     "minecraft.server.packs.repository.PackRepositoryMixin"
   ],
   "client": [
-    "minecraft.client.OptionInvoker",
-    "minecraft.client.gui.GuiComponentMixin",
     "minecraft.client.gui.GuiMixin",
     "minecraft.client.gui.GuiMixin$Last",
     "minecraft.client.gui.components.ChatComponentMixin",

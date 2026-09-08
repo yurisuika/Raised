@@ -1,0 +1,13 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "raised:font/anchor.png",
+      "ascent": 11,
+      "height": 16,
+      "chars": [
+        "\uE000\uE001\uE002\uE003\uE004\uE005\uE006\uE007\uE008"
+      ]
+    }
+  ]
+}

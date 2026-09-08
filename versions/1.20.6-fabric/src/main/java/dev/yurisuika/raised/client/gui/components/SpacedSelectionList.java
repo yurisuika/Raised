@@ -3,24 +3,37 @@ package dev.yurisuika.raised.client.gui.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>> extends ObjectSelectionList<E> {
+import java.util.Objects;
 
-    public int padding;
+public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>> extends ContainerObjectSelectionList<E> {
 
-    public SpacedSelectionList(Minecraft minecraft, int width, int height, int y, int itemHeight, int padding) {
+    public int paddingX;
+    public int paddingY;
+    public int entryWidth;
+
+    public SpacedSelectionList(Minecraft minecraft, int width, int height, int y, int itemHeight, int paddingX, int paddingY) {
         super(minecraft, width, height, y, itemHeight);
-        this.padding = padding;
+        this.paddingX = paddingX;
+        this.paddingY = paddingY;
+        this.entryWidth = width - (2 * paddingX);
+    }
+
+    public abstract void setEntries();
+
+    @Override
+    public boolean isSelectedItem(int index) {
+        return Objects.equals(getSelected(), children().get(index));
     }
 
     @Override
     public E getEntryAtPosition(double mouseX, double mouseY) {
         int i = getRowWidth() / 2;
         int j = getX() + width / 2;
-        int m = Mth.floor(mouseY - (double) getY()) + (int) getScrollAmount() - padding;
+        int m = Mth.floor(mouseY - (double) getY()) + (int) getScrollAmount() - paddingY;
         int n = m / itemHeight;
         return mouseX >= (double) (j - i) && mouseX <= (double) (j + i) && n >= 0 && m >= 0 && n < getItemCount() ? children().get(n) : null;
     }
@@ -32,7 +45,7 @@ public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>
 
     @Override
     public int getMaxPosition() {
-        return padding + (getItemCount() * itemHeight) + padding;
+        return paddingY + (getItemCount() * itemHeight) + paddingY;
     }
 
     @Override
@@ -51,8 +64,8 @@ public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>
             }
 
             RenderSystem.enableBlend();
-            guiGraphics.blitSprite(ResourceLocation.tryParse("widget/scroller_background"), i, getY(), 6, getHeight());
-            guiGraphics.blitSprite(ResourceLocation.tryParse("widget/scroller"), i, k, 6, j);
+            guiGraphics.blitSprite(new ResourceLocation("widget/scroller_background"), i, getY(), 6, getHeight());
+            guiGraphics.blitSprite(new ResourceLocation("widget/scroller"), i, k, 6, j);
             RenderSystem.disableBlend();
         }
     }
@@ -60,7 +73,7 @@ public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>
     @Override
     public void ensureVisible(E entry) {
         int i = getRowTop(children().indexOf(entry));
-        int j = i - getY() - padding - itemHeight;
+        int j = i - getY() - paddingY - itemHeight;
         if (j < 0) {
             setScrollAmount(getScrollAmount() + (double) j);
         }
@@ -73,7 +86,7 @@ public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>
 
     @Override
     public int getScrollbarPosition() {
-        return getRowRight() + padding - 6;
+        return getRowRight() + paddingX;
     }
 
     @Override
@@ -89,27 +102,36 @@ public abstract class SpacedSelectionList<E extends SpacedSelectionList.Entry<E>
 
     @Override
     public void renderSelection(GuiGraphics guiGraphics, int top, int width, int height, int outerColor, int innerColor) {
-        int i = getX() + (this.width - width) / 2;
-        int j = getX() + (this.width + width) / 2;
+        int i = getRowLeft();
+        int j = getRowRight();
         guiGraphics.fill(i, top, j, top + itemHeight, outerColor);
         guiGraphics.fill(i + 1, top + 1, j - 1, top + itemHeight - 1, innerColor);
     }
 
     @Override
     public int getRowLeft() {
-        return getX() + padding;
+        return getX() + paddingX;
     }
 
     @Override
     public int getRowTop(int index) {
-        return getY() + padding - (int) getScrollAmount() + index * itemHeight;
+        return getY() + paddingY - (int) getScrollAmount() + index * itemHeight;
     }
 
     @Override
     public int getRowWidth() {
-        return width - (padding * 2);
+        return width - (paddingX * 2) - (scrollbarVisible() ? 6 : 0);
     }
 
-    public abstract static class Entry<E extends Entry<E>> extends ObjectSelectionList.Entry<E> {}
+    public int getEntryX(E entry) {
+        return getRowLeft();
+    }
+
+    public int getEntryY(E entry) {
+        int index = children().indexOf(entry);
+        return getRowTop(index);
+    }
+
+    public abstract static class Entry<E extends Entry<E>> extends ContainerObjectSelectionList.Entry<E> {}
 
 }
