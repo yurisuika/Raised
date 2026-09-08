@@ -10,7 +10,7 @@ public class RaisedOptions {
             "key.raised.options",
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_GRAVE_ACCENT,
-            "key.categories.raised.raised"
+            "key.category.raised.raised"
     );
 
 }
