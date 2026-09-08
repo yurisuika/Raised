@@ -14,9 +14,9 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class LayerArgument implements ArgumentType<ResourceLocation> {
@@ -37,7 +37,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
         if (Configure.Layers.getLayers().containsKey(layerName.toString())) {
             return layerName;
         } else {
-            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", object)).createWithContext(reader, layerName);
+            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", String.valueOf(object))).createWithContext(reader, layerName);
         }
     }
 
@@ -48,7 +48,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
 
     @Override
     public Collection<String> getExamples() {
-        return List.of("minecraft:hotbar", "appleskin:saturation_level", "farmersdelight:nourishment");
+        return Arrays.asList("minecraft:hotbar", "appleskin:saturation_level", "farmersdelight:nourishment");
     }
 
 }

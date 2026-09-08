@@ -15,6 +15,8 @@ import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.network.chat.TranslatableComponent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 
 public class RaisedCommand {
@@ -61,7 +63,7 @@ public class RaisedCommand {
                                         .executes(commandContext -> {
                                             String group = GroupArgument.getGroup(commandContext, "group");
                                             Configure.Groups.removeGroup(group);
-                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.add", group));
+                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.remove", group));
                                             return 1;
                                         })
                                 )
@@ -77,7 +79,7 @@ public class RaisedCommand {
                                                         return 0;
                                                     } else {
                                                         Configure.Groups.renameGroup(group, name);
-                                                        commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.add", group));
+                                                        commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.rename", group, name));
                                                         return 1;
                                                     }
                                                 })
@@ -121,8 +123,14 @@ public class RaisedCommand {
                                         .then(ClientCommandManager.literal("layers")
                                                 .executes(commandContext -> {
                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                    commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.layers.query", group, Configure.Groups.getLayers(group)));
-                                                    return 1;
+                                                    List<String> layers = new ArrayList<>(Configure.Groups.getLayers(group));
+                                                    if (layers.isEmpty()) {
+                                                        commandContext.getSource().sendError(new TranslatableComponent("commands.raised.group.empty", group));
+                                                        return 0;
+                                                    } else {
+                                                        commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.layers.query", group, layers.toString()));
+                                                        return 1;
+                                                    }
                                                 })
                                                 .then(ClientCommandManager.literal("add")
                                                         .then(ClientCommandManager.argument("layer", LayerArgument.layer())

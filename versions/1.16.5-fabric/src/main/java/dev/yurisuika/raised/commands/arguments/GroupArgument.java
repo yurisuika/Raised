@@ -12,8 +12,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TranslatableComponent;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class GroupArgument implements ArgumentType<String> {
@@ -34,7 +34,7 @@ public class GroupArgument implements ArgumentType<String> {
         if (Configure.Groups.getGroups().containsKey(groupName)) {
             return groupName;
         } else {
-            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.group.unknown", object)).createWithContext(reader, groupName);
+            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.group.unknown", String.valueOf(object))).createWithContext(reader, groupName);
         }
     }
 
@@ -45,7 +45,7 @@ public class GroupArgument implements ArgumentType<String> {
 
     @Override
     public Collection<String> getExamples() {
-        return List.of("whatever", "you", "want");
+        return Arrays.asList("whatever", "you", "want");
     }
 
 }

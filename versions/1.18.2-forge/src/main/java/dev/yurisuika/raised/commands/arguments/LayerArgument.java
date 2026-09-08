@@ -37,7 +37,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
         if (Configure.Layers.getLayers().containsKey(layerName.toString())) {
             return layerName;
         } else {
-            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", object)).createWithContext(reader, layerName);
+            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", String.valueOf(object))).createWithContext(reader, layerName);
         }
     }
 

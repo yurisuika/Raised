@@ -15,6 +15,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.TranslatableComponent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 
 public class RaisedCommand {
@@ -61,7 +63,7 @@ public class RaisedCommand {
                                         .executes(commandContext -> {
                                             String group = GroupArgument.getGroup(commandContext, "group");
                                             Configure.Groups.removeGroup(group);
-                                            commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.add", group), false);
+                                            commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.remove", group), false);
                                             return 1;
                                         })
                                 )
@@ -77,7 +79,7 @@ public class RaisedCommand {
                                                         return 0;
                                                     } else {
                                                         Configure.Groups.renameGroup(group, name);
-                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.add", group), false);
+                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.rename", group, name), false);
                                                         return 1;
                                                     }
                                                 })
@@ -121,8 +123,14 @@ public class RaisedCommand {
                                         .then(Commands.literal("layers")
                                                 .executes(commandContext -> {
                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                    commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.settings.layers.query", group, Configure.Groups.getLayers(group)), false);
-                                                    return 1;
+                                                    List<String> layers = new ArrayList<>(Configure.Groups.getLayers(group));
+                                                    if (layers.isEmpty()) {
+                                                        commandContext.getSource().sendFailure(new TranslatableComponent("commands.raised.group.empty", group));
+                                                        return 0;
+                                                    } else {
+                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.settings.layers.query", group, layers.toString()), false);
+                                                        return 1;
+                                                    }
                                                 })
                                                 .then(Commands.literal("add")
                                                         .then(Commands.argument("layer", LayerArgument.layer())

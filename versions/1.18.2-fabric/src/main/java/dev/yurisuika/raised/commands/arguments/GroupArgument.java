@@ -34,7 +34,7 @@ public class GroupArgument implements ArgumentType<String> {
         if (Configure.Groups.getGroups().containsKey(groupName)) {
             return groupName;
         } else {
-            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.group.unknown", object)).createWithContext(reader, groupName);
+            throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.group.unknown", String.valueOf(object))).createWithContext(reader, groupName);
         }
     }
 
