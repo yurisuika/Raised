@@ -13,6 +13,7 @@ import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Configure;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.ArrayList;
@@ -137,20 +138,34 @@ public class RaisedCommand {
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                     String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                    Configure.Groups.addLayer(group, layer);
-                                                                    commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.settings.layers.add", layer, group), false);
-                                                                    return 1;
+                                                                    if (!Configure.Groups.getLayers(group).contains(layer)) {
+                                                                        commandContext.getSource().sendFailure(new TranslatableComponent("commands.raised.group.settings.layers.add.error", group, layer));
+                                                                        return 0;
+                                                                    } else {
+                                                                        Configure.Groups.addLayer(group, layer);
+                                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.settings.layers.add", layer, group), false);
+                                                                        return 1;
+                                                                    }
                                                                 })
                                                         )
                                                 )
                                                 .then(Commands.literal("remove")
-                                                        .then(Commands.argument("layer", LayerArgument.layer())
+                                                        .then(Commands.argument("layer", StringArgumentType.string())
+                                                                .suggests((commandContext, builder) -> {
+                                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                                    return SharedSuggestionProvider.suggest(Configure.Groups.getLayers(group), builder);
+                                                                })
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                                    String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                    Configure.Groups.removeLayer(group, layer);
-                                                                    commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.settings.layers.remove", layer, group), false);
-                                                                    return 1;
+                                                                    String layer = StringArgumentType.getString(commandContext, "layer");
+                                                                    if (!Configure.Groups.getLayers(group).contains(layer)) {
+                                                                        commandContext.getSource().sendFailure(new TranslatableComponent("commands.raised.group.settings.layers.remove.error", group, layer));
+                                                                        return 0;
+                                                                    } else {
+                                                                        Configure.Groups.removeLayer(group, layer);
+                                                                        commandContext.getSource().sendSuccess(new TranslatableComponent("commands.raised.group.settings.layers.remove", layer, group), false);
+                                                                        return 1;
+                                                                    }
                                                                 })
                                                         )
                                                 )

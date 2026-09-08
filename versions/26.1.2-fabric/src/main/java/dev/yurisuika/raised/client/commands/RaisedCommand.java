@@ -15,6 +15,7 @@ import dev.yurisuika.raised.util.Configure;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.CommandBuildContext;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -140,20 +141,34 @@ public class RaisedCommand {
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                     String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                    Configure.Groups.addLayer(group, layer);
-                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.add", layer, group));
-                                                                    return 1;
+                                                                    if (!Configure.Groups.getLayers(group).contains(layer)) {
+                                                                        commandContext.getSource().sendError(Component.translatable("commands.raised.group.settings.layers.add.error", group, layer));
+                                                                        return 0;
+                                                                    } else {
+                                                                        Configure.Groups.addLayer(group, layer);
+                                                                        commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.add", layer, group));
+                                                                        return 1;
+                                                                    }
                                                                 })
                                                         )
                                                 )
                                                 .then(ClientCommands.literal("remove")
-                                                        .then(ClientCommands.argument("layer", LayerArgument.layer())
+                                                        .then(ClientCommands.argument("layer", StringArgumentType.string())
+                                                                .suggests((commandContext, builder) -> {
+                                                                    String group = GroupArgument.getGroup(commandContext, "group");
+                                                                    return SharedSuggestionProvider.suggest(Configure.Groups.getLayers(group), builder);
+                                                                })
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                                    String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                    Configure.Groups.removeLayer(group, layer);
-                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.remove", layer, group));
-                                                                    return 1;
+                                                                    String layer = StringArgumentType.getString(commandContext, "layer");
+                                                                    if (!Configure.Groups.getLayers(group).contains(layer)) {
+                                                                        commandContext.getSource().sendError(Component.translatable("commands.raised.group.settings.layers.remove.error", group, layer));
+                                                                        return 0;
+                                                                    } else {
+                                                                        Configure.Groups.removeLayer(group, layer);
+                                                                        commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.remove", layer, group));
+                                                                        return 1;
+                                                                    }
                                                                 })
                                                         )
                                                 )
