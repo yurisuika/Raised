@@ -75,7 +75,7 @@
   "options.raised.anchor.bottom": "Bottom",
   "options.raised.anchor.top_left": "Top Left",
   "options.raised.anchor.top_right": "Top Right",
-  "options.raised.anchor..bottom_left": "Bottom Left",
+  "options.raised.anchor.bottom_left": "Bottom Left",
   "options.raised.anchor.bottom_right": "Bottom Right",
   "options.raised.anchor.tooltip": "This layer is anchored to: %s",
 
