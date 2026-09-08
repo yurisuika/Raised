@@ -273,8 +273,8 @@ public class EditScreen extends AbstractLayersScreen {
             }
 
             @Override
-            public void setSelected(boolean focused) {
-                if (focused) {
+            public void setSelected(boolean selected) {
+                if (selected) {
                     SelectedLayerList.this.setSelected(this);
                 }
             }
@@ -335,8 +335,8 @@ public class EditScreen extends AbstractLayersScreen {
             }
 
             @Override
-            public void setSelected(boolean focused) {
-                if (focused) {
+            public void setSelected(boolean selected) {
+                if (selected) {
                     AvailableLayerList.this.setSelected(this);
                 }
             }

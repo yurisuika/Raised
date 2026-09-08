@@ -323,7 +323,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
                     return true;
                 }
 
-                return false;
+                return true;
             }
 
             @Override
@@ -331,7 +331,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
                 return optionAnchor.mouseReleased(event);
             }
 
-            public abstract void setSelected(boolean focused);
+            public abstract void setSelected(boolean selected);
 
         }
 

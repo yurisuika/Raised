@@ -265,8 +265,8 @@ public class SelectScreen extends AbstractLayersScreen {
                 return true;
             }
 
-            public void setSelected(boolean focused) {
-                if (focused) {
+            public void setSelected(boolean selected) {
+                if (selected) {
                     parent.setCurrentGroup(this);
                     GroupList.this.setSelected(this);
                 }
@@ -305,8 +305,8 @@ public class SelectScreen extends AbstractLayersScreen {
             }
 
             @Override
-            public void setSelected(boolean focused) {
-                if (focused) {
+            public void setSelected(boolean selected) {
+                if (selected) {
                     LayerList.this.setSelected(this);
                 }
             }

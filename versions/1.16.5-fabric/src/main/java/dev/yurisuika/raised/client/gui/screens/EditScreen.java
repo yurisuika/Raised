@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.GuiComponentInterface;
@@ -312,8 +311,8 @@ public class EditScreen extends AbstractLayersScreen {
             }
 
             @Override
-            public void setSelected(boolean focused) {
-                if (focused) {
+            public void setSelected(boolean selected) {
+                if (selected) {
                     SelectedLayerList.this.setSelected(this);
                 }
             }
@@ -379,8 +378,8 @@ public class EditScreen extends AbstractLayersScreen {
             }
 
             @Override
-            public void setSelected(boolean focused) {
-                if (focused) {
+            public void setSelected(boolean selected) {
+                if (selected) {
                     AvailableLayerList.this.setSelected(this);
                 }
             }

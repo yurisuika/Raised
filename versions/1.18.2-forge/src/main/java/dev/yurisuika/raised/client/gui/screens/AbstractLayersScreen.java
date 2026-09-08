@@ -337,7 +337,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
                     return true;
                 }
 
-                return false;
+                return true;
             }
 
             @Override
@@ -345,7 +345,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
                 return optionAnchor.mouseReleased(mouseX, mouseY, button);
             }
 
-            public abstract void setSelected(boolean focused);
+            public abstract void setSelected(boolean selected);
 
             public List<FormattedCharSequence> getTooltip(int mouseX, int mouseY) {
                 if (optionAnchor.isMouseOver(mouseX, mouseY)) {

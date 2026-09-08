@@ -1,7 +1,6 @@
 package dev.yurisuika.raised.mixin.neoforge.client.gui.overlay;
 
 import dev.yurisuika.raised.client.gui.layer.Layers;
-import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.gui.overlay.GuiOverlayManager;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
