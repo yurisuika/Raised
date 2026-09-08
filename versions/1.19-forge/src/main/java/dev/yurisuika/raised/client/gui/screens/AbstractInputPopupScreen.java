@@ -53,11 +53,15 @@ public abstract class AbstractInputPopupScreen extends AbstractPopupScreen {
                     }
                 });
 
+        optionInput.setValue(initialValue());
+
         options.add(optionInput);
         options.add(optionConfirm);
 
         options.forEach(this::addRenderableWidget);
     }
+
+    public abstract String initialValue();
 
     public void confirmAction() {
         parent.resetLeftList();

@@ -11,6 +11,11 @@ public class RenameScreen extends AbstractInputPopupScreen {
     }
 
     @Override
+    public String initialValue() {
+        return parent.getCurrentGroup().getGroupName();
+    }
+
+    @Override
     public void confirmAction() {
         Configure.Groups.renameGroup(parent.getCurrentGroup().getGroupName(), optionInput.getValue());
         super.confirmAction();

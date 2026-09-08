@@ -14,6 +14,11 @@ public class AddScreen extends AbstractInputPopupScreen {
     }
 
     @Override
+    public String initialValue() {
+        return "";
+    }
+
+    @Override
     public void confirmAction() {
         Configure.Groups.addGroup(optionInput.getValue(), new Group(new Group.Offset(0, 0), new TreeSet<>()));
         super.confirmAction();

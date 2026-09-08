@@ -46,11 +46,15 @@ public abstract class AbstractInputPopupScreen extends AbstractPopupScreen {
                 .pos(panelX + widgetWidthInput + PANEL_GAP, panelY + WIDGET_AND_GAP_HEIGHT)
                 .build();
 
+        optionInput.setValue(initialValue());
+
         options.add(optionInput);
         options.add(optionConfirm);
 
         options.forEach(this::addRenderableWidget);
     }
+
+    public abstract String initialValue();
 
     public void confirmAction() {
         parent.resetLeftList();
