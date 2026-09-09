@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import dev.yurisuika.raised.util.Configure;
+import dev.yurisuika.raised.config.Config;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
@@ -17,7 +17,7 @@ public class RenameScreen extends AbstractInputPopupScreen {
 
     @Override
     public void confirmAction() {
-        Configure.Groups.renameGroup(parent.getCurrentGroup().getGroupName(), optionInput.getValue());
+        Config.update(o -> o.getGroups().put(optionInput.getValue(), o.getGroups().remove(parent.getCurrentGroup().getGroupName())));
         super.confirmAction();
     }
 

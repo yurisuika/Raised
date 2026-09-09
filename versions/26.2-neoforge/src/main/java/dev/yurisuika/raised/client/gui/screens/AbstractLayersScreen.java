@@ -1,10 +1,10 @@
 package dev.yurisuika.raised.client.gui.screens;
 
 import dev.yurisuika.raised.client.RaisedOptions;
-import dev.yurisuika.raised.client.gui.components.SpacedSelectionList;
+import dev.yurisuika.raised.client.gui.components.AdjustableSelectionList;
 import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Icon;
 import dev.yurisuika.raised.util.Parse;
 import net.minecraft.client.Minecraft;
@@ -214,7 +214,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
         return true;
     }
 
-    public abstract static class AbstractLayerList<E extends AbstractLayerList.Entry<E>> extends SpacedSelectionList<E> {
+    public abstract static class AbstractLayerList<E extends AbstractLayerList.Entry<E>> extends AdjustableSelectionList<E> {
 
         protected AbstractLayersScreen parent;
 
@@ -224,7 +224,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
             setEntries();
         }
 
-        public abstract static class Entry<E extends AbstractLayerList.Entry<E>> extends SpacedSelectionList.Entry<E> {
+        public abstract static class Entry<E extends AbstractLayerList.Entry<E>> extends AdjustableSelectionList.Entry<E> {
 
             protected final Identifier layerName;
             protected AbstractWidget optionAnchor;
@@ -232,7 +232,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
             public Entry(Identifier layerName) {
                 this.layerName = layerName;
 
-                optionAnchor = CycleButton.builder(Layer.Anchor::glyph, Configure.Layers.getAnchor(layerName.toString()))
+                optionAnchor = CycleButton.builder(Layer.Anchor::glyph, Config.getOptions().getLayers().get(layerName.toString()).getAnchor())
                         .withValues(Layer.Anchor.values())
                         .displayOnlyValue()
                         .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.anchor.tooltip", Component.translatable("options.raised.anchor." + value.getSerializedName()))))
@@ -241,7 +241,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
                                 WIDGET_WIDTH_SQUARE,
                                 WIDGET_HEIGHT,
                                 Component.translatable("options.raised.anchor"),
-                                (button, value) -> Configure.Layers.setAnchor(layerName.toString(), value));
+                                (button, value) -> Config.update(o -> o.getLayers().get(layerName.toString()).setAnchor(value)));
             }
 
             public Identifier getLayerName() {

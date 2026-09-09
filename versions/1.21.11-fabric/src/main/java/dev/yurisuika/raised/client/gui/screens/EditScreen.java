@@ -2,8 +2,8 @@ package dev.yurisuika.raised.client.gui.screens;
 
 import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.components.IntRangeSliderButton;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Parse;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -39,7 +39,7 @@ public class EditScreen extends AbstractLayersScreen {
     }
 
     public List<Identifier> listSelectedLayers() {
-        return Configure.Groups.getLayers(getCurrentGroup().getGroupName()).stream()
+        return Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().stream()
                 .sorted(Comparator.comparing(String::toString))
                 .filter(groupedLayerName -> LayerRegistry.LAYERS
                         .contains(Identifier.tryParse(groupedLayerName)))
@@ -81,18 +81,18 @@ public class EditScreen extends AbstractLayersScreen {
     public void addOptions() {
         options = new ArrayList<>();
 
-        optionOffsetX = IntRangeSliderButton.builder(Component.translatable("options.raised.offset.x"), value -> Configure.Groups.setOffsetX(getCurrentGroup().getGroupName(), value))
+        optionOffsetX = IntRangeSliderButton.builder(Component.translatable("options.raised.offset.x"), value -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getOffset().setX(value)))
                 .range(0, width / 4)
-                .initialValue(Configure.Groups.getOffsetX(getCurrentGroup().getGroupName()))
+                .initialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getX())
                 .valueText(value -> value == 0 ? CommonComponents.OPTION_OFF : Component.literal(value + "px (" + Math.round(Math.ceil((value / ((float) width / 4)) * 100)) + "%)"))
                 .tooltip(value -> Tooltip.create(Component.translatable("options.raised.offset.x.tooltip")))
                 .size(panelWidth, WIDGET_HEIGHT)
                 .pos(leftPanelX, leftPanelY + WIDGET_AND_GAP_HEIGHT)
                 .build();
 
-        optionOffsetY = IntRangeSliderButton.builder(Component.translatable("options.raised.offset.y"), value -> Configure.Groups.setOffsetY(getCurrentGroup().getGroupName(), value))
+        optionOffsetY = IntRangeSliderButton.builder(Component.translatable("options.raised.offset.y"), value -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getOffset().setY(value)))
                 .range(0, height / 4)
-                .initialValue(Configure.Groups.getOffsetY(getCurrentGroup().getGroupName()))
+                .initialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getY())
                 .valueText(value -> value == 0 ? CommonComponents.OPTION_OFF : Component.literal(value + "px (" + Math.round(Math.ceil((value / ((float) height / 4)) * 100)) + "%)"))
                 .tooltip(value -> Tooltip.create(Component.translatable("options.raised.offset.y.tooltip")))
                 .size(panelWidth, WIDGET_HEIGHT)
@@ -159,11 +159,11 @@ public class EditScreen extends AbstractLayersScreen {
 
     @Override
     public void resize(int width, int height) {
-        if (Configure.Groups.getOffsetX(getCurrentGroup().getGroupName()) > width / 4) {
-            Configure.Groups.setOffsetX(getCurrentGroup().getGroupName(), width / 4);
+        if (Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getX() > width / 4) {
+            Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getOffset().setX(width / 4));
         }
-        if (Configure.Groups.getOffsetY(getCurrentGroup().getGroupName()) > height / 4) {
-            Configure.Groups.setOffsetY(getCurrentGroup().getGroupName(), height / 4);
+        if (Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getY() > height / 4) {
+            Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getOffset().setY(height / 4));
         }
 
         resetOptions();
@@ -270,7 +270,7 @@ public class EditScreen extends AbstractLayersScreen {
                 int relX = (int) event.x() - getContentX();
                 int relY = (int) event.y() - getContentY();
                 if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
-                    Configure.Groups.removeLayer(getCurrentGroup().getGroupName(), this.getLayerName());
+                    Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().remove(this.getLayerName().toString()));
                     resetLeftList();
                     resetRightList();
                     return true;
@@ -341,7 +341,7 @@ public class EditScreen extends AbstractLayersScreen {
                 int relX = (int) event.x() - getContentX();
                 int relY = (int) event.y() - getContentY();
                 if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
-                    Configure.Groups.addLayer(getCurrentGroup().getGroupName(), this.getLayerName());
+                    Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().add(this.getLayerName().toString()));
                     resetLeftList();
                     resetRightList();
                     return true;

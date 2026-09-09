@@ -7,8 +7,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Configure;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
@@ -34,7 +34,7 @@ public class LayerArgument implements ArgumentType<Identifier> {
     @Override
     public Identifier parse(StringReader reader) throws CommandSyntaxException {
         Identifier layerName = Identifier.read(reader);
-        if (Configure.Layers.getLayers().containsKey(layerName.toString())) {
+        if (Config.getOptions().getLayers().containsKey(layerName.toString())) {
             return layerName;
         } else {
             throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.layer.unknown", object)).createWithContext(reader, layerName);

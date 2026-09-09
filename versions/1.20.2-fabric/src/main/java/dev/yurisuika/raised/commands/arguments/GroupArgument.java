@@ -7,7 +7,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import dev.yurisuika.raised.util.Configure;
+import dev.yurisuika.raised.config.Config;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ public class GroupArgument implements ArgumentType<String> {
     @Override
     public String parse(StringReader reader) throws CommandSyntaxException {
         String groupName = reader.readString();
-        if (Configure.Groups.getGroups().containsKey(groupName)) {
+        if (Config.getOptions().getGroups().containsKey(groupName)) {
             return groupName;
         } else {
             throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.group.unknown", object)).createWithContext(reader, groupName);
@@ -40,7 +40,7 @@ public class GroupArgument implements ArgumentType<String> {
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> commandContext, SuggestionsBuilder suggestionsBuilder) {
-        return SharedSuggestionProvider.suggest(Configure.Groups.getGroups().keySet().stream(), suggestionsBuilder);
+        return SharedSuggestionProvider.suggest(Config.getOptions().getGroups().keySet().stream(), suggestionsBuilder);
     }
 
     @Override

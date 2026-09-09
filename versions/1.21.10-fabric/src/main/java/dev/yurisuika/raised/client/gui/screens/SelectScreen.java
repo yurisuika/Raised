@@ -1,10 +1,10 @@
 package dev.yurisuika.raised.client.gui.screens;
 
 import dev.yurisuika.raised.Raised;
-import dev.yurisuika.raised.client.gui.components.SpacedSelectionList;
+import dev.yurisuika.raised.client.gui.components.AdjustableSelectionList;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.mixin.minecraft.client.gui.components.AbstractWidgetInvoker;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Parse;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -46,7 +46,7 @@ public class SelectScreen extends AbstractLayersScreen {
     }
 
     public List<String> listGroups() {
-        return Configure.Groups.getGroups().keySet().stream()
+        return Config.getOptions().getGroups().keySet().stream()
                 .sorted(Comparator.comparing(String::toString))
                 .toList();
     }
@@ -201,7 +201,7 @@ public class SelectScreen extends AbstractLayersScreen {
         }
     }
 
-    public class GroupList extends SpacedSelectionList<GroupList.Entry> {
+    public class GroupList extends AdjustableSelectionList<GroupList.Entry> {
 
         protected final SelectScreen parent;
 
@@ -217,7 +217,7 @@ public class SelectScreen extends AbstractLayersScreen {
             listGroups().forEach(groupName -> addEntry(new Entry(groupName)));
         }
 
-        public class Entry extends SpacedSelectionList.Entry<Entry> {
+        public class Entry extends AdjustableSelectionList.Entry<Entry> {
 
             private final String groupName;
 

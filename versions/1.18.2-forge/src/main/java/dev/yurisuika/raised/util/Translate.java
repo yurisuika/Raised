@@ -2,6 +2,7 @@ package dev.yurisuika.raised.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.yurisuika.raised.config.Config;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
@@ -15,8 +16,8 @@ public class Translate {
     }
 
     public static int getX(String layerName) {
-        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Configure.Groups.getOffsetX(groupName)).orElse(0)).sum();
-        int anchor = Configure.Layers.getAnchor(layerName).getX();
+        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Config.getOptions().getGroups().get(groupName).getOffset().getX()).orElse(0)).sum();
+        int anchor = Config.getOptions().getLayers().get(layerName).getAnchor().getX();
         return offset * anchor;
     }
 
@@ -25,8 +26,8 @@ public class Translate {
     }
 
     public static int getY(String layerName) {
-        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Configure.Groups.getOffsetY(groupName)).orElse(0)).sum();
-        int anchor = Configure.Layers.getAnchor(layerName).getY();
+        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Config.getOptions().getGroups().get(groupName).getOffset().getY()).orElse(0)).sum();
+        int anchor = Config.getOptions().getLayers().get(layerName).getAnchor().getY();
         return offset * anchor;
     }
 
@@ -61,7 +62,7 @@ public class Translate {
     }
 
     public static List<String> findGroupsWithLayer(String layerName) {
-        return Configure.Groups.getGroups().entrySet().stream()
+        return Config.getOptions().getGroups().entrySet().stream()
                 .filter(entry -> entry.getValue().getLayers().contains(layerName))
                 .map(Map.Entry::getKey)
                 .toList();

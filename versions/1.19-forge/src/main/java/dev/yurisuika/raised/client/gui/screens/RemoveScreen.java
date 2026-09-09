@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import dev.yurisuika.raised.util.Configure;
+import dev.yurisuika.raised.config.Config;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
@@ -42,7 +42,7 @@ public class RemoveScreen extends AbstractPopupScreen {
                 WIDGET_HEIGHT,
                 Component.translatable("options.raised.popup.confirm"),
                 button -> {
-                    Configure.Groups.removeGroup(parent.getCurrentGroup().getGroupName());
+                    Config.update(o -> o.getGroups().remove(parent.getCurrentGroup().getGroupName()));
                     parent.resetLeftList();
                     onClose();
                 });

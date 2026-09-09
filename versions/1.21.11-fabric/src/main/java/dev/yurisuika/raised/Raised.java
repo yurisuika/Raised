@@ -12,7 +12,7 @@ public class Raised implements ModInitializer {
 
     public static void loadConfiguration() {
         LOGGER.info("Loading Raised config...");
-        Config.loadConfig();
+        Config.load();
     }
 
     @Override

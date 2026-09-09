@@ -13,7 +13,7 @@ public class Raised {
 
     public static void loadConfiguration() {
         LOGGER.info("Loading Raised config...");
-        Config.loadConfig();
+        Config.load();
     }
 
     public Raised() {

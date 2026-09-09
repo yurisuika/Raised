@@ -3,8 +3,8 @@ package dev.yurisuika.raised.mixin.minecraft.client.gui;
 import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.client.gui.layer.Layers;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.option.AdditionalSettings;
-import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.gui.Gui;
@@ -26,7 +26,7 @@ public abstract class GuiMixin {
      */
     @ModifyArg(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), index = 0)
     private ResourceLocation replaceHotbarSelectorIdentifier(ResourceLocation sprite) {
-        if (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
+        if (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
             return new ResourceLocation(Raised.MOD_ID, "hud/hotbar_selection");
         } else {
             return sprite;
@@ -35,7 +35,7 @@ public abstract class GuiMixin {
 
     @ModifyArg(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V", ordinal = 1), index = 4)
     private int replaceHotbarSelectorHeight(int height) {
-        if (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
+        if (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
             return 24;
         } else {
             return height;
@@ -47,7 +47,7 @@ public abstract class GuiMixin {
      */
     @Inject(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void patchHotbarSelector(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci, Player player) {
-        if (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.PATCH  || (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && !Pack.getPack())) {
+        if (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.PATCH  || (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && !Pack.getPack())) {
             int x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().selected * 20;
             int y = guiGraphics.guiHeight();
             ((GuiGraphicsInvoker) guiGraphics).invokeInnerBlit(new ResourceLocation("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 0, 1, 1 / 23.0F, 0);

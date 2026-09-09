@@ -10,7 +10,6 @@ import dev.yurisuika.raised.commands.arguments.LayerArgument;
 import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.option.Options;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Configure;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -27,17 +26,16 @@ public class RaisedCommand {
                 .then(ClientCommandManager.literal("config")
                         .then(ClientCommandManager.literal("reload")
                                 .executes(commandContext -> {
-                                    Config.loadConfig();
-                                    LayerRegistry.addLayersToConfig();
+                                    Config.load();
+                                    LayerRegistry.addDefaultLayersToConfig();
                                     commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.config.reload"));
                                     return 1;
                                 })
                         )
                         .then(ClientCommandManager.literal("reset")
                                 .executes(commandContext -> {
-                                    Configure.Groups.setGroups(new Options().getGroups());
-                                    Configure.Layers.setLayers(new Options().getLayers());
-                                    LayerRegistry.addLayersToConfig();
+                                    Config.setOptions(new Options());
+                                    LayerRegistry.addDefaultLayersToConfig();
                                     commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.config.reset"));
                                     return 1;
                                 })
@@ -48,11 +46,11 @@ public class RaisedCommand {
                                 .then(ClientCommandManager.argument("name", StringArgumentType.string())
                                         .executes(commandContext -> {
                                             String name = StringArgumentType.getString(commandContext, "name");
-                                            if (Configure.Groups.getGroups().containsKey(name)) {
+                                            if (Config.getOptions().getGroups().containsKey(name)) {
                                                 commandContext.getSource().sendError(new TranslatableComponent("commands.raised.group.error", name));
                                                 return 0;
                                             } else {
-                                                Configure.Groups.addGroup(name, new Group(new Group.Offset(0, 0), new TreeSet<>()));
+                                                Config.update(o -> o.getGroups().putIfAbsent(name, new Group(new Group.Offset(0, 0), new TreeSet<>())));
                                                 commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.add", name));
                                                 return 1;
                                             }
@@ -63,7 +61,7 @@ public class RaisedCommand {
                                 .then(ClientCommandManager.argument("group", GroupArgument.group())
                                         .executes(commandContext -> {
                                             String group = GroupArgument.getGroup(commandContext, "group");
-                                            Configure.Groups.removeGroup(group);
+                                            Config.update(o -> o.getGroups().remove(group));
                                             commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.remove", group));
                                             return 1;
                                         })
@@ -75,11 +73,11 @@ public class RaisedCommand {
                                                 .executes(commandContext -> {
                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                     String name = StringArgumentType.getString(commandContext, "name");
-                                                    if (Configure.Groups.getGroups().containsKey(name)) {
+                                                    if (Config.getOptions().getGroups().containsKey(name)) {
                                                         commandContext.getSource().sendError(new TranslatableComponent("commands.raised.group.error", name));
                                                         return 0;
                                                     } else {
-                                                        Configure.Groups.renameGroup(group, name);
+                                                        Config.update(o -> o.getGroups().put(name, o.getGroups().remove(group)));
                                                         commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.rename", group, name));
                                                         return 1;
                                                     }
@@ -93,14 +91,14 @@ public class RaisedCommand {
                                                 .then(ClientCommandManager.literal("x")
                                                         .executes(commandContext -> {
                                                             String group = GroupArgument.getGroup(commandContext, "group");
-                                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.x.query", group, Configure.Groups.getOffsetX(group)));
+                                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.x.query", group, Config.getOptions().getGroups().get(group).getOffset().getX()));
                                                             return 1;
                                                         })
                                                         .then(ClientCommandManager.argument("x", IntegerArgumentType.integer(0))
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                                    Configure.Groups.setOffsetX(group, IntegerArgumentType.getInteger(commandContext, "x"));
-                                                                    commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.x.set", group, Configure.Groups.getOffsetX(group)));
+                                                                    Config.update(o -> o.getGroups().get(group).getOffset().setX(IntegerArgumentType.getInteger(commandContext, "x")));
+                                                                    commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.x.set", group, Config.getOptions().getGroups().get(group).getOffset().getX()));
                                                                     return 1;
                                                                 })
                                                         )
@@ -108,14 +106,14 @@ public class RaisedCommand {
                                                 .then(ClientCommandManager.literal("y")
                                                         .executes(commandContext -> {
                                                             String group = GroupArgument.getGroup(commandContext, "group");
-                                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.y.query",group, Configure.Groups.getOffsetY(group)));
+                                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.y.query",group, Config.getOptions().getGroups().get(group).getOffset().getY()));
                                                             return 1;
                                                         })
                                                         .then(ClientCommandManager.argument("y", IntegerArgumentType.integer(0))
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                                    Configure.Groups.setOffsetY(group, IntegerArgumentType.getInteger(commandContext, "y"));
-                                                                    commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.y.set", group, Configure.Groups.getOffsetY(group)));
+                                                                    Config.update(o -> o.getGroups().get(group).getOffset().setY(IntegerArgumentType.getInteger(commandContext, "y")));
+                                                                    commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.offset.y.set", group, Config.getOptions().getGroups().get(group).getOffset().getY()));
                                                                     return 1;
                                                                 })
                                                         )
@@ -124,7 +122,7 @@ public class RaisedCommand {
                                         .then(ClientCommandManager.literal("layers")
                                                 .executes(commandContext -> {
                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                    List<String> layers = new ArrayList<>(Configure.Groups.getLayers(group));
+                                                    List<String> layers = new ArrayList<>(Config.getOptions().getGroups().get(group).getLayers());
                                                     if (layers.isEmpty()) {
                                                         commandContext.getSource().sendError(new TranslatableComponent("commands.raised.group.settings.layers.query.error", group));
                                                         return 0;
@@ -138,11 +136,11 @@ public class RaisedCommand {
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                     String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                    if (!Configure.Groups.getLayers(group).contains(layer)) {
+                                                                    if (!Config.getOptions().getGroups().get(group).getLayers().contains(layer)) {
                                                                         commandContext.getSource().sendError(new TranslatableComponent("commands.raised.group.settings.layers.add.error", group, layer));
                                                                         return 0;
                                                                     } else {
-                                                                        Configure.Groups.addLayer(group, layer);
+                                                                        Config.update(o -> o.getGroups().get(group).getLayers().add(layer));
                                                                         commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.layers.add", layer, group));
                                                                         return 1;
                                                                     }
@@ -153,16 +151,16 @@ public class RaisedCommand {
                                                         .then(ClientCommandManager.argument("layer", StringArgumentType.string())
                                                                 .suggests((commandContext, builder) -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                                    return SharedSuggestionProvider.suggest(Configure.Groups.getLayers(group), builder);
+                                                                    return SharedSuggestionProvider.suggest(Config.getOptions().getGroups().get(group).getLayers(), builder);
                                                                 })
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                     String layer = StringArgumentType.getString(commandContext, "layer");
-                                                                    if (!Configure.Groups.getLayers(group).contains(layer)) {
+                                                                    if (!Config.getOptions().getGroups().get(group).getLayers().contains(layer)) {
                                                                         commandContext.getSource().sendError(new TranslatableComponent("commands.raised.group.settings.layers.remove.error", group, layer));
                                                                         return 0;
                                                                     } else {
-                                                                        Configure.Groups.removeLayer(group, layer);
+                                                                        Config.update(o -> o.getGroups().get(group).getLayers().remove(layer));
                                                                         commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.group.settings.layers.remove", layer, group));
                                                                         return 1;
                                                                     }
@@ -179,14 +177,14 @@ public class RaisedCommand {
                                         .then(ClientCommandManager.literal("anchor")
                                                 .executes(commandContext -> {
                                                     String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                    commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.layer.settings.anchor.query", layer, Configure.Layers.getAnchor(layer).caption()));
+                                                    commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.layer.settings.anchor.query", layer, Config.getOptions().getLayers().get(layer).getAnchor().caption()));
                                                     return 1;
                                                 })
                                                 .then(ClientCommandManager.argument("anchor", AnchorArgument.anchor())
                                                         .executes(commandContext -> {
                                                             String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                            Configure.Layers.setAnchor(layer, AnchorArgument.getAnchor(commandContext, "anchor"));
-                                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.layer.settings.anchor.set", layer, Configure.Layers.getAnchor(layer).caption()));
+                                                            Config.update(o -> o.getLayers().get(layer).setAnchor(AnchorArgument.getAnchor(commandContext, "anchor")));
+                                                            commandContext.getSource().sendFeedback(new TranslatableComponent("commands.raised.layer.settings.anchor.set", layer, Config.getOptions().getLayers().get(layer).getAnchor().caption()));
                                                             return 1;
                                                         })
                                                 )

@@ -7,8 +7,8 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.client.gui.layer.Layers;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.option.AdditionalSettings;
-import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Pack;
 import dev.yurisuika.raised.util.Translate;
 import net.minecraft.client.DeltaTracker;
@@ -31,7 +31,7 @@ public abstract class GuiMixin {
      */
     @ModifyArg(method = "extractItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 1), index = 1)
     private Identifier replaceHotbarSelectorIdentifier(Identifier sprite) {
-        if (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
+        if (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
             return Identifier.fromNamespaceAndPath(Raised.MOD_ID, "hud/hotbar_selection");
         } else {
             return sprite;
@@ -40,7 +40,7 @@ public abstract class GuiMixin {
 
     @ModifyArg(method = "extractItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 1), index = 5)
     private int replaceHotbarSelectorHeight(int height) {
-        if (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
+        if (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.REPLACE || (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && Pack.getPack())) {
             return 24;
         } else {
             return height;
@@ -53,7 +53,7 @@ public abstract class GuiMixin {
     @WrapOperation(method = "extractItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V", ordinal = 1))
     private void patchHotbarSelector(GuiGraphicsExtractor guiGraphics, RenderPipeline pipeline, Identifier sprite, int x, int y, int width, int height, Operation<Void> operation, @Local(ordinal = 0) Player player) {
         operation.call(guiGraphics, pipeline, sprite, x, y, width, height);
-        if (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.PATCH  || (Configure.getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && !Pack.getPack())) {
+        if (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.PATCH  || (Config.getOptions().getAdditionalSettings().getHotbarSelectionFix() == AdditionalSettings.HotbarSelectionFix.AUTO && !Pack.getPack())) {
             x = (guiGraphics.guiWidth() / 2) - 92 + player.getInventory().getSelectedSlot() * 20;
             y = guiGraphics.guiHeight();
             ((GuiGraphicsExtractorInvoker) guiGraphics).invokeInnerBlit(RenderPipelines.GUI_TEXTURED, Identifier.withDefaultNamespace("textures/gui/sprites/hud/hotbar_selection.png"), x, x + 24, y, y + 1, 0, 1, 1 / 23.0F, 0, -1);

@@ -1,6 +1,6 @@
 package dev.yurisuika.raised.client.gui.screens;
 
-import dev.yurisuika.raised.util.Configure;
+import dev.yurisuika.raised.config.Config;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -65,7 +65,7 @@ public abstract class AbstractInputPopupScreen extends AbstractPopupScreen {
     public void tick() {
         super.tick();
 
-        boolean exists = Configure.Groups.getGroups().containsKey(optionInput.getValue());
+        boolean exists = Config.getOptions().getGroups().containsKey(optionInput.getValue());
         optionConfirm.active = !(optionInput.getValue().isBlank() || exists);
         optionConfirm.setTooltip(exists ? Tooltip.create(Component.translatable("options.raised.popup.submit.tooltip", optionInput.getValue())) : null);
     }

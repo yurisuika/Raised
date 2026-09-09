@@ -7,8 +7,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Configure;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -34,7 +34,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
     @Override
     public ResourceLocation parse(StringReader reader) throws CommandSyntaxException {
         ResourceLocation layerName = ResourceLocation.read(reader);
-        if (Configure.Layers.getLayers().containsKey(layerName.toString())) {
+        if (Config.getOptions().getLayers().containsKey(layerName.toString())) {
             return layerName;
         } else {
             throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", String.valueOf(object))).createWithContext(reader, layerName);

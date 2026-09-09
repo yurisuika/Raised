@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class Config {
@@ -28,7 +29,7 @@ public class Config {
         Config.options = options;
     }
 
-    public static void saveConfig() {
+    public static void save() {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, false), StandardCharsets.UTF_8));
             bufferedWriter.write(gson.toJson(getOptions()));
@@ -38,7 +39,7 @@ public class Config {
         }
     }
 
-    public static void loadConfig() {
+    public static void load() {
         if (file.exists()) {
             try {
                 StringBuilder contentBuilder = new StringBuilder();
@@ -52,8 +53,17 @@ public class Config {
                 throw new RuntimeException(e);
             }
         } else {
-            saveConfig();
+            save();
         }
+    }
+
+    public static void update(Consumer<Options> updater) {
+        if (options == null) {
+            setOptions(new Options());
+        }
+
+        updater.accept(options);
+        save();
     }
 
 }

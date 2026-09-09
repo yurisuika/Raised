@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.client.gui.screens;
 
 import dev.yurisuika.raised.client.gui.group.Group;
-import dev.yurisuika.raised.util.Configure;
+import dev.yurisuika.raised.config.Config;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 
@@ -20,7 +20,7 @@ public class AddScreen extends AbstractInputPopupScreen {
 
     @Override
     public void confirmAction() {
-        Configure.Groups.addGroup(optionInput.getValue(), new Group(new Group.Offset(0, 0), new TreeSet<>()));
+        Config.update(o -> o.getGroups().putIfAbsent(optionInput.getValue(), new Group(new Group.Offset(0, 0), new TreeSet<>())));
         super.confirmAction();
     }
 

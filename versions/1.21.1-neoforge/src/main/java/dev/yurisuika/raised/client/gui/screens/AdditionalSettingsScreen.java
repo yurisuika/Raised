@@ -1,7 +1,7 @@
 package dev.yurisuika.raised.client.gui.screens;
 
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.option.AdditionalSettings;
-import dev.yurisuika.raised.util.Configure;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
@@ -22,7 +22,7 @@ public class AdditionalSettingsScreen extends AbstractPopupScreen {
         options = new ArrayList<>();
 
         optionHotbarSelectionFix = CycleButton.builder(AdditionalSettings.HotbarSelectionFix::caption)
-                .withInitialValue(Configure.getHotbarSelectionFix())
+                .withInitialValue(Config.getOptions().getAdditionalSettings().getHotbarSelectionFix())
                 .withValues(AdditionalSettings.HotbarSelectionFix.values())
                 .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.hotbar_selection_fix." + value.getSerializedName() + ".tooltip")))
                 .create(panelX,
@@ -30,7 +30,7 @@ public class AdditionalSettingsScreen extends AbstractPopupScreen {
                         panelWidth,
                         WIDGET_HEIGHT,
                         Component.translatable("options.raised.hotbar_selection_fix"),
-                        (button, value) -> Configure.setHotbarSelectionFix(value));
+                        (button, value) -> Config.update(o -> o.getAdditionalSettings().setHotbarSelectionFix(value)));
 
         options.add(optionHotbarSelectionFix);
 

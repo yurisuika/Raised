@@ -3,10 +3,10 @@ package dev.yurisuika.raised.client.gui.screens;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.client.RaisedOptions;
 import dev.yurisuika.raised.client.gui.GuiComponentInterface;
-import dev.yurisuika.raised.client.gui.components.SpacedSelectionList;
+import dev.yurisuika.raised.client.gui.components.AdjustableSelectionList;
 import dev.yurisuika.raised.client.gui.layer.Layer;
+import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Configure;
 import dev.yurisuika.raised.util.Icon;
 import dev.yurisuika.raised.util.Parse;
 import net.minecraft.client.CycleOption;
@@ -225,7 +225,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
         return true;
     }
 
-    public abstract static class AbstractLayerList<E extends AbstractLayerList.Entry<E>> extends SpacedSelectionList<E> {
+    public abstract static class AbstractLayerList<E extends AbstractLayerList.Entry<E>> extends AdjustableSelectionList<E> {
 
         protected AbstractLayersScreen parent;
 
@@ -241,7 +241,7 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
             return entry == null ? null : entry.getTooltip(mouseX, mouseY);
         }
 
-        public abstract static class Entry<E extends Entry<E>> extends SpacedSelectionList.Entry<E> {
+        public abstract static class Entry<E extends Entry<E>> extends AdjustableSelectionList.Entry<E> {
 
             protected final ResourceLocation layerName;
             protected AbstractWidget optionAnchor;
@@ -253,12 +253,12 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
                         "options.raised.anchor",
                         (options, integer) -> {
                             List<Layer.Anchor> anchors = Arrays.stream(Layer.Anchor.values()).collect(Collectors.toList());
-                            Layer.Anchor anchor = Configure.Layers.getAnchor(layerName.toString());
+                            Layer.Anchor anchor = Config.getOptions().getLayers().get(layerName.toString()).getAnchor();
                             int index = anchors.indexOf(anchor);
-                            Configure.Layers.setAnchor(layerName.toString(), anchors.get(index < anchors.size() - 1 ? index + 1 : 0));
+                            Config.update(o -> o.getLayers().get(layerName.toString()).setAnchor(anchors.get(index < anchors.size() - 1 ? index + 1 : 0)));
                         },
                         (options, option) -> {
-                            Layer.Anchor anchor = Configure.Layers.getAnchor(layerName.toString());
+                            Layer.Anchor anchor = Config.getOptions().getLayers().get(layerName.toString()).getAnchor();
                             option.setTooltip(Minecraft.getInstance().font.split(new TranslatableComponent("options.raised.anchor.tooltip", new TranslatableComponent("options.raised.anchor." + anchor.getSerializedName())), 200));
                             return anchor.glyph();
                         })
