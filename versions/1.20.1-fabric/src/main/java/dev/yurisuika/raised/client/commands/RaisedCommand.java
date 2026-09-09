@@ -127,7 +127,7 @@ public class RaisedCommand {
                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                     List<String> layers = new ArrayList<>(Configure.Groups.getLayers(group));
                                                     if (layers.isEmpty()) {
-                                                        commandContext.getSource().sendError(Component.translatable("commands.raised.group.empty", group));
+                                                        commandContext.getSource().sendError(Component.translatable("commands.raised.group.settings.layers.query.error", group));
                                                         return 0;
                                                     } else {
                                                         commandContext.getSource().sendFeedback(Component.translatable("commands.raised.group.settings.layers.query", group, layers.toString()));
