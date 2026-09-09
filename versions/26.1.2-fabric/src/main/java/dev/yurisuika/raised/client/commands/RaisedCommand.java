@@ -15,7 +15,9 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,14 +157,14 @@ public class RaisedCommand {
                                                         )
                                                 )
                                                 .then(ClientCommands.literal("remove")
-                                                        .then(ClientCommands.argument("layer", StringArgumentType.string())
+                                                        .then(ClientCommands.argument("layer", IdentifierArgument.id())
                                                                 .suggests((commandContext, builder) -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                     return SharedSuggestionProvider.suggest(Config.getOptions().getGroups().get(group).getLayers(), builder);
                                                                 })
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
-                                                                    String layer = StringArgumentType.getString(commandContext, "layer");
+                                                                    String layer = commandContext.getArgument("layer", Identifier.class).toString();
                                                                     if (!Config.getOptions().getGroups().get(group).getLayers().contains(layer)) {
                                                                         commandContext.getSource().sendError(Component.translatable("commands.raised.group.settings.layers.remove.error", group, layer));
                                                                         return 0;
