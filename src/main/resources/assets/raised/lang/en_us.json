@@ -3,8 +3,11 @@
   "commands.raised.config.reset": "Raised config reset to defaults",
 
   "commands.raised.group.add": "Added group '%s'",
+  "commands.raised.group.add.error": "A group already exists under the name '%s'",
   "commands.raised.group.remove": "Removed group '%s'",
+  "commands.raised.group.remove.error": "A group does not exist under the name '%s'",
   "commands.raised.group.rename": "Renamed group '%s' to '%s'",
+  "commands.raised.group.rename.error": "A group already exists under the name '%s'",
   "commands.raised.group.settings.offset.x.query": "X-axis offset of '%s' is currently set to: %dpx",
   "commands.raised.group.settings.offset.x.set": "X-axis offset of '%s' is now set to: %dpx",
   "commands.raised.group.settings.offset.y.query": "Y-axis offset of '%s' is currently set to: %dpx",

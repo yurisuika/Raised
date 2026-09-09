@@ -48,7 +48,7 @@ public class RaisedCommand {
                                         .executes(commandContext -> {
                                             String name = StringArgumentType.getString(commandContext, "name");
                                             if (Config.getOptions().getGroups().containsKey(name)) {
-                                                commandContext.getSource().sendFailure(Component.translatable("commands.raised.group.error", name));
+                                                commandContext.getSource().sendFailure(Component.translatable("commands.raised.group.add.error", name));
                                                 return 0;
                                             } else {
                                                 Config.update(o -> o.getGroups().putIfAbsent(name, new Group(new Group.Offset(0, 0), new TreeSet<>())));
@@ -62,9 +62,14 @@ public class RaisedCommand {
                                 .then(Commands.argument("group", GroupArgument.group())
                                         .executes(commandContext -> {
                                             String group = GroupArgument.getGroup(commandContext, "group");
-                                            Config.update(o -> o.getGroups().remove(group));
-                                            commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.group.remove", group), false);
-                                            return 1;
+                                            if (!Config.getOptions().getGroups().containsKey(group)) {
+                                                commandContext.getSource().sendFailure(Component.translatable("commands.raised.group.remove.error", group));
+                                                return 0;
+                                            } else {
+                                                Config.update(o -> o.getGroups().remove(group));
+                                                commandContext.getSource().sendSuccess(() -> Component.translatable("commands.raised.group.remove", group), false);
+                                                return 1;
+                                            }
                                         })
                                 )
                         )
@@ -75,7 +80,7 @@ public class RaisedCommand {
                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                     String name = StringArgumentType.getString(commandContext, "name");
                                                     if (Config.getOptions().getGroups().containsKey(name)) {
-                                                        commandContext.getSource().sendFailure(Component.translatable("commands.raised.group.error", name));
+                                                        commandContext.getSource().sendFailure(Component.translatable("commands.raised.group.rename.error", name));
                                                         return 0;
                                                     } else {
                                                         Config.update(o -> o.getGroups().put(name, o.getGroups().remove(group)));
@@ -137,7 +142,7 @@ public class RaisedCommand {
                                                                 .executes(commandContext -> {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                     String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                    if (!Config.getOptions().getGroups().get(group).getLayers().contains(layer)) {
+                                                                    if (Config.getOptions().getGroups().get(group).getLayers().contains(layer)) {
                                                                         commandContext.getSource().sendFailure(Component.translatable("commands.raised.group.settings.layers.add.error", group, layer));
                                                                         return 0;
                                                                     } else {
