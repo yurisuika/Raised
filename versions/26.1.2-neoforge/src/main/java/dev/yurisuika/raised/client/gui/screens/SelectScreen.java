@@ -219,7 +219,6 @@ public class SelectScreen extends AbstractLayersScreen {
 
             public Entry(String groupName) {
                 this.groupName = groupName;
-                setSelected(getCurrentGroup() == null);
             }
 
             public String getGroupName() {
@@ -287,12 +286,13 @@ public class SelectScreen extends AbstractLayersScreen {
 
         public LayerList(Minecraft minecraft, SelectScreen parent, int width, int height, int y) {
             super(minecraft, parent, width, height, y);
+            setEntries();
         }
 
         @Override
         public void setEntries() {
             clearEntries();
-            listLayers().forEach(layerName -> addEntry(new LayerList.Entry(layerName)));
+            listLayers().forEach(layerName -> addEntry(new Entry(layerName)));
         }
 
         public class Entry extends AbstractLayerList.Entry<LayerList.Entry> {

@@ -32,8 +32,8 @@ public class EditScreen extends AbstractLayersScreen {
     public AbstractWidget controlReturn;
     public AbstractWidget optionOffsetX;
     public AbstractWidget optionOffsetY;
-    public SelectedLayerList leftList;
-    public AvailableLayerList rightList;
+    public TransferableLayerList leftList;
+    public TransferableLayerList rightList;
 
     public EditScreen(Screen parent) {
         super(parent, 3, 1);
@@ -111,14 +111,14 @@ public class EditScreen extends AbstractLayersScreen {
 
     @Override
     public void addLeftList() {
-        leftList = new SelectedLayerList(minecraft, this, listWidth, leftListHeight, leftListY, leftListY + leftListHeight);
+        leftList = new TransferableLayerList(minecraft, this, false, listWidth, leftListHeight, leftListY, leftListY + leftListHeight);
 
         addWidget(leftList);
     }
 
     @Override
     public void addRightList() {
-        rightList = new AvailableLayerList(minecraft, this, listWidth, rightListHeight, rightListY, rightListY + rightListHeight);
+        rightList = new TransferableLayerList(minecraft, this, true, listWidth, rightListHeight, rightListY, rightListY + rightListHeight);
 
         addWidget(rightList);
     }
@@ -254,16 +254,24 @@ public class EditScreen extends AbstractLayersScreen {
         }
     }
 
-    public class SelectedLayerList extends AbstractLayerList<SelectedLayerList.Entry> {
+    public class TransferableLayerList extends AbstractLayerList<TransferableLayerList.Entry> {
 
-        public SelectedLayerList(Minecraft minecraft, EditScreen parent, int width, int height, int y0, int y1) {
+        private final boolean available;
+
+        public TransferableLayerList(Minecraft minecraft, EditScreen parent, boolean available, int width, int height, int y0, int y1) {
             super(minecraft, parent, width, height, y0, y1);
+            this.available = available;
+            setEntries();
         }
 
         @Override
         public void setEntries() {
             clearEntries();
-            listSelectedLayers().forEach(layerName -> addEntry(new Entry(layerName)));
+            (isAvailable() ? listAvailableLayers() : listSelectedLayers()).forEach(layerName -> addEntry(new Entry(layerName)));
+        }
+
+        public boolean isAvailable() {
+            return available;
         }
 
         public class Entry extends AbstractLayerList.Entry<Entry> {
@@ -278,7 +286,7 @@ public class EditScreen extends AbstractLayersScreen {
 
                 int i = mouseX - left;
                 if (isMouseOver(mouseX, mouseY)) {
-                    Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(Raised.MOD_ID, "textures/gui/sprites/transferable_list/unselect" + (i < ENTRY_HEIGHT ? "_highlighted" : "") + ".png"));
+                    Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(Raised.MOD_ID, "textures/gui/sprites/layer_list/" + (isAvailable() ? "" : "un") + "select" + (i < ENTRY_HEIGHT ? "_highlighted" : "") + ".png"));
                     blit(
                             poseStack,
                             left,
@@ -302,7 +310,11 @@ public class EditScreen extends AbstractLayersScreen {
                 int relX = (int) mouseX - getEntryX(this);
                 int relY = (int) mouseY - getEntryY(this);
                 if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
-                    Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().remove(this.getLayerName().toString()));
+                    if (isAvailable()) {
+                        Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().add(getLayerName().toString()));
+                    } else {
+                        Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().remove(getLayerName().toString()));
+                    }
                     resetLeftList();
                     resetRightList();
                     return true;
@@ -313,74 +325,7 @@ public class EditScreen extends AbstractLayersScreen {
             @Override
             public void setSelected(boolean selected) {
                 if (selected) {
-                    SelectedLayerList.this.setSelected(this);
-                }
-            }
-
-        }
-
-    }
-
-    public class AvailableLayerList extends AbstractLayerList<AvailableLayerList.Entry> {
-
-        public AvailableLayerList(Minecraft minecraft, EditScreen parent, int width, int height, int y0, int y1) {
-            super(minecraft, parent, width, height, y0, y1);
-        }
-
-        @Override
-        public void setEntries() {
-            clearEntries();
-            listAvailableLayers().forEach(layerName -> addEntry(new Entry(layerName)));
-        }
-
-        public class Entry extends AbstractLayerList.Entry<Entry> {
-
-            public Entry(ResourceLocation layerName) {
-                super(layerName);
-            }
-
-            @Override
-            public void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
-                super.render(poseStack, index, top, left, width, height, mouseX, mouseY, hovering, partialTick);
-
-                int i = mouseX - left;
-                if (isMouseOver(mouseX, mouseY)) {
-                    Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(Raised.MOD_ID, "textures/gui/sprites/transferable_list/select" + (i < ENTRY_HEIGHT ? "_highlighted" : "") + ".png"));
-                    blit(
-                            poseStack,
-                            left,
-                            top,
-                            0,
-                            0,
-                            ENTRY_HEIGHT,
-                            ENTRY_HEIGHT,
-                            24,
-                            24);
-                }
-            }
-
-            @Override
-            public String entryText() {
-                return Parse.parsePath(layerName.getPath());
-            }
-
-            @Override
-            public boolean handleClick(final double mouseX, final double mouseY, final int button) {
-                int relX = (int) mouseX - getEntryX(this);
-                int relY = (int) mouseY - getEntryY(this);
-                if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
-                    Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().add(this.getLayerName().toString()));
-                    resetLeftList();
-                    resetRightList();
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void setSelected(boolean selected) {
-                if (selected) {
-                    AvailableLayerList.this.setSelected(this);
+                    TransferableLayerList.this.setSelected(this);
                 }
             }
 

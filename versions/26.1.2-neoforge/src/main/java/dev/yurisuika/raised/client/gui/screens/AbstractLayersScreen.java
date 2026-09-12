@@ -221,7 +221,6 @@ public abstract class AbstractLayersScreen extends AbstractRaisedScreen {
         public AbstractLayerList(Minecraft minecraft, AbstractLayersScreen parent, int width, int height, int y) {
             super(minecraft, width, height, y, ENTRY_HEIGHT, LIST_PADDING_X, LIST_PADDING_Y);
             this.parent = parent;
-            setEntries();
         }
 
         public abstract static class Entry<E extends AbstractLayerList.Entry<E>> extends AdjustableSelectionList.Entry<E> {
