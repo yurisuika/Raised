@@ -128,15 +128,15 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code overlay message} for {@link Layer} key "minecraft:action_bar".
+     * Moves the {@code action bar} for {@link Layer} key "minecraft:action_bar".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V", ordinal = 0))
-    private void startOverlayMessageTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void startActionBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), Layers.ACTION_BAR);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", ordinal = 0, shift = At.Shift.AFTER))
-    private void endOverlayMessageTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void endActionBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         Translate.end(guiGraphics.pose(), Layers.ACTION_BAR);
     }
 
@@ -154,7 +154,7 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code bossbar} for {@link Layer} key "minecraft:boss_bar".
+     * Moves the {@code boss bar} for {@link Layer} key "minecraft:boss_bar".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V"))
     private void startBossBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
@@ -167,15 +167,15 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code sidebar} for {@link Layer} key "minecraft:scoreboard".
+     * Moves the {@code scoreboard} for {@link Layer} key "minecraft:scoreboard".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V"))
-    private void startSidebarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void startScoreboardTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), Layers.SCOREBOARD);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
-    private void endSidebarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void endScoreboardTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         Translate.end(guiGraphics.pose(), Layers.SCOREBOARD);
     }
 
@@ -193,15 +193,15 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code players} for {@link Layer} key "minecraft:player_list".
+     * Moves the {@code player list} for {@link Layer} key "minecraft:player_list".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V"))
-    private void startPlayersTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void startPlayerListTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), Layers.PLAYER_LIST);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
-    private void endPlayersTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void endPlayerListTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         Translate.end(guiGraphics.pose(), Layers.PLAYER_LIST);
     }
 

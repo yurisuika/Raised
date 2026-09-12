@@ -131,15 +131,15 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code overlay message} for {@link Layer} key "minecraft:action_bar".
+     * Moves the {@code action bar} for {@link Layer} key "minecraft:action_bar".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V", ordinal = 0))
-    private void startOverlayMessageTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void startActionBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.start(poseStack, Layers.ACTION_BAR);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", ordinal = 0, shift = At.Shift.AFTER))
-    private void endOverlayMessageTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void endActionBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.end(poseStack, Layers.ACTION_BAR);
     }
 
@@ -170,7 +170,7 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code bossbar} for {@link Layer} key "minecraft:boss_bar".
+     * Moves the {@code boss bar} for {@link Layer} key "minecraft:boss_bar".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lcom/mojang/blaze3d/vertex/PoseStack;)V"))
     private void startBossBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
@@ -183,15 +183,15 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code sidebar} for {@link Layer} key "minecraft:scoreboard".
+     * Moves the {@code scoreboard} for {@link Layer} key "minecraft:scoreboard".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V"))
-    private void startSidebarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void startScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.start(poseStack, Layers.SCOREBOARD);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
-    private void endSidebarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void endScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.end(poseStack, Layers.SCOREBOARD);
     }
 
@@ -209,15 +209,15 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code players} for {@link Layer} key "minecraft:player_list".
+     * Moves the {@code player list} for {@link Layer} key "minecraft:player_list".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lcom/mojang/blaze3d/vertex/PoseStack;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V"))
-    private void startPlayersTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void startPlayerListTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.start(poseStack, Layers.PLAYER_LIST);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/PlayerTabOverlay;render(Lcom/mojang/blaze3d/vertex/PoseStack;ILnet/minecraft/world/scores/Scoreboard;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
-    private void endPlayersTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void endPlayerListTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.end(poseStack, Layers.PLAYER_LIST);
     }
 

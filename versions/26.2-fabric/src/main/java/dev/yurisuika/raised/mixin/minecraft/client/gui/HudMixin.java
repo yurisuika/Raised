@@ -76,15 +76,15 @@ public abstract class HudMixin {
     }
 
     /**
-     * Moves the {@code overlay message} for {@link Layer} key "minecraft:action_bar".
+     * Moves the {@code action bar} for {@link Layer} key "minecraft:action_bar".
      */
     @Inject(method = "extractOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
-    private void startOverlayMessageTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void startActionBarTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), Layers.ACTION_BAR);
     }
 
     @Inject(method = "extractOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
-    private void endOverlayMessageTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void endActionBarTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.end(guiGraphics.pose(), Layers.ACTION_BAR);
     }
 
@@ -102,15 +102,15 @@ public abstract class HudMixin {
     }
 
     /**
-     * Moves the {@code sidebar} for {@link Layer} key "minecraft:scoreboard".
+     * Moves the {@code scoreboard} for {@link Layer} key "minecraft:scoreboard".
      */
     @Inject(method = "extractScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V", at = @At("HEAD"))
-    private void startSidebarTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void startScoreboardTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), Layers.SCOREBOARD);
     }
 
     @Inject(method = "extractScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/DeltaTracker;)V", at = @At("TAIL"))
-    private void endSidebarTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void endScoreboardTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.end(guiGraphics.pose(), Layers.SCOREBOARD);
     }
 
@@ -128,15 +128,15 @@ public abstract class HudMixin {
     }
 
     /**
-     * Moves the {@code players} for {@link Layer} key "minecraft:player_list".
+     * Moves the {@code player list} for {@link Layer} key "minecraft:player_list".
      */
     @Inject(method = "extractTabList", at = @At("HEAD"))
-    private void startPlayersTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void startPlayerListTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), Layers.PLAYER_LIST);
     }
 
     @Inject(method = "extractTabList", at = @At("TAIL"))
-    private void endPlayersTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
+    private void endPlayerListTranslate(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         Translate.end(guiGraphics.pose(), Layers.PLAYER_LIST);
     }
 

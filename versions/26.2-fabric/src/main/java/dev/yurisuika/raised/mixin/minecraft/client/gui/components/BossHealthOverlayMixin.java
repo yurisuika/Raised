@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BossHealthOverlayMixin {
 
     /**
-     * Moves the {@code bossbar} for {@link Layer} key "minecraft:boss_bar".
+     * Moves the {@code boss bar} for {@link Layer} key "minecraft:boss_bar".
      */
     @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
     private void startBossBarTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {

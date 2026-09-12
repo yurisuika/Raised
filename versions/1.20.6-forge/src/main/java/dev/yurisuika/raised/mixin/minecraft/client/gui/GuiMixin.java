@@ -99,10 +99,10 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code overlay message} for {@link Layer} key "minecraft:action_bar".
+     * Moves the {@code action bar} for {@link Layer} key "minecraft:action_bar".
      */
     @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
-    private void startOverlayMessageTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void startActionBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
@@ -111,7 +111,7 @@ public abstract class GuiMixin {
     }
 
     @Inject(method = "renderOverlayMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;pop()V", shift = At.Shift.AFTER))
-    private void endOverlayMessageTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void endActionBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
@@ -141,10 +141,10 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code sidebar} for {@link Layer} key "minecraft:scoreboard".
+     * Moves the {@code scoreboard} for {@link Layer} key "minecraft:scoreboard".
      */
     @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;F)V", at = @At("HEAD"))
-    private void startSidebarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void startScoreboardTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
@@ -153,7 +153,7 @@ public abstract class GuiMixin {
     }
 
     @Inject(method = "renderScoreboardSidebar(Lnet/minecraft/client/gui/GuiGraphics;F)V", at = @At("TAIL"))
-    private void endSidebarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void endScoreboardTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
@@ -183,10 +183,10 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code players} for {@link Layer} key "minecraft:player_list".
+     * Moves the {@code player list} for {@link Layer} key "minecraft:player_list".
      */
     @Inject(method = "renderTabList", at = @At("HEAD"))
-    private void startPlayersTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void startPlayerListTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
@@ -195,7 +195,7 @@ public abstract class GuiMixin {
     }
 
     @Inject(method = "renderTabList", at = @At("TAIL"))
-    private void endPlayersTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
+    private void endPlayerListTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {

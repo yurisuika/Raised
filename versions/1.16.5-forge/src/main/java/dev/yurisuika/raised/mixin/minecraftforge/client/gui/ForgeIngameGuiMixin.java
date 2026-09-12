@@ -53,28 +53,28 @@ public abstract class ForgeIngameGuiMixin {
     }
 
     /**
-     * Moves the {@code overlay message} for {@link Layer} key "minecraft:action_bar".
+     * Moves the {@code action bar} for {@link Layer} key "minecraft:action_bar".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderRecordOverlay(IIFLcom/mojang/blaze3d/vertex/PoseStack;)V"))
-    private void startOverlayMessageTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void startActionBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.start(Layers.ACTION_BAR);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;renderRecordOverlay(IIFLcom/mojang/blaze3d/vertex/PoseStack;)V", shift = At.Shift.AFTER))
-    private void endOverlayMessageTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void endActionBarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.end(Layers.ACTION_BAR);
     }
 
     /**
-     * Moves the {@code sidebar} for {@link Layer} key "minecraft:scoreboard".
+     * Moves the {@code scoreboard} for {@link Layer} key "minecraft:scoreboard".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V"))
-    private void startSidebarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void startScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.start(Layers.SCOREBOARD);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/gui/ForgeIngameGui;displayScoreboardSidebar(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/scores/Objective;)V", shift = At.Shift.AFTER))
-    private void endSidebarTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
+    private void endScoreboardTranslate(PoseStack poseStack, float partialTick, CallbackInfo ci) {
         Translate.end(Layers.SCOREBOARD);
     }
 
