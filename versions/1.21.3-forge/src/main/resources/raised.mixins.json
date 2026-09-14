@@ -16,6 +16,7 @@
     "minecraft.client.gui.components.AbstractWidgetInvoker",
     "minecraft.client.gui.components.BossHealthOverlayMixin",
     "minecraft.client.gui.components.ChatComponentMixin",
+    "minecraft.client.gui.components.CommandSuggestionsAccessor",
     "minecraft.client.gui.components.CommandSuggestionsMixin",
     "minecraft.client.gui.components.SubtitleOverlayMixin",
     "minecraft.client.gui.components.toasts.ToastManagerMixin$ToastInstanceMixin",

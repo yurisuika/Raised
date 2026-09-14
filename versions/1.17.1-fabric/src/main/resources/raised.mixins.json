@@ -12,6 +12,7 @@
     "minecraft.client.gui.GuiMixin$Last",
     "minecraft.client.gui.components.AbstractWidgetMixin",
     "minecraft.client.gui.components.ChatComponentMixin",
+    "minecraft.client.gui.components.CommandSuggestionsAccessor",
     "minecraft.client.gui.components.CommandSuggestionsMixin",
     "minecraft.client.gui.components.SubtitleOverlayMixin",
     "minecraft.client.gui.components.toasts.ToastComponentMixin$ToastInstanceMixin",

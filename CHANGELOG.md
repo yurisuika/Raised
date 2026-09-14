@@ -8,7 +8,7 @@ Combine and control different Layers in Groups of your creation. Groups makes it
 - Reworked configuration screen for groups.
 - Reworked commands for groups.
 - Added vanilla action bar layer, now distinctly controllable from hotbar layer.
-- Added vanilla chat input layer to move chat input and command suggestions. Uniquely changes width based on x-axis offset.
+- Added vanilla chat input layer to move chat input and command suggestions/usage Uniquely changes width based on x-axis offset.
 - Replaced direction sprites with anchor font glyph set.
 - Reworked several vanilla layer sprites.
 - Renamed several vanilla layers to be more distinctive.

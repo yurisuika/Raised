@@ -36,17 +36,17 @@ public abstract class CommandSuggestionsMixin {
 
     @ModifyArg(method = "updateUsageInfo", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(III)I"), index = 1)
     private int adjustUsageInfoX(int value) {
-        return value + Translate.getX(Layers.CHAT_INPUT);
+        return ((CommandSuggestionsAccessor) this).getAnchorToBottom() ? value + Translate.getX(Layers.CHAT_INPUT) : value;
     }
 
     @Redirect(method = "updateUsageInfo", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/components/CommandSuggestions;commandUsagePosition:I", ordinal = 1, opcode = Opcodes.PUTFIELD))
     private void adjustUsageInfoPosition(CommandSuggestions instance, int value) {
-        commandUsagePosition = value + Translate.getX(Layers.CHAT_INPUT);
+        commandUsagePosition = ((CommandSuggestionsAccessor) this).getAnchorToBottom() ? value + Translate.getX(Layers.CHAT_INPUT) : value;
     }
 
     @Redirect(method = "updateCommandInfo", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/components/CommandSuggestions;commandUsagePosition:I", opcode = Opcodes.PUTFIELD))
     private void adjustCommandUsagePosition(CommandSuggestions instance, int value) {
-        commandUsagePosition = value + Translate.getX(Layers.CHAT_INPUT);
+        commandUsagePosition = ((CommandSuggestionsAccessor) this).getAnchorToBottom() ? value + Translate.getX(Layers.CHAT_INPUT) : value;
     }
 
 }

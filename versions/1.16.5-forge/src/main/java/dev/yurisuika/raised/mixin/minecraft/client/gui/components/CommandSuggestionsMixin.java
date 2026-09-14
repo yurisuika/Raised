@@ -36,12 +36,12 @@ public abstract class CommandSuggestionsMixin {
 
     @ModifyArg(method = "fillNodeUsage", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(III)I"), index = 1)
     private int adjustUsageInfoX(int value) {
-        return value + Translate.getX(Layers.CHAT_INPUT);
+        return ((CommandSuggestionsAccessor) this).getAnchorToBottom() ? value + Translate.getX(Layers.CHAT_INPUT) : value;
     }
 
     @Redirect(method = "updateUsageInfo", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/components/CommandSuggestions;commandUsagePosition:I", ordinal = 0, opcode = Opcodes.PUTFIELD))
     private void adjustUsageInfoPosition(CommandSuggestions instance, int value) {
-        commandUsagePosition = value + Translate.getX(Layers.CHAT_INPUT);
+        commandUsagePosition = ((CommandSuggestionsAccessor) this).getAnchorToBottom() ? value + Translate.getX(Layers.CHAT_INPUT) : value;
     }
 
 }
