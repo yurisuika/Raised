@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contributors": [],
+  "contact": {
+    "homepage": "https://${mod_author}.dev",
+    "sources": "https://github.com/${mod_author}/${mod_id}",
+    "issues": "https://github.com/${mod_author}/${mod_id}/issues"
+  },
+
+  "license": "${mod_license}",
+  "icon": "icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "main": [
+      "dev.yurisuika.raised.Raised"
+    ],
+    "client": [
+      "dev.yurisuika.raised.RaisedClient"
+    ]
+  },
+  "mixins": [
+    "raised.mixins.json"
+  ],
+
+  "accessWidener": "raised.accesswidener",
+
+  "depends": {
+    "fabricloader": "${loader_version_range}",
+    "minecraft": "${minecraft_version_range}",
+    "java": ">=${java_version}"
+  },
+  "suggests": {
+    "fabric": "${api_version_range}",
+    "fabric-api": "${api_version_range}"
+  }
+}

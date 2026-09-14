@@ -103,12 +103,12 @@ public abstract class HudMixin {
      */
     @Inject(method = "lambda$extractSubtitleOverlay$0(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SubtitleOverlay;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void startDeferredSubtitlesTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
-        Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
+        Translate.start(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
     }
 
     @Inject(method = "lambda$extractSubtitleOverlay$0(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SubtitleOverlay;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     private void endDeferredSubtitlesTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose(), Layers.SUBTITLES);
+        Translate.end(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
     }
 
 }

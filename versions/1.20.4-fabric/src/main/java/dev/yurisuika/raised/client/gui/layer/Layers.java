@@ -14,7 +14,7 @@ public class Layers {
     public static final ResourceLocation EFFECTS = new ResourceLocation("effects");
     public static final ResourceLocation PLAYER_LIST = new ResourceLocation("player_list");
     public static final ResourceLocation TITLES = new ResourceLocation("titles");
-    public static final ResourceLocation SUBTITLES = new ResourceLocation("subtitles");
+    public static final ResourceLocation CLOSED_CAPTIONS = new ResourceLocation("closed_captions");
     public static final ResourceLocation TOASTS = new ResourceLocation("toasts");
     public static final ResourceLocation UNKNOWN = new ResourceLocation("unknown");
 
@@ -30,7 +30,7 @@ public class Layers {
         LayerRegistry.register(EFFECTS, new Layer(Layer.Anchor.TOP_RIGHT));
         LayerRegistry.register(PLAYER_LIST, new Layer(Layer.Anchor.TOP));
         LayerRegistry.register(TITLES, new Layer(Layer.Anchor.NONE));
-        LayerRegistry.register(SUBTITLES, new Layer(Layer.Anchor.BOTTOM_RIGHT));
+        LayerRegistry.register(CLOSED_CAPTIONS, new Layer(Layer.Anchor.BOTTOM_RIGHT));
         LayerRegistry.register(TOASTS, new Layer(Layer.Anchor.TOP_RIGHT));
         LayerRegistry.register(UNKNOWN, new Layer(Layer.Anchor.NONE));
     }

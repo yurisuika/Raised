@@ -103,12 +103,12 @@ public abstract class GuiMixin {
      */
     @Inject(method = "lambda$renderSubtitleOverlay$13(Lnet/minecraft/client/gui/GuiGraphics;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SubtitleOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void startDeferredSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
+        Translate.start(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
     }
 
     @Inject(method = "lambda$renderSubtitleOverlay$13(Lnet/minecraft/client/gui/GuiGraphics;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SubtitleOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
     private void endDeferredSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose(), Layers.SUBTITLES);
+        Translate.end(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
     }
 
 }

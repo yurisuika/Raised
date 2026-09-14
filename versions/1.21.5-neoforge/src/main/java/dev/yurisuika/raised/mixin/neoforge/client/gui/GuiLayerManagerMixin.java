@@ -59,7 +59,7 @@ public abstract class GuiLayerManagerMixin {
                 Map.entry(VanillaGuiLayers.EFFECTS, Layers.EFFECTS),
                 Map.entry(VanillaGuiLayers.TAB_LIST, Layers.PLAYER_LIST),
                 Map.entry(VanillaGuiLayers.TITLE, Layers.TITLES),
-                Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Layers.SUBTITLES)
+                Map.entry(VanillaGuiLayers.SUBTITLE_OVERLAY, Layers.CLOSED_CAPTIONS)
         );
 
         return map.getOrDefault(name, null);

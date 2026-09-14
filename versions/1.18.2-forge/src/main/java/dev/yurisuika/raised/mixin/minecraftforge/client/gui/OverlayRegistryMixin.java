@@ -70,7 +70,7 @@ public abstract class OverlayRegistryMixin {
                 Map.entry(new ResourceLocation("potion_icons"), Layers.EFFECTS),        // ForgeIngameGui.POTION_ICONS_ELEMENT
                 Map.entry(new ResourceLocation("player_list"), Layers.PLAYER_LIST),     // ForgeIngameGui.PLAYER_LIST_ELEMENT
                 Map.entry(new ResourceLocation("title_text"), Layers.TITLES),           // ForgeIngameGui.TITLE_TEXT_ELEMENT
-                Map.entry(new ResourceLocation("subtitles"), Layers.SUBTITLES)          // ForgeIngameGui.SUBTITLES_ELEMENT
+                Map.entry(new ResourceLocation("subtitles"), Layers.CLOSED_CAPTIONS)          // ForgeIngameGui.SUBTITLES_ELEMENT
         );
 
         return map.getOrDefault(name, null);

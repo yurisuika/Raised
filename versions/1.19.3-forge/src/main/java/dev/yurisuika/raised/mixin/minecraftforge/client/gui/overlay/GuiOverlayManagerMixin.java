@@ -47,7 +47,7 @@ public abstract class GuiOverlayManagerMixin {
                 Map.entry(VanillaGuiOverlay.POTION_ICONS.id(), Layers.EFFECTS),
                 Map.entry(VanillaGuiOverlay.PLAYER_LIST.id(), Layers.PLAYER_LIST),
                 Map.entry(VanillaGuiOverlay.TITLE_TEXT.id(), Layers.TITLES),
-                Map.entry(VanillaGuiOverlay.SUBTITLES.id(), Layers.SUBTITLES)
+                Map.entry(VanillaGuiOverlay.SUBTITLES.id(), Layers.CLOSED_CAPTIONS)
         );
 
         return map.getOrDefault(name, null);

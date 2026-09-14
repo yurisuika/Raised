@@ -72,7 +72,7 @@ public abstract class ForgeLayeredDrawMixin {
                 Map.entry(ForgeLayeredDraw.POTION_EFFECTS, Layers.EFFECTS),
                 Map.entry(ForgeLayeredDraw.TAB_LIST, Layers.PLAYER_LIST),
                 Map.entry(ForgeLayeredDraw.TITLE_OVERLAY, Layers.TITLES),
-                Map.entry(ForgeLayeredDraw.SUBTITLE_OVERLAY, Layers.SUBTITLES)
+                Map.entry(ForgeLayeredDraw.SUBTITLE_OVERLAY, Layers.CLOSED_CAPTIONS)
         );
 
         return map.getOrDefault(name, null);

@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class SubtitleOverlayMixin {
 
     /**
-     * Moves the {@code subtitles} for {@link Layer} key "minecraft:subtitles".
+     * Moves the {@code closed captions} for {@link Layer} key "minecraft:closed_captions".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lorg/joml/Matrix3x2fStack;pushMatrix()Lorg/joml/Matrix3x2fStack;"))
     private void startSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
-            Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
+            Translate.start(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
         }
     }
 
@@ -30,7 +30,7 @@ public abstract class SubtitleOverlayMixin {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
-            Translate.end(guiGraphics.pose(), Layers.SUBTITLES);
+            Translate.end(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
         }
     }
 

@@ -17,7 +17,7 @@ public class Layers {
     public static final Identifier EFFECTS = Identifier.withDefaultNamespace("effects");
     public static final Identifier PLAYER_LIST = Identifier.withDefaultNamespace("player_list");
     public static final Identifier TITLES = Identifier.withDefaultNamespace("titles");
-    public static final Identifier SUBTITLES = Identifier.withDefaultNamespace("subtitles");
+    public static final Identifier CLOSED_CAPTIONS = Identifier.withDefaultNamespace("closed_captions");
     public static final Identifier TOASTS = Identifier.withDefaultNamespace("toasts");
     public static final Identifier UNKNOWN = Identifier.withDefaultNamespace("unknown");
 
@@ -33,7 +33,7 @@ public class Layers {
         LayerRegistry.register(EFFECTS, new Layer(Layer.Anchor.TOP_RIGHT));
         LayerRegistry.register(PLAYER_LIST, new Layer(Layer.Anchor.TOP));
         LayerRegistry.register(TITLES, new Layer(Layer.Anchor.NONE));
-        LayerRegistry.register(SUBTITLES, new Layer(Layer.Anchor.BOTTOM_RIGHT));
+        LayerRegistry.register(CLOSED_CAPTIONS, new Layer(Layer.Anchor.BOTTOM_RIGHT));
         LayerRegistry.register(TOASTS, new Layer(Layer.Anchor.TOP_RIGHT));
         LayerRegistry.register(UNKNOWN, new Layer(Layer.Anchor.NONE));
     }

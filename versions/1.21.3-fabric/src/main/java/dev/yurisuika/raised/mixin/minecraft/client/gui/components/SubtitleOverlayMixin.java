@@ -14,16 +14,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class SubtitleOverlayMixin {
 
     /**
-     * Moves the {@code subtitles} for {@link Layer} key "minecraft:subtitles".
+     * Moves the {@code closed captions} for {@link Layer} key "minecraft:closed_captions".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;pushPose()V"))
     private void startSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.start(guiGraphics.pose(), Layers.SUBTITLES);
+        Translate.start(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V", shift = At.Shift.AFTER))
     private void endSubtitlesTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose(), Layers.SUBTITLES);
+        Translate.end(guiGraphics.pose(), Layers.CLOSED_CAPTIONS);
     }
 
 }
