@@ -13,6 +13,7 @@ public class Layers {
 
     public static final ResourceLocation HOTBAR = ResourceLocation.withDefaultNamespace("hotbar");
     public static final ResourceLocation CHAT = ResourceLocation.withDefaultNamespace("chat");
+    public static final ResourceLocation CHAT_INPUT = ResourceLocation.withDefaultNamespace("chat_input");
     public static final ResourceLocation ACTION_BAR = ResourceLocation.withDefaultNamespace("action_bar");
     public static final ResourceLocation BOSS_BAR = ResourceLocation.withDefaultNamespace("boss_bar");
     public static final ResourceLocation SCOREBOARD = ResourceLocation.withDefaultNamespace("scoreboard");
@@ -27,7 +28,8 @@ public class Layers {
 
     public static void boostrap() {
         LayerRegistry.register(HOTBAR, new Layer(Layer.Anchor.BOTTOM));
-        LayerRegistry.register(CHAT, new Layer(Layer.Anchor.NONE));
+        LayerRegistry.register(CHAT, new Layer(Layer.Anchor.BOTTOM_LEFT));
+        LayerRegistry.register(CHAT_INPUT, new Layer(Layer.Anchor.BOTTOM_LEFT));
         LayerRegistry.register(ACTION_BAR, new Layer(Layer.Anchor.BOTTOM));
         LayerRegistry.register(BOSS_BAR, new Layer(Layer.Anchor.TOP));
         LayerRegistry.register(SCOREBOARD, new Layer(Layer.Anchor.RIGHT));

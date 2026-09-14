@@ -6,7 +6,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "minecraft.server.packs.repository.PackRepositoryMixin"
-
   ],
   "client": [
     "minecraft.client.gui.GuiGraphicsInvoker",
@@ -14,6 +13,7 @@
     "minecraft.client.gui.GuiMixin$Last",
     "minecraft.client.gui.components.AbstractWidgetInvoker",
     "minecraft.client.gui.components.ChatComponentMixin",
+    "minecraft.client.gui.components.CommandSuggestionsMixin",
     "minecraft.client.gui.components.toasts.ToastComponentMixin$ToastInstanceMixin",
     "minecraft.client.gui.screens.ChatScreenMixin",
     "neoforge.client.event.RegisterGuiLayersEventMixin",

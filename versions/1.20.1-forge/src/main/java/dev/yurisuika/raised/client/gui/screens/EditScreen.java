@@ -257,7 +257,7 @@ public class EditScreen extends AbstractLayersScreen {
                 int i = mouseX - left;
                 if (isMouseOver(mouseX, mouseY)) {
                     guiGraphics.blit(
-                            new ResourceLocation(Raised.MOD_ID, "layer_list/" + (isAvailable() ? "" : "un") + "select" + (i < ENTRY_HEIGHT ? "_highlighted" : "")),
+                            new ResourceLocation(Raised.MOD_ID, "textures/gui/sprites/layer_list/" + (isAvailable() ? "" : "un") + "select" + (i < ENTRY_HEIGHT ? "_highlighted" : "") + ".png"),
                             left,
                             top,
                             0,

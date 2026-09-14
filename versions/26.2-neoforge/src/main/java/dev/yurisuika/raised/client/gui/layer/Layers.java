@@ -13,6 +13,7 @@ public class Layers {
 
     public static final Identifier HOTBAR = Identifier.withDefaultNamespace("hotbar");
     public static final Identifier CHAT = Identifier.withDefaultNamespace("chat");
+    public static final Identifier CHAT_INPUT = Identifier.withDefaultNamespace("chat_input");
     public static final Identifier ACTION_BAR = Identifier.withDefaultNamespace("action_bar");
     public static final Identifier BOSS_BAR = Identifier.withDefaultNamespace("boss_bar");
     public static final Identifier SCOREBOARD = Identifier.withDefaultNamespace("scoreboard");
@@ -27,7 +28,8 @@ public class Layers {
 
     public static void boostrap() {
         LayerRegistry.register(HOTBAR, new Layer(Layer.Anchor.BOTTOM));
-        LayerRegistry.register(CHAT, new Layer(Layer.Anchor.NONE));
+        LayerRegistry.register(CHAT, new Layer(Layer.Anchor.BOTTOM_LEFT));
+        LayerRegistry.register(CHAT_INPUT, new Layer(Layer.Anchor.BOTTOM_LEFT));
         LayerRegistry.register(ACTION_BAR, new Layer(Layer.Anchor.BOTTOM));
         LayerRegistry.register(BOSS_BAR, new Layer(Layer.Anchor.TOP));
         LayerRegistry.register(SCOREBOARD, new Layer(Layer.Anchor.RIGHT));
