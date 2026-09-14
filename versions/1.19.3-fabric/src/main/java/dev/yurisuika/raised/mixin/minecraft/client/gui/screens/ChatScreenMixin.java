@@ -24,7 +24,7 @@ public abstract class ChatScreenMixin {
      */
     @Inject(method = "render", at = @At("TAIL"))
     private void adjustChatInput(PoseStack poseStack, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
-        input.setWidth((((ChatScreen) (Object) this).width - 8) - (2 * Translate.getX(Layers.CHAT_INPUT)));
+        input.setWidth((((ChatScreen) (Object) this).width - 4) - (2 * Translate.getX(Layers.CHAT_INPUT)));
         input.setPosition(4 + Translate.getX(Layers.CHAT_INPUT), (((ChatScreen) (Object) this).height - 12) + Translate.getY(Layers.CHAT_INPUT));
     }
 
