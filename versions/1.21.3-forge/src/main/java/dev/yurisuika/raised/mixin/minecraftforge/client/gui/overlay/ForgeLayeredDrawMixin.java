@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.mixin.minecraftforge.client.gui.overlay;
 
-import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.mixin.minecraft.client.gui.LayeredDrawAccessor;
 import dev.yurisuika.raised.registry.LayerRegistry;
@@ -40,7 +39,7 @@ public abstract class ForgeLayeredDrawMixin {
     @Unique
     public void addLayer(ResourceLocation name, LayeredDraw.Layer layer) {
         if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
+            LayerRegistry.register(name);
         } else {
             name = curateName(name);
         }

@@ -2,12 +2,12 @@ package dev.yurisuika.raised.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.config.Config;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class Translate {
 
@@ -16,9 +16,12 @@ public class Translate {
     }
 
     public static int getX(String layerName) {
-        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Config.getOptions().getGroups().get(groupName).getOffset().getX()).orElse(0)).sum();
-        int anchor = Config.getOptions().getLayers().get(layerName).getAnchor().getX();
-        return offset * anchor;
+        return findGroupsWithLayer(layerName).stream().mapToInt(groupName -> {
+            int offset = Config.getOptions().getGroups().get(groupName).getOffset().getX();
+            int anchor = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getAnchor().getX();
+
+            return offset * anchor;
+        }).sum();
     }
 
     public static int getY(ResourceLocation layerName) {
@@ -26,9 +29,12 @@ public class Translate {
     }
 
     public static int getY(String layerName) {
-        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Config.getOptions().getGroups().get(groupName).getOffset().getY()).orElse(0)).sum();
-        int anchor = Config.getOptions().getLayers().get(layerName).getAnchor().getY();
-        return offset * anchor;
+        return findGroupsWithLayer(layerName).stream().mapToInt(groupName -> {
+            int offset = Config.getOptions().getGroups().get(groupName).getOffset().getY();
+            int anchor = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getAnchor().getY();
+
+            return offset * anchor;
+        }).sum();
     }
 
     public static void start(PoseStack poseStack, ResourceLocation layerName) {
@@ -41,7 +47,7 @@ public class Translate {
 
         if (!(x == 0 && y == 0)) {
             poseStack.pushPose();
-            poseStack.translate(x, y, 0);
+            poseStack.translate(x, y, layerName.equals(Layers.CHAT.toString()) ? 300 : 0);
         }
     }
 
@@ -63,7 +69,7 @@ public class Translate {
 
     public static List<String> findGroupsWithLayer(String layerName) {
         return Config.getOptions().getGroups().entrySet().stream()
-                .filter(entry -> entry.getValue().getLayers().contains(layerName))
+                .filter(entry -> entry.getValue().getLayers().containsKey(layerName))
                 .map(Map.Entry::getKey)
                 .toList();
     }

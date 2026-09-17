@@ -2,9 +2,9 @@ package dev.yurisuika.raised.client.gui.components;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.ObjectSelectionList;
 
-public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.Entry<E>> extends ContainerObjectSelectionList<E> {
+public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.Entry<E>> extends ObjectSelectionList<E> {
 
     public int paddingX;
     public int paddingY;
@@ -97,7 +97,7 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
         return width - (paddingX * 2);
     }
 
-    public abstract static class Entry<E extends Entry<E>> extends ContainerObjectSelectionList.Entry<E> {
+    public abstract static class Entry<E extends Entry<E>> extends ObjectSelectionList.Entry<E> {
 
         @Override
         public int getContentX() {

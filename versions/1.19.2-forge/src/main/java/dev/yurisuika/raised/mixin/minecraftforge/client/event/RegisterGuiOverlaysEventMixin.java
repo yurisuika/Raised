@@ -1,7 +1,6 @@
 package dev.yurisuika.raised.mixin.minecraftforge.client.event;
 
 import dev.yurisuika.raised.Raised;
-import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -47,7 +46,7 @@ public abstract class RegisterGuiOverlaysEventMixin {
         ResourceLocation name = new ResourceLocation(namespace, path);
 
         if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
+            LayerRegistry.register(name);
             Layers.Curated.CURATED_LAYERS.put(name, name);
         }
     }

@@ -1,13 +1,15 @@
 package dev.yurisuika.raised.client.gui.group;
 
-import java.util.TreeSet;
+import dev.yurisuika.raised.client.gui.layer.Layer;
+
+import java.util.TreeMap;
 
 public class Group {
 
     public Offset offset;
-    public TreeSet<String> layers;
+    public TreeMap<String, Layer> layers;
 
-    public Group(Offset offset, TreeSet<String> layers) {
+    public Group(Offset offset, TreeMap<String, Layer> layers) {
         this.offset = offset;
         this.layers = layers;
     }
@@ -20,11 +22,11 @@ public class Group {
         this.offset = offset;
     }
 
-    public TreeSet<String> getLayers() {
+    public TreeMap<String, Layer> getLayers() {
         return layers;
     }
 
-    public void setLayers(TreeSet<String> layers) {
+    public void setLayers(TreeMap<String, Layer> layers) {
         this.layers = layers;
     }
 

@@ -7,7 +7,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -34,7 +33,7 @@ public class LayerArgument implements ArgumentType<Identifier> {
     @Override
     public Identifier parse(StringReader reader) throws CommandSyntaxException {
         Identifier layerName = Identifier.read(reader);
-        if (Config.getOptions().getLayers().containsKey(layerName.toString())) {
+        if (LayerRegistry.hasLayer(layerName)) {
             return layerName;
         } else {
             throw new DynamicCommandExceptionType(object -> Component.translatable("commands.raised.layer.unknown", object)).createWithContext(reader, layerName);

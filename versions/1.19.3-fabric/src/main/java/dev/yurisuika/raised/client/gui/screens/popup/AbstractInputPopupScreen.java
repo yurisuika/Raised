@@ -1,0 +1,69 @@
+package dev.yurisuika.raised.client.gui.screens.popup;
+
+import dev.yurisuika.raised.client.gui.screens.AbstractScreen;
+import dev.yurisuika.raised.client.gui.screens.SelectScreen;
+import dev.yurisuika.raised.config.Config;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.network.chat.Component;
+
+import java.util.ArrayList;
+
+public abstract class AbstractInputPopupScreen extends AbstractPopupScreen {
+
+    public SelectScreen parent;
+    public EditBox optionInput;
+    public AbstractWidget optionConfirm;
+    public int widgetWidthInput;
+    public int widgetWidthConfirm;
+
+    public AbstractInputPopupScreen(SelectScreen parent) {
+        super(parent, 164, 56);
+        this.parent = parent;
+    }
+
+    @Override
+    public void setSizes() {
+        super.setSizes();
+
+        widgetWidthInput = 100;
+        widgetWidthConfirm = panelWidth - AbstractScreen.PANEL_GAP - widgetWidthInput;
+    }
+
+    @Override
+    public void addOptions() {
+        options = new ArrayList<>();
+
+        optionInput = new EditBox(font, panelX, panelY + AbstractScreen.WIDGET_AND_GAP_HEIGHT, widgetWidthInput, AbstractScreen.WIDGET_HEIGHT, Component.translatable("options.raised.popup.input"));
+        optionConfirm = Button.builder(Component.translatable("options.raised.popup.confirm"), button -> confirmAction())
+                .size(widgetWidthConfirm, AbstractScreen.WIDGET_HEIGHT)
+                .pos(panelX + widgetWidthInput + AbstractScreen.PANEL_GAP, panelY + AbstractScreen.WIDGET_AND_GAP_HEIGHT)
+                .build();
+
+        optionInput.setValue(initialValue());
+
+        options.add(optionInput);
+        options.add(optionConfirm);
+
+        options.forEach(this::addRenderableWidget);
+    }
+
+    public abstract String initialValue();
+
+    public void confirmAction() {
+        parent.resetLists();
+        onClose();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        boolean exists = Config.getOptions().getGroups().containsKey(optionInput.getValue());
+        optionConfirm.active = !(optionInput.getValue().isBlank() || exists);
+        optionConfirm.setTooltip(exists ? Tooltip.create(Component.translatable("options.raised.popup.submit.tooltip", optionInput.getValue())) : null);
+    }
+
+}

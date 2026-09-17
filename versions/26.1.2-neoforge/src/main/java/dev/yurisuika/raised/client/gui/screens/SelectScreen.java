@@ -2,19 +2,17 @@ package dev.yurisuika.raised.client.gui.screens;
 
 import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.components.AdjustableSelectionList;
+import dev.yurisuika.raised.client.gui.screens.popup.AddScreen;
+import dev.yurisuika.raised.client.gui.screens.popup.RemoveScreen;
+import dev.yurisuika.raised.client.gui.screens.popup.RenameScreen;
+import dev.yurisuika.raised.client.gui.screens.popup.SettingsScreen;
 import dev.yurisuika.raised.config.Config;
-import dev.yurisuika.raised.registry.LayerRegistry;
-import dev.yurisuika.raised.util.Parse;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.narration.NarratableEntry;
-import net.minecraft.client.gui.narration.NarratedElementType;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -28,20 +26,28 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class SelectScreen extends AbstractLayersScreen {
+public class SelectScreen extends AbstractListScreen {
 
+    public ArrayList<AbstractWidget> controls;
+    public GroupList list;
+    public ArrayList<AbstractWidget> options;
     public AbstractWidget controlClose;
     public AbstractWidget controlSettings;
-    public AbstractWidget controlEditGroup;
-    public AbstractWidget controlRenameGroup;
-    public AbstractWidget controlAddGroup;
-    public AbstractWidget controlRemoveGroup;
-    public GroupList leftList;
-    public LayerList rightList;
+    public AbstractWidget optionEditGroup;
+    public AbstractWidget optionRenameGroup;
+    public AbstractWidget optionAddGroup;
+    public AbstractWidget optionRemoveGroup;
+    public int topRowCount = 1;
+    public int bottomRowCount = 1;
+    public int panelX;
+    public int panelY;
+    public int listHeight;
+    public int listWidth;
+    public int listY;
     public int widgetWidthWide;
 
     public SelectScreen(Screen parent) {
-        super(parent, 2, 1);
+        super(parent, 164, 240);
     }
 
     public List<String> listGroups() {
@@ -50,115 +56,123 @@ public class SelectScreen extends AbstractLayersScreen {
                 .toList();
     }
 
-    public List<Identifier> listLayers() {
-        return LayerRegistry.LAYERS.stream()
-                .sorted(Comparator.comparing(Identifier::toString))
-                .filter(layerName -> layerName.getNamespace().equals(selectedNamespace))
-                .toList();
-    }
-
     @Override
     public void setSizes() {
         super.setSizes();
+
+        panelWidth = (containerWidth - (2 * CONTAINER_PADDING));
+        panelX = containerX + CONTAINER_PADDING;
+        panelY = containerY + CONTAINER_PADDING;
+        listHeight = panelHeight - (2 * LIST_BORDER) - ((topRowCount + bottomRowCount) * WIDGET_AND_GAP_HEIGHT);
+        listWidth = panelWidth - (2 * LIST_BORDER) - (2 * PANEL_PADDING);
+        listY = panelY + (topRowCount * WIDGET_AND_GAP_HEIGHT) + LIST_BORDER;
 
         widgetWidthWide = (panelWidth - ((PANEL_GAP) + (PANEL_GAP + WIDGET_WIDTH_SQUARE + PANEL_GAP + WIDGET_WIDTH_SQUARE))) / 2;
     }
 
     @Override
-    public void addLeftControls() {
-        leftControls = new ArrayList<>();
+    public void addContent() {
+        addControls();
+        addLists();
+        addOptions();
+    }
+
+    public void addControls() {
+        controls = new ArrayList<>();
 
         controlClose = Button.builder(Component.translatable("options.raised.control.close"), button -> onClose())
                 .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
-                .pos(leftPanelX, leftPanelY)
+                .pos(panelX, panelY)
                 .build();
-        controlSettings = Button.builder(Component.translatable("options.raised.control.additional_settings"), button -> minecraft.setScreen(new AdditionalSettingsScreen(this)))
+        controlSettings = Button.builder(Component.translatable("options.raised.control.settings"), button -> minecraft.setScreen(new SettingsScreen(this)))
                 .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
-                .pos(leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE, leftPanelY)
-                .tooltip(Tooltip.create(Component.translatable("options.raised.control.additional_settings.tooltip")))
+                .pos(panelX + panelWidth - WIDGET_WIDTH_SQUARE, panelY)
+                .tooltip(Tooltip.create(Component.translatable("options.raised.control.settings.tooltip")))
                 .build();
-        controlEditGroup = Button.builder(Component.translatable("options.raised.control.edit"), button -> minecraft.setScreen(new EditScreen(this)))
+
+        controls.add(controlClose);
+        controls.add(controlSettings);
+
+        controls.forEach(this::addRenderableWidget);
+    }
+
+    public void addLists() {
+        list = new GroupList(minecraft, this, listWidth, listHeight, listY);
+
+        addRenderableWidget(list);
+    }
+
+    public void addOptions() {
+        options = new ArrayList<>();
+
+        optionEditGroup = Button.builder(Component.translatable("options.raised.control.edit"), button -> minecraft.setScreen(new EditScreen(this)))
                 .size(widgetWidthWide, WIDGET_HEIGHT)
-                .pos(leftPanelX, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .pos(panelX, panelY + panelHeight - WIDGET_HEIGHT)
                 .tooltip(Tooltip.create(Component.translatable("options.raised.control.edit.tooltip")))
                 .build();
-        controlRenameGroup = Button.builder(Component.translatable("options.raised.control.rename"), button -> minecraft.setScreen(new RenameScreen(this)))
+        optionRenameGroup = Button.builder(Component.translatable("options.raised.control.rename"), button -> minecraft.setScreen(new RenameScreen(this)))
                 .size(widgetWidthWide, WIDGET_HEIGHT)
-                .pos(leftPanelX + widgetWidthWide + PANEL_GAP, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .pos(panelX + widgetWidthWide + PANEL_GAP, panelY + panelHeight - WIDGET_HEIGHT)
                 .tooltip(Tooltip.create(Component.translatable("options.raised.control.rename.tooltip")))
                 .build();
-        controlAddGroup = Button.builder(Component.translatable("options.raised.control.add"), button -> minecraft.setScreen(new AddScreen(this)))
+        optionAddGroup = Button.builder(Component.translatable("options.raised.control.add"), button -> minecraft.setScreen(new AddScreen(this)))
                 .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
-                .pos(leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE - PANEL_GAP - WIDGET_WIDTH_SQUARE, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .pos(panelX + panelWidth - WIDGET_WIDTH_SQUARE - PANEL_GAP - WIDGET_WIDTH_SQUARE, panelY + panelHeight - WIDGET_HEIGHT)
                 .tooltip(Tooltip.create(Component.translatable("options.raised.control.add.tooltip")))
                 .build();
-        controlRemoveGroup = Button.builder(Component.translatable("options.raised.control.remove"), button -> minecraft.setScreen(new RemoveScreen(this)))
+        optionRemoveGroup = Button.builder(Component.translatable("options.raised.control.remove"), button -> minecraft.setScreen(new RemoveScreen(this)))
                 .size(WIDGET_WIDTH_SQUARE, WIDGET_HEIGHT)
-                .pos(leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE, leftPanelY + WIDGET_AND_GAP_HEIGHT)
+                .pos(panelX + panelWidth - WIDGET_WIDTH_SQUARE, panelY + panelHeight - WIDGET_HEIGHT)
                 .tooltip(Tooltip.create(Component.translatable("options.raised.control.remove.tooltip")))
                 .build();
 
-        leftControls.add(controlClose);
-        leftControls.add(controlSettings);
-        leftControls.add(controlEditGroup);
-        leftControls.add(controlRenameGroup);
-        leftControls.add(controlAddGroup);
-        leftControls.add(controlRemoveGroup);
+        options.add(optionEditGroup);
+        options.add(optionRenameGroup);
+        options.add(optionAddGroup);
+        options.add(optionRemoveGroup);
 
-        leftControls.forEach(this::addRenderableWidget);
+        options.forEach(this::addRenderableWidget);
     }
 
-    @Override
-    public void addLeftList() {
-        leftList = new GroupList(minecraft, this, listWidth, leftListHeight, leftListY);
-
-        addRenderableWidget(leftList);
-    }
-
-    @Override
-    public void addRightList() {
-        rightList = new LayerList(minecraft, this, listWidth, rightListHeight, rightListY);
-
-        addRenderableWidget(rightList);
-    }
-
-    @Override
-    public void resetLeftList() {
-        if (leftList != null) {
-            leftList.setScrollAmount(0.0F);
-            leftList.setEntries();
+    public void resetControls() {
+        if (controls != null) {
+            controls.forEach(this::removeWidget);
+            controls.clear();
+            addControls();
         }
     }
 
-    @Override
-    public void resetRightList() {
-        if (rightList != null) {
-            rightList.setScrollAmount(0.0F);
-            rightList.setEntries();
+    public void resetLists() {
+        if (list != null) {
+            list.setScrollAmount(0.0F);
+            list.setEntries();
+        }
+    }
+
+    public void resetOptions() {
+        if (options != null) {
+            options.forEach(this::removeWidget);
+            options.clear();
+            addOptions();
         }
     }
 
     @Override
     public void repositionElements() {
-        leftList.updateSizeAndPosition(
+        list.updateSizeAndPosition(
                 listWidth,
-                leftListHeight,
-                leftPanelX + LIST_BORDER,
-                leftListY);
-        rightList.updateSizeAndPosition(
-                listWidth,
-                rightListHeight,
-                rightPanelX + LIST_BORDER,
-                rightListY);
+                listHeight,
+                panelX + LIST_BORDER,
+                listY);
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        controlEditGroup.active = !(leftList.getSelected() == null);
-        controlRenameGroup.active = !(leftList.getSelected() == null);
-        controlRemoveGroup.active = !(leftList.getSelected() == null);
+        optionEditGroup.active = !(list.getSelected() == null);
+        optionRenameGroup.active = !(list.getSelected() == null);
+        optionRemoveGroup.active = !(list.getSelected() == null);
     }
 
     @Override
@@ -178,20 +192,21 @@ public class SelectScreen extends AbstractLayersScreen {
     public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
 
-        guiGraphics.textRenderer().acceptScrollingWithDefaultCenter(
+        guiGraphics.textRenderer().acceptScrolling(
                 title,
-                leftPanelX + WIDGET_WIDTH_SQUARE + PANEL_GAP,
-                leftPanelX + panelWidth - WIDGET_WIDTH_SQUARE - PANEL_GAP,
-                rightPanelY,
-                rightPanelY + WIDGET_HEIGHT);
+                panelX + (panelWidth / 2),
+                panelX + WIDGET_WIDTH_SQUARE + PANEL_GAP,
+                panelX + panelWidth - WIDGET_WIDTH_SQUARE - PANEL_GAP,
+                panelY,
+                panelY + WIDGET_HEIGHT);
 
-        if (leftList.children().isEmpty()) {
+        if (list.children().isEmpty()) {
             MutableComponent empty = Component.translatable("options.raised.list.groups.empty");
             guiGraphics.centeredText(
                     font,
                     empty.withStyle(ChatFormatting.GRAY),
-                    leftPanelX + (panelWidth / 2),
-                    leftPanelY + panelHeight - LIST_BORDER - (leftListHeight / 2) - (font.lineHeight / 2),
+                    panelX + (panelWidth / 2),
+                    listY + (listHeight / 2) - (font.lineHeight / 2),
                     -1);
             minecraft.getNarrator().saySystemNow(empty);
         }
@@ -210,12 +225,12 @@ public class SelectScreen extends AbstractLayersScreen {
         @Override
         public void setEntries() {
             clearEntries();
-            listGroups().forEach(groupName -> addEntry(new GroupList.Entry(groupName)));
+            listGroups().forEach(groupName -> addEntry(new Entry(groupName)));
         }
 
         public class Entry extends AdjustableSelectionList.Entry<Entry> {
 
-            private final String groupName;
+            protected final String groupName;
 
             public Entry(String groupName) {
                 this.groupName = groupName;
@@ -232,36 +247,18 @@ public class SelectScreen extends AbstractLayersScreen {
 
             @Override
             public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean bl, float partialTick) {
-                guiGraphics.textRenderer().acceptScrollingWithDefaultCenter(
+                guiGraphics.textRenderer().acceptScrolling(
                         Component.literal(groupName),
+                        getX() + (getWidth() / 2),
                         getX() + ENTRY_PADDING,
                         getX() + getWidth() - ENTRY_PADDING,
                         getY(),
-                        getY() + ENTRY_HEIGHT);
+                        getY() + getContentHeight());
             }
 
             @Override
-            public List<? extends GuiEventListener> children() {
-                return List.of();
-            }
-
-            @Override
-            public List<? extends NarratableEntry> narratables() {
-                NarratableEntry narration = new NarratableEntry() {
-
-                    @Override
-                    public NarrationPriority narrationPriority() {
-                        return NarrationPriority.NONE;
-                    }
-
-                    @Override
-                    public void updateNarration(NarrationElementOutput output) {
-                        output.add(NarratedElementType.TITLE, Component.literal(groupName));
-                    }
-
-                };
-
-                return List.of(narration);
+            public Component getNarration() {
+                return Component.literal(groupName);
             }
 
             @Override
@@ -275,51 +272,6 @@ public class SelectScreen extends AbstractLayersScreen {
                 if (selected) {
                     parent.setCurrentGroup(this);
                     GroupList.this.setSelected(this);
-                }
-            }
-
-        }
-
-    }
-
-    public class LayerList extends AbstractLayerList<LayerList.Entry> {
-
-        public LayerList(Minecraft minecraft, SelectScreen parent, int width, int height, int y) {
-            super(minecraft, parent, width, height, y);
-            setEntries();
-        }
-
-        @Override
-        public void setEntries() {
-            clearEntries();
-            listLayers().forEach(layerName -> addEntry(new Entry(layerName)));
-        }
-
-        public class Entry extends AbstractLayerList.Entry<LayerList.Entry> {
-
-            public Entry(Identifier layerName) {
-                super(layerName);
-            }
-
-            @Override
-            public int getWidth() {
-                return super.getWidth() - (LayerList.this.scrollable() ? LayerList.this.scrollbarWidth() : 0);
-            }
-
-            @Override
-            public String entryText() {
-                return Parse.parsePath(layerName.getPath());
-            }
-
-            @Override
-            public boolean handleClick(final MouseButtonEvent event) {
-                return false;
-            }
-
-            @Override
-            public void setSelected(boolean selected) {
-                if (selected) {
-                    LayerList.this.setSelected(this);
                 }
             }
 

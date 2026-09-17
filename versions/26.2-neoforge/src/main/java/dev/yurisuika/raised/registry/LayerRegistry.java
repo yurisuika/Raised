@@ -2,7 +2,7 @@ package dev.yurisuika.raised.registry;
 
 import dev.yurisuika.raised.Raised;
 import dev.yurisuika.raised.client.gui.layer.Layer;
-import dev.yurisuika.raised.config.Config;
+import dev.yurisuika.raised.client.gui.layer.Layers;
 import net.minecraft.resources.Identifier;
 
 import java.util.HashSet;
@@ -12,14 +12,14 @@ import java.util.TreeMap;
 public class LayerRegistry {
 
     public static final Set<Identifier> LAYERS = new HashSet<>();
-    public static final TreeMap<Identifier, Layer> DEFAULT_LAYERS = new TreeMap<Identifier, Layer>();
+    public static final TreeMap<Identifier, Layer> DEFAULT_LAYERS = new TreeMap<>();
 
     public static void register(String layerName) {
-        register(layerName, new Layer(Layer.Anchor.NONE));
+        register(layerName, Layers.createDefaultLayer());
     }
 
     public static void register(Identifier layerName) {
-        register(layerName, new Layer(Layer.Anchor.NONE));
+        register(layerName, Layers.createDefaultLayer());
     }
 
     public static void register(String layerName, Layer layer) {
@@ -29,12 +29,15 @@ public class LayerRegistry {
     public static void register(Identifier layerName, Layer layer) {
         LAYERS.add(layerName);
         DEFAULT_LAYERS.putIfAbsent(layerName, layer);
-        Config.update(o -> o.getLayers().putIfAbsent(layerName.toString(), layer));
         Raised.LOGGER.info("Registering Raised layer '{}'", layerName);
     }
 
-    public static void addDefaultLayersToConfig() {
-        DEFAULT_LAYERS.forEach((layerName, layer) -> Config.update(o -> o.getLayers().putIfAbsent(layerName.toString(), layer)));
+    public static Layer findDefaultLayer(Identifier layerName) {
+        return hasLayer(layerName) ? DEFAULT_LAYERS.get(layerName) : Layers.createDefaultLayer();
+    }
+
+    public static boolean hasLayer(Identifier layerName) {
+        return LAYERS.contains(layerName);
     }
 
 }

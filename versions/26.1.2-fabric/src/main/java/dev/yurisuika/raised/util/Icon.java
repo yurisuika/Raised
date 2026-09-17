@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public class Icon {
 
-    public static final TreeMap<Identifier, Identifier> LAYER_TEXTURES = new TreeMap<Identifier, Identifier>();
+    public static final TreeMap<Identifier, Identifier> LAYER_TEXTURES = new TreeMap<>();
 
     public static void checkResources() {
         LAYER_TEXTURES.clear();

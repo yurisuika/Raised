@@ -10,7 +10,6 @@
   "client": [
     "minecraft.client.gui.GuiMixin",
     "minecraft.client.gui.GuiMixin$Last",
-    "minecraft.client.gui.components.AbstractWidgetInvoker",
     "minecraft.client.gui.components.ChatComponentMixin",
     "minecraft.client.gui.components.CommandSuggestionsAccessor",
     "minecraft.client.gui.components.CommandSuggestionsMixin",

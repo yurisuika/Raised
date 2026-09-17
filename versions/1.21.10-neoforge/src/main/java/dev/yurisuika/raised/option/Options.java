@@ -1,28 +1,20 @@
 package dev.yurisuika.raised.option;
 
 import dev.yurisuika.raised.client.gui.group.Group;
+import dev.yurisuika.raised.client.gui.group.Groups;
 import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.client.gui.layer.Layers;
 
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class Options {
 
     public TreeMap<String, Group> groups = new TreeMap<String, Group>() {{
-        put(
-            "Default",
-            new Group(
-                new Group.Offset(0, 2),
-                new TreeSet<String>() {{
-                    add(Layers.HOTBAR.toString());
-                    add(Layers.ACTION_BAR.toString());
-                }}
-            )
-        );
+        put("Default", Groups.createGroup(0, 2,
+                Layers.HOTBAR.toString(), Layers.createLayer(Layer.Anchor.BOTTOM),
+                Layers.ACTION_BAR.toString(), Layers.createLayer(Layer.Anchor.BOTTOM)));
     }};
-    public TreeMap<String, Layer> layers = new TreeMap<String, Layer>() {};
-    public AdditionalSettings additionalSettings = new AdditionalSettings(AdditionalSettings.HotbarSelectionFix.AUTO);
+    public Settings settings = new Settings(Settings.HotbarSelectionFix.AUTO);
 
     public TreeMap<String, Group> getGroups() {
         return groups;
@@ -32,20 +24,12 @@ public class Options {
         this.groups = groups;
     }
 
-    public TreeMap<String, Layer> getLayers() {
-        return layers;
+    public Settings getSettings() {
+        return settings;
     }
 
-    public void setLayers(TreeMap<String, Layer> layers) {
-        this.layers = layers;
-    }
-
-    public AdditionalSettings getAdditionalSettings() {
-        return additionalSettings;
-    }
-
-    public void setAdditionalSettings(AdditionalSettings additionalSettings) {
-        this.additionalSettings = additionalSettings;
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 
 }

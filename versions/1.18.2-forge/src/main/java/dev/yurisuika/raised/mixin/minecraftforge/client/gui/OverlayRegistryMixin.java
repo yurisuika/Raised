@@ -1,7 +1,6 @@
 package dev.yurisuika.raised.mixin.minecraftforge.client.gui;
 
 import dev.yurisuika.raised.Raised;
-import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +32,7 @@ public abstract class OverlayRegistryMixin {
         ResourceLocation name = new ResourceLocation(namespace, path);
 
         if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
+            LayerRegistry.register(name);
         } else {
             name = curateName(name);
         }

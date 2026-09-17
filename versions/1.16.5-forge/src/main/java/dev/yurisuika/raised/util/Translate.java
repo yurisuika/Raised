@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Translate {
@@ -17,9 +16,12 @@ public class Translate {
     }
 
     public static int getX(String layerName) {
-        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Config.getOptions().getGroups().get(groupName).getOffset().getX()).orElse(0)).sum();
-        int anchor = Config.getOptions().getLayers().get(layerName).getAnchor().getX();
-        return offset * anchor;
+        return findGroupsWithLayer(layerName).stream().mapToInt(groupName -> {
+            int offset = Config.getOptions().getGroups().get(groupName).getOffset().getX();
+            int anchor = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getAnchor().getX();
+
+            return offset * anchor;
+        }).sum();
     }
 
     public static int getY(ResourceLocation layerName) {
@@ -27,9 +29,12 @@ public class Translate {
     }
 
     public static int getY(String layerName) {
-        int offset = findGroupsWithLayer(layerName).stream().mapToInt(groupName -> Optional.of(Config.getOptions().getGroups().get(groupName).getOffset().getY()).orElse(0)).sum();
-        int anchor = Config.getOptions().getLayers().get(layerName).getAnchor().getY();
-        return offset * anchor;
+        return findGroupsWithLayer(layerName).stream().mapToInt(groupName -> {
+            int offset = Config.getOptions().getGroups().get(groupName).getOffset().getY();
+            int anchor = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getAnchor().getY();
+
+            return offset * anchor;
+        }).sum();
     }
 
     public static void start(ResourceLocation layerName) {
@@ -61,7 +66,7 @@ public class Translate {
 
     public static List<String> findGroupsWithLayer(String layerName) {
         return Config.getOptions().getGroups().entrySet().stream()
-                .filter(entry -> entry.getValue().getLayers().contains(layerName))
+                .filter(entry -> entry.getValue().getLayers().containsKey(layerName))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }

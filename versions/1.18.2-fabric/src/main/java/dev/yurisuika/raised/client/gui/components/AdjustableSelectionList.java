@@ -2,14 +2,13 @@ package dev.yurisuika.raised.client.gui.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.yurisuika.raised.client.gui.GuiComponentInterface;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.util.Mth;
 
 import java.util.Objects;
 
-public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.Entry<E>> extends ContainerObjectSelectionList<E> {
+public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.Entry<E>> extends ObjectSelectionList<E> {
 
     public int paddingX;
     public int paddingY;
@@ -51,9 +50,9 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         hovered = isMouseOver(mouseX, mouseY) ? getEntryAtPosition(mouseX, mouseY) : null;
-        GuiComponentInterface.enableScissor(x0, y0, x1, y1);
+        ScrollingWidget.enableScissor(x0, y0, x1, y1);
         renderList(poseStack, getRowLeft(), y0 - (int) getScrollAmount(), mouseX, mouseY, partialTick);
-        GuiComponentInterface.disableScissor();
+        ScrollingWidget.disableScissor();
         if (getMaxScroll() > 0) {
             int i = getScrollbarPosition();
             int j = (int) ((float) (height * height) / (float) getMaxPosition());
@@ -146,6 +145,6 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
         return getRowTop(index);
     }
 
-    public abstract static class Entry<E extends Entry<E>> extends ContainerObjectSelectionList.Entry<E> {}
+    public abstract static class Entry<E extends Entry<E>> extends ObjectSelectionList.Entry<E> {}
 
 }

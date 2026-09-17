@@ -1,22 +1,22 @@
 package dev.yurisuika.raised.commands.arguments;
 
 import com.mojang.brigadier.context.CommandContext;
-import dev.yurisuika.raised.option.AdditionalSettings;
+import dev.yurisuika.raised.option.Settings;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.arguments.StringRepresentableArgument;
 
-public class HotbarSelectionFixArgument extends StringRepresentableArgument<AdditionalSettings.HotbarSelectionFix> {
+public class HotbarSelectionFixArgument extends StringRepresentableArgument<Settings.HotbarSelectionFix> {
 
     public HotbarSelectionFixArgument() {
-        super(AdditionalSettings.HotbarSelectionFix.CODEC, AdditionalSettings.HotbarSelectionFix::values);
+        super(Settings.HotbarSelectionFix.CODEC, Settings.HotbarSelectionFix::values);
     }
 
-    public static StringRepresentableArgument<AdditionalSettings.HotbarSelectionFix> hotbarSelectionFix() {
+    public static StringRepresentableArgument<Settings.HotbarSelectionFix> hotbarSelectionFix() {
         return new HotbarSelectionFixArgument();
     }
 
-    public static AdditionalSettings.HotbarSelectionFix getHotbarSelectionFix(CommandContext<FabricClientCommandSource> context, String id) {
-        return context.getArgument(id, AdditionalSettings.HotbarSelectionFix.class);
+    public static Settings.HotbarSelectionFix getHotbarSelectionFix(CommandContext<FabricClientCommandSource> context, String id) {
+        return context.getArgument(id, Settings.HotbarSelectionFix.class);
     }
 
 }

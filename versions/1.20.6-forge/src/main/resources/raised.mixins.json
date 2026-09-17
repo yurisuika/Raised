@@ -13,7 +13,6 @@
     "minecraft.client.gui.GuiMixin$Last",
     "minecraft.client.gui.LayeredDrawAccessor",
     "minecraft.client.gui.LayeredDrawMixin",
-    "minecraft.client.gui.components.AbstractWidgetInvoker",
     "minecraft.client.gui.components.BossHealthOverlayMixin",
     "minecraft.client.gui.components.ChatComponentMixin",
     "minecraft.client.gui.components.CommandSuggestionsAccessor",

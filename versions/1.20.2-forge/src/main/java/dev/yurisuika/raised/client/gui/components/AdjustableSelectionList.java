@@ -3,13 +3,13 @@ package dev.yurisuika.raised.client.gui.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 import java.util.Objects;
 
-public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.Entry<E>> extends ContainerObjectSelectionList<E> {
+public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.Entry<E>> extends ObjectSelectionList<E> {
 
     public int paddingX;
     public int paddingY;
@@ -132,6 +132,6 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
         return getRowTop(index);
     }
 
-    public abstract static class Entry<E extends Entry<E>> extends ContainerObjectSelectionList.Entry<E> {}
+    public abstract static class Entry<E extends Entry<E>> extends ObjectSelectionList.Entry<E> {}
 
 }

@@ -7,7 +7,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -34,7 +33,7 @@ public class LayerArgument implements ArgumentType<ResourceLocation> {
     @Override
     public ResourceLocation parse(StringReader reader) throws CommandSyntaxException {
         ResourceLocation layerName = ResourceLocation.read(reader);
-        if (Config.getOptions().getLayers().containsKey(layerName.toString())) {
+        if (LayerRegistry.hasLayer(layerName)) {
             return layerName;
         } else {
             throw new DynamicCommandExceptionType(object -> new TranslatableComponent("commands.raised.layer.unknown", String.valueOf(object))).createWithContext(reader, layerName);

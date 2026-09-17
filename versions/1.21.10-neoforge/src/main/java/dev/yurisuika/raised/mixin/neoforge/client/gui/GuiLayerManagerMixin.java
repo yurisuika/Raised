@@ -1,6 +1,5 @@
 package dev.yurisuika.raised.mixin.neoforge.client.gui;
 
-import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.client.gui.layer.Layers;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +33,7 @@ public abstract class GuiLayerManagerMixin {
         ResourceLocation curatedName = null;
 
         if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
+            LayerRegistry.register(name);
         } else {
             curatedName = curateName(name);
         }

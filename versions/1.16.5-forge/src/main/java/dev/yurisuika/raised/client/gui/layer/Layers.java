@@ -28,19 +28,27 @@ public class Layers {
 
     public Layers() {}
 
+    public static Layer createLayer(Layer.Anchor anchor) {
+        return new Layer(anchor);
+    }
+
+    public static Layer createDefaultLayer() {
+        return new Layer(Layer.Anchor.NONE);
+    }
+
     public static void boostrap() {
-        LayerRegistry.register(HOTBAR, new Layer(Layer.Anchor.BOTTOM));
-        LayerRegistry.register(CHAT, new Layer(Layer.Anchor.BOTTOM_LEFT));
-        LayerRegistry.register(CHAT_INPUT, new Layer(Layer.Anchor.BOTTOM_LEFT));
-        LayerRegistry.register(ACTION_BAR, new Layer(Layer.Anchor.BOTTOM));
-        LayerRegistry.register(BOSS_BAR, new Layer(Layer.Anchor.TOP));
-        LayerRegistry.register(SCOREBOARD, new Layer(Layer.Anchor.RIGHT));
-        LayerRegistry.register(EFFECTS, new Layer(Layer.Anchor.TOP_RIGHT));
-        LayerRegistry.register(PLAYER_LIST, new Layer(Layer.Anchor.TOP));
-        LayerRegistry.register(TITLES, new Layer(Layer.Anchor.NONE));
-        LayerRegistry.register(CLOSED_CAPTIONS, new Layer(Layer.Anchor.BOTTOM_RIGHT));
-        LayerRegistry.register(TOASTS, new Layer(Layer.Anchor.TOP_RIGHT));
-        LayerRegistry.register(UNKNOWN, new Layer(Layer.Anchor.NONE));
+        LayerRegistry.register(HOTBAR, createLayer(Layer.Anchor.BOTTOM));
+        LayerRegistry.register(CHAT, createLayer(Layer.Anchor.BOTTOM_LEFT));
+        LayerRegistry.register(CHAT_INPUT, createLayer(Layer.Anchor.BOTTOM_LEFT));
+        LayerRegistry.register(ACTION_BAR, createLayer(Layer.Anchor.BOTTOM));
+        LayerRegistry.register(BOSS_BAR, createLayer(Layer.Anchor.TOP));
+        LayerRegistry.register(SCOREBOARD, createLayer(Layer.Anchor.RIGHT));
+        LayerRegistry.register(EFFECTS, createLayer(Layer.Anchor.TOP_RIGHT));
+        LayerRegistry.register(PLAYER_LIST, createLayer(Layer.Anchor.TOP));
+        LayerRegistry.register(TITLES, createLayer(Layer.Anchor.NONE));
+        LayerRegistry.register(CLOSED_CAPTIONS, createLayer(Layer.Anchor.BOTTOM_RIGHT));
+        LayerRegistry.register(TOASTS, createLayer(Layer.Anchor.TOP_RIGHT));
+        LayerRegistry.register(UNKNOWN, createLayer(Layer.Anchor.NONE));
     }
 
     public static class Curated {
