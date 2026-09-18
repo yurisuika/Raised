@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 
 public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSelectionList.Entry<E>> extends ContainerObjectSelectionList<E> {
 
+    private E persistentSelection = null;
     public int paddingX;
     public int paddingY;
     public int entryWidth;
@@ -18,6 +19,19 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
     }
 
     public abstract void setEntries();
+
+    @Override
+    public void setSelected(E entry) {
+        super.setSelected(entry);
+        if (entry != null) {
+            persistentSelection = entry;
+        }
+    }
+
+    @Override
+    public E getSelected() {
+        return super.getSelected() != null ? super.getSelected() : persistentSelection;
+    }
 
     @Override
     public boolean entriesCanBeSelected() {
