@@ -30,7 +30,6 @@ public interface ScrollingWidget {
             int textX = Mth.clamp(centerX, minX + lineWidth / 2, maxX - lineWidth / 2);
             guiGraphics.drawCenteredString(font, text, textX, textTop, color);
         }
-
     }
 
 }

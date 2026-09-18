@@ -10,6 +10,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.system.MemoryStack;
+
+import java.nio.IntBuffer;
 
 public interface ScrollingWidget {
 
@@ -28,14 +31,11 @@ public interface ScrollingWidget {
             double period = Math.max((double) maxPosition * 0.5D, 3.0F);
             double alpha = Math.sin((Math.PI / 2D) * Math.cos((Math.PI * 2D) * time / period)) / 2.0D + 0.5D;
             double pos = Mth.lerp(alpha, 0.0F, maxPosition);
-            enableScissor(minX, minY, maxX, maxY);
-            font.drawShadow(poseStack, text.getString(), minX - (int) pos, textTop, color);
-            disableScissor();
+            withIntersectedScissor(minX, minY, maxX, maxY, () -> font.drawShadow(poseStack, text.getString(), minX - (int) pos, textTop, color));
         } else {
             int textX = Mth.clamp(centerX, minX + lineWidth / 2, maxX - lineWidth / 2);
-            font.drawShadow(poseStack, text.getVisualOrderText(), (float)(textX - font.width(text.getVisualOrderText()) / 2), textTop, color);
+            font.drawShadow(poseStack, text.getString(), (float) (textX - font.width(text.getString()) / 2), textTop, color);
         }
-
     }
 
     static void enableScissor(int minX, int minY, int maxX, int maxY) {
@@ -55,6 +55,72 @@ public interface ScrollingWidget {
     static void disableScissor() {
         RenderSystem.assertThread(RenderSystem::isOnRenderThreadOrInit);
         GL11.glDisable(3089);
+    }
+
+    static void withIntersectedScissor(int minX, int minY, int maxX, int maxY, Runnable draw) {
+        Minecraft minecraft = Minecraft.getInstance();
+        Window window = minecraft.getWindow();
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer oldScissor = stack.mallocInt(4);
+
+            GL11.glGetIntegerv(GL11.GL_SCISSOR_BOX, oldScissor);
+
+            boolean scissorWasEnabled = GL11.glIsEnabled(GL11.GL_SCISSOR_TEST);
+
+            int oldX = oldScissor.get(0);
+            int oldY = oldScissor.get(1);
+            int oldWidth = oldScissor.get(2);
+            int oldHeight = oldScissor.get(3);
+
+            double scale = window.getGuiScale();
+
+            int textX = (int) Math.floor(minX * scale);
+            int textY = (int) Math.floor(window.getHeight() - maxY * scale);
+            int textWidth = (int) Math.ceil((maxX - minX) * scale);
+            int textHeight = (int) Math.ceil((maxY - minY) * scale);
+
+            int scissorX;
+            int scissorY;
+            int scissorWidth;
+            int scissorHeight;
+
+            if (scissorWasEnabled) {
+                int left = Math.max(oldX, textX);
+                int bottom = Math.max(oldY, textY);
+                int right = Math.min(oldX + oldWidth, textX + textWidth);
+                int top = Math.min(oldY + oldHeight, textY + textHeight);
+
+                scissorX = left;
+                scissorY = bottom;
+                scissorWidth = Math.max(0, right - left);
+                scissorHeight = Math.max(0, top - bottom);
+            } else {
+                scissorX = textX;
+                scissorY = textY;
+                scissorWidth = textWidth;
+                scissorHeight = textHeight;
+            }
+
+            RenderSystem.assertThread(RenderSystem::isOnGameThreadOrInit);
+            RenderSystem.assertThread(RenderSystem::isOnRenderThreadOrInit);
+            GL11.glEnable(3089);
+            GL20.glScissor(scissorX, scissorY, scissorWidth, scissorHeight);
+
+            try {
+                draw.run();
+            } finally {
+                if (scissorWasEnabled) {
+                    RenderSystem.assertThread(RenderSystem::isOnGameThreadOrInit);
+                    RenderSystem.assertThread(RenderSystem::isOnRenderThreadOrInit);
+                    GL11.glEnable(3089);
+                    GL20.glScissor(oldX, oldY, oldWidth, oldHeight);
+                } else {
+                    RenderSystem.assertThread(RenderSystem::isOnRenderThreadOrInit);
+                    GL11.glDisable(3089);
+                }
+            }
+        }
     }
 
 }

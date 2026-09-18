@@ -50,9 +50,8 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         hovered = isMouseOver(mouseX, mouseY) ? getEntryAtPosition(mouseX, mouseY) : null;
-        ScrollingWidget.enableScissor(x0, y0, x1, y1);
-        renderList(poseStack, getRowLeft(), y0 - (int) getScrollAmount(), mouseX, mouseY, partialTick);
-        ScrollingWidget.disableScissor();
+        ScrollingWidget.withIntersectedScissor(x0, y0, x1, y1, () -> renderList(poseStack, getRowLeft(), y0 - (int) getScrollAmount(), mouseX, mouseY, partialTick));
+
         if (getMaxScroll() > 0) {
             int i = getScrollbarPosition();
             int j = (int) ((float) (height * height) / (float) getMaxPosition());

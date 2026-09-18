@@ -3,7 +3,6 @@ package dev.yurisuika.raised.client.gui.components;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.util.Mth;
 
@@ -51,9 +50,8 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         hovered = isMouseOver(mouseX, mouseY) ? getEntryAtPosition(mouseX, mouseY) : null;
-        GuiComponent.enableScissor(x0, y0, x1, y1);
-        renderList(poseStack, mouseX, mouseY, partialTick);
-        GuiComponent.disableScissor();
+        ScrollingWidget.withIntersectedScissor(x0, y0, x1, y1, () -> renderList(poseStack, mouseX, mouseY, partialTick));
+
         if (getMaxScroll() > 0) {
             int i = getScrollbarPosition();
             int j = (int) ((float) (height * height) / (float) getMaxPosition());
