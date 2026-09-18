@@ -46,6 +46,7 @@ public class Translate {
         int y = getY(layerName);
 
         if (!(x == 0 && y == 0)) {
+            poseStack.pushPose();
             poseStack.translate(x, y, layerName.equals(Layers.CHAT.toString()) ? 300 : 0);
         }
     }
