@@ -104,8 +104,7 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
     public void renderItem(PoseStack poseStack, int mouseX, int mouseY, float partialTick, int index, int left, int top, int width, int height) {
         E entry = getEntry(index);
         if (isSelectedItem(index)) {
-            int i =isFocused() ? -1 : -8355712;
-            renderSelection(poseStack, top, width, height, i, -16777216);
+            renderSelection(poseStack, top, width, height, isFocused() ? -1 : -8355712, -16777216);
         }
 
         boolean hovering = mouseX >= left && mouseX < left + width && mouseY >= top && mouseY < top + height;
