@@ -395,10 +395,6 @@ public class EditScreen extends AbstractListScreen {
             listSelectedLayers().forEach(layerName -> addEntry(new Entry(layerName)));
         }
 
-        public Entry getHoveredEntry() {
-            return getHovered();
-        }
-
         public List<FormattedCharSequence> getHoveredTooltip(int mouseX, int mouseY) {
             Entry entry = getEntryAtPosition(mouseX, mouseY);
 
@@ -452,7 +448,7 @@ public class EditScreen extends AbstractListScreen {
                 ScrollingWidget.renderScrolling(
                         poseStack,
                         font,
-                        new TextComponent(entryText()),
+                        new TextComponent(hovering ? layerName.toString() : Parse.parsePath(layerName.getPath())),
                         left + (width / 2),
                         left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
@@ -478,14 +474,6 @@ public class EditScreen extends AbstractListScreen {
                 optionAnchor.x = left + width - ENTRY_PADDING - ENTRY_INNER;
                 optionAnchor.y = top + ENTRY_PADDING;
                 optionAnchor.render(poseStack, mouseX, mouseY, partialTick);
-            }
-
-            public String entryText() {
-                if (this == SelectedLayerList.this.getHoveredEntry()) {
-                    return layerName.toString();
-                } else {
-                    return Parse.parsePath(layerName.getPath());
-                }
             }
 
             @Override
@@ -560,11 +548,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             public List<FormattedCharSequence> getTooltip(int mouseX, int mouseY) {
-                if (optionAnchor.isMouseOver(mouseX, mouseY)) {
-                    return ((TooltipAccessor) optionAnchor).getTooltip();
-                }
-
-                return null;
+return optionAnchor.isMouseOver(mouseX, mouseY) ? ((TooltipAccessor) optionAnchor).getTooltip() : null;
             }
 
         }
@@ -585,10 +569,6 @@ public class EditScreen extends AbstractListScreen {
         public void setEntries() {
             clearEntries();
             listAvailableLayers().forEach(layerName -> addEntry(new Entry(layerName)));
-        }
-
-        public Entry getHoveredEntry() {
-            return getHovered();
         }
 
         public class Entry extends AdjustableSelectionList.Entry<Entry> {
@@ -625,7 +605,7 @@ public class EditScreen extends AbstractListScreen {
                 ScrollingWidget.renderScrolling(
                         poseStack,
                         font,
-                        new TextComponent(entryText()),
+                        new TextComponent(hovering ? layerName.toString() : Parse.parsePath(layerName.getPath())),
                         left + (width / 2),
                         left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
@@ -646,14 +626,6 @@ public class EditScreen extends AbstractListScreen {
                             ENTRY_HEIGHT,
                             24,
                             24);
-                }
-            }
-
-            public String entryText() {
-                if (this == AvailableLayerList.this.getHoveredEntry()) {
-                    return layerName.toString();
-                } else {
-                    return Parse.parsePath(layerName.getPath());
                 }
             }
 

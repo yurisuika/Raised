@@ -246,7 +246,7 @@ public class SelectScreen extends AbstractListScreen {
             }
 
             @Override
-            public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float partialTick) {
+            public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
                 guiGraphics.textRenderer().acceptScrolling(
                         Component.literal(groupName),
                         getX() + (getWidth() / 2),

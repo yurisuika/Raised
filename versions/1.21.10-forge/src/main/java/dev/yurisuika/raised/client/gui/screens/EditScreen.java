@@ -370,10 +370,6 @@ public class EditScreen extends AbstractListScreen {
             listSelectedLayers().forEach(layerName -> addEntry(new Entry(layerName)));
         }
 
-        public Entry getHoveredEntry() {
-            return getHovered();
-        }
-
         public class Entry extends AdjustableWidgetSelectionList.Entry<Entry> {
 
             protected final ResourceLocation layerName;
@@ -405,7 +401,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float partialTick) {
+            public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
                 guiGraphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         Icon.getLayerIcon(layerName),
@@ -421,7 +417,7 @@ public class EditScreen extends AbstractListScreen {
                 ScrollingWidget.renderScrolling(
                         guiGraphics,
                         font,
-                        Component.literal(entryText()),
+                        Component.literal(hovered ? layerName.toString() : Parse.parsePath(layerName.getPath())),
                         getX() + (getWidth() / 2),
                         getX() + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         getY(),
@@ -445,14 +441,6 @@ public class EditScreen extends AbstractListScreen {
 
                 optionAnchor.setPosition(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER, getY() + ENTRY_PADDING);
                 optionAnchor.render(guiGraphics, mouseX, mouseY, partialTick);
-            }
-
-            public String entryText() {
-                if (this == SelectedLayerList.this.getHoveredEntry()) {
-                    return layerName.toString();
-                } else {
-                    return Parse.parsePath(layerName.getPath());
-                }
             }
 
             @Override
@@ -546,10 +534,6 @@ public class EditScreen extends AbstractListScreen {
             listAvailableLayers().forEach(layerName -> addEntry(new Entry(layerName)));
         }
 
-        public Entry getHoveredEntry() {
-            return getHovered();
-        }
-
         public class Entry extends AdjustableSelectionList.Entry<Entry> {
 
             protected final ResourceLocation layerName;
@@ -568,7 +552,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float partialTick) {
+            public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
                 guiGraphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         Icon.getLayerIcon(layerName),
@@ -584,7 +568,7 @@ public class EditScreen extends AbstractListScreen {
                 ScrollingWidget.renderScrolling(
                         guiGraphics,
                         font,
-                        Component.literal(entryText()),
+                        Component.literal(hovered ? layerName.toString() : Parse.parsePath(layerName.getPath())),
                         getX() + (getWidth() / 2),
                         getX() + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         getY(),
@@ -604,14 +588,6 @@ public class EditScreen extends AbstractListScreen {
                     if (i < ENTRY_HEIGHT && isHovered()) {
                         guiGraphics.requestCursor(isActive() ? CursorTypes.POINTING_HAND : CursorTypes.NOT_ALLOWED);
                     }
-                }
-            }
-
-            public String entryText() {
-                if (this == AvailableLayerList.this.getHoveredEntry()) {
-                    return layerName.toString();
-                } else {
-                    return Parse.parsePath(layerName.getPath());
                 }
             }
 

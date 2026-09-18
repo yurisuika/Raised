@@ -376,10 +376,6 @@ public class EditScreen extends AbstractListScreen {
             listSelectedLayers().forEach(layerName -> addEntry(new Entry(layerName)));
         }
 
-        public Entry getHoveredEntry() {
-            return getHovered();
-        }
-
         public class Entry extends AdjustableWidgetSelectionList.Entry<Entry> {
 
             protected final ResourceLocation layerName;
@@ -427,7 +423,7 @@ public class EditScreen extends AbstractListScreen {
                 ScrollingWidget.renderScrolling(
                         poseStack,
                         font,
-                        Component.literal(entryText()),
+                        Component.literal(hovering ? layerName.toString() : Parse.parsePath(layerName.getPath())),
                         left + (width / 2),
                         left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
@@ -452,14 +448,6 @@ public class EditScreen extends AbstractListScreen {
 
                 optionAnchor.setPosition(left + width - ENTRY_PADDING - ENTRY_INNER, top + ENTRY_PADDING);
                 optionAnchor.render(poseStack, mouseX, mouseY, partialTick);
-            }
-
-            public String entryText() {
-                if (this == SelectedLayerList.this.getHoveredEntry()) {
-                    return layerName.toString();
-                } else {
-                    return Parse.parsePath(layerName.getPath());
-                }
             }
 
             @Override
@@ -553,10 +541,6 @@ public class EditScreen extends AbstractListScreen {
             listAvailableLayers().forEach(layerName -> addEntry(new Entry(layerName)));
         }
 
-        public Entry getHoveredEntry() {
-            return getHovered();
-        }
-
         public class Entry extends AdjustableSelectionList.Entry<Entry> {
 
             protected final ResourceLocation layerName;
@@ -591,7 +575,7 @@ public class EditScreen extends AbstractListScreen {
                 ScrollingWidget.renderScrolling(
                         poseStack,
                         font,
-                        Component.literal(entryText()),
+                        Component.literal(hovering ? layerName.toString() : Parse.parsePath(layerName.getPath())),
                         left + (width / 2),
                         left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
@@ -612,14 +596,6 @@ public class EditScreen extends AbstractListScreen {
                             ENTRY_HEIGHT,
                             24,
                             24);
-                }
-            }
-
-            public String entryText() {
-                if (this == AvailableLayerList.this.getHoveredEntry()) {
-                    return layerName.toString();
-                } else {
-                    return Parse.parsePath(layerName.getPath());
                 }
             }
 
