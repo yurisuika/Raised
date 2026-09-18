@@ -18,16 +18,16 @@ To show off your fixed hotbar selection indicator, Raised positions the hotbar s
 ### Move around the HUD!
 Raised gives you the power to move around both vanilla and modded HUD layers!
 
-Simply create a group and set its x-axis and y-axis offets. Add as many layers to the group as you like, and they will all move the same amount! Set the anchor point for each layer individually to choose which way the layer will move across the screen!
+Simply create a group and set its x-axis and y-axis offsets. Add as many layers to the group as you like, and they will all move the same amount! Set the anchor point for each layer individually to choose which way the layer will move across the screen!
 
 ### Working with mods!
-Raised allows mods to register layer entries for their own HUD overlays. Layers can be manually registered, but many are automatically registered without a mod having to do anything at all!
+Raised allows mods to register layer entries for their own HUD overlays. Layers can be manually registered, but many are automatically registered without mods having to do anything at all!
 
 How does this work? Any mod that registers a (Neo)Forge overlay is automatically captured and added to Raised's layer registry and placed in your config!
 
 If a mod renders an overlay solely via a (Neo)Forge render event, it will not have a Raised layer automatically registered. However, it will move along with the vanilla layer that it renders with.
 
-Fabric is unfortunately the wild west of HUDs, as it lacks any sort of registry and only has one global render event. This means that the only other option mods have is to inject their overlay rendering into some point in the vanilla HUD. Much the same, Raised has to accomplish its goals via mixing into the vanilla HUD and make choices of what to encapsulate. This means that mod support on Fabric is very iffy. Many mods will find that their injection points fall within what Raised encapsulates and will move along with the vanilla layer they render within. Those that do not are left with the only choice of registering their own layer and getting the necessary values via Raised's API.
+Fabric is unfortunately the wild west of HUDs, as it lacks any sort of registry and only has one global render event for the entire HUD. For more information, see the wiki.
 
 ### Set it up however you like!
 You can edit the groups and layers directly from the config, from a suite of commands, or from the options screen (openable via keybind or from a button on the (Neo)Forge mods screen).
