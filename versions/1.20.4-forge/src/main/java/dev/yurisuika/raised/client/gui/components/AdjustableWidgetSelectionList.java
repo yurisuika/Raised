@@ -86,26 +86,38 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
 
     @Override
     public int getScrollbarPosition() {
-        return getRowRight() + paddingX;
+        return getRowRight() + paddingX - 6;
     }
 
     @Override
     public void renderList(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        for (int m = 0; m < getItemCount(); ++m) {
-            int n = getRowTop(m);
-            int o = getRowBottom(m);
+        for (int index = 0; index < getItemCount(); ++index) {
+            int n = getRowTop(index);
+            int o = getRowBottom(index);
             if (o >= getY() && n <= getBottom()) {
-                renderItem(guiGraphics, mouseX, mouseY, partialTick, m, getRowLeft(), n, getRowWidth(), itemHeight);
+                renderItem(guiGraphics, mouseX, mouseY, partialTick, index, getRowLeft(), n, getEntry(index).getWidth(), itemHeight);
             }
         }
     }
 
     @Override
+    public void renderItem(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, int index, int left, int top, int width, int height) {
+        E entry = getEntry(index);
+        if (isSelectedItem(index)) {
+            int i =isFocused() ? -1 : -8355712;
+            renderSelection(guiGraphics, top, width, height, i, -16777216);
+        }
+
+        boolean hovering = mouseX >= left && mouseX < left + width && mouseY >= top && mouseY < top + height;
+        entry.render(guiGraphics, index, top, left, width, height, mouseX, mouseY, hovering, partialTick);
+    }
+
+    @Override
     public void renderSelection(GuiGraphics guiGraphics, int top, int width, int height, int outerColor, int innerColor) {
         int i = getRowLeft();
-        int j = getRowRight();
-        guiGraphics.fill(i, top, j, top + itemHeight, outerColor);
-        guiGraphics.fill(i + 1, top + 1, j - 1, top + itemHeight - 1, innerColor);
+        int j = getRowLeft() + width;
+        guiGraphics.fill(i, top, j, top + height, outerColor);
+        guiGraphics.fill(i + 1, top + 1, j - 1, top + height - 1, innerColor);
     }
 
     @Override
@@ -120,7 +132,7 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
 
     @Override
     public int getRowWidth() {
-        return width - (paddingX * 2) - (getMaxScroll() > 0 ? 6 : 0);
+        return width - (paddingX * 2);
     }
 
     public int getEntryX(E entry) {
@@ -132,6 +144,12 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
         return getRowTop(index);
     }
 
-    public abstract static class Entry<E extends Entry<E>> extends ContainerObjectSelectionList.Entry<E> {}
+    public abstract static class Entry<E extends Entry<E>> extends ContainerObjectSelectionList.Entry<E> implements Layout {}
+
+    public interface Layout {
+
+        int getWidth();
+
+    }
 
 }

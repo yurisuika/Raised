@@ -392,6 +392,11 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
+            public int getWidth() {
+                return width - (SelectedLayerList.this.scrollbarVisible() ? 6 : 0);
+            }
+
+            @Override
             public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
                 guiGraphics.blit(
                         RenderType::guiTextured,
@@ -412,12 +417,12 @@ public class EditScreen extends AbstractListScreen {
                         left + (width / 2),
                         left + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
                         top,
-                        left + width - ENTRY_PADDING - WIDGET_WIDTH_SQUARE + ENTRY_GAP,
+                        left + width - ENTRY_PADDING - WIDGET_WIDTH_SQUARE - ENTRY_GAP,
                         top + height,
                         -1);
 
                 int i = mouseX - left;
-                if (isMouseOver(mouseX, mouseY)) {
+                if (hovering) {
                     guiGraphics.blitSprite(
                             RenderType::guiTextured,
                             ResourceLocation.fromNamespaceAndPath(Raised.MOD_ID, "layer_list/unselect" + (i < ENTRY_HEIGHT ? "_highlighted" : "")),
@@ -547,6 +552,11 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
+            public int getWidth() {
+                return width - (AvailableLayerList.this.scrollbarVisible() ? 6 : 0);
+            }
+
+            @Override
             public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
                 guiGraphics.blit(
                         RenderType::guiTextured,
@@ -572,7 +582,7 @@ public class EditScreen extends AbstractListScreen {
                         -1);
 
                 int i = mouseX - left;
-                if (isMouseOver(mouseX, mouseY)) {
+                if (hovering) {
                     guiGraphics.blitSprite(
                             RenderType::guiTextured,
                             ResourceLocation.fromNamespaceAndPath(Raised.MOD_ID, "layer_list/select" + (i < ENTRY_HEIGHT ? "_highlighted" : "")),

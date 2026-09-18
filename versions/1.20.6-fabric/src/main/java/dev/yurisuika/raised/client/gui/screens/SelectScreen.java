@@ -239,16 +239,21 @@ public class SelectScreen extends AbstractListScreen {
             }
 
             @Override
+            public int getWidth() {
+                return width - (GroupList.this.scrollbarVisible() ? 6 : 0);
+            }
+
+            @Override
             public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
                 ScrollingWidget.renderScrolling(
                         guiGraphics,
                         font,
                         Component.literal(groupName),
-                        getX() + (getWidth() / 2),
-                        getX() + ENTRY_PADDING,
-                        getY(),
-                        getX() + getWidth() - ENTRY_PADDING,
-                        getY() + ENTRY_HEIGHT,
+                        left + (width / 2),
+                        left + ENTRY_PADDING,
+                        top,
+                        left + width - ENTRY_PADDING,
+                        top + ENTRY_HEIGHT,
                         -1);
             }
 

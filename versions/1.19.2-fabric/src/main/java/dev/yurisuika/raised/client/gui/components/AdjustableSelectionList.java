@@ -87,26 +87,38 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
 
     @Override
     public int getScrollbarPosition() {
-        return getRowRight() + paddingX;
+        return getRowRight() + paddingX - 6;
     }
 
     @Override
     public void renderList(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        for (int m = 0; m < getItemCount(); ++m) {
-            int n = getRowTop(m);
+        for (int index = 0; index < getItemCount(); ++index) {
+            int n = getRowTop(index);
             int o = n + itemHeight;
             if (o >= y0 && n <= y1) {
-                renderItem(poseStack, mouseX, mouseY, partialTick, m, getRowLeft(), n, getRowWidth(), itemHeight);
+                renderItem(poseStack, mouseX, mouseY, partialTick, index, getRowLeft(), n, getEntry(index).getWidth(), itemHeight);
             }
         }
     }
 
     @Override
+    public void renderItem(PoseStack poseStack, int mouseX, int mouseY, float partialTick, int index, int left, int top, int width, int height) {
+        E entry = getEntry(index);
+        if (isSelectedItem(index)) {
+            int i =isFocused() ? -1 : -8355712;
+            renderSelection(poseStack, top, width, height, i, -16777216);
+        }
+
+        boolean hovering = mouseX >= left && mouseX < left + width && mouseY >= top && mouseY < top + height;
+        entry.render(poseStack, index, top, left, width, height, mouseX, mouseY, hovering, partialTick);
+    }
+
+    @Override
     public void renderSelection(PoseStack poseStack, int top, int width, int height, int outerColor, int innerColor) {
         int i = getRowLeft();
-        int j = getRowRight();
-        fill(poseStack, i, top, j, top + itemHeight, outerColor);
-        fill(poseStack, i + 1, top + 1, j - 1, top + itemHeight - 1, innerColor);
+        int j = getRowLeft() + width;
+        fill(poseStack, i, top, j, top + height, outerColor);
+        fill(poseStack, i + 1, top + 1, j - 1, top + height - 1, innerColor);
     }
 
     @Override
@@ -121,7 +133,7 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
 
     @Override
     public int getRowWidth() {
-        return width - (paddingX * 2) - (getMaxScroll() > 0 ? 6 : 0);
+        return width - (paddingX * 2);
     }
 
     @Override
@@ -138,6 +150,12 @@ public abstract class AdjustableSelectionList<E extends AdjustableSelectionList.
         return getRowTop(index);
     }
 
-    public abstract static class Entry<E extends Entry<E>> extends ObjectSelectionList.Entry<E> {}
+    public abstract static class Entry<E extends Entry<E>> extends ObjectSelectionList.Entry<E> implements Layout {}
+
+    public interface Layout {
+
+        int getWidth();
+
+    }
 
 }

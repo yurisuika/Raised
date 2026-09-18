@@ -425,7 +425,7 @@ public class EditScreen extends AbstractListScreen {
                         getX() + (getWidth() / 2),
                         getX() + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
                         getY(),
-                        getX() + getWidth() - ENTRY_PADDING - WIDGET_WIDTH_SQUARE + ENTRY_GAP,
+                        getX() + getWidth() - ENTRY_PADDING - WIDGET_WIDTH_SQUARE - ENTRY_GAP,
                         getY() + getContentHeight(),
                         -1);
 

@@ -278,6 +278,11 @@ public class SelectScreen extends AbstractListScreen {
             }
 
             @Override
+            public int getWidth() {
+                return width - (getMaxScroll() > 0 ? 6 : 0);
+            }
+
+            @Override
             public void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
                 ScrollingWidget.renderScrolling(
                         poseStack,
