@@ -10,7 +10,8 @@ public abstract class AbstractListScreen extends AbstractScreen {
     public static final int LIST_BORDER = 1;
     public static final int ENTRY_GAP = 2;
     public static final int ENTRY_PADDING = 2;
-    public static final int ENTRY_HEIGHT = 24;
+    public static final int ENTRY_INNER = WIDGET_HEIGHT;
+    public static final int ENTRY_HEIGHT = ENTRY_INNER + (2 * ENTRY_PADDING);
 
     public AbstractListScreen(Screen parent, int containerWidth, int containerHeight) {
         super(parent, containerWidth, containerHeight);

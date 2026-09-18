@@ -437,7 +437,7 @@ public class EditScreen extends AbstractListScreen {
                             option.setTooltip(Minecraft.getInstance().font.split(new TranslatableComponent("options.raised.anchor.tooltip", new TranslatableComponent("options.raised.anchor." + anchor.getSerializedName())), 200));
                             return anchor.glyph();
                         })
-                        .createButton(Minecraft.getInstance().options, 0, 0, WIDGET_WIDTH_SQUARE);
+                        .createButton(Minecraft.getInstance().options, 0, 0, ENTRY_INNER);
             }
 
             public ResourceLocation getLayerName() {
@@ -458,8 +458,8 @@ public class EditScreen extends AbstractListScreen {
                         top + ENTRY_PADDING,
                         0,
                         0,
-                        WIDGET_WIDTH_SQUARE,
-                        WIDGET_HEIGHT,
+                        ENTRY_INNER,
+                        ENTRY_INNER,
                         20,
                         20);
 
@@ -468,9 +468,9 @@ public class EditScreen extends AbstractListScreen {
                         font,
                         new TextComponent(entryText(mouseX, mouseY)),
                         left + (width / 2),
-                        left + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
+                        left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
-                        left + width - ENTRY_PADDING - WIDGET_WIDTH_SQUARE - ENTRY_GAP,
+                        left + width - ENTRY_PADDING - ENTRY_INNER - ENTRY_GAP,
                         top + height,
                         -1);
 
@@ -489,7 +489,7 @@ public class EditScreen extends AbstractListScreen {
                             24);
                 }
 
-                optionAnchor.x = left + width - ENTRY_PADDING - WIDGET_WIDTH_SQUARE;
+                optionAnchor.x = left + width - ENTRY_PADDING - ENTRY_INNER;
                 optionAnchor.y = top + ENTRY_PADDING;
                 optionAnchor.render(poseStack, mouseX, mouseY, partialTick);
             }
@@ -615,8 +615,8 @@ public class EditScreen extends AbstractListScreen {
                         top + ENTRY_PADDING,
                         0,
                         0,
-                        WIDGET_WIDTH_SQUARE,
-                        WIDGET_HEIGHT,
+                        ENTRY_INNER,
+                        ENTRY_INNER,
                         20,
                         20);
 
@@ -625,7 +625,7 @@ public class EditScreen extends AbstractListScreen {
                         font,
                         new TextComponent(entryText(mouseX, mouseY)),
                         left + (width / 2),
-                        left + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
+                        left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
                         left + width - ENTRY_PADDING,
                         top + height,

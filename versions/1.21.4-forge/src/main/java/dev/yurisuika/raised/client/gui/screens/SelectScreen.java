@@ -255,7 +255,7 @@ public class SelectScreen extends AbstractListScreen {
                         left + ENTRY_PADDING,
                         top,
                         left + width - ENTRY_PADDING,
-                        top + ENTRY_HEIGHT,
+                        top + height,
                         -1);
             }
 

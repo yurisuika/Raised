@@ -378,10 +378,10 @@ public class EditScreen extends AbstractListScreen {
                         .withValues(Layer.Anchor.values())
                         .displayOnlyValue()
                         .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.anchor.tooltip", Component.translatable("options.raised.anchor." + value.getSerializedName()))))
-                        .create(getX() + getWidth() - ENTRY_PADDING - WIDGET_WIDTH_SQUARE,
+                        .create(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER,
                                 getY() + ENTRY_PADDING,
-                                WIDGET_WIDTH_SQUARE,
-                                WIDGET_HEIGHT,
+                                ENTRY_INNER,
+                                ENTRY_INNER,
                                 Component.translatable("options.raised.anchor"),
                                 (button, value) -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setAnchor(value)));
             }
@@ -404,16 +404,16 @@ public class EditScreen extends AbstractListScreen {
                         getY() + ENTRY_PADDING,
                         0,
                         0,
-                        WIDGET_WIDTH_SQUARE,
-                        WIDGET_HEIGHT,
+                        ENTRY_INNER,
+                        ENTRY_INNER,
                         20,
                         20);
 
                 guiGraphics.textRenderer().acceptScrolling(
                         Component.literal(entryText()),
                         getX() + (getWidth() / 2),
-                        getX() + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
-                        getX() + getWidth() - ENTRY_PADDING - WIDGET_WIDTH_SQUARE - ENTRY_GAP,
+                        getX() + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
+                        getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER - ENTRY_GAP,
                         getY(),
                         getY() + getContentHeight());
 
@@ -431,7 +431,7 @@ public class EditScreen extends AbstractListScreen {
                     }
                 }
 
-                optionAnchor.setPosition(getX() + getWidth() - ENTRY_PADDING - WIDGET_WIDTH_SQUARE, getY() + ENTRY_PADDING);
+                optionAnchor.setPosition(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER, getY() + ENTRY_PADDING);
                 optionAnchor.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
             }
 
@@ -564,15 +564,15 @@ public class EditScreen extends AbstractListScreen {
                         getY() + ENTRY_PADDING,
                         0,
                         0,
-                        WIDGET_WIDTH_SQUARE,
-                        WIDGET_HEIGHT,
+                        ENTRY_INNER,
+                        ENTRY_INNER,
                         20,
                         20);
 
                 guiGraphics.textRenderer().acceptScrolling(
                         Component.literal(entryText()),
                         getX() + (getWidth() / 2),
-                        getX() + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
+                        getX() + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         getX() + getWidth() - ENTRY_PADDING,
                         getY(),
                         getY() + getContentHeight());

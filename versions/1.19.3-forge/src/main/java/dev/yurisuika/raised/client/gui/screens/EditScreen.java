@@ -395,8 +395,8 @@ public class EditScreen extends AbstractListScreen {
                         .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.anchor.tooltip", Component.translatable("options.raised.anchor." + value.getSerializedName()))))
                         .create(0,
                                 0,
-                                WIDGET_WIDTH_SQUARE,
-                                WIDGET_HEIGHT,
+                                ENTRY_INNER,
+                                ENTRY_INNER,
                                 Component.translatable("options.raised.anchor"),
                                 (button, value) -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setAnchor(value)));
             }
@@ -419,8 +419,8 @@ public class EditScreen extends AbstractListScreen {
                         top + ENTRY_PADDING,
                         0,
                         0,
-                        WIDGET_WIDTH_SQUARE,
-                        WIDGET_HEIGHT,
+                        ENTRY_INNER,
+                        ENTRY_INNER,
                         20,
                         20);
 
@@ -429,9 +429,9 @@ public class EditScreen extends AbstractListScreen {
                         font,
                         Component.literal(entryText()),
                         left + (width / 2),
-                        left + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
+                        left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
-                        left + width - ENTRY_PADDING - WIDGET_WIDTH_SQUARE - ENTRY_GAP,
+                        left + width - ENTRY_PADDING - ENTRY_INNER - ENTRY_GAP,
                         top + height,
                         -1);
 
@@ -450,7 +450,7 @@ public class EditScreen extends AbstractListScreen {
                             24);
                 }
 
-                optionAnchor.setPosition(left + width - ENTRY_PADDING - WIDGET_WIDTH_SQUARE, top + ENTRY_PADDING);
+                optionAnchor.setPosition(left + width - ENTRY_PADDING - ENTRY_INNER, top + ENTRY_PADDING);
                 optionAnchor.render(poseStack, mouseX, mouseY, partialTick);
             }
 
@@ -583,8 +583,8 @@ public class EditScreen extends AbstractListScreen {
                         top + ENTRY_PADDING,
                         0,
                         0,
-                        WIDGET_WIDTH_SQUARE,
-                        WIDGET_HEIGHT,
+                        ENTRY_INNER,
+                        ENTRY_INNER,
                         20,
                         20);
 
@@ -593,7 +593,7 @@ public class EditScreen extends AbstractListScreen {
                         font,
                         Component.literal(entryText()),
                         left + (width / 2),
-                        left + ENTRY_PADDING + WIDGET_WIDTH_SQUARE + ENTRY_GAP,
+                        left + ENTRY_PADDING + ENTRY_INNER + ENTRY_GAP,
                         top,
                         left + width - ENTRY_PADDING,
                         top + height,
