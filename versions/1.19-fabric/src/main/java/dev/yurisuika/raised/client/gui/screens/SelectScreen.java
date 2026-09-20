@@ -102,7 +102,7 @@ public class SelectScreen extends AbstractListScreen {
 
         optionEditGroup = new DeferredTooltipButton(
                 panelX,
-                panelY + WIDGET_AND_GAP_HEIGHT,
+                panelY + panelHeight - WIDGET_HEIGHT,
                 widgetWidthWide,
                 WIDGET_HEIGHT,
                 Component.translatable("options.raised.control.edit"),
@@ -114,7 +114,7 @@ public class SelectScreen extends AbstractListScreen {
                         mouseY));
         optionRenameGroup = new DeferredTooltipButton(
                 panelX + widgetWidthWide + PANEL_GAP,
-                panelY + WIDGET_AND_GAP_HEIGHT,
+                panelY + panelHeight - WIDGET_HEIGHT,
                 widgetWidthWide,
                 WIDGET_HEIGHT,
                 Component.translatable("options.raised.control.rename"),
@@ -126,7 +126,7 @@ public class SelectScreen extends AbstractListScreen {
                         mouseY));
         optionAddGroup = new DeferredTooltipButton(
                 panelX + panelWidth - WIDGET_WIDTH_SQUARE - PANEL_GAP - WIDGET_WIDTH_SQUARE,
-                panelY + WIDGET_AND_GAP_HEIGHT,
+                panelY + panelHeight - WIDGET_HEIGHT,
                 WIDGET_WIDTH_SQUARE,
                 WIDGET_HEIGHT,
                 Component.translatable("options.raised.control.add"),
@@ -138,7 +138,7 @@ public class SelectScreen extends AbstractListScreen {
                         mouseY));
         optionRemoveGroup = new DeferredTooltipButton(
                 panelX + panelWidth - WIDGET_WIDTH_SQUARE,
-                panelY + WIDGET_AND_GAP_HEIGHT,
+                panelY + panelHeight - WIDGET_HEIGHT,
                 WIDGET_WIDTH_SQUARE,
                 WIDGET_HEIGHT,
                 Component.translatable("options.raised.control.remove"),
