@@ -208,7 +208,7 @@ public class RaisedCommand {
                                     commandContext.getSource().sendFeedback(Component.translatable("commands.raised.settings.hotbar_selection_fix.query", Config.getOptions().getSettings().getHotbarSelectionFix().caption()));
                                     return 1;
                                 })
-                                .then(ClientCommandManager.argument("texture", HotbarSelectionFixArgument.hotbarSelectionFix())
+                                .then(ClientCommandManager.argument("hotbarSelectionFix", HotbarSelectionFixArgument.hotbarSelectionFix())
                                         .executes(commandContext -> {
                                             Config.update(o -> o.getSettings().setHotbarSelectionFix(HotbarSelectionFixArgument.getHotbarSelectionFix(commandContext, "hotbarSelectionFix")));
                                             commandContext.getSource().sendFeedback(Component.translatable("commands.raised.settings.hotbar_selection_fix.set", Config.getOptions().getSettings().getHotbarSelectionFix().caption()));
