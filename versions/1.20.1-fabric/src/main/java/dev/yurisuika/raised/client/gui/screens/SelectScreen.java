@@ -168,7 +168,7 @@ public class SelectScreen extends AbstractListScreen {
     }
 
     @Override
-    public void renderBackground(final GuiGraphics guiGraphics) {
+    public void renderBackground(GuiGraphics guiGraphics) {
         super.renderBackground(guiGraphics);
 
         guiGraphics.blit(
@@ -263,7 +263,7 @@ public class SelectScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
+            public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 setSelected(true);
                 return true;

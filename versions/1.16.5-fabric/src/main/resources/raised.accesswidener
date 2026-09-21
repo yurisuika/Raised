@@ -1,5 +1,6 @@
 accessWidener v2 named
 
 extendable method net/minecraft/client/gui/components/AbstractSelectionList getEntryAtPosition (DD)Lnet/minecraft/client/gui/components/AbstractSelectionList$Entry;
+extendable method net/minecraft/client/gui/components/AbstractSelectionList getMaxScroll ()I
 
 accessible field net/minecraft/client/gui/components/AbstractSelectionList renderSelection Z

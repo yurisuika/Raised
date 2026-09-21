@@ -61,10 +61,10 @@
   "options.raised.list.selected_layers.empty": "No selected layers",
   "options.raised.list.available_layers.empty": "No available layers",
 
-  "options.raised.offset.x": "X Offset",
-  "options.raised.offset.x.tooltip": "Offset on the x-axis.\nLimited to the scaled screen width.",
-  "options.raised.offset.y": "Y Offset",
-  "options.raised.offset.y.tooltip": "Offset on the y-axis.\nLimited to the scaled screen height.",
+  "options.raised.offset.x": "Horizontal",
+  "options.raised.offset.x.tooltip": "X-Axis Offset: %s\nLimited to the scaled screen width.",
+  "options.raised.offset.y": "Vertical",
+  "options.raised.offset.y.tooltip": "Y-Axis Offset: %s\nLimited to the scaled screen height.",
 
   "options.raised.anchor": "Anchor",
   "options.raised.anchor.none": "None",
@@ -76,7 +76,7 @@
   "options.raised.anchor.top_right": "Top Right",
   "options.raised.anchor.bottom_left": "Bottom Left",
   "options.raised.anchor.bottom_right": "Bottom Right",
-  "options.raised.anchor.tooltip": "This layer is anchored to: %s",
+  "options.raised.anchor.tooltip": "Anchor: %s",
 
   "options.raised.hotbar_selection_fix": "Hotbar Selection Fix",
   "options.raised.hotbar_selection_fix.replace": "Replace",

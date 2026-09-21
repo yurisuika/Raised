@@ -2,22 +2,17 @@ package dev.yurisuika.raised.client.gui.screens;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.yurisuika.raised.Raised;
-import dev.yurisuika.raised.client.gui.components.AdjustableSelectionList;
-import dev.yurisuika.raised.client.gui.components.AdjustableWidgetSelectionList;
-import dev.yurisuika.raised.client.gui.components.IntRangeSliderButton;
-import dev.yurisuika.raised.client.gui.components.ScrollingWidget;
+import dev.yurisuika.raised.client.gui.components.*;
 import dev.yurisuika.raised.client.gui.layer.Layer;
 import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.registry.LayerRegistry;
 import dev.yurisuika.raised.util.Icon;
 import dev.yurisuika.raised.util.Parse;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.CycleOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.TooltipAccessor;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -27,7 +22,6 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.FormattedCharSequence;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -174,7 +168,7 @@ public class EditScreen extends AbstractListScreen {
                 .range(0, width)
                 .initialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getX())
                 .valueText(value -> value == 0 ? CommonComponents.OPTION_OFF : new TextComponent(value + "px (" + Math.round(Math.ceil((value / ((float) width)) * 100)) + "%)"))
-                .tooltip(value -> font.split(new TranslatableComponent("options.raised.offset.x.tooltip"), 200))
+                .tooltip(value -> font.split(new TranslatableComponent("options.raised.offset.x.tooltip", value + "px"), 200))
                 .size(panelWidth, WIDGET_HEIGHT)
                 .pos(leftPanelX, leftPanelY + panelHeight - WIDGET_HEIGHT)
                 .build();
@@ -183,7 +177,7 @@ public class EditScreen extends AbstractListScreen {
                 .range(0, height)
                 .initialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getY())
                 .valueText(value -> value == 0 ? CommonComponents.OPTION_OFF : new TextComponent(value + "px (" + Math.round(Math.ceil((value / ((float) height)) * 100)) + "%)"))
-                .tooltip(value -> font.split(new TranslatableComponent("options.raised.offset.y.tooltip"), 200))
+                .tooltip(value -> font.split(new TranslatableComponent("options.raised.offset.y.tooltip", value + "px"), 200))
                 .size(panelWidth, WIDGET_HEIGHT)
                 .pos(rightPanelX, rightPanelY + panelHeight - WIDGET_HEIGHT)
                 .build();
@@ -311,7 +305,7 @@ public class EditScreen extends AbstractListScreen {
     }
 
     @Override
-    public void renderBackground(final PoseStack poseStack) {
+    public void renderBackground(PoseStack poseStack) {
         super.renderBackground(poseStack);
 
         Minecraft.getInstance().getTextureManager().bind(new ResourceLocation(Raised.MOD_ID, "textures/gui/sprites/edit/background.png"));
@@ -384,9 +378,9 @@ public class EditScreen extends AbstractListScreen {
                 widget.renderToolTip(poseStack, mouseX, mouseY);
             }
         });
-        List<FormattedCharSequence> listTooltip = leftList.getHoveredTooltip(mouseX, mouseY);
-        if (listTooltip != null) {
-            renderTooltip(poseStack, listTooltip, mouseX, mouseY);
+
+        if (leftList.hovered != null) {
+            leftList.hovered.optionAnchor.renderToolTip(poseStack, mouseX, mouseY);
         }
     }
 
@@ -406,12 +400,6 @@ public class EditScreen extends AbstractListScreen {
             listSelectedLayers().forEach(layerName -> addEntry(new Entry(layerName)));
         }
 
-        public List<FormattedCharSequence> getHoveredTooltip(int mouseX, int mouseY) {
-            Entry entry = getEntryAtPosition(mouseX, mouseY);
-
-            return entry == null ? null : entry.getTooltip(mouseX, mouseY);
-        }
-
         public class Entry extends AdjustableWidgetSelectionList.Entry<Entry> {
 
             protected final ResourceLocation layerName;
@@ -420,20 +408,15 @@ public class EditScreen extends AbstractListScreen {
             public Entry(ResourceLocation layerName) {
                 this.layerName = layerName;
 
-                optionAnchor = new CycleOption(
-                        "options.raised.anchor",
-                        (options, integer) -> {
-                            List<Layer.Anchor> anchors = Arrays.stream(Layer.Anchor.values()).collect(Collectors.toList());
-                            Layer.Anchor anchor = Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getAnchor();
-                            int index = anchors.indexOf(anchor);
-                            Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setAnchor(anchors.get(index < anchors.size() - 1 ? index + 1 : 0)));
-                        },
-                        (options, option) -> {
-                            Layer.Anchor anchor = Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getAnchor();
-                            option.setTooltip(Minecraft.getInstance().font.split(new TranslatableComponent("options.raised.anchor.tooltip", new TranslatableComponent("options.raised.anchor." + anchor.getSerializedName())), 200));
-                            return anchor.glyph();
-                        })
-                        .createButton(Minecraft.getInstance().options, 0, 0, ENTRY_INNER);
+                optionAnchor = CycleButton.builder(Arrays.stream(Layer.Anchor.values()).collect(Collectors.toList()), Layer.Anchor::glyph)
+                        .withInitialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getAnchor())
+                        .withTooltip(value -> font.split(new TranslatableComponent("options.raised.anchor.tooltip", new TranslatableComponent("options.raised.anchor." + value.getSerializedName())), 200))
+                        .create(0,
+                                0,
+                                ENTRY_INNER,
+                                ENTRY_INNER,
+                                new TranslatableComponent("options.raised.anchor"),
+                                (button) -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setAnchor(button.getValue())));
             }
 
             public ResourceLocation getLayerName() {
@@ -495,7 +478,7 @@ public class EditScreen extends AbstractListScreen {
                 return Collections.singletonList(optionAnchor);
             }
 
-            public boolean handleTransfer(final double mouseX, final double mouseY, final int button) {
+            public boolean handleTransfer(double mouseX, double mouseY, int button) {
                 int relX = (int) mouseX - getEntryX(this);
                 int relY = (int) mouseY - getEntryY(this);
                 if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
@@ -507,7 +490,7 @@ public class EditScreen extends AbstractListScreen {
                 return false;
             }
 
-            public boolean handleWidget(final double mouseX, final double mouseY, final int button) {
+            public boolean handleWidget(double mouseX, double mouseY, int button) {
                 if (optionAnchor.mouseClicked(mouseX, mouseY, button)) {
                     setFocused(optionAnchor);
                     return true;
@@ -516,7 +499,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
+            public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 setSelected(true);
 
@@ -532,7 +515,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseReleased(final double mouseX, final double mouseY, final int button) {
+            public boolean mouseReleased(double mouseX, double mouseY, int button) {
                 return optionAnchor.mouseReleased(mouseX, mouseY, button);
             }
 
@@ -540,10 +523,6 @@ public class EditScreen extends AbstractListScreen {
                 if (selected) {
                     SelectedLayerList.this.setSelected(this);
                 }
-            }
-
-            public List<FormattedCharSequence> getTooltip(int mouseX, int mouseY) {
-                return optionAnchor.isMouseOver(mouseX, mouseY) ? ((TooltipAccessor) optionAnchor).getTooltip().orElse(null) : null;
             }
 
         }
@@ -624,7 +603,7 @@ public class EditScreen extends AbstractListScreen {
                 }
             }
 
-            public boolean handleTransfer(final double mouseX, final double mouseY, final int button) {
+            public boolean handleTransfer(double mouseX, double mouseY, int button) {
                 int relX = (int) mouseX - getEntryX(this);
                 int relY = (int) mouseY - getEntryY(this);
                 if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
@@ -637,7 +616,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
+            public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 setSelected(true);
 

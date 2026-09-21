@@ -202,7 +202,7 @@ public class SelectScreen extends AbstractListScreen {
     }
 
     @Override
-    public void renderBackground(final PoseStack poseStack) {
+    public void renderBackground(PoseStack poseStack) {
         super.renderBackground(poseStack);
 
         RenderSystem.setShaderTexture(0, new ResourceLocation(Raised.MOD_ID, "textures/gui/sprites/select/background.png"));
@@ -305,7 +305,7 @@ public class SelectScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseClicked(final double mouseX, final double mouseY, final int button) {
+            public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 setSelected(true);
                 return true;

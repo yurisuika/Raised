@@ -78,7 +78,7 @@ public abstract class AbstractPopupScreen extends AbstractScreen {
     public abstract void addOptions();
 
     @Override
-    public void renderBackground(final PoseStack poseStack) {
+    public void renderBackground(PoseStack poseStack) {
         if (parent != null) {
             parent.renderBackground(poseStack);
             Minecraft.getInstance().renderBuffers().bufferSource().endBatch();

@@ -165,7 +165,7 @@ public class EditScreen extends AbstractListScreen {
                 .range(0, width)
                 .initialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getX())
                 .valueText(value -> value == 0 ? CommonComponents.OPTION_OFF : Component.literal(value + "px (" + Math.round(Math.ceil((value / ((float) width)) * 100)) + "%)"))
-                .tooltip(value -> Tooltip.create(Component.translatable("options.raised.offset.x.tooltip")))
+                .tooltip(value -> Tooltip.create(Component.translatable("options.raised.offset.x.tooltip", value + "px")))
                 .size(panelWidth, WIDGET_HEIGHT)
                 .pos(leftPanelX, leftPanelY + panelHeight - WIDGET_HEIGHT)
                 .build();
@@ -174,7 +174,7 @@ public class EditScreen extends AbstractListScreen {
                 .range(0, height)
                 .initialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getOffset().getY())
                 .valueText(value -> value == 0 ? CommonComponents.OPTION_OFF : Component.literal(value + "px (" + Math.round(Math.ceil((value / ((float) height)) * 100)) + "%)"))
-                .tooltip(value -> Tooltip.create(Component.translatable("options.raised.offset.y.tooltip")))
+                .tooltip(value -> Tooltip.create(Component.translatable("options.raised.offset.y.tooltip", value + "px")))
                 .size(panelWidth, WIDGET_HEIGHT)
                 .pos(rightPanelX, rightPanelY + panelHeight - WIDGET_HEIGHT)
                 .build();
@@ -291,7 +291,7 @@ public class EditScreen extends AbstractListScreen {
     }
 
     @Override
-    public void renderBackground(final GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float a) {
+    public void renderBackground(GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float a) {
         super.renderBackground(guiGraphics, mouseX, mouseY, a);
 
         guiGraphics.blitSprite(
@@ -455,7 +455,7 @@ public class EditScreen extends AbstractListScreen {
                 return List.of(optionAnchor, narration);
             }
 
-            public boolean handleTransfer(final MouseButtonEvent event) {
+            public boolean handleTransfer(MouseButtonEvent event) {
                 int relX = (int) event.x() - getContentX();
                 int relY = (int) event.y() - getContentY();
                 if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
@@ -467,7 +467,7 @@ public class EditScreen extends AbstractListScreen {
                 return false;
             }
 
-            public boolean handleWidget(final MouseButtonEvent event, boolean doubleClick) {
+            public boolean handleWidget(MouseButtonEvent event, boolean doubleClick) {
                 if (optionAnchor.mouseClicked(event, doubleClick)) {
                     setFocused(optionAnchor);
                     return true;
@@ -476,7 +476,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseClicked(final MouseButtonEvent event, boolean doubleClick) {
+            public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 setSelected(true);
 
@@ -492,7 +492,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseReleased(final MouseButtonEvent event) {
+            public boolean mouseReleased(MouseButtonEvent event) {
                 return optionAnchor.mouseReleased(event);
             }
 
@@ -581,7 +581,7 @@ public class EditScreen extends AbstractListScreen {
                 return Component.literal(Parse.parsePath(layerName.getPath()));
             }
 
-            public boolean handleTransfer(final MouseButtonEvent event) {
+            public boolean handleTransfer(MouseButtonEvent event) {
                 int relX = (int) event.x() - getContentX();
                 int relY = (int) event.y() - getContentY();
                 if (relX >= 0 && relX < ENTRY_HEIGHT && relY >= 0 && relY < ENTRY_HEIGHT) {
@@ -594,7 +594,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public boolean mouseClicked(final MouseButtonEvent event, boolean doubleClick) {
+            public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                 setSelected(true);
 

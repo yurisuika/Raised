@@ -176,7 +176,7 @@ public class SelectScreen extends AbstractListScreen {
     }
 
     @Override
-    public void extractBackground(final GuiGraphicsExtractor guiGraphics, final int mouseX, final int mouseY, final float a) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
         super.extractBackground(guiGraphics, mouseX, mouseY, a);
 
         guiGraphics.blitSprite(
