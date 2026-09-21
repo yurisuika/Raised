@@ -24,8 +24,8 @@
   "commands.raised.layer.options.anchor.set": "Anchor of layer '%s' in group '%s' is now set to: %s",
   "commands.raised.layer.unknown": "Unknown layer '%s'",
 
-  "commands.raised.settings.hotbar_selection_fix.query": "Hotbar selection indicator fix is currently set to: %s",
-  "commands.raised.settings.hotbar_selection_fix.set": "Hotbar selection indicator fix is now set to: %s",
+  "commands.raised.settings.selection_indicator.query": "Selection indicator is currently set to: %s",
+  "commands.raised.settings.selection_indicator.set": "Selection indicator is now set to: %s",
 
   "key.category.raised.raised": "Raised",
 
@@ -78,13 +78,13 @@
   "options.raised.anchor.bottom_right": "Bottom Right",
   "options.raised.anchor.tooltip": "Anchor: %s",
 
-  "options.raised.hotbar_selection_fix": "Hotbar Selection Fix",
-  "options.raised.hotbar_selection_fix.replace": "Replace",
-  "options.raised.hotbar_selection_fix.replace.tooltip": "Fixes the hotbar selection indicator by texture replacement.\nReplaces the new broken texture with the old pre-1.20.2 texture.",
-  "options.raised.hotbar_selection_fix.patch": "Patch",
-  "options.raised.hotbar_selection_fix.patch.tooltip": "Fixes the hotbar selection indicator by texture patch.\nAdds the missing bottom of the indicator by mirroring the top of the texture.",
-  "options.raised.hotbar_selection_fix.auto": "Auto",
-  "options.raised.hotbar_selection_fix.auto.tooltip": "Fixes the hotbar selection indicator automatically by either texture replacement or patch, depending on whether resource pack support is present.",
-  "options.raised.hotbar_selection_fix.none": "None",
-  "options.raised.hotbar_selection_fix.none.tooltip": "The hotbar selection indicator is not modified."
+  "options.raised.selection_indicator": "Selection Indicator",
+  "options.raised.selection_indicator.replace": "Replace",
+  "options.raised.selection_indicator.replace.tooltip": "Selection Indicator: Replace\nFixes the hotbar selection indicator by replacing the broken texture with the pre-1.20.2 texture.",
+  "options.raised.selection_indicator.patch": "Patch",
+  "options.raised.selection_indicator.patch.tooltip": "Selection Indicator: Patch\nFixes the hotbar selection indicator by mirroring the top of the texture over the missing bottom area.",
+  "options.raised.selection_indicator.auto": "Auto",
+  "options.raised.selection_indicator.auto.tooltip": "Selection Indicator: Auto\nSelects the method of fixing the hotbar selection indicator automatically, based on whether resource pack support is present or not.",
+  "options.raised.selection_indicator.none": "None",
+  "options.raised.selection_indicator.none.tooltip": "Selection Indicator: None\nThe hotbar selection indicator is not modified."
 }

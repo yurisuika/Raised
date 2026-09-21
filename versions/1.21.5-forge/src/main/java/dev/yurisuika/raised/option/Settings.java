@@ -5,32 +5,32 @@ import net.minecraft.util.StringRepresentable;
 
 public class Settings {
 
-    public HotbarSelectionFix hotbarSelectionFix;
+    public SelectionIndicator selectionIndicator;
 
-    public Settings(HotbarSelectionFix hotbarSelectionFix) {
-        this.hotbarSelectionFix = hotbarSelectionFix;
+    public Settings(SelectionIndicator selectionIndicator) {
+        this.selectionIndicator = selectionIndicator;
     }
 
-    public HotbarSelectionFix getHotbarSelectionFix() {
-        return hotbarSelectionFix;
+    public SelectionIndicator getSelectionIndicator() {
+        return selectionIndicator;
     }
 
-    public void setHotbarSelectionFix(HotbarSelectionFix hotbarSelectionFix) {
-        this.hotbarSelectionFix = hotbarSelectionFix;
+    public void setSelectionIndicator(SelectionIndicator selectionIndicator) {
+        this.selectionIndicator = selectionIndicator;
     }
 
-    public enum HotbarSelectionFix implements StringRepresentable {
+    public enum SelectionIndicator implements StringRepresentable {
 
-        REPLACE("replace", "options.raised.hotbar_selection_fix.replace"),
-        PATCH("patch", "options.raised.hotbar_selection_fix.patch"),
-        AUTO("auto", "options.raised.hotbar_selection_fix.auto"),
-        NONE("none", "options.raised.hotbar_selection_fix.none");
+        REPLACE("replace", "options.raised.selection_indicator.replace"),
+        PATCH("patch", "options.raised.selection_indicator.patch"),
+        AUTO("auto", "options.raised.selection_indicator.auto"),
+        NONE("none", "options.raised.selection_indicator.none");
 
-        public static final EnumCodec<HotbarSelectionFix> CODEC = StringRepresentable.fromEnum(HotbarSelectionFix::values);
+        public static final EnumCodec<SelectionIndicator> CODEC = StringRepresentable.fromEnum(SelectionIndicator::values);
         public final String name;
         public final Component caption;
 
-        HotbarSelectionFix(String name, String key) {
+        SelectionIndicator(String name, String key) {
             this.name = name;
             this.caption = Component.translatable(key);
         }

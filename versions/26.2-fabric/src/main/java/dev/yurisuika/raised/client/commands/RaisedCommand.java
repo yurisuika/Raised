@@ -6,8 +6,8 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.yurisuika.raised.client.gui.group.Groups;
 import dev.yurisuika.raised.commands.arguments.AnchorArgument;
 import dev.yurisuika.raised.commands.arguments.GroupArgument;
-import dev.yurisuika.raised.commands.arguments.HotbarSelectionFixArgument;
 import dev.yurisuika.raised.commands.arguments.LayerArgument;
+import dev.yurisuika.raised.commands.arguments.SelectionIndicatorArgument;
 import dev.yurisuika.raised.config.Config;
 import dev.yurisuika.raised.option.Options;
 import dev.yurisuika.raised.registry.LayerRegistry;
@@ -203,15 +203,15 @@ public class RaisedCommand {
                         )
                 )
                 .then(ClientCommands.literal("settings")
-                        .then(ClientCommands.literal("hotbarSelectionFix")
+                        .then(ClientCommands.literal("selectionIndicator")
                                 .executes(commandContext -> {
-                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.settings.hotbar_selection_fix.query", Config.getOptions().getSettings().getHotbarSelectionFix().caption()));
+                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.settings.selection_indicator.query", Config.getOptions().getSettings().getSelectionIndicator().caption()));
                                     return 1;
                                 })
-                                .then(ClientCommands.argument("hotbarSelectionFix", HotbarSelectionFixArgument.hotbarSelectionFix())
+                                .then(ClientCommands.argument("selectionIndicator", SelectionIndicatorArgument.selectionIndicator())
                                         .executes(commandContext -> {
-                                            Config.update(o -> o.getSettings().setHotbarSelectionFix(HotbarSelectionFixArgument.getHotbarSelectionFix(commandContext, "hotbarSelectionFix")));
-                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.settings.hotbar_selection_fix.set", Config.getOptions().getSettings().getHotbarSelectionFix().caption()));
+                                            Config.update(o -> o.getSettings().setSelectionIndicator(SelectionIndicatorArgument.getSelectionIndicator(commandContext, "selectionIndicator")));
+                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.settings.selection_indicator.set", Config.getOptions().getSettings().getSelectionIndicator().caption()));
                                             return 1;
                                         })
                                 )

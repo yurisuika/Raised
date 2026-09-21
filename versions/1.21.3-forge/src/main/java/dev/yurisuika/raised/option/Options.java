@@ -14,7 +14,7 @@ public class Options {
                 Layers.HOTBAR.toString(), Layers.createLayer(Layer.Anchor.BOTTOM),
                 Layers.ACTION_BAR.toString(), Layers.createLayer(Layer.Anchor.BOTTOM)));
     }};
-    public Settings settings = new Settings(Settings.HotbarSelectionFix.AUTO);
+    public Settings settings = new Settings(Settings.SelectionIndicator.AUTO);
 
     public TreeMap<String, Group> getGroups() {
         return groups;
