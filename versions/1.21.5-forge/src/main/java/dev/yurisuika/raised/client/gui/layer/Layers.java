@@ -12,7 +12,7 @@ public class Layers {
     public static final ResourceLocation CHAT = ResourceLocation.withDefaultNamespace("chat");
     public static final ResourceLocation CHAT_INPUT = ResourceLocation.withDefaultNamespace("chat_input");
     public static final ResourceLocation ACTION_BAR = ResourceLocation.withDefaultNamespace("action_bar");
-    public static final ResourceLocation BOSS_BAR = ResourceLocation.withDefaultNamespace("boss_bar");
+    public static final ResourceLocation BOSSBAR = ResourceLocation.withDefaultNamespace("bossbar");
     public static final ResourceLocation SCOREBOARD = ResourceLocation.withDefaultNamespace("scoreboard");
     public static final ResourceLocation EFFECTS = ResourceLocation.withDefaultNamespace("effects");
     public static final ResourceLocation PLAYER_LIST = ResourceLocation.withDefaultNamespace("player_list");
@@ -36,7 +36,7 @@ public class Layers {
         LayerRegistry.register(CHAT, createLayer(Layer.Position.BOTTOM_LEFT));
         LayerRegistry.register(CHAT_INPUT, createLayer(Layer.Position.BOTTOM_LEFT));
         LayerRegistry.register(ACTION_BAR, createLayer(Layer.Position.BOTTOM));
-        LayerRegistry.register(BOSS_BAR, createLayer(Layer.Position.TOP));
+        LayerRegistry.register(BOSSBAR, createLayer(Layer.Position.TOP));
         LayerRegistry.register(SCOREBOARD, createLayer(Layer.Position.RIGHT));
         LayerRegistry.register(EFFECTS, createLayer(Layer.Position.TOP_RIGHT));
         LayerRegistry.register(PLAYER_LIST, createLayer(Layer.Position.TOP));

@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BossHealthOverlayMixin {
 
     /**
-     * Moves the {@code boss bar} for {@link Layer} key "minecraft:boss_bar".
+     * Moves the {@code bossbar} for {@link Layer} key "minecraft:bossbar".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V"))
     private void startBossBarTranslate(GuiGraphics guiGraphics, CallbackInfo ci) {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
-            Translate.start(guiGraphics.pose(), Layers.BOSS_BAR);
+            Translate.start(guiGraphics.pose(), Layers.BOSSBAR);
         }
     }
 
@@ -30,7 +30,7 @@ public abstract class BossHealthOverlayMixin {
         try {
             Class.forName("net.minecraftforge.client.gui.overlay.ForgeLayeredDraw");
         } catch (ClassNotFoundException e) {
-            Translate.end(guiGraphics.pose(), Layers.BOSS_BAR);
+            Translate.end(guiGraphics.pose(), Layers.BOSSBAR);
         }
     }
 

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class LayerRegistry {
+public class LayerRegistry extends Layers {
 
     public static final Set<ResourceLocation> LAYERS = new HashSet<>();
     public static final TreeMap<ResourceLocation, Layer> DEFAULT_LAYERS = new TreeMap<>();

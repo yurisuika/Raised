@@ -17,7 +17,7 @@ public class Layers {
     public static final ResourceLocation CHAT = new ResourceLocation("chat");
     public static final ResourceLocation CHAT_INPUT = new ResourceLocation("chat_input");
     public static final ResourceLocation ACTION_BAR = new ResourceLocation("action_bar");
-    public static final ResourceLocation BOSS_BAR = new ResourceLocation("boss_bar");
+    public static final ResourceLocation BOSSBAR = new ResourceLocation("bossbar");
     public static final ResourceLocation SCOREBOARD = new ResourceLocation("scoreboard");
     public static final ResourceLocation EFFECTS = new ResourceLocation("effects");
     public static final ResourceLocation PLAYER_LIST = new ResourceLocation("player_list");
@@ -41,7 +41,7 @@ public class Layers {
         LayerRegistry.register(CHAT, createLayer(Layer.Position.BOTTOM_LEFT));
         LayerRegistry.register(CHAT_INPUT, createLayer(Layer.Position.BOTTOM_LEFT));
         LayerRegistry.register(ACTION_BAR, createLayer(Layer.Position.BOTTOM));
-        LayerRegistry.register(BOSS_BAR, createLayer(Layer.Position.TOP));
+        LayerRegistry.register(BOSSBAR, createLayer(Layer.Position.TOP));
         LayerRegistry.register(SCOREBOARD, createLayer(Layer.Position.RIGHT));
         LayerRegistry.register(EFFECTS, createLayer(Layer.Position.TOP_RIGHT));
         LayerRegistry.register(PLAYER_LIST, createLayer(Layer.Position.TOP));
@@ -150,8 +150,8 @@ public class Layers {
             map.put(RenderGameOverlayEvent.ElementType.JUMPBAR, Layers.HOTBAR);
             map.put(RenderGameOverlayEvent.ElementType.EXPERIENCE, Layers.HOTBAR);
             map.put(RenderGameOverlayEvent.ElementType.CHAT, Layers.CHAT);
-            map.put(RenderGameOverlayEvent.ElementType.BOSSHEALTH, Layers.BOSS_BAR);
-            map.put(RenderGameOverlayEvent.ElementType.BOSSINFO, Layers.BOSS_BAR);
+            map.put(RenderGameOverlayEvent.ElementType.BOSSHEALTH, Layers.BOSSBAR);
+            map.put(RenderGameOverlayEvent.ElementType.BOSSINFO, Layers.BOSSBAR);
             map.put(RenderGameOverlayEvent.ElementType.POTION_ICONS, Layers.EFFECTS);
             map.put(RenderGameOverlayEvent.ElementType.PLAYER_LIST, Layers.PLAYER_LIST);
             map.put(RenderGameOverlayEvent.ElementType.SUBTITLES, Layers.CLOSED_CAPTIONS);

@@ -154,16 +154,16 @@ public abstract class GuiMixin {
     }
 
     /**
-     * Moves the {@code boss bar} for {@link Layer} key "minecraft:boss_bar".
+     * Moves the {@code bossbar} for {@link Layer} key "minecraft:bossbar".
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V"))
     private void startBossBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-        Translate.start(guiGraphics.pose(), Layers.BOSS_BAR);
+        Translate.start(guiGraphics.pose(), Layers.BOSSBAR);
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/BossHealthOverlay;render(Lnet/minecraft/client/gui/GuiGraphics;)V", shift = At.Shift.AFTER))
     private void endBossBarTranslate(GuiGraphics guiGraphics, float partialTick, CallbackInfo ci) {
-        Translate.end(guiGraphics.pose(), Layers.BOSS_BAR);
+        Translate.end(guiGraphics.pose(), Layers.BOSSBAR);
     }
 
     /**

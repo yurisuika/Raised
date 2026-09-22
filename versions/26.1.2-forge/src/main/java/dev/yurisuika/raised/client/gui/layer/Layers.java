@@ -12,7 +12,7 @@ public class Layers {
     public static final Identifier CHAT = Identifier.withDefaultNamespace("chat");
     public static final Identifier CHAT_INPUT = Identifier.withDefaultNamespace("chat_input");
     public static final Identifier ACTION_BAR = Identifier.withDefaultNamespace("action_bar");
-    public static final Identifier BOSS_BAR = Identifier.withDefaultNamespace("boss_bar");
+    public static final Identifier BOSSBAR = Identifier.withDefaultNamespace("bossbar");
     public static final Identifier SCOREBOARD = Identifier.withDefaultNamespace("scoreboard");
     public static final Identifier EFFECTS = Identifier.withDefaultNamespace("effects");
     public static final Identifier PLAYER_LIST = Identifier.withDefaultNamespace("player_list");
@@ -36,7 +36,7 @@ public class Layers {
         LayerRegistry.register(CHAT, createLayer(Layer.Position.BOTTOM_LEFT));
         LayerRegistry.register(CHAT_INPUT, createLayer(Layer.Position.BOTTOM_LEFT));
         LayerRegistry.register(ACTION_BAR, createLayer(Layer.Position.BOTTOM));
-        LayerRegistry.register(BOSS_BAR, createLayer(Layer.Position.TOP));
+        LayerRegistry.register(BOSSBAR, createLayer(Layer.Position.TOP));
         LayerRegistry.register(SCOREBOARD, createLayer(Layer.Position.RIGHT));
         LayerRegistry.register(EFFECTS, createLayer(Layer.Position.TOP_RIGHT));
         LayerRegistry.register(PLAYER_LIST, createLayer(Layer.Position.TOP));

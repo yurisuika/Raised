@@ -57,7 +57,7 @@ public abstract class ForgeLayeredDrawMixin {
                 Map.entry(ForgeLayeredDraw.EXPERIENCE, Layers.HOTBAR),
                 Map.entry(ForgeLayeredDraw.HOTBAR_MESSAGE, Layers.ACTION_BAR),
                 Map.entry(ForgeLayeredDraw.CHAT_OVERLAY, Layers.CHAT),
-                Map.entry(ForgeLayeredDraw.BOSS_OVERLAY, Layers.BOSS_BAR),
+                Map.entry(ForgeLayeredDraw.BOSS_OVERLAY, Layers.BOSSBAR),
                 Map.entry(ForgeLayeredDraw.SCOREBOARD, Layers.SCOREBOARD),
                 Map.entry(ForgeLayeredDraw.POTION_EFFECTS, Layers.EFFECTS),
                 Map.entry(ForgeLayeredDraw.TAB_LIST, Layers.PLAYER_LIST),

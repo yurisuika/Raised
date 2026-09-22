@@ -47,7 +47,7 @@ public abstract class GuiOverlayManagerMixin {
                 Map.entry(VanillaGuiOverlay.ITEM_NAME.id(), Layers.HOTBAR),
                 Map.entry(VanillaGuiOverlay.RECORD_OVERLAY.id(), Layers.ACTION_BAR),
                 Map.entry(VanillaGuiOverlay.CHAT_PANEL.id(), Layers.CHAT),
-                Map.entry(VanillaGuiOverlay.BOSS_EVENT_PROGRESS.id(), Layers.BOSS_BAR),
+                Map.entry(VanillaGuiOverlay.BOSS_EVENT_PROGRESS.id(), Layers.BOSSBAR),
                 Map.entry(VanillaGuiOverlay.SCOREBOARD.id(), Layers.SCOREBOARD),
                 Map.entry(VanillaGuiOverlay.POTION_ICONS.id(), Layers.EFFECTS),
                 Map.entry(VanillaGuiOverlay.PLAYER_LIST.id(), Layers.PLAYER_LIST),

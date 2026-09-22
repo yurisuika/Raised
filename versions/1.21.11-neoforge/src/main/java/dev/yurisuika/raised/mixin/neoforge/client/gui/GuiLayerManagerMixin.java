@@ -59,7 +59,7 @@ public abstract class GuiLayerManagerMixin {
                 Map.entry(VanillaGuiLayers.SPECTATOR_TOOLTIP, Layers.HOTBAR),
                 Map.entry(VanillaGuiLayers.OVERLAY_MESSAGE, Layers.ACTION_BAR),
                 Map.entry(VanillaGuiLayers.CHAT, Layers.CHAT),
-                Map.entry(VanillaGuiLayers.BOSS_OVERLAY, Layers.BOSS_BAR),
+                Map.entry(VanillaGuiLayers.BOSS_OVERLAY, Layers.BOSSBAR),
                 Map.entry(VanillaGuiLayers.SCOREBOARD_SIDEBAR, Layers.SCOREBOARD),
                 Map.entry(VanillaGuiLayers.EFFECTS, Layers.EFFECTS),
                 Map.entry(VanillaGuiLayers.TAB_LIST, Layers.PLAYER_LIST),

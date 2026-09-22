@@ -64,12 +64,12 @@ public abstract class OverlayRegistryMixin {
                 Map.entry(new ResourceLocation("item_name"), Layers.HOTBAR),            // ForgeIngameGui.ITEM_NAME_ELEMENT
                 Map.entry(new ResourceLocation("record"), Layers.ACTION_BAR),           // ForgeIngameGui.RECORD_OVERLAY_ELEMENT
                 Map.entry(new ResourceLocation("chat_history"), Layers.CHAT),           // ForgeIngameGui.CHAT_PANEL_ELEMENT
-                Map.entry(new ResourceLocation("boss_health"), Layers.BOSS_BAR),        // ForgeIngameGui.BOSS_HEALTH_ELEMENT
+                Map.entry(new ResourceLocation("boss_health"), Layers.BOSSBAR),         // ForgeIngameGui.BOSS_HEALTH_ELEMENT
                 Map.entry(new ResourceLocation("scoreboard"), Layers.SCOREBOARD),       // ForgeIngameGui.SCOREBOARD_ELEMENT
                 Map.entry(new ResourceLocation("potion_icons"), Layers.EFFECTS),        // ForgeIngameGui.POTION_ICONS_ELEMENT
                 Map.entry(new ResourceLocation("player_list"), Layers.PLAYER_LIST),     // ForgeIngameGui.PLAYER_LIST_ELEMENT
                 Map.entry(new ResourceLocation("title_text"), Layers.TITLES),           // ForgeIngameGui.TITLE_TEXT_ELEMENT
-                Map.entry(new ResourceLocation("subtitles"), Layers.CLOSED_CAPTIONS)          // ForgeIngameGui.SUBTITLES_ELEMENT
+                Map.entry(new ResourceLocation("subtitles"), Layers.CLOSED_CAPTIONS)    // ForgeIngameGui.SUBTITLES_ELEMENT
         );
 
         return map.getOrDefault(name, null);
