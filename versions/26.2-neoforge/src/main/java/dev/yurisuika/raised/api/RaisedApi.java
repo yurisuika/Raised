@@ -11,7 +11,7 @@ public class RaisedApi {
     /**
      * <p>Retrieves the calculated horizontal offset for the given layer.
      *
-     * <p>For each group containing this layer, the x-axis offset is sign mapped with the layer anchor. The sum from all
+     * <p>For each group containing this layer, the x-axis offset is sign mapped with the layer position. The sum from all
      * groups containing this layer is returned.
      *
      * @param layerName the {@link Layer} key as a {@link String}
@@ -25,7 +25,7 @@ public class RaisedApi {
     /**
      * <p>Retrieves the calculated horizontal offset for the given layer.
      *
-     * <p>For each group containing this layer, the x-axis offset is sign mapped with the layer anchor. The sum from all
+     * <p>For each group containing this layer, the x-axis offset is sign mapped with the layer position. The sum from all
      * groups containing this layer is returned.
      *
      * @param layerName the {@link Layer} key as an {@link Identifier}
@@ -39,7 +39,7 @@ public class RaisedApi {
     /**
      * <p>Retrieves the calculated vertical offset for the given layer.
      *
-     * <p>For each group containing this layer, the y-axis offset is sign mapped with the layer anchor. The sum from all
+     * <p>For each group containing this layer, the y-axis offset is sign mapped with the layer position. The sum from all
      * groups containing this layer is returned.
      *
      * @param layerName the {@link Layer} key as a {@link String}
@@ -53,7 +53,7 @@ public class RaisedApi {
     /**
      * <p>Retrieves the calculated vertical offset for the given layer.
      *
-     * <p>For each group containing this layer, the y-axis offset is sign mapped with the layer anchor. The sum from all
+     * <p>For each group containing this layer, the y-axis offset is sign mapped with the layer position. The sum from all
      * groups containing this layer is returned.
      *
      * @param layerName the {@link Layer} key as an {@link Identifier}
@@ -86,20 +86,20 @@ public class RaisedApi {
      * <p>Registers a layer for the user to configure with full configuration.
      *
      * @param layerName the {@link Layer} key to register as a {@link String}
-     * @param anchor the {@link Layer.Anchor} of the layer
+     * @param position the {@link Layer.Position} of the layer
      */
-    public static void register(String layerName, Layer.Anchor anchor) {
-        LayerRegistry.register(layerName, Layers.createLayer(anchor));
+    public static void register(String layerName, Layer.Position position) {
+        LayerRegistry.register(layerName, Layers.createLayer(position));
     }
 
     /**
      * <p>Registers a layer for the user to configure with full configuration.
      *
      * @param layerName the {@link Layer} key to register as an {@link Identifier}
-     * @param anchor the {@link Layer.Anchor} of the layer
+     * @param position the {@link Layer.Position} of the layer
      */
-    public static void register(Identifier layerName, Layer.Anchor anchor) {
-        LayerRegistry.register(layerName, Layers.createLayer(anchor));
+    public static void register(Identifier layerName, Layer.Position position) {
+        LayerRegistry.register(layerName, Layers.createLayer(position));
     }
 
 }

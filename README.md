@@ -18,7 +18,7 @@ To show off your fixed hotbar selection indicator, Raised positions the hotbar s
 ### Move around the HUD!
 Raised gives you the power to move around both vanilla and modded HUD layers!
 
-Simply create a group and set its x-axis and y-axis offsets. Add as many layers to the group as you like, and they will all move the same amount! Set the anchor point for each layer individually to choose which way the layer will move across the screen!
+Simply create a group and set its x-axis and y-axis offsets. Add as many layers to the group as you like, and they will all move the same amount! Set the position for each layer individually to choose which way the layer will move across the screen!
 
 ### Working with mods!
 Raised allows mods to register layer entries for their own HUD overlays. Layers can be manually registered, but many are automatically registered without mods having to do anything at all!

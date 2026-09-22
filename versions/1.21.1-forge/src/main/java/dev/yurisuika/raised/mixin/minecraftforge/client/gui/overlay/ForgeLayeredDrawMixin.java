@@ -40,7 +40,7 @@ public abstract class ForgeLayeredDrawMixin {
     @Unique
     public void addLayer(ResourceLocation name, LayeredDraw.Layer layer) {
         if (!name.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) {
-            LayerRegistry.register(name, new Layer(Layer.Anchor.NONE));
+            LayerRegistry.register(name, new Layer(Layer.Position.NONE));
         } else {
             name = curateName(name);
         }

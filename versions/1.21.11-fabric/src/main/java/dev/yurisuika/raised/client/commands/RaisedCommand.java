@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.yurisuika.raised.client.gui.group.Groups;
-import dev.yurisuika.raised.commands.arguments.AnchorArgument;
+import dev.yurisuika.raised.commands.arguments.PositionArgument;
 import dev.yurisuika.raised.commands.arguments.GroupArgument;
 import dev.yurisuika.raised.commands.arguments.LayerArgument;
 import dev.yurisuika.raised.commands.arguments.SelectionIndicatorArgument;
@@ -179,19 +179,19 @@ public class RaisedCommand {
                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                     return SharedSuggestionProvider.suggest(Config.getOptions().getGroups().get(group).getLayers().keySet().stream().filter(entry -> LayerRegistry.hasLayer(Identifier.tryParse(entry))), builder);
                                                                 })
-                                                                .then(ClientCommandManager.literal("anchor")
+                                                                .then(ClientCommandManager.literal("position")
                                                                         .executes(commandContext -> {
                                                                             String group = GroupArgument.getGroup(commandContext, "group");
                                                                             String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.options.anchor.query", layer, group, Config.getOptions().getGroups().get(group).getLayers().get(layer).getAnchor().caption()));
+                                                                            commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.options.position.query", layer, group, Config.getOptions().getGroups().get(group).getLayers().get(layer).getPosition().caption()));
                                                                             return 1;
                                                                         })
-                                                                        .then(ClientCommandManager.argument("anchor", AnchorArgument.anchor())
+                                                                        .then(ClientCommandManager.argument("position", PositionArgument.position())
                                                                                 .executes(commandContext -> {
                                                                                     String group = GroupArgument.getGroup(commandContext, "group");
                                                                                     String layer = LayerArgument.getLayer(commandContext, "layer").toString();
-                                                                                    Config.update(o -> o.getGroups().get(group).getLayers().get(layer).setAnchor(AnchorArgument.getAnchor(commandContext, "anchor")));
-                                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.options.anchor.set", layer, group, Config.getOptions().getGroups().get(group).getLayers().get(layer).getAnchor().caption()));
+                                                                                    Config.update(o -> o.getGroups().get(group).getLayers().get(layer).setPosition(PositionArgument.getPosition(commandContext, "position")));
+                                                                                    commandContext.getSource().sendFeedback(Component.translatable("commands.raised.layer.options.position.set", layer, group, Config.getOptions().getGroups().get(group).getLayers().get(layer).getPosition().caption()));
                                                                                     return 1;
                                                                                 })
                                                                         )

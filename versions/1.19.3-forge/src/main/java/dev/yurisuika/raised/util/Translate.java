@@ -18,9 +18,9 @@ public class Translate {
     public static int getX(String layerName) {
         return findGroupsWithLayer(layerName).stream().mapToInt(groupName -> {
             int offset = Config.getOptions().getGroups().get(groupName).getOffset().getX();
-            int anchor = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getAnchor().getX();
+            int position = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getPosition().getX();
 
-            return offset * anchor;
+            return offset * position;
         }).sum();
     }
 
@@ -31,9 +31,9 @@ public class Translate {
     public static int getY(String layerName) {
         return findGroupsWithLayer(layerName).stream().mapToInt(groupName -> {
             int offset = Config.getOptions().getGroups().get(groupName).getOffset().getY();
-            int anchor = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getAnchor().getY();
+            int position = Config.getOptions().getGroups().get(groupName).getLayers().get(layerName).getPosition().getY();
 
-            return offset * anchor;
+            return offset * position;
         }).sum();
     }
 

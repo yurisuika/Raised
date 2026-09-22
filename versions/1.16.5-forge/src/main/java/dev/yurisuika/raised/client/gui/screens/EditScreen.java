@@ -380,7 +380,7 @@ public class EditScreen extends AbstractListScreen {
         });
 
         if (leftList.hovered != null) {
-            leftList.hovered.optionAnchor.renderToolTip(poseStack, mouseX, mouseY);
+            leftList.hovered.optionPosition.renderToolTip(poseStack, mouseX, mouseY);
         }
     }
 
@@ -403,20 +403,20 @@ public class EditScreen extends AbstractListScreen {
         public class Entry extends AdjustableWidgetSelectionList.Entry<Entry> {
 
             protected final ResourceLocation layerName;
-            protected final AbstractWidget optionAnchor;
+            protected final AbstractWidget optionPosition;
 
             public Entry(ResourceLocation layerName) {
                 this.layerName = layerName;
 
-                optionAnchor = CycleButton.builder(Arrays.stream(Layer.Anchor.values()).collect(Collectors.toList()), Layer.Anchor::glyph)
-                        .withInitialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getAnchor())
-                        .withTooltip(value -> font.split(new TranslatableComponent("options.raised.anchor.tooltip", new TranslatableComponent("options.raised.anchor." + value.getSerializedName())), 200))
+                optionPosition = CycleButton.builder(Arrays.stream(Layer.Position.values()).collect(Collectors.toList()), Layer.Position::glyph)
+                        .withInitialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getPosition())
+                        .withTooltip(value -> font.split(new TranslatableComponent("options.raised.position.tooltip", new TranslatableComponent("options.raised.position." + value.getSerializedName())), 200))
                         .create(0,
                                 0,
                                 ENTRY_INNER,
                                 ENTRY_INNER,
-                                new TranslatableComponent("options.raised.anchor"),
-                                (button) -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setAnchor(button.getValue())));
+                                new TranslatableComponent("options.raised.position"),
+                                (button) -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setPosition(button.getValue())));
             }
 
             public ResourceLocation getLayerName() {
@@ -468,14 +468,14 @@ public class EditScreen extends AbstractListScreen {
                             24);
                 }
 
-                optionAnchor.x = left + width - ENTRY_PADDING - ENTRY_INNER;
-                optionAnchor.y = top + ENTRY_PADDING;
-                optionAnchor.render(poseStack, mouseX, mouseY, partialTick);
+                optionPosition.x = left + width - ENTRY_PADDING - ENTRY_INNER;
+                optionPosition.y = top + ENTRY_PADDING;
+                optionPosition.render(poseStack, mouseX, mouseY, partialTick);
             }
 
             @Override
             public List<? extends GuiEventListener> children() {
-                return Collections.singletonList(optionAnchor);
+                return Collections.singletonList(optionPosition);
             }
 
             public boolean handleTransfer(double mouseX, double mouseY, int button) {
@@ -491,8 +491,8 @@ public class EditScreen extends AbstractListScreen {
             }
 
             public boolean handleWidget(double mouseX, double mouseY, int button) {
-                if (optionAnchor.mouseClicked(mouseX, mouseY, button)) {
-                    setFocused(optionAnchor);
+                if (optionPosition.mouseClicked(mouseX, mouseY, button)) {
+                    setFocused(optionPosition);
                     return true;
                 }
                 return false;
@@ -516,7 +516,7 @@ public class EditScreen extends AbstractListScreen {
 
             @Override
             public boolean mouseReleased(double mouseX, double mouseY, int button) {
-                return optionAnchor.mouseReleased(mouseX, mouseY, button);
+                return optionPosition.mouseReleased(mouseX, mouseY, button);
             }
 
             public void setSelected(boolean selected) {

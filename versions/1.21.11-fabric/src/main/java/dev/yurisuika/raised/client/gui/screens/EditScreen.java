@@ -365,21 +365,21 @@ public class EditScreen extends AbstractListScreen {
         public class Entry extends AdjustableWidgetSelectionList.Entry<Entry> {
 
             protected final Identifier layerName;
-            protected final AbstractWidget optionAnchor;
+            protected final AbstractWidget optionPosition;
 
             public Entry(Identifier layerName) {
                 this.layerName = layerName;
 
-                optionAnchor = CycleButton.builder(Layer.Anchor::glyph, Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getAnchor())
-                        .withValues(Layer.Anchor.values())
+                optionPosition = CycleButton.builder(Layer.Position::glyph, Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getPosition())
+                        .withValues(Layer.Position.values())
                         .displayOnlyValue()
-                        .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.anchor.tooltip", Component.translatable("options.raised.anchor." + value.getSerializedName()))))
+                        .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.position.tooltip", Component.translatable("options.raised.position." + value.getSerializedName()))))
                         .create(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER,
                                 getY() + ENTRY_PADDING,
                                 ENTRY_INNER,
                                 ENTRY_INNER,
-                                Component.translatable("options.raised.anchor"),
-                                (button, value) -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setAnchor(value)));
+                                Component.translatable("options.raised.position"),
+                                (button, value) -> Config.update(o -> o.getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).setPosition(value)));
             }
 
             public Identifier getLayerName() {
@@ -427,13 +427,13 @@ public class EditScreen extends AbstractListScreen {
                     }
                 }
 
-                optionAnchor.setPosition(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER, getY() + ENTRY_PADDING);
-                optionAnchor.render(guiGraphics, mouseX, mouseY, partialTick);
+                optionPosition.setPosition(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER, getY() + ENTRY_PADDING);
+                optionPosition.render(guiGraphics, mouseX, mouseY, partialTick);
             }
 
             @Override
             public List<? extends GuiEventListener> children() {
-                return List.of(optionAnchor);
+                return List.of(optionPosition);
             }
 
             @Override
@@ -452,7 +452,7 @@ public class EditScreen extends AbstractListScreen {
 
                 };
 
-                return List.of(optionAnchor, narration);
+                return List.of(optionPosition, narration);
             }
 
             public boolean handleTransfer(MouseButtonEvent event) {
@@ -468,8 +468,8 @@ public class EditScreen extends AbstractListScreen {
             }
 
             public boolean handleWidget(MouseButtonEvent event, boolean doubleClick) {
-                if (optionAnchor.mouseClicked(event, doubleClick)) {
-                    setFocused(optionAnchor);
+                if (optionPosition.mouseClicked(event, doubleClick)) {
+                    setFocused(optionPosition);
                     return true;
                 }
                 return false;
@@ -493,7 +493,7 @@ public class EditScreen extends AbstractListScreen {
 
             @Override
             public boolean mouseReleased(MouseButtonEvent event) {
-                return optionAnchor.mouseReleased(event);
+                return optionPosition.mouseReleased(event);
             }
 
             public void setSelected(boolean selected) {

@@ -11,8 +11,8 @@ public class Options {
 
     public TreeMap<String, Group> groups = new TreeMap<String, Group>() {{
         put("Default", Groups.createGroup(0, 2,
-                Layers.HOTBAR.toString(), Layers.createLayer(Layer.Anchor.BOTTOM),
-                Layers.ACTION_BAR.toString(), Layers.createLayer(Layer.Anchor.BOTTOM)));
+                Layers.HOTBAR.toString(), Layers.createLayer(Layer.Position.BOTTOM),
+                Layers.ACTION_BAR.toString(), Layers.createLayer(Layer.Position.BOTTOM)));
     }};
     public Settings settings = new Settings(Settings.SelectionIndicator.AUTO);
 

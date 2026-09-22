@@ -9,12 +9,12 @@ Combine and control different Layers in Groups of your creation. Groups makes it
 - Reworked commands to support new config.
 - Added vanilla action bar layer, now distinctly controllable from hotbar layer.
 - Added vanilla chat input layer to move chat input and command suggestions/usage. Uniquely changes width based on x-axis offset.
-- Added anchor font glyph set.
+- Added position font glyph set.
 - Removed direction sprites.
 - Reworked several vanilla layer sprites.
 - Renamed several vanilla layers to be more distinctive.
 - Renamed `texture` setting to be something human friendly.
-- Replaced `direction` properties with singular `anchor` property for layers.
+- Replaced `direction` properties with singular `position` property for layers.
 - Renamed `displacement` to `offset`, now properties of groups instead of layers.
 - Removed `sync` property from layers.
-- Added registration methods with anchor parameter to API so mods may set a default anchor for a layer they register.
+- Added registration methods with position parameter to API so mods may set a default position for a layer they register.
