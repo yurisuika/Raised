@@ -23,8 +23,8 @@ public class SettingsScreen extends AbstractPopupScreen {
         options = new ArrayList<>();
 
         optionSelectionIndicator = CycleButton.builder(Settings.SelectionIndicator::caption)
-                .withInitialValue(Config.getOptions().getSettings().getSelectionIndicator())
                 .withValues(Settings.SelectionIndicator.values())
+                .withInitialValue(Config.getOptions().getSettings().getSelectionIndicator())
                 .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.selection_indicator." + value.getSerializedName() + ".tooltip")))
                 .create(panelX,
                         panelY + WIDGET_AND_GAP_HEIGHT,

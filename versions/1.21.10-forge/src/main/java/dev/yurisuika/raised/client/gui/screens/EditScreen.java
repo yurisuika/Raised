@@ -379,8 +379,8 @@ public class EditScreen extends AbstractListScreen {
                 this.layerName = layerName;
 
                 optionPosition = CycleButton.builder(Layer.Position::glyph)
-                        .withInitialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getPosition())
                         .withValues(Layer.Position.values())
+                        .withInitialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getPosition())
                         .displayOnlyValue()
                         .withTooltip(value -> Tooltip.create(Component.translatable("options.raised.position.tooltip", Component.translatable("options.raised.position." + value.getSerializedName()))))
                         .create(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER,

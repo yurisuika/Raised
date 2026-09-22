@@ -407,8 +407,8 @@ public class EditScreen extends AbstractListScreen {
                 this.layerName = layerName;
 
                 optionPosition = CycleButton.builder(Layer.Position::glyph)
-                        .withInitialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getPosition())
                         .withValues(Layer.Position.values())
+                        .withInitialValue(Config.getOptions().getGroups().get(getCurrentGroup().getGroupName()).getLayers().get(layerName.toString()).getPosition())
                         .displayOnlyValue()
                         .withTooltip(value -> Minecraft.getInstance().font.split(Component.translatable("options.raised.position.tooltip", Component.translatable("options.raised.position." + value.getSerializedName())), 200))
                         .create(0,
