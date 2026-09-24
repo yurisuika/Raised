@@ -6,7 +6,7 @@
 Since time immemorial, the hotbar selection indicator has been broken. With vanilla textures, you may not have noticed it, but it becomes clearly visible with certain resource packs. Raised seeks to fix this.
 
 How it is fixed depends on your game version:
-- (1.16 - 1.20.1): Raised simply adjusts the height of the indicator in the code to show the entire texture, instead of it being cut off short on the bottom by 2px. Thus, all 24px oh height are drawn on the screen!
+- (1.16 - 1.20.1): Raised simply adjusts the height of the indicator in the code to show the entire texture, instead of it being cut off short on the bottom by 2px. Thus, all 24px of height are drawn on the screen!
 - (1.20.2+): When Mojang broke up the GUI atlases into individual sprites, they "fixed" the selection indicator, but made the actual texture only 23px! Because Java Edition has the hotbar shoved all the way down to the bottom of the screen (unlike Bedrock), it looks fixed... that is, until you want to move around the GUI with Raised! In these versions, you have several options to restore the indicator...
   - Replace the selection texture with a custom one under Raised's namespace that is a square 24px.
   - Patch the vanilla indicator by drawing the topmost pixels below it, vertically mirrored. Without explicit resource pack support, you can still emulate a fixed indicator.
