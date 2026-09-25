@@ -1,4 +1,4 @@
-accessWidener v2 named
+classTweaker v1 named
 
 extendable method net/minecraft/client/gui/components/AbstractSelectionList getEntryAtPosition (DD)Lnet/minecraft/client/gui/components/AbstractSelectionList$Entry;
 

@@ -25,7 +25,7 @@ fabricApi {
 
 loom {
     fabricModJsonPath = project.file("src/main/resources/fabric.mod.json")
-    accessWidenerPath = project.file("src/main/resources/${property("mod.id")}.accesswidener")
+    accessWidenerPath = project.file("src/main/resources/${property("mod.id")}.classtweaker")
 
     mixin {
         useLegacyMixinAp = false
@@ -33,13 +33,7 @@ loom {
     }
 }
 
-val requiredJava = when {
-    sc.eval(sc.current.version, ">=26.1") -> JavaVersion.VERSION_25
-    sc.eval(sc.current.version, ">=1.20.6") -> JavaVersion.VERSION_21
-    sc.eval(sc.current.version, ">=1.18") -> JavaVersion.VERSION_17
-    sc.eval(sc.current.version, ">=1.17") -> JavaVersion.VERSION_16
-    else -> JavaVersion.VERSION_1_8
-}
+val requiredJava = JavaVersion.VERSION_25
 
 java {
     withSourcesJar()
@@ -89,7 +83,10 @@ val exportSourcesJar = tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar").get()
 
 val TaskContainer.buildAndCollect by tasks.registering(Copy::class) {
     group = "build"
-    from(exportJar, exportSourcesJar)
+    from(exportJar)
+    from(exportSourcesJar) {
+        into("sources")
+    }
     into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
     dependsOn("build")
 }

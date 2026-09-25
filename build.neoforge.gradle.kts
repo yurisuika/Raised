@@ -1,5 +1,5 @@
 plugins {
-    id("dev.architectury.loom-no-remap") version "1.17-SNAPSHOT"
+    id("net.neoforged.gradle.userdev") version "7.1.39"
     id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
@@ -12,8 +12,7 @@ repositories {
 }
 
 dependencies {
-    minecraft("com.mojang:minecraft:${property("minecraft.version")}")
-    neoForge("net.neoforged:neoforge:${property("api.version")}")
+    implementation("net.neoforged:neoforge:${property("api.version")}")
 }
 
 sourceSets {
@@ -22,32 +21,26 @@ sourceSets {
     }
 }
 
-loom {
-    mixin {
-        useLegacyMixinAp = false
-        defaultRefmapName = "${property("mod.id")}.refmap.json"
-    }
+minecraft {
+    accessTransformers.file(files(project.file("src/main/resources/META-INF/accesstransformer.cfg").absolutePath))
 
     runs {
-        register("datagen") {
-            if (sc.eval(sc.current.version, ">=1.21.4")) serverData() else data()
-            programArgs("--all")
-            programArgs("--mod", "${property("mod.id")}")
-            programArgs("--output", project.file("src/generated/resources").absolutePath)
-            programArgs("--existing", project.file("src/main/resources").absolutePath)
+        named("serverData") {
+            arguments.addAll("--all")
+            arguments.addAll("--mod", "${property("mod.id")}")
+            arguments.addAll("--output", project.file("src/generated/resources").absolutePath)
+            arguments.addAll("--existing", project.file("src/main/resources").absolutePath)
         }
     }
 }
 
-val requiredJava = when {
-    sc.eval(sc.current.version, ">=26.1") -> JavaVersion.VERSION_25
-    sc.eval(sc.current.version, ">=1.20.6") -> JavaVersion.VERSION_21
-    sc.eval(sc.current.version, ">=1.18") -> JavaVersion.VERSION_17
-    sc.eval(sc.current.version, ">=1.17") -> JavaVersion.VERSION_16
-    else -> JavaVersion.VERSION_1_8
-}
+val requiredJava = JavaVersion.VERSION_25
 
 java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+
     withSourcesJar()
 
     targetCompatibility = requiredJava
@@ -95,7 +88,10 @@ val exportSourcesJar = tasks.named<org.gradle.jvm.tasks.Jar>("sourcesJar").get()
 
 val TaskContainer.buildAndCollect by tasks.registering(Copy::class) {
     group = "build"
-    from(exportJar, exportSourcesJar)
+    from(exportJar)
+    from(exportSourcesJar) {
+        into("sources")
+    }
     into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
     dependsOn("build")
 }

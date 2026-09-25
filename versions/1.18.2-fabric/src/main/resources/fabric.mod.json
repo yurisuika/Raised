@@ -31,7 +31,7 @@
     "raised.mixins.json"
   ],
 
-  "accessWidener": "raised.accesswidener",
+  "accessWidener": "raised.classtweaker",
 
   "depends": {
     "fabricloader": "${loader_version_range}",
