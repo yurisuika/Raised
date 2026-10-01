@@ -21,6 +21,7 @@ stonecutter {
             loader -> version("$version-$loader", version).buildscript("build.$loader" + (if (sc.eval(version, ">=26")) "" else ".obfuscated") + ".gradle.kts")
         }
 
+        match("26.4", "fabric")
         match("26.3", "fabric", "forge", "neoforge")
         match("26.2", "fabric", "forge", "neoforge")
         match("26.1.2", "fabric", "forge", "neoforge")
