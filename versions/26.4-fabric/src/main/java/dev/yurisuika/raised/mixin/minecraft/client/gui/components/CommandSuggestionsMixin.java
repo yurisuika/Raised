@@ -34,7 +34,7 @@ public abstract class CommandSuggestionsMixin {
         return instance.height + Translate.getY(Layers.CHAT_INPUT);
     }
 
-    @ModifyArg(method = "updateUsageInfo", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(III)I"), index = 1)
+    @ModifyArg(method = "updateUsageInfo", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/CommandSuggestions;getScreenX(II)I"), index = 0)
     private int adjustUsageInfoX(int value) {
         return ((CommandSuggestionsAccessor) this).getAnchorToBottom() ? value + Translate.getX(Layers.CHAT_INPUT) : value;
     }

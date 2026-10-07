@@ -3,7 +3,6 @@ package dev.yurisuika.raised.client.gui.components;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -38,7 +37,7 @@ public final class IntRangeSliderButton extends AbstractSliderButton {
     public int getValue() {
         int value = min + (int) Math.round(this.value * (max - min));
 
-        return Mth.clamp(value, min, max);
+        return Math.clamp(value, min, max);
     }
 
     public void setValue(int value) {
@@ -124,7 +123,7 @@ public final class IntRangeSliderButton extends AbstractSliderButton {
         }
 
         public IntRangeSliderButton build() {
-            this.initialValue = Mth.clamp(initialValue, min, max);
+            this.initialValue = Math.clamp(initialValue, min, max);
             return new IntRangeSliderButton(this);
         }
 
