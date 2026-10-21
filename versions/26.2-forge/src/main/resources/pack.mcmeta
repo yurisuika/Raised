@@ -1,8 +1,8 @@
 {
     "pack": {
         "description": "Raised",
-        "pack_format": 84.0,
-        "min_format": 82.0,
-        "max_format": 84.0
+        "pack_format": 88.0,
+        "min_format": 85.0,
+        "max_format": 88.0
     }
 }

@@ -6,7 +6,7 @@ import dev.yurisuika.raised.client.gui.screens.SelectScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
@@ -72,15 +72,15 @@ public abstract class AbstractPopupScreen extends AbstractScreen {
     public abstract void addOptions();
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics) {
         if (parent != null) {
-            parent.extractBackground(guiGraphics, mouseX, mouseY, a);
+            parent.extractBackground(guiGraphics);
             guiGraphics.nextStratum();
-            parent.extractRenderState(guiGraphics, -1, -1, a);
+            parent.extractRenderState(guiGraphics);
             guiGraphics.nextStratum();
             extractTransparentBackground(guiGraphics);
         } else {
-            super.extractBackground(guiGraphics, mouseX, mouseY, a);
+            super.extractBackground(guiGraphics);
         }
 
         guiGraphics.blitSprite(
@@ -93,8 +93,8 @@ public abstract class AbstractPopupScreen extends AbstractScreen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics) {
+        super.extractRenderState(guiGraphics);
 
         guiGraphics.textRenderer().acceptScrolling(
                 getPopupTitle(),

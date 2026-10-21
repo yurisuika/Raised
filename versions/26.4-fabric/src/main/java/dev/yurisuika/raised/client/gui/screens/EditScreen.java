@@ -22,7 +22,7 @@ import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -291,8 +291,8 @@ public class EditScreen extends AbstractListScreen {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
-        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics) {
+        super.extractBackground(guiGraphics);
 
         guiGraphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
@@ -304,8 +304,8 @@ public class EditScreen extends AbstractListScreen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics) {
+        super.extractRenderState(guiGraphics);
 
         guiGraphics.textRenderer().acceptScrolling(
                 Component.literal(getCurrentGroup().getGroupName()),
@@ -392,7 +392,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
+            public void extractContent(GuiGraphicsExtractor guiGraphics, boolean hovered) {
                 guiGraphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         Icon.getLayerIcon(layerName),
@@ -413,8 +413,8 @@ public class EditScreen extends AbstractListScreen {
                         getY(),
                         getY() + getContentHeight());
 
-                int i = mouseX - getX();
-                if (isMouseOver(mouseX, mouseY)) {
+                int i = guiGraphics.mouseX() - getX();
+                if (isMouseOver(guiGraphics.mouseX(), guiGraphics.mouseY())) {
                     guiGraphics.blitSprite(
                             RenderPipelines.GUI_TEXTURED,
                             Identifier.fromNamespaceAndPath(Raised.MOD_ID, "layer_list/unselect" + (i < ENTRY_HEIGHT ? "_highlighted" : "")),
@@ -428,7 +428,7 @@ public class EditScreen extends AbstractListScreen {
                 }
 
                 optionPosition.setPosition(getX() + getWidth() - ENTRY_PADDING - ENTRY_INNER, getY() + ENTRY_PADDING);
-                optionPosition.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+                optionPosition.extractRenderState(guiGraphics);
             }
 
             @Override
@@ -540,7 +540,7 @@ public class EditScreen extends AbstractListScreen {
             }
 
             @Override
-            public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
+            public void extractContent(GuiGraphicsExtractor guiGraphics, boolean hovered) {
                 guiGraphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         Icon.getLayerIcon(layerName),
@@ -561,8 +561,8 @@ public class EditScreen extends AbstractListScreen {
                         getY(),
                         getY() + getContentHeight());
 
-                int i = mouseX - getX();
-                if (isMouseOver(mouseX, mouseY)) {
+                int i = guiGraphics.mouseX() - getX();
+                if (isMouseOver(guiGraphics.mouseX(), guiGraphics.mouseY())) {
                     guiGraphics.blitSprite(
                             RenderPipelines.GUI_TEXTURED,
                             Identifier.fromNamespaceAndPath(Raised.MOD_ID, "layer_list/select" + (i < ENTRY_HEIGHT ? "_highlighted" : "")),

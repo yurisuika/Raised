@@ -24,13 +24,13 @@ public abstract class ChatScreenMixin {
     /**
      * Moves the {@code chat} for {@link Layer} key "minecraft:chat".
      */
-    @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Font;IIILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;Z)V"))
-    private void startChatTranslate(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Font;ILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;Z)V"))
+    private void startChatTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
         Translate.start(guiGraphics.pose(), Layers.CHAT);
     }
 
-    @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Font;IIILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;Z)V", shift = At.Shift.AFTER))
-    private void endChatTranslate(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ChatComponent;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;Lnet/minecraft/client/gui/Font;ILnet/minecraft/client/gui/components/ChatComponent$DisplayMode;Z)V", shift = At.Shift.AFTER))
+    private void endChatTranslate(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
         Translate.end(guiGraphics.pose(), Layers.CHAT);
     }
 
@@ -38,7 +38,7 @@ public abstract class ChatScreenMixin {
      * Moves and resizes the {@code chat input} for {@link Layer} key "minecraft:chat_input".
      */
     @Inject(method = "extractRenderState", at = @At("TAIL"))
-    private void adjustChatInput(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
+    private void adjustChatInput(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
         input.setWidth((((ChatScreen) (Object) this).width - 4) - (2 * Translate.getX(Layers.CHAT_INPUT)));
         input.setPosition(4 + Translate.getX(Layers.CHAT_INPUT), (((ChatScreen) (Object) this).height - 12) + Translate.getY(Layers.CHAT_INPUT));
     }
@@ -69,9 +69,9 @@ public abstract class ChatScreenMixin {
     /**
      * Moves the {@code chat click} for {@link Layer} key "minecraft:chat".
      */
-    @Redirect(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/MouseButtonEvent;button()I"))
-    private int adjustChatMouseClickButton(MouseButtonEvent instance) {
-        return new MouseButtonEvent(instance.x() - Translate.getX(Layers.CHAT_INPUT), instance.y() - Translate.getY(Layers.CHAT_INPUT), instance.buttonInfo()).button();
+    @Redirect(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/MouseButtonEvent;isLeftMouse()Z"))
+    private boolean adjustChatMouseClickButton(MouseButtonEvent instance) {
+        return new MouseButtonEvent(instance.x() - Translate.getX(Layers.CHAT_INPUT), instance.y() - Translate.getY(Layers.CHAT_INPUT), instance.buttonInfo()).isLeftMouse();
     }
 
     @Redirect(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/MouseButtonEvent;x()D"))

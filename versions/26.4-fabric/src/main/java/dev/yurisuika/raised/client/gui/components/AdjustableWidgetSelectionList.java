@@ -66,12 +66,12 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
     }
 
     @Override
-    public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        hovered = isMouseOver(mouseX, mouseY) ? getEntryAtPosition(mouseX, mouseY) : null;
+    public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics) {
+        hovered = isMouseOver(guiGraphics.mouseX(), guiGraphics.mouseY()) ? getEntryAtPosition(guiGraphics.mouseX(), guiGraphics.mouseY()) : null;
         enableScissor(guiGraphics);
-        extractListItems(guiGraphics, mouseX, mouseY, partialTick);
+        extractListItems(guiGraphics);
         guiGraphics.disableScissor();
-        extractScrollbar(guiGraphics, mouseX, mouseY);
+        extractScrollbar(guiGraphics);
     }
 
     @Override
@@ -93,10 +93,10 @@ public abstract class AdjustableWidgetSelectionList<E extends AdjustableWidgetSe
     }
 
     @Override
-    public void extractListItems(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractListItems(GuiGraphicsExtractor guiGraphics) {
         for (E entry : children()) {
             if (entry.getY() + entry.getHeight() >= getY() && entry.getY() <= getBottom()) {
-                extractItem(guiGraphics, mouseX, mouseY, partialTick, entry);
+                extractItem(guiGraphics, entry);
             }
         }
     }

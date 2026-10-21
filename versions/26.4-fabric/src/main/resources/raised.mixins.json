@@ -13,6 +13,7 @@
     "minecraft.client.gui.components.BossHealthOverlayMixin",
     "minecraft.client.gui.components.CommandSuggestionsAccessor",
     "minecraft.client.gui.components.CommandSuggestionsMixin",
+    "minecraft.client.gui.components.PlayerTabOverlayMixin",
     "minecraft.client.gui.components.SubtitleOverlayMixin",
     "minecraft.client.gui.components.toasts.ToastManagerMixin$ToastInstanceMixin",
     "minecraft.client.gui.screens.ChatScreenMixin"

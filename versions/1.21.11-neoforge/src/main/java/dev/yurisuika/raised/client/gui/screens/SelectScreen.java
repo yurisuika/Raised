@@ -176,8 +176,8 @@ public class SelectScreen extends AbstractListScreen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float a) {
-        super.renderBackground(guiGraphics, mouseX, mouseY, a);
+    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
 
         guiGraphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,

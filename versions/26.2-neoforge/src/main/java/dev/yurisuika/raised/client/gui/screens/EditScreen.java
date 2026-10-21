@@ -291,8 +291,8 @@ public class EditScreen extends AbstractListScreen {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
-        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
 
         guiGraphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,

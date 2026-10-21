@@ -15,7 +15,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.pipeline.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -176,8 +176,8 @@ public class SelectScreen extends AbstractListScreen {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
-        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics) {
+        super.extractBackground(guiGraphics);
 
         guiGraphics.blitSprite(
                 RenderPipelines.GUI_TEXTURED,
@@ -189,8 +189,8 @@ public class SelectScreen extends AbstractListScreen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics) {
+        super.extractRenderState(guiGraphics);
 
         guiGraphics.textRenderer().acceptScrolling(
                 title,
@@ -246,7 +246,7 @@ public class SelectScreen extends AbstractListScreen {
             }
 
             @Override
-            public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTick) {
+            public void extractContent(GuiGraphicsExtractor guiGraphics, boolean hovered) {
                 guiGraphics.textRenderer().acceptScrolling(
                         Component.literal(groupName),
                         getX() + (getWidth() / 2),

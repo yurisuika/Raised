@@ -74,16 +74,16 @@ public abstract class AbstractPopupScreen extends AbstractScreen {
     public abstract void addOptions();
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float a) {
+    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (parent != null) {
-            parent.renderBackground(guiGraphics, mouseX, mouseY, a);
+            parent.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
             guiGraphics.flush();
-            parent.render(guiGraphics, -1, -1, a);
+            parent.render(guiGraphics, -1, -1, partialTick);
             guiGraphics.flush();
             RenderSystem.clear(256);
             renderTransparentBackground(guiGraphics);
         } else {
-            super.renderBackground(guiGraphics, mouseX, mouseY, a);
+            super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         }
 
         guiGraphics.blitSprite(
